@@ -1,0 +1,60 @@
+{
+    "name": "@ensi-platform/admin-ui-base",
+    "version": "0.0.0",
+    "description": "Admin UI primitives for Ensi admin panel",
+    "type": "module",
+    "sideEffects": [
+        "**/*.css"
+    ],
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        },
+        "./button": {
+            "types": "./dist/button/index.d.ts",
+            "import": "./dist/button/index.js"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "engines": {
+        "node": ">=22.18.0"
+    },
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite build --watch",
+        "typecheck": "tsc --noEmit"
+    },
+    "keywords": [
+        "ensi",
+        "admin",
+        "ui",
+        "primitives",
+        "react"
+    ],
+    "license": "SEE LICENSE IN LICENSE",
+    "packageManager": "pnpm@10.14.0",
+    "peerDependencies": {
+        "react": "^18 || ^19",
+        "react-dom": "^18 || ^19"
+    },
+    "devDependencies": {
+        "@types/react": "^19",
+        "@types/react-dom": "^19",
+        "@vitejs/plugin-react": "^4.7.0",
+        "glob": "^11.0.3",
+        "react": "^19",
+        "react-dom": "^19",
+        "typescript": "^6.0.3",
+        "vite": "^7.0.0",
+        "vite-plugin-dts": "^4.5.4",
+        "vite-plugin-lib-inject-css": "^2.2.2"
+    },
+    "homepage": "https://ensi.tech",
+    "repository": {
+        "type": "git",
+        "url": "git@git.greensight.ru:ensi/opensource/packages/admin-ui/admin-ui-base.git"
+    }
+}
