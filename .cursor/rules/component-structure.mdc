@@ -1,0 +1,35 @@
+---
+description: Структура папки UI-примитива в admin-ui-base
+globs: src/**/*.{ts,tsx,css}
+alwaysApply: false
+---
+
+# Структура компонента
+
+Каждый примитив — папка в `src/<name>/`:
+
+```
+src/<name>/
+  Component.tsx         # реализация
+  index.ts              # публичный API
+  types.ts
+  theme.ts              # cva-варианты (не публичный API)
+  styles.module.css
+  <name>.test.tsx       # имя сущности, не index.test / Button.test
+  docs/                 # обязательно для публичного примитива
+    Description.md
+    index.stories.tsx
+  components/           # сабкомпоненты по мере появления
+```
+
+## Правила
+
+- `index.ts` только реэкспортит: `export * from './Component.js'` и `export * from './types.js'` (+ сабкомпоненты)
+- только named exports
+- ESM-импорты с расширением `.js`
+- стили — только `styles.module.css` рядом с компонентом
+- `theme.ts` — `cva` + маппинг на классы модуля; не реэкспортить из `index`
+- shared-типы (`TMergeElementProps`, `TSVGRIcon`) — в `src/common/`
+- общие хелперы (`toCssSize`) — в `src/common/utils.ts`
+- формат `docs/` — см. правило `component-docs`
+- тесты — см. правило `component-tests`

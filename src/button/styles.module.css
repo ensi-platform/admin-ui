@@ -1,0 +1,73 @@
+.root {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--button-icon-indent, 0.5rem);
+    border: 1px solid transparent;
+    border-radius: 0.375rem;
+    font: inherit;
+    line-height: 1.25;
+    cursor: pointer;
+    width: fit-content;
+    height: fit-content;
+}
+
+.root:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.root:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+.sm {
+    padding: 0.25rem 0.75rem;
+    min-height: 2rem;
+}
+
+.md {
+    padding: 0.5rem 1rem;
+    min-height: 2.5rem;
+}
+
+.lg {
+    padding: 0.625rem 1.25rem;
+    min-height: 3rem;
+}
+
+.primary {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+.primary:hover:not(:disabled) {
+    background: #333;
+}
+
+.secondary {
+    background: #e5e5e5;
+    color: #1a1a1a;
+}
+
+.secondary:hover:not(:disabled) {
+    background: #d4d4d4;
+}
+
+.tertiary {
+    background: transparent;
+    color: #1a1a1a;
+    border-color: #d4d4d4;
+}
+
+.tertiary:hover:not(:disabled) {
+    background: #f5f5f5;
+}
+
+.icon {
+    flex-shrink: 0;
+    width: var(--button-icon-size, 1.25rem);
+    height: var(--button-icon-size, 1.25rem);
+    fill: var(--button-icon-fill, currentcolor);
+}

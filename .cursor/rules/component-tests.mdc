@@ -1,0 +1,36 @@
+---
+description: Конвенции unit-тестов UI-примитивов (Vitest + RTL)
+globs: src/**/*.test.{ts,tsx}
+alwaysApply: false
+---
+
+# Тесты компонента
+
+## Стек / файлы
+
+- Vitest + `@testing-library/react` + `user-event` + `jest-dom`
+- файл: `src/<name>/<name>.test.tsx` (не `index.test` / `Button.test`)
+- импорт компонента из `./index` (публичный API), не из `./Component` напрямую
+
+## Что покрывать
+
+- публичный контракт: children, `dataTestId` → `data-test-id`
+- variants / `size` через наличие классов модуля (не snapshot всего DOM)
+- состояния: `disabled`, клик / отсутствие клика
+- полиморфизм `as` (тег в DOM)
+- дефолты, важные для a11y/HTML (`type="button"`)
+- слоты вроде `icon` (left / after) — лёгкий stub-компонент в тесте
+
+## Как писать
+
+- `describe('<Name>')` + короткие `it('…')` на одно поведение
+- queries: `getByRole` / `getByTestId` в приоритете над `container.querySelector`
+- взаимодействия через `userEvent.setup()`, не `fireEvent` по умолчанию
+- без снапшотов разметки/CSS; без проверки пикселей и computed styles
+- визуал и регрессии UI — Storybook, не unit
+
+## Чего не делать
+
+- не тестировать внутренности (`buttonVariants`, приватные хелперы)
+- не дублировать все комбинации size×variant (хватит representative cases)
+- не мокать React/DOM без нужды

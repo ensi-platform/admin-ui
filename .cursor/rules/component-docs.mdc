@@ -1,0 +1,58 @@
+---
+description: Документация примитива — Description.md, stories, канал для АП
+globs: src/**/docs/**
+alwaysApply: false
+---
+
+# Документация компонента
+
+```
+src/<name>/docs/
+  Description.md       # контракт для людей и AI
+  index.stories.tsx    # визуальные кейсы
+```
+
+Оба файла обязательны для публичного примитива.
+
+## Description.md
+
+Короткий контракт. Шаблон:
+
+```md
+# <Name>
+
+Примитив …. Импорт: `import { <Name> } from '@ensi-platform/admin-ui-base'`.
+
+## Когда использовать
+
+- …
+
+## API (кратко)
+
+- `size`: sm | md | lg
+- `variant`: …
+- `icon`: `{ Component, after?, … }` (если есть)
+- `dataTestId`
+- `as` — полиморфизм (если есть)
+
+## Пример
+
+\`\`\`tsx
+<<Name> … />
+\`\`\`
+
+## Не делать
+
+- не копировать стили компонента в АП
+- не дублировать примитив обёрткой без нужды
+```
+
+## Stories
+
+Только визуальные варианты (`Default`, `WithIcon`, …). Полный API не дублировать — он в `Description.md` и `types.ts`.
+
+## Канал для АП
+
+- source of truth — `docs/` в этом пакете
+- для АП позже: `@ensi-platform/skills` + `agents.skills` + sync (`skill-indexer`) → `.cursor/skills/`
+- skill `admin-ui` ссылается на Description / types / stories пакета, не копирует длинные тексты

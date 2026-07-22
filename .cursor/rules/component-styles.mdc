@@ -1,0 +1,47 @@
+---
+description: CSS Modules + CVA + classnames для стилей примитивов
+globs: src/**/*.{ts,tsx,module.css}
+alwaysApply: false
+---
+
+# Стили компонента
+
+- CSS Modules: `styles.module.css` (не scss, не БЭМ)
+- корневой класс: `.root`
+- size / variant — плоские классы: `.sm`, `.md`, `.lg`, `.primary`, …
+- элементы: `.icon` (не `root__icon`)
+- состояния — псевдоклассы на `.root` (`:disabled`, `:focus-visible`, `:hover`), не `.disabled`
+- variants в TS через `class-variance-authority`
+- склейка через `classnames` (`cn`)
+- токены: контракт в `tokens.mdc`; пакет later — пока литералы ок; потом `var(--aui-…)`
+
+Не использовать: БЭМ (`__` / `--` / `_`), Tailwind, ручной `[].filter(Boolean).join(' ')` для variants.
+
+## CSS
+
+```css
+.root { }
+.root:disabled { }
+.sm { }
+.md { }
+.primary { }
+.icon { }
+```
+
+## TS (`theme.ts`)
+
+```ts
+export const buttonVariants = cva(styles.root, {
+    variants: {
+        size: { sm: styles.sm, md: styles.md, lg: styles.lg },
+        variant: {
+            primary: styles.primary,
+            secondary: styles.secondary,
+            tertiary: styles.tertiary,
+        },
+    },
+    defaultVariants: { size: 'md', variant: 'primary' },
+});
+```
+
+В `Component.tsx`: `cn(buttonVariants({ size, variant }), className)` и `cn(styles.icon, icon.className)`.

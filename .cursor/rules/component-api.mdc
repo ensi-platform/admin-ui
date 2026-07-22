@@ -1,0 +1,75 @@
+---
+description: API-контракт UI-примитивов (as, size, variant, icon, dataTestId)
+globs: src/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# API компонента
+
+Минимальный контракт примитива:
+
+- полиморфизм: `as?: ElementType` + `TMergeElementProps`
+- `size` / `variant` как `TSize` / `TVariant` (ключи совпадают с `cva`)
+- иконка объектом `IIconButtonProps` (`Component`, `after?`, `indent?`, `size?`, `className?`, `fill?`)
+- `dataTestId` → атрибут `data-test-id`
+- type-алиас пропсов: `TButtonProps` (не `I*`, если это `type`)
+- interfaces: `I*` (`IButtonBaseProps`, `IIconButtonProps`)
+- компонент — arrow function
+- `type` прокидывать только если рендер как `button`
+- классы: `cn(buttonVariants({ size, variant }), className)`
+
+Пока не делать: `styles` override, typography-токены, `block` / `nowrap` / `hidden`.
+
+## Эталон Button
+
+```tsx
+export type TSize = 'sm' | 'md' | 'lg';
+export type TVariant = 'primary' | 'secondary' | 'tertiary';
+
+export interface IIconButtonProps {
+    Component: TSVGRIcon;
+    after?: boolean;
+    indent?: number | string;
+    size?: number | string;
+    className?: string;
+    fill?: string;
+}
+
+export interface IButtonBaseProps {
+    children: ReactNode;
+    size?: TSize;
+    variant?: TVariant;
+    icon?: IIconButtonProps;
+    className?: string;
+    dataTestId?: string;
+}
+
+export type TButtonProps<P extends ElementType = 'button'> = {
+    as?: P;
+} & TMergeElementProps<P, IButtonBaseProps>;
+
+export const Button = <P extends ElementType = 'button'>({
+    as,
+    type = 'button',
+    size = 'md',
+    variant = 'primary',
+    children,
+    icon,
+    className,
+    dataTestId,
+    ...props
+}: TButtonProps<P>) => {
+    const Component = as ?? 'button';
+
+    return (
+        <Component
+            {...(Component === 'button' ? { type } : {})}
+            className={cn(buttonVariants({ size, variant }), className)}
+            data-test-id={dataTestId}
+            {...props}
+        >
+            {children}
+        </Component>
+    );
+};
+```

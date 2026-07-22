@@ -1,1 +1,8 @@
-export { Button, type IButtonProps } from './button/index.js';
+export {
+    Button,
+    type IButtonBaseProps,
+    type IIconButtonProps,
+    type TButtonProps,
+    type TSize,
+    type TVariant,
+} from './button/index.js';

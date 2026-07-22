@@ -26,7 +26,7 @@ export default defineConfig({
         libInjectCss(),
         dts({
             include: ['src'],
-            exclude: ['src/**/*.d.ts'],
+            exclude: ['src/**/*.d.ts', 'src/**/*.{test,spec}.{ts,tsx}'],
             tsconfigPath: resolve(import.meta.dirname, 'tsconfig.json'),
             beforeWriteFile: (filePath, content) => ({
                 filePath: filePath.replace('/dist/src/', '/dist/'),
@@ -43,7 +43,13 @@ export default defineConfig({
         sourcemap: true,
         emptyOutDir: true,
         rollupOptions: {
-            external: ['react', 'react-dom', 'react/jsx-runtime'],
+            external: [
+                'react',
+                'react-dom',
+                'react/jsx-runtime',
+                'class-variance-authority',
+                'classnames',
+            ],
             input: entries,
             output: {
                 entryFileNames: '[name].js',

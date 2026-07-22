@@ -1,0 +1,140 @@
+---
+description: Контракт admin-ui-tokens — CSS-переменные, слои, delivery
+globs: src/**/*.{ts,tsx,module.css,css}
+alwaysApply: false
+---
+
+# admin-ui-tokens
+
+Пакет `@ensi-platform/admin-ui-tokens` — набор CSS custom properties `--aui-*`. Не JS API, не Tailwind theme.
+
+Пакет пока **later**: в CSS примитивов литералы ок. После появления — заменить на `var(--aui-…)`.
+
+## Форма пакета (когда появится)
+
+```
+admin-ui-tokens/
+  src/
+    primitives.css
+    semantic.css
+    index.css        # @import обоих → :root
+  package.json       # exports "." → dist/index.css
+```
+
+## Naming
+
+```
+--aui-{category}-{role}[-{modifier}]
+```
+
+Примеры: `--aui-color-bg-brand`, `--aui-space-3`, `--aui-control-h-md`.
+
+## Слои
+
+| Слой      | Пример                            | Кто читает                     |
+| --------- | --------------------------------- | ------------------------------ |
+| primitive | `--aui-blue-600`, `--aui-space-3` | только `semantic.css`          |
+| semantic  | `--aui-color-bg-brand`            | `admin-ui-base` (и layout/kit) |
+| component | `--aui-button-bg`                 | **не заводим**                 |
+
+В `styles.module.css` примитивов — только semantic (и шкалы space / radius / control / font primitives). Primitive color напрямую в компонентах запрещены.
+
+## Delivery
+
+```
+app entry  →  import '@ensi-platform/admin-ui-tokens'  (один раз)
+admin-ui-base  →  var(--aui-…) в CSS Modules; peerDependency на tokens
+```
+
+- tokens **не** импортировать внутри каждого component module (дубли при cssCodeSplit)
+- app/template обеспечивает наличие переменных на `:root`
+- base / layout / kit только потребляют `var(--aui-*)`
+
+```tsx
+// app entry (main.tsx / root layout)
+import '@ensi-platform/admin-ui-tokens';
+```
+
+## Тема
+
+Одна тема (light). Dark / multi-brand — later. Кастом темы = override `:root` в template, не в компонентах.
+
+## Инвентарь v1 (~60–70 токенов)
+
+### Color — primitives
+
+```
+gray-50 … gray-900
+blue-500, blue-600, blue-700
+red-500, red-600
+green-500
+white, black, transparent
+```
+
+Один brand-accent (= blue).
+
+### Color — semantic
+
+| Роль    | Токены                                                                                                         |
+| ------- | -------------------------------------------------------------------------------------------------------------- |
+| surface | `color-bg-page`, `color-bg-surface`, `color-bg-muted`, `color-bg-brand`, `color-bg-danger`, `color-bg-success` |
+| text    | `color-fg-default`, `color-fg-muted`, `color-fg-on-brand`, `color-fg-danger`, `color-fg-link`                  |
+| border  | `color-border-default`, `color-border-muted`, `color-border-focus`, `color-border-danger`                      |
+| state   | `color-bg-brand-hover`, `color-bg-danger-hover`                                                                |
+
+### Space (4px)
+
+`space-0` … `space-8` → `0 / 4 / 8 / 12 / 16 / 24 / 32 / 48`
+
+### Radius
+
+`radius-none | sm | md | lg` → `0 / 4 / 8 / 12`
+
+### Control height (под size в CVA)
+
+`control-h-sm | md | lg` → `32 / 40 / 48`
+
+### Typography — primitives only
+
+```
+font-sans
+font-size-sm | md | lg
+font-weight-regular | medium | semibold
+line-height-tight | normal
+```
+
+Semantic typography (`text-body`, `text-label`…) — later.
+
+### Misc
+
+`shadow-sm`, `z-dropdown`, `z-modal` (focus — через `color-border-focus`)
+
+## Пример в base
+
+```css
+.root {
+    height: var(--aui-control-h-md);
+    border-radius: var(--aui-radius-md);
+    padding: var(--aui-space-2) var(--aui-space-4);
+}
+
+.primary {
+    background: var(--aui-color-bg-brand);
+    color: var(--aui-color-fg-on-brand);
+}
+
+.primary:hover {
+    background: var(--aui-color-bg-brand-hover);
+}
+```
+
+Пока пакета нет — те же свойства литералами.
+
+## Не использовать
+
+- Tailwind в `admin-ui-*` (и не стилизовать примитивы через TW в app)
+- component-токены (`--aui-button-*`)
+- W3C DTCG JSON / Style Dictionary в v1
+- JS-объект токенов (`tokens.color.bg`)
+- import tokens внутри каждого primitive CSS
+- dark theme / motion / breakpoint-токены в v1

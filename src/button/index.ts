@@ -1,1 +1,2 @@
-export { Button, type IButtonProps } from './Button.js';
+export * from './Component.js';
+export * from './types.js';

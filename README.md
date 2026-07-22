@@ -22,6 +22,7 @@ export const Example = () => <Button>Save</Button>;
 pnpm install
 pnpm build
 pnpm dev
+pnpm storybook
 ```
 
 ## Layers
@@ -31,7 +32,9 @@ admin-ui-kit (later)
   → admin-ui-layout (later)
     → admin-ui-base (this package — primitives)
       → admin-ui-icons (later)
-      → admin-ui-tokens (later)
+      → admin-ui-tokens (later) — CSS custom properties `--aui-*`
 ```
+
+`admin-ui-tokens` подключается один раз в entry АП (`import '@ensi-platform/admin-ui-tokens'`); base только пишет `var(--aui-…)` в CSS Modules (peerDep). Контракт: `.cursor/rules/tokens.mdc`.
 
 Storefront uses a separate `storefront-ui-*` group.
