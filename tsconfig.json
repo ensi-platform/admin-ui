@@ -15,5 +15,11 @@
         "verbatimModuleSyntax": true,
         "types": ["vite/client"]
     },
-    "include": ["src/**/*", ".storybook/**/*", "vite.config.ts", "vitest.setup.ts"]
+    "include": [
+        "src/**/*",
+        ".storybook/**/*",
+        "scripts/**/*",
+        "vite.config.ts",
+        "vitest.setup.ts"
+    ]
 }

@@ -2,14 +2,24 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--button-icon-indent, 0.5rem);
+    gap: var(--button-icon-indent, var(--aui-button-gap-md));
     border: 1px solid transparent;
-    border-radius: 0.375rem;
+    border-radius: var(--aui-button-radius-md);
     font: inherit;
-    line-height: 1.25;
+    line-height: var(--aui-button-line-height);
     cursor: pointer;
     width: fit-content;
     height: fit-content;
+    transition:
+        background-color var(--aui-button-duration-fast) var(--aui-button-ease-out),
+        border-color var(--aui-button-duration-fast) var(--aui-button-ease-out),
+        color var(--aui-button-duration-fast) var(--aui-button-ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .root {
+        transition: none;
+    }
 }
 
 .root:disabled {
@@ -18,51 +28,63 @@
 }
 
 .root:focus-visible {
-    outline: 2px solid #3b82f6;
+    outline: 2px solid var(--aui-button-border-focus);
     outline-offset: 2px;
 }
 
 .sm {
-    padding: 0.25rem 0.75rem;
-    min-height: 2rem;
+    padding: var(--aui-button-pad-y-sm) var(--aui-button-pad-x-sm);
+    min-height: var(--aui-button-h-sm);
 }
 
 .md {
-    padding: 0.5rem 1rem;
-    min-height: 2.5rem;
+    padding: var(--aui-button-pad-y-md) var(--aui-button-pad-x-md);
+    min-height: var(--aui-button-h-md);
 }
 
 .lg {
-    padding: 0.625rem 1.25rem;
-    min-height: 3rem;
+    padding: var(--aui-button-pad-y-lg) var(--aui-button-pad-x-lg);
+    min-height: var(--aui-button-h-lg);
 }
 
 .primary {
-    background: #1a1a1a;
-    color: #fff;
+    background: var(--aui-button-bg-primary);
+    color: var(--aui-button-fg-primary);
 }
 
 .primary:hover:not(:disabled) {
-    background: #333;
+    background: var(--aui-button-bg-primary-hover);
+}
+
+.primary:active:not(:disabled) {
+    background: var(--aui-button-bg-primary-active);
 }
 
 .secondary {
-    background: #e5e5e5;
-    color: #1a1a1a;
+    background: var(--aui-button-bg-secondary);
+    color: var(--aui-button-fg-secondary);
 }
 
 .secondary:hover:not(:disabled) {
-    background: #d4d4d4;
+    background: var(--aui-button-bg-secondary-hover);
+}
+
+.secondary:active:not(:disabled) {
+    background: var(--aui-button-bg-secondary-active);
 }
 
 .tertiary {
-    background: transparent;
-    color: #1a1a1a;
-    border-color: #d4d4d4;
+    background: var(--aui-button-bg-tertiary);
+    color: var(--aui-button-fg-tertiary);
+    border-color: var(--aui-button-border-tertiary);
 }
 
 .tertiary:hover:not(:disabled) {
-    background: #f5f5f5;
+    background: var(--aui-button-bg-tertiary-hover);
+}
+
+.tertiary:active:not(:disabled) {
+    background: var(--aui-button-bg-tertiary-active);
 }
 
 .icon {

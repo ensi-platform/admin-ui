@@ -1,0 +1,138 @@
+[data-theme='dark'] {
+    color-scheme: dark;
+
+    /* page */
+    --aui-page-bg-primary: var(--aui-black-900);
+    --aui-page-fg-primary: var(--aui-grey-100);
+    --aui-page-fg-muted: var(--aui-grey-400);
+    --aui-page-fg-link: var(--aui-mint-100);
+
+    /* surface */
+    --aui-surface-bg-primary: var(--aui-grey-800);
+    --aui-surface-bg-muted: var(--aui-grey-700);
+    --aui-surface-bg-muted-hover: var(--aui-grey-600);
+    --aui-surface-bg-muted-active: var(--aui-grey-500);
+    --aui-surface-bg-elevated: var(--aui-grey-700);
+    --aui-surface-border-primary: var(--aui-grey-600);
+    --aui-surface-border-muted: var(--aui-grey-700);
+
+    /* control — brand / status */
+    --aui-control-bg-brand: var(--aui-mint-500);
+    --aui-control-bg-brand-hover: var(--aui-mint-600);
+    --aui-control-bg-brand-active: var(--aui-mint-700);
+    --aui-control-bg-danger: var(--aui-red-500);
+    --aui-control-bg-danger-hover: var(--aui-red-600);
+    --aui-control-fg-brand: var(--aui-white);
+    --aui-control-fg-danger: var(--aui-red-500);
+    --aui-control-border-focus: var(--aui-mint-500);
+    --aui-control-border-danger: var(--aui-red-500);
+
+    /* button — aliases control/surface/page (same as light) */
+    --aui-button-bg-primary: var(--aui-control-bg-brand);
+    --aui-button-bg-primary-hover: var(--aui-control-bg-brand-hover);
+    --aui-button-bg-primary-active: var(--aui-control-bg-brand-active);
+    --aui-button-fg-primary: var(--aui-control-fg-brand);
+
+    --aui-button-bg-secondary: var(--aui-surface-bg-muted);
+    --aui-button-bg-secondary-hover: var(--aui-surface-bg-muted-hover);
+    --aui-button-bg-secondary-active: var(--aui-surface-bg-muted-active);
+    --aui-button-fg-secondary: var(--aui-page-fg-primary);
+
+    --aui-button-bg-tertiary: var(--aui-transparent);
+    --aui-button-bg-tertiary-hover: var(--aui-surface-bg-muted);
+    --aui-button-bg-tertiary-active: var(--aui-surface-bg-muted-hover);
+    --aui-button-fg-tertiary: var(--aui-page-fg-primary);
+    --aui-button-border-tertiary: var(--aui-surface-border-primary);
+
+    --aui-button-border-focus: var(--aui-control-border-focus);
+
+    /* input — aliases surface/page/control (same as light) */
+    --aui-input-bg-primary: var(--aui-surface-bg-primary);
+    --aui-input-fg-primary: var(--aui-page-fg-primary);
+    --aui-input-fg-muted: var(--aui-page-fg-muted);
+    --aui-input-border-primary: var(--aui-surface-border-primary);
+    --aui-input-border-focus: var(--aui-control-border-focus);
+    --aui-input-border-danger: var(--aui-control-border-danger);
+
+    /* textarea — aliases input (same as light) */
+    --aui-textarea-bg-primary: var(--aui-input-bg-primary);
+    --aui-textarea-fg-primary: var(--aui-input-fg-primary);
+    --aui-textarea-fg-muted: var(--aui-input-fg-muted);
+    --aui-textarea-border-primary: var(--aui-input-border-primary);
+    --aui-textarea-border-focus: var(--aui-input-border-focus);
+    --aui-textarea-border-danger: var(--aui-input-border-danger);
+
+    /* checkbox — aliases surface/control (same as light) */
+    --aui-checkbox-bg-primary: var(--aui-surface-bg-primary);
+    --aui-checkbox-bg-selected: var(--aui-control-bg-brand);
+    --aui-checkbox-fg-primary: var(--aui-page-fg-primary);
+    --aui-checkbox-fg-selected: var(--aui-control-fg-brand);
+    --aui-checkbox-border-primary: var(--aui-surface-border-primary);
+    --aui-checkbox-border-focus: var(--aui-control-border-focus);
+    --aui-checkbox-border-danger: var(--aui-control-border-danger);
+    --aui-checkbox-border-selected: var(--aui-control-bg-brand);
+
+    /* switch — aliases surface/control (same as light) */
+    --aui-switch-track-bg-primary: var(--aui-surface-bg-muted);
+    --aui-switch-track-bg-selected: var(--aui-control-bg-brand);
+    --aui-switch-thumb-bg-primary: var(--aui-white);
+    --aui-switch-fg-primary: var(--aui-page-fg-primary);
+    --aui-switch-border-focus: var(--aui-control-border-focus);
+    --aui-switch-border-danger: var(--aui-control-border-danger);
+
+    /* number-input — aliases input (same as light) */
+    --aui-number-input-bg-primary: var(--aui-input-bg-primary);
+    --aui-number-input-fg-primary: var(--aui-input-fg-primary);
+    --aui-number-input-fg-muted: var(--aui-input-fg-muted);
+    --aui-number-input-border-primary: var(--aui-input-border-primary);
+    --aui-number-input-border-focus: var(--aui-input-border-focus);
+    --aui-number-input-border-danger: var(--aui-input-border-danger);
+
+    /* select — aliases input/surface/page (same as light) */
+    --aui-select-bg-primary: var(--aui-input-bg-primary);
+    --aui-select-fg-primary: var(--aui-input-fg-primary);
+    --aui-select-fg-muted: var(--aui-input-fg-muted);
+    --aui-select-border-primary: var(--aui-input-border-primary);
+    --aui-select-border-focus: var(--aui-input-border-focus);
+    --aui-select-border-danger: var(--aui-input-border-danger);
+    --aui-select-popover-bg-primary: var(--aui-surface-bg-elevated);
+    --aui-select-popover-border-primary: var(--aui-surface-border-primary);
+    --aui-select-item-bg-hover: var(--aui-surface-bg-muted);
+    --aui-select-item-fg-primary: var(--aui-page-fg-primary);
+
+    /* multi-select — aliases select (same as light) */
+    --aui-multi-select-bg-primary: var(--aui-select-bg-primary);
+    --aui-multi-select-fg-primary: var(--aui-select-fg-primary);
+    --aui-multi-select-fg-muted: var(--aui-select-fg-muted);
+    --aui-multi-select-border-primary: var(--aui-select-border-primary);
+    --aui-multi-select-border-focus: var(--aui-select-border-focus);
+    --aui-multi-select-border-danger: var(--aui-select-border-danger);
+    --aui-multi-select-popover-bg-primary: var(--aui-select-popover-bg-primary);
+    --aui-multi-select-popover-border-primary: var(--aui-select-popover-border-primary);
+    --aui-multi-select-item-bg-hover: var(--aui-select-item-bg-hover);
+    --aui-multi-select-item-fg-primary: var(--aui-select-item-fg-primary);
+    --aui-multi-select-tag-bg-primary: var(--aui-tag-bg-primary);
+    --aui-multi-select-tag-fg-primary: var(--aui-tag-fg-primary);
+    --aui-multi-select-tag-fg-muted: var(--aui-tag-fg-muted);
+    --aui-multi-select-tag-border-primary: var(--aui-tag-border-primary);
+    --aui-multi-select-tag-border-focus: var(--aui-tag-border-focus);
+
+    /* badge — soft status on dark surfaces */
+    --aui-badge-bg-neutral: var(--aui-surface-bg-muted);
+    --aui-badge-fg-neutral: var(--aui-page-fg-primary);
+    --aui-badge-bg-success: color-mix(in srgb, var(--aui-green-500) 22%, var(--aui-surface-bg-primary));
+    --aui-badge-fg-success: var(--aui-green-500);
+    --aui-badge-bg-warning: color-mix(in srgb, var(--aui-yellow-500) 22%, var(--aui-surface-bg-primary));
+    --aui-badge-fg-warning: var(--aui-yellow-500);
+    --aui-badge-bg-danger: color-mix(in srgb, var(--aui-red-500) 22%, var(--aui-surface-bg-primary));
+    --aui-badge-fg-danger: var(--aui-red-500);
+    --aui-badge-bg-info: color-mix(in srgb, var(--aui-blue-500) 22%, var(--aui-surface-bg-primary));
+    --aui-badge-fg-info: var(--aui-blue-500);
+
+    /* tag */
+    --aui-tag-bg-primary: var(--aui-surface-bg-muted);
+    --aui-tag-fg-primary: var(--aui-page-fg-primary);
+    --aui-tag-fg-muted: var(--aui-page-fg-muted);
+    --aui-tag-border-primary: var(--aui-surface-border-primary);
+    --aui-tag-border-focus: var(--aui-control-border-focus);
+}

@@ -16,6 +16,18 @@ export default [
         },
         rules: {
             'import/prefer-default-export': 'off',
+            'no-restricted-imports': [
+                'error',
+                {
+                    paths: [
+                        {
+                            name: 'react',
+                            importNames: ['forwardRef'],
+                            message: 'Use ref as a prop (React 19). Do not use forwardRef.',
+                        },
+                    ],
+                },
+            ],
             'import/order': [
                 'error',
                 {
@@ -42,7 +54,12 @@ export default [
         },
     },
     {
-        files: ['vitest.setup.ts', 'vitest.config.ts', 'src/**/*.test.{ts,tsx}'],
+        files: [
+            'vitest.setup.ts',
+            'vitest.config.ts',
+            'src/**/*.test.{ts,tsx}',
+            '.storybook/**/*.{ts,tsx}',
+        ],
         rules: {
             'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
         },

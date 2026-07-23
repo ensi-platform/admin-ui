@@ -1,0 +1,82 @@
+:root {
+    /* color — grey scale */
+    --aui-grey-50: #fafafa;
+    --aui-grey-100: #f0f2f4;
+    --aui-grey-200: #d8dce2;
+    --aui-grey-300: #c4c9d1;
+    --aui-grey-400: #949aa6;
+    --aui-grey-500: #55585e;
+    --aui-grey-600: #3f4248;
+    --aui-grey-700: #2e3136;
+    --aui-grey-800: #232526;
+    --aui-black-900: #1b1d22;
+    --aui-white: #ffffff;
+    --aui-transparent: transparent;
+
+    /* color — brand (mint) */
+    --aui-mint-50: #e6faf7;
+    --aui-mint-100: #c5f5ee;
+    --aui-mint-500: #00bea2;
+    --aui-mint-600: #00a88f;
+    --aui-mint-700: #007a68;
+
+    /* color — status */
+    --aui-red-50: #fef2f2;
+    --aui-red-500: #ef4444;
+    --aui-red-600: #dc2626;
+    --aui-red-700: #b91c1c;
+    --aui-green-50: #f0fdf4;
+    --aui-green-500: #22c55e;
+    --aui-green-700: #15803d;
+    --aui-yellow-50: #fefce8;
+    --aui-yellow-500: #eab308;
+    --aui-yellow-700: #a16207;
+    --aui-blue-50: #eff6ff;
+    --aui-blue-500: #3b82f6;
+    --aui-blue-700: #1d4ed8;
+
+    /* space (n = px) */
+    --aui-space-0: 0;
+    --aui-space-4: 4px;
+    --aui-space-8: 8px;
+    --aui-space-12: 12px;
+    --aui-space-16: 16px;
+    --aui-space-20: 20px;
+    --aui-space-24: 24px;
+    --aui-space-32: 32px;
+    --aui-space-48: 48px;
+
+    /* radius (n = px) */
+    --aui-radius-0: 0;
+    --aui-radius-4: 4px;
+    --aui-radius-8: 8px;
+    --aui-radius-12: 12px;
+    --aui-radius-16: 16px;
+
+    /* control height (CVA sizes) */
+    --aui-control-h-sm: 32px;
+    --aui-control-h-md: 40px;
+    --aui-control-h-lg: 48px;
+
+    /* typography */
+    --aui-font-sans: system-ui, sans-serif;
+    --aui-font-size-xs: 0.75rem;
+    --aui-font-size-sm: 0.875rem;
+    --aui-font-size-md: 1rem;
+    --aui-font-size-lg: 1.125rem;
+    --aui-font-weight-regular: 400;
+    --aui-font-weight-medium: 500;
+    --aui-font-weight-semibold: 600;
+    --aui-line-height-tight: 1.25;
+    --aui-line-height-normal: 1.5;
+
+    /* motion */
+    --aui-duration-fast: 120ms;
+    --aui-duration-normal: 200ms;
+    --aui-ease-out: ease-out;
+
+    /* misc */
+    --aui-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
+    --aui-z-dropdown: 1000;
+    --aui-z-modal: 1100;
+}

@@ -4,137 +4,295 @@ globs: src/**/*.{ts,tsx,module.css,css}
 alwaysApply: false
 ---
 
-# admin-ui-tokens
+# admin-ui-tokens (interim в base)
 
-Пакет `@ensi-platform/admin-ui-tokens` — набор CSS custom properties `--aui-*`. Не JS API, не Tailwind theme.
+Сейчас токены живут в `src/tokens/` внутри `@ensi-platform/admin-ui-base`.
+Позже — вынос в `@ensi-platform/admin-ui-tokens` (та же структура файлов).
 
-Пакет пока **later**: в CSS примитивов литералы ок. После появления — заменить на `var(--aui-…)`.
+Не JS API, не Tailwind theme. Только CSS custom properties `--aui-*`.
 
-## Форма пакета (когда появится)
+## Форма (сейчас / later)
 
 ```
-admin-ui-tokens/
-  src/
-    primitives.css
-    semantic.css
-    index.css        # @import обоих → :root
-  package.json       # exports "." → dist/index.css
+src/tokens/                 # сейчас в admin-ui-base
+  primitives.css
+  semantic.css              # :root = light
+  semantic.dark.css         # [data-theme="dark"]
+  index.css                 # @import всех
+
+# later: admin-ui-tokens/src/… + peerDep в base
 ```
 
 ## Naming
 
+### Primitive (шкала)
+
 ```
---aui-{category}-{role}[-{modifier}]
+--aui-{scale}-{n}
 ```
 
-Примеры: `--aui-color-bg-brand`, `--aui-space-3`, `--aui-control-h-md`.
+- `n` = px для space / radius: `--aui-radius-8` → `8px`
+- `/` в имени CSS запрещён (`--aui-radius/8` — невалидно)
+- color: `--aui-grey-50`, `--aui-red-600`, `--aui-white`, …
+- читает **только** `semantic.css` (primitive color в компонентах запрещены)
 
-## Слои
+### Semantic (компоненты)
 
-| Слой      | Пример                            | Кто читает                     |
-| --------- | --------------------------------- | ------------------------------ |
-| primitive | `--aui-blue-600`, `--aui-space-3` | только `semantic.css`          |
-| semantic  | `--aui-color-bg-brand`            | `admin-ui-base` (и layout/kit) |
-| component | `--aui-button-bg`                 | **не заводим**                 |
+```
+--aui-{place}-{role}-{variant}[-{modifier}]
+```
 
-В `styles.module.css` примитивов — только semantic (и шкалы space / radius / control / font primitives). Primitive color напрямую в компонентах запрещены.
+| Слот     | Примеры                                                                                                                           |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| place    | `page`, `surface`, `control`, имя примитива (`button`, …)                                                                         |
+| role     | `bg`, `fg`, `border`, `radius`, `h`, `pad-y`, `pad-x`, `gap`, `line-height`, `duration`, `ease`                                    |
+| variant  | `primary`, `secondary`, `tertiary`, `muted`, `elevated`, `brand`, `danger`, `success`, `warning`, `link`, `focus`, `sm`/`md`/`lg` |
+| modifier | `hover`, `active`                                                                                                                 |
+
+- без префикса `color-`
+- дефолтный variant — `primary` (не `default` / `base`)
+- примеры: `--aui-page-bg-primary`, `--aui-button-bg-primary`, `--aui-page-radius-md`
+- CSS Module примитива читает **только** свой place (`--aui-button-*` в Button), не `page`/`surface`/`control` напрямую
+
+### Слои
+
+| Слой      | Пример                             | Кто читает                            |
+| --------- | ---------------------------------- | ------------------------------------- |
+| primitive | `--aui-grey-500`, `--aui-radius-8` | только `semantic.css`                 |
+| semantic  | `--aui-control-bg-brand`           | другие semantic / place примитивов    |
+| place UI  | `--aui-button-bg-primary`          | CSS Module соответствующего примитива |
+
+В `styles.module.css` — только `--aui-{place}-*` своего примитива. Primitive color/radius — только через semantic.
 
 ## Delivery
 
 ```
-app entry  →  import '@ensi-platform/admin-ui-tokens'  (один раз)
-admin-ui-base  →  var(--aui-…) в CSS Modules; peerDependency на tokens
+app / storybook  →  import '@ensi-platform/admin-ui-base/tokens'  (один раз)
+admin-ui-base    →  var(--aui-…) в CSS Modules
 ```
 
-- tokens **не** импортировать внутри каждого component module (дубли при cssCodeSplit)
-- app/template обеспечивает наличие переменных на `:root`
-- base / layout / kit только потребляют `var(--aui-*)`
-
-```tsx
-// app entry (main.tsx / root layout)
-import '@ensi-platform/admin-ui-tokens';
-```
+- tokens **не** импортировать внутри каждого component module
+- Storybook: import в `.storybook/preview.ts`
+- later: `import '@ensi-platform/admin-ui-tokens'` в app entry; base — peerDependency
 
 ## Тема
 
-Одна тема (light). Dark / multi-brand — later. Кастом темы = override `:root` в template, не в компонентах.
+`html[data-theme="light"|"dark"]`. Light = значения на `:root` в `semantic.css`. Dark = remap semantic в `semantic.dark.css` под `[data-theme="dark"]`.
 
-## Инвентарь v1 (~60–70 токенов)
+- переключает **только** semantic (`page` / `surface` / `control` / place UI); primitives не дублировать
+- компоненты не знают о теме — только `var(--aui-{place}-*)`
+- АП / Storybook ставят `data-theme` на `document.documentElement`
+- multi-brand — later; кастом бренда = override semantic в template
+
+## Инвентарь v1
 
 ### Color — primitives
 
 ```
-gray-50 … gray-900
-blue-500, blue-600, blue-700
+grey-50 … grey-800
+black-900, white, transparent
+mint-50, mint-100, mint-500, mint-600, mint-700
 red-500, red-600
 green-500
-white, black, transparent
+yellow-500
 ```
 
-Один brand-accent (= blue).
+Brand = mint (`mint-500` = `#00BEA2`). Semantic `control-*-brand` / `page-fg-link` / focus → mint. Status (red/green/yellow) — отдельные шкалы, не из mint.
 
 ### Color — semantic
 
-| Роль    | Токены                                                                                                         |
-| ------- | -------------------------------------------------------------------------------------------------------------- |
-| surface | `color-bg-page`, `color-bg-surface`, `color-bg-muted`, `color-bg-brand`, `color-bg-danger`, `color-bg-success` |
-| text    | `color-fg-default`, `color-fg-muted`, `color-fg-on-brand`, `color-fg-danger`, `color-fg-link`                  |
-| border  | `color-border-default`, `color-border-muted`, `color-border-focus`, `color-border-danger`                      |
-| state   | `color-bg-brand-hover`, `color-bg-danger-hover`                                                                |
+| place        | Токены                                                                                                                                                                                                                                                            |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| page         | `page-bg-primary`, `page-fg-primary`, `page-fg-muted`, `page-fg-link`                                                                                                                                                                                             |
+| surface      | `surface-bg-primary`, `surface-bg-muted`, `surface-bg-muted-hover`, `surface-bg-muted-active`, `surface-bg-elevated`, `surface-border-primary`, `surface-border-muted`                                                                                         |
+| control      | `control-bg-brand`, `control-bg-brand-hover`, `control-bg-brand-active`, `control-bg-danger`, `control-bg-danger-hover`, `control-bg-success`, `control-bg-warning`, `control-fg-brand`, `control-fg-danger`, `control-border-focus`, `control-border-danger` |
+| button       | `button-bg/fg-primary[-hover\|-active]`, `button-bg/fg-secondary[-hover\|-active]`, `button-bg/fg-tertiary[-hover\|-active]`, `button-border-tertiary`, `button-border-focus`, `button-radius-md`, `button-gap-md`, `button-line-height`, `button-h-sm\|md\|lg`, `button-pad-y/x-sm\|md\|lg` |
+| input        | `input-bg-primary`, `input-fg-primary`, `input-fg-muted`, `input-border-primary`, `input-border-focus`, `input-border-danger`, `input-radius-md`, `input-h-sm\|md\|lg`, `input-pad-x-sm\|md\|lg`                                                                  |
+| textarea     | `textarea-bg-primary`, `textarea-fg-primary`, `textarea-fg-muted`, `textarea-border-primary/focus/danger`, `textarea-radius-md`, `textarea-min-h-sm\|md\|lg`, `textarea-pad-x-sm\|md\|lg`, `textarea-pad-y-sm\|md\|lg`                                          |
+| checkbox     | `checkbox-bg-primary/selected`, `checkbox-fg-primary/selected`, `checkbox-border-primary/focus/danger/selected`, `checkbox-radius-md`, `checkbox-gap-md`, `checkbox-box-sm\|md\|lg`, `checkbox-icon-sm\|md\|lg`, `checkbox-group-gap-md`                         |
+| switch       | `switch-track-bg-primary/selected`, `switch-thumb-bg-primary`, `switch-fg-primary`, `switch-border-focus/danger`, `switch-gap-md`, `switch-track-h/w-sm\|md\|lg`, `switch-thumb-sm\|md\|lg`, `switch-radius-md`                                                   |
+| number-input | `number-input-bg/fg-primary`, `number-input-fg-muted`, `number-input-border-primary/focus/danger`, `number-input-radius-md`, `number-input-h-sm\|md\|lg`, `number-input-pad-x-sm\|md\|lg`, `number-input-gap-md`                                                  |
 
-### Space (4px)
+### Space (primitive, n = px)
 
-`space-0` … `space-8` → `0 / 4 / 8 / 12 / 16 / 24 / 32 / 48`
+`space-0 | 4 | 8 | 12 | 16 | 24 | 32 | 48`
 
 ### Radius
 
-`radius-none | sm | md | lg` → `0 / 4 / 8 / 12`
+Primitive (n = px): `radius-0 | 4 | 8 | 12 | 16`
 
-### Control height (под size в CVA)
+Semantic:
+
+```
+control-radius-sm | md | lg  →  radius-4 | 8 | 12
+page-radius-md               →  radius-8
+```
+
+### Control height (semantic)
 
 `control-h-sm | md | lg` → `32 / 40 / 48`
 
-### Typography — primitives only
+### Typography — primitives + classes
+
+Атомы в tokens (`primitives.css`):
 
 ```
-font-sans
-font-size-sm | md | lg
-font-weight-regular | medium | semibold
-line-height-tight | normal
+--aui-font-sans
+--aui-font-size-xs | sm | md | lg
+--aui-font-weight-regular | medium | semibold
+--aui-line-height-tight | normal
 ```
 
-Semantic typography (`text-body`, `text-label`…) — later.
+Готовые роли — CSS Module `typographyStyles` (`src/typography/`): только `var(--aui-…)`, без литералов.
+
+```
+bodyXs → sans + size-xs + weight-regular + line-height-tight
+bodyS → sans + size-sm + weight-regular + line-height-normal
+bodyM → sans + size-md + weight-regular + line-height-normal
+bodyL → sans + size-lg + weight-regular + line-height-normal
+```
+
+```tsx
+import { typographyStyles } from '@ensi-platform/admin-ui-base';
+
+<p className={typographyStyles.bodyM}>…</p>;
+```
+
+Примитивы пакета (Field Label/Hint/Error, …) compose `typographyStyles` в JSX. В CSS Module примитива — без `font-*` / `line-height` (только place: color, gap, …).
+
+Reset (`box-sizing`, `margin: 0`) — в `AdminUiProvider`, не в примитивах.
+
+Semantic typography vars / роли `label*` / `heading*` — later. Не суффикс `Bold` и не weight prop.
+
+### Field (semantic place)
+
+```
+field-gap-sm | md | lg
+field-label-fg | field-hint-fg | field-error-fg
+```
+
+Без `--aui-field-*-size` / `line-height` — типографика через `typographyStyles`.
+
+### Input (semantic place)
+
+```
+input-bg-primary
+input-fg-primary | input-fg-muted
+input-border-primary | input-border-focus | input-border-danger
+input-radius-md
+input-h-sm | md | lg
+input-pad-x-sm | md | lg
+```
+
+### Textarea (semantic place)
+
+```
+textarea-bg-primary
+textarea-fg-primary | textarea-fg-muted
+textarea-border-primary | textarea-border-focus | textarea-border-danger
+textarea-radius-md
+textarea-min-h-sm | md | lg
+textarea-pad-x-sm | md | lg
+textarea-pad-y-sm | md | lg
+```
+
+### Checkbox (semantic place)
+
+```
+checkbox-bg-primary | checkbox-bg-selected
+checkbox-fg-primary | checkbox-fg-selected
+checkbox-border-primary | focus | danger | selected
+checkbox-radius-md | checkbox-gap-md | checkbox-group-gap-md
+checkbox-box-sm | md | lg
+checkbox-icon-sm | md | lg
+```
+
+### Switch (semantic place)
+
+```
+switch-track-bg-primary | switch-track-bg-selected
+switch-thumb-bg-primary
+switch-fg-primary
+switch-border-focus | switch-border-danger
+switch-gap-md | switch-radius-md
+switch-track-h-sm | md | lg
+switch-track-w-sm | md | lg
+switch-thumb-sm | md | lg
+```
 
 ### Misc
 
-`shadow-sm`, `z-dropdown`, `z-modal` (focus — через `color-border-focus`)
+`shadow-sm`, `z-dropdown`, `z-modal`
 
-## Пример в base
+### Motion
+
+Primitive:
+
+```
+duration-fast | duration-normal
+ease-out
+```
+
+Semantic control:
+
+```
+control-duration-fast | control-duration-normal
+control-ease-out
+```
+
+Place-алиасы (CSS Module читает только свой place):
+
+```
+{place}-duration-fast | {place}-ease-out
+```
+
+Places с motion: `button`, `input`, `textarea`, `number-input`, `checkbox`, `switch`, `select`, `multi-select`.
+
+В CSS Module — только `var(--aui-{place}-duration-*)` / `var(--aui-{place}-ease-*)`, не primitive и не `--aui-control-*` напрямую. Всегда `prefers-reduced-motion: reduce` → `transition: none`.
+
+## Пример
 
 ```css
+/* semantic.css — place button алиасит control/surface/page */
+--aui-button-bg-primary: var(--aui-control-bg-brand);
+
+/* button/styles.module.css — только --aui-button-* */
 .root {
-    height: var(--aui-control-h-md);
-    border-radius: var(--aui-radius-md);
-    padding: var(--aui-space-2) var(--aui-space-4);
+    min-height: var(--aui-button-h-md);
+    border-radius: var(--aui-button-radius-md);
+    padding: var(--aui-button-pad-y-md) var(--aui-button-pad-x-md);
+    transition:
+        background-color var(--aui-button-duration-fast) var(--aui-button-ease-out),
+        border-color var(--aui-button-duration-fast) var(--aui-button-ease-out),
+        color var(--aui-button-duration-fast) var(--aui-button-ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .root {
+        transition: none;
+    }
 }
 
 .primary {
-    background: var(--aui-color-bg-brand);
-    color: var(--aui-color-fg-on-brand);
+    background: var(--aui-button-bg-primary);
+    color: var(--aui-button-fg-primary);
 }
 
 .primary:hover {
-    background: var(--aui-color-bg-brand-hover);
+    background: var(--aui-button-bg-primary-hover);
 }
 ```
 
-Пока пакета нет — те же свойства литералами.
-
 ## Не использовать
 
-- Tailwind в `admin-ui-*` (и не стилизовать примитивы через TW в app)
-- component-токены (`--aui-button-*`)
+- Tailwind в `admin-ui-*`
+- в CSS Module кнопки — чужие place (`--aui-page-*`, `--aui-control-*`, `--aui-space-*`)
+- префикс `--aui-color-*` / variant `default` / `base`
+- `/` в имени токена (`--aui-radius/8`)
+- primitive color / radius / duration / ease напрямую в компонентах
 - W3C DTCG JSON / Style Dictionary в v1
-- JS-объект токенов (`tokens.color.bg`)
+- JS-объект токенов
 - import tokens внутри каждого primitive CSS
-- dark theme / motion / breakpoint-токены в v1
+- dark-классы в CSS Modules (`.primaryDark`) / JS theme object
+- breakpoint-токены в v1
+- литералы `120ms` / `ease` в CSS Modules (только place motion-токены)

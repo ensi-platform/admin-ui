@@ -1,0 +1,238 @@
+.triggerWrap {
+    position: relative;
+    width: 100%;
+}
+
+.trigger {
+    display: flex;
+    align-items: center;
+    gap: var(--aui-multi-select-gap-md);
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    border: 1px solid var(--aui-multi-select-border-primary);
+    border-radius: var(--aui-multi-select-radius-md);
+    background: var(--aui-multi-select-bg-primary);
+    color: var(--aui-multi-select-fg-primary);
+    text-align: start;
+    cursor: pointer;
+    transition:
+        background-color var(--aui-multi-select-duration-fast) var(--aui-multi-select-ease-out),
+        border-color var(--aui-multi-select-duration-fast) var(--aui-multi-select-ease-out),
+        color var(--aui-multi-select-duration-fast) var(--aui-multi-select-ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .trigger {
+        transition: none;
+    }
+
+    .chevron {
+        transition: none;
+    }
+}
+
+.triggerWrap:not([data-invalid]) .trigger:hover {
+    border-color: var(--aui-multi-select-border-focus);
+}
+
+.triggerWrap[data-focus-visible]:not([data-disabled]) .trigger {
+    border-color: var(--aui-multi-select-border-focus);
+    outline: 2px solid var(--aui-multi-select-border-focus);
+    outline-offset: 0;
+}
+
+.triggerWrap[data-invalid] .trigger {
+    border-color: var(--aui-multi-select-border-danger);
+}
+
+.triggerWrap[data-invalid][data-focus-visible]:not([data-disabled]) .trigger {
+    border-color: var(--aui-multi-select-border-danger);
+    outline: 2px solid var(--aui-multi-select-border-danger);
+    outline-offset: 0;
+}
+
+.triggerWrap[data-disabled] .trigger {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.value {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+}
+
+.placeholder {
+    color: var(--aui-multi-select-fg-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tagGroup {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+}
+
+.tagList {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--aui-multi-select-gap-tags-md);
+    outline: none;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--aui-multi-select-tag-gap-md);
+    box-sizing: border-box;
+    max-width: 100%;
+    border: 1px solid var(--aui-multi-select-tag-border-primary);
+    border-radius: var(--aui-multi-select-tag-radius-md);
+    background: var(--aui-multi-select-tag-bg-primary);
+    color: var(--aui-multi-select-tag-fg-primary);
+    font: inherit;
+    font-weight: var(--aui-font-weight-medium);
+    line-height: var(--aui-multi-select-tag-line-height);
+    outline: none;
+    cursor: pointer;
+}
+
+.tagSm {
+    height: var(--aui-multi-select-tag-h-sm);
+    padding: var(--aui-multi-select-tag-pad-y-sm) var(--aui-multi-select-tag-pad-x-sm);
+    font-size: var(--aui-font-size-xs);
+}
+
+.tagMd {
+    height: var(--aui-multi-select-tag-h-md);
+    padding: var(--aui-multi-select-tag-pad-y-md) var(--aui-multi-select-tag-pad-x-md);
+    font-size: var(--aui-font-size-sm);
+}
+
+.tagLabel {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tagRemove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: var(--aui-multi-select-tag-icon-hit-md);
+    height: var(--aui-multi-select-tag-icon-hit-md);
+    margin: 0;
+    margin-inline-end: calc(
+        (var(--aui-multi-select-tag-icon-hit-md) - var(--aui-multi-select-tag-icon-size-md)) / -2
+    );
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--aui-multi-select-tag-fg-muted);
+    cursor: pointer;
+    border-radius: var(--aui-multi-select-tag-radius-md);
+}
+
+.tagRemove:hover {
+    color: var(--aui-multi-select-tag-fg-primary);
+}
+
+.tagRemove:focus {
+    outline: none;
+}
+
+.tagRemove:focus-visible {
+    outline: 2px solid var(--aui-multi-select-tag-border-focus);
+    outline-offset: 0;
+    color: var(--aui-multi-select-tag-fg-primary);
+}
+
+.tagRemoveIcon {
+    display: block;
+    width: var(--aui-multi-select-tag-icon-size-md);
+    height: var(--aui-multi-select-tag-icon-size-md);
+}
+
+.chevronButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: var(--aui-multi-select-icon-hit-md);
+    height: var(--aui-multi-select-icon-hit-md);
+    margin: 0;
+    margin-block: calc((var(--aui-multi-select-icon-hit-md) - var(--aui-multi-select-icon-size-md)) / -2);
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--aui-multi-select-fg-muted);
+    cursor: pointer;
+    border-radius: var(--aui-multi-select-clear-radius-md);
+}
+
+.triggerWrap[data-clear] .chevronButton {
+    margin-inline-start: calc(var(--aui-multi-select-icon-hit-md) + var(--aui-multi-select-gap-md));
+}
+
+.chevronButton:disabled {
+    cursor: not-allowed;
+}
+
+.chevronButton:focus {
+    outline: none;
+}
+
+.chevron {
+    display: block;
+    width: var(--aui-multi-select-icon-size-md);
+    height: var(--aui-multi-select-icon-size-md);
+    flex-shrink: 0;
+    transition: transform var(--aui-multi-select-duration-fast) var(--aui-multi-select-ease-out);
+}
+
+.triggerWrap[data-open] .chevron {
+    transform: rotate(180deg);
+}
+
+.clearSlot {
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+    transform: translateY(-50%);
+}
+
+.triggerWrap[data-size='sm'] .clearSlot {
+    right: calc(var(--aui-multi-select-pad-x-sm) + var(--aui-multi-select-icon-hit-md));
+}
+
+.triggerWrap[data-size='md'] .clearSlot {
+    right: calc(var(--aui-multi-select-pad-x-md) + var(--aui-multi-select-icon-hit-md));
+}
+
+.triggerWrap[data-size='lg'] .clearSlot {
+    right: calc(var(--aui-multi-select-pad-x-lg) + var(--aui-multi-select-icon-hit-md));
+}
+
+.sm {
+    min-height: var(--aui-multi-select-h-sm);
+    padding: var(--aui-multi-select-pad-y-sm) var(--aui-multi-select-pad-x-sm);
+}
+
+.md {
+    min-height: var(--aui-multi-select-h-md);
+    padding: var(--aui-multi-select-pad-y-md) var(--aui-multi-select-pad-x-md);
+}
+
+.lg {
+    min-height: var(--aui-multi-select-h-lg);
+    padding: var(--aui-multi-select-pad-y-lg) var(--aui-multi-select-pad-x-lg);
+}

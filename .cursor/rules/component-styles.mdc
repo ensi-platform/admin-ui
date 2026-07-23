@@ -7,13 +7,15 @@ alwaysApply: false
 # Стили компонента
 
 - CSS Modules: `styles.module.css` (не scss, не БЭМ)
+- рядом с кодом части: у плоского примитива — в корне `src/<name>/`; при `components/` — в `components/<Part>/styles.module.css` (не общий мешок в корне)
 - корневой класс: `.root`
 - size / variant — плоские классы: `.sm`, `.md`, `.lg`, `.primary`, …
 - элементы: `.icon` (не `root__icon`)
 - состояния — псевдоклассы на `.root` (`:disabled`, `:focus-visible`, `:hover`), не `.disabled`
-- variants в TS через `class-variance-authority`
+- variants в TS через `class-variance-authority` (`theme.ts` рядом с частью)
 - склейка через `classnames` (`cn`)
-- токены: контракт в `tokens.mdc`; пакет later — пока литералы ок; потом `var(--aui-…)`
+- токены: контракт в `tokens.mdc`; в CSS Module — только `--aui-{place}-*` своего примитива
+- transitions: только place motion-токены (`*-duration-*` / `*-ease-*`); обязательно `prefers-reduced-motion: reduce` → `transition: none`
 
 Не использовать: БЭМ (`__` / `--` / `_`), Tailwind, ручной `[].filter(Boolean).join(' ')` для variants.
 

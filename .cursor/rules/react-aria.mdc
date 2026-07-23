@@ -1,0 +1,46 @@
+---
+description: Конвенции интеграции react-aria-components в admin-ui-base
+globs: src/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# React Aria
+
+Headless behavior — [`react-aria-components`](https://react-aria.adobe.com). Стили всегда наши (CSS Modules + `--aui-*`). Публичный API наш (`size` / `variant` / `dataTestId`); React Aria — внутри.
+
+## Импорты
+
+- из пакета: `import { Dialog, Heading } from 'react-aria-components'`
+- не реэкспортировать React Aria из `index.ts` пакета / примитива
+- низкоуровневые хуки (`@react-aria/*`) — только если RAC-компонента недостаточно
+
+## Провайдер
+
+`AdminUiProvider` оборачивает `I18nProvider` (locale) + root с `isolation: isolate` / `dir`. Storybook уже оборачивает.
+
+```tsx
+import { AdminUiProvider, useAuiLabels } from '@ensi-platform/admin-ui-base';
+
+<AdminUiProvider locale="ru-RU" labels={{ close: t('aui.close') }}>
+  …
+</AdminUiProvider>
+```
+
+## Строки
+
+Встроенные a11y/chrome-строки — только через словарь:
+
+```tsx
+const { close, clear } = useAuiLabels();
+```
+
+- хардкод пользовательских строк в примитивах запрещён
+- бизнес-копирайт — children / props снаружи (уже переведённые)
+- новый ключ → `IAuiLabels` + `defaultLabels` в `src/provider/` + README
+
+## Прочее
+
+- `locale` / `useAuiLocale()` — для `Intl` и React Aria
+- `direction` / `useAuiDirection()` — RTL; без пропа берётся из locale через `useLocale`
+- не подключать i18next в этот пакет; словари приложения остаются снаружи
+- не смешивать с `@base-ui/react`

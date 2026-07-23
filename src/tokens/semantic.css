@@ -1,0 +1,302 @@
+:root {
+    color-scheme: light;
+
+    /* page */
+    --aui-page-bg-primary: var(--aui-grey-50);
+    --aui-page-fg-primary: var(--aui-black-900);
+    --aui-page-fg-muted: var(--aui-grey-500);
+    --aui-page-fg-link: var(--aui-mint-700);
+    --aui-page-radius-md: var(--aui-radius-8);
+
+    /* surface */
+    --aui-surface-bg-primary: var(--aui-white);
+    --aui-surface-bg-muted: var(--aui-grey-100);
+    --aui-surface-bg-muted-hover: var(--aui-grey-200);
+    --aui-surface-bg-muted-active: var(--aui-grey-300);
+    --aui-surface-bg-elevated: var(--aui-white);
+    --aui-surface-border-primary: var(--aui-grey-200);
+    --aui-surface-border-muted: var(--aui-grey-100);
+
+    /* control — brand / status */
+    --aui-control-bg-brand: var(--aui-mint-500);
+    --aui-control-bg-brand-hover: var(--aui-mint-600);
+    --aui-control-bg-brand-active: var(--aui-mint-700);
+    --aui-control-bg-danger: var(--aui-red-600);
+    --aui-control-bg-danger-hover: var(--aui-red-500);
+    --aui-control-bg-success: var(--aui-green-500);
+    --aui-control-bg-warning: var(--aui-yellow-500);
+    --aui-control-fg-brand: var(--aui-white);
+    --aui-control-fg-danger: var(--aui-red-600);
+    --aui-control-border-focus: var(--aui-mint-500);
+    --aui-control-border-danger: var(--aui-red-500);
+
+    /* control — radius */
+    --aui-control-radius-sm: var(--aui-radius-4);
+    --aui-control-radius-md: var(--aui-radius-8);
+    --aui-control-radius-lg: var(--aui-radius-12);
+
+    /* control — motion */
+    --aui-control-duration-fast: var(--aui-duration-fast);
+    --aui-control-duration-normal: var(--aui-duration-normal);
+    --aui-control-ease-out: var(--aui-ease-out);
+
+    /* button */
+    --aui-button-bg-primary: var(--aui-control-bg-brand);
+    --aui-button-bg-primary-hover: var(--aui-control-bg-brand-hover);
+    --aui-button-bg-primary-active: var(--aui-control-bg-brand-active);
+    --aui-button-fg-primary: var(--aui-control-fg-brand);
+
+    --aui-button-bg-secondary: var(--aui-surface-bg-muted);
+    --aui-button-bg-secondary-hover: var(--aui-surface-bg-muted-hover);
+    --aui-button-bg-secondary-active: var(--aui-surface-bg-muted-active);
+    --aui-button-fg-secondary: var(--aui-page-fg-primary);
+
+    --aui-button-bg-tertiary: var(--aui-transparent);
+    --aui-button-bg-tertiary-hover: var(--aui-surface-bg-muted);
+    --aui-button-bg-tertiary-active: var(--aui-surface-bg-muted-hover);
+    --aui-button-fg-tertiary: var(--aui-page-fg-primary);
+    --aui-button-border-tertiary: var(--aui-surface-border-primary);
+
+    --aui-button-border-focus: var(--aui-control-border-focus);
+    --aui-button-radius-md: var(--aui-control-radius-md);
+    --aui-button-gap-md: var(--aui-space-8);
+    --aui-button-line-height: var(--aui-line-height-tight);
+
+    --aui-button-h-sm: var(--aui-control-h-sm);
+    --aui-button-h-md: var(--aui-control-h-md);
+    --aui-button-h-lg: var(--aui-control-h-lg);
+
+    --aui-button-pad-y-sm: var(--aui-space-4);
+    --aui-button-pad-x-sm: var(--aui-space-12);
+    --aui-button-pad-y-md: var(--aui-space-8);
+    --aui-button-pad-x-md: var(--aui-space-16);
+    --aui-button-pad-y-lg: var(--aui-space-12);
+    --aui-button-pad-x-lg: var(--aui-space-24);
+    --aui-button-duration-fast: var(--aui-control-duration-fast);
+    --aui-button-ease-out: var(--aui-control-ease-out);
+
+    /* field */
+    --aui-field-gap-sm: var(--aui-space-4);
+    --aui-field-gap-md: var(--aui-space-8);
+    --aui-field-gap-lg: var(--aui-space-12);
+    --aui-field-label-fg: var(--aui-page-fg-primary);
+    --aui-field-hint-fg: var(--aui-page-fg-muted);
+    --aui-field-error-fg: var(--aui-control-fg-danger);
+
+    /* input */
+    --aui-input-bg-primary: var(--aui-surface-bg-primary);
+    --aui-input-fg-primary: var(--aui-page-fg-primary);
+    --aui-input-fg-muted: var(--aui-page-fg-muted);
+    --aui-input-border-primary: var(--aui-surface-border-primary);
+    --aui-input-border-focus: var(--aui-control-border-focus);
+    --aui-input-border-danger: var(--aui-control-border-danger);
+    --aui-input-radius-md: var(--aui-control-radius-md);
+    --aui-input-h-sm: var(--aui-control-h-sm);
+    --aui-input-h-md: var(--aui-control-h-md);
+    --aui-input-h-lg: var(--aui-control-h-lg);
+    --aui-input-pad-x-sm: var(--aui-space-8);
+    --aui-input-pad-x-md: var(--aui-space-12);
+    --aui-input-pad-x-lg: var(--aui-space-16);
+    --aui-input-duration-fast: var(--aui-control-duration-fast);
+    --aui-input-ease-out: var(--aui-control-ease-out);
+
+    /* textarea — aliases input + min-h / pad-y */
+    --aui-textarea-bg-primary: var(--aui-input-bg-primary);
+    --aui-textarea-fg-primary: var(--aui-input-fg-primary);
+    --aui-textarea-fg-muted: var(--aui-input-fg-muted);
+    --aui-textarea-border-primary: var(--aui-input-border-primary);
+    --aui-textarea-border-focus: var(--aui-input-border-focus);
+    --aui-textarea-border-danger: var(--aui-input-border-danger);
+    --aui-textarea-radius-md: var(--aui-input-radius-md);
+    --aui-textarea-min-h-sm: calc(var(--aui-control-h-sm) * 2);
+    --aui-textarea-min-h-md: calc(var(--aui-control-h-md) * 2);
+    --aui-textarea-min-h-lg: calc(var(--aui-control-h-lg) * 2);
+    --aui-textarea-pad-x-sm: var(--aui-input-pad-x-sm);
+    --aui-textarea-pad-x-md: var(--aui-input-pad-x-md);
+    --aui-textarea-pad-x-lg: var(--aui-input-pad-x-lg);
+    --aui-textarea-pad-y-sm: var(--aui-space-4);
+    --aui-textarea-pad-y-md: var(--aui-space-8);
+    --aui-textarea-pad-y-lg: var(--aui-space-12);
+    --aui-textarea-duration-fast: var(--aui-control-duration-fast);
+    --aui-textarea-ease-out: var(--aui-control-ease-out);
+
+    /* checkbox */
+    --aui-checkbox-bg-primary: var(--aui-surface-bg-primary);
+    --aui-checkbox-bg-selected: var(--aui-control-bg-brand);
+    --aui-checkbox-fg-primary: var(--aui-page-fg-primary);
+    --aui-checkbox-fg-selected: var(--aui-control-fg-brand);
+    --aui-checkbox-border-primary: var(--aui-surface-border-primary);
+    --aui-checkbox-border-focus: var(--aui-control-border-focus);
+    --aui-checkbox-border-danger: var(--aui-control-border-danger);
+    --aui-checkbox-border-selected: var(--aui-control-bg-brand);
+    --aui-checkbox-radius-md: var(--aui-control-radius-sm);
+    --aui-checkbox-gap-md: var(--aui-space-8);
+    --aui-checkbox-box-sm: var(--aui-space-16);
+    --aui-checkbox-box-md: var(--aui-space-20);
+    --aui-checkbox-box-lg: var(--aui-space-24);
+    --aui-checkbox-icon-sm: var(--aui-space-12);
+    --aui-checkbox-icon-md: var(--aui-space-16);
+    --aui-checkbox-icon-lg: var(--aui-space-16);
+    --aui-checkbox-group-gap-md: var(--aui-space-8);
+    --aui-checkbox-duration-fast: var(--aui-control-duration-fast);
+    --aui-checkbox-ease-out: var(--aui-control-ease-out);
+
+    /* switch */
+    --aui-switch-track-bg-primary: var(--aui-surface-bg-muted);
+    --aui-switch-track-bg-selected: var(--aui-control-bg-brand);
+    --aui-switch-thumb-bg-primary: var(--aui-white);
+    --aui-switch-fg-primary: var(--aui-page-fg-primary);
+    --aui-switch-border-focus: var(--aui-control-border-focus);
+    --aui-switch-border-danger: var(--aui-control-border-danger);
+    --aui-switch-gap-md: var(--aui-space-8);
+    --aui-switch-track-h-sm: var(--aui-space-16);
+    --aui-switch-track-h-md: var(--aui-space-20);
+    --aui-switch-track-h-lg: var(--aui-space-24);
+    --aui-switch-track-w-sm: 28px;
+    --aui-switch-track-w-md: 36px;
+    --aui-switch-track-w-lg: 44px;
+    --aui-switch-thumb-sm: var(--aui-space-12);
+    --aui-switch-thumb-md: var(--aui-space-16);
+    --aui-switch-thumb-lg: var(--aui-space-20);
+    --aui-switch-radius-md: 999px;
+    --aui-switch-duration-fast: var(--aui-control-duration-fast);
+    --aui-switch-ease-out: var(--aui-control-ease-out);
+
+    /* number-input — group chrome (aliases input) */
+    --aui-number-input-bg-primary: var(--aui-input-bg-primary);
+    --aui-number-input-fg-primary: var(--aui-input-fg-primary);
+    --aui-number-input-fg-muted: var(--aui-input-fg-muted);
+    --aui-number-input-border-primary: var(--aui-input-border-primary);
+    --aui-number-input-border-focus: var(--aui-input-border-focus);
+    --aui-number-input-border-danger: var(--aui-input-border-danger);
+    --aui-number-input-radius-md: var(--aui-input-radius-md);
+    --aui-number-input-h-sm: var(--aui-input-h-sm);
+    --aui-number-input-h-md: var(--aui-input-h-md);
+    --aui-number-input-h-lg: var(--aui-input-h-lg);
+    --aui-number-input-pad-x-sm: var(--aui-input-pad-x-sm);
+    --aui-number-input-pad-x-md: var(--aui-input-pad-x-md);
+    --aui-number-input-pad-x-lg: var(--aui-input-pad-x-lg);
+    --aui-number-input-gap-md: var(--aui-space-8);
+    --aui-number-input-duration-fast: var(--aui-control-duration-fast);
+    --aui-number-input-ease-out: var(--aui-control-ease-out);
+
+    /* select — trigger aliases input; popover/list from surface */
+    --aui-select-bg-primary: var(--aui-input-bg-primary);
+    --aui-select-fg-primary: var(--aui-input-fg-primary);
+    --aui-select-fg-muted: var(--aui-input-fg-muted);
+    --aui-select-border-primary: var(--aui-input-border-primary);
+    --aui-select-border-focus: var(--aui-input-border-focus);
+    --aui-select-border-danger: var(--aui-input-border-danger);
+    --aui-select-radius-md: var(--aui-input-radius-md);
+    --aui-select-h-sm: var(--aui-input-h-sm);
+    --aui-select-h-md: var(--aui-input-h-md);
+    --aui-select-h-lg: var(--aui-input-h-lg);
+    --aui-select-pad-x-sm: var(--aui-input-pad-x-sm);
+    --aui-select-pad-x-md: var(--aui-input-pad-x-md);
+    --aui-select-pad-x-lg: var(--aui-input-pad-x-lg);
+    --aui-select-gap-md: var(--aui-space-8);
+    --aui-select-icon-size-md: var(--aui-space-16);
+    --aui-select-icon-hit-md: var(--aui-space-24);
+    --aui-select-list-pad-md: var(--aui-space-4);
+    --aui-select-popover-bg-primary: var(--aui-surface-bg-elevated);
+    --aui-select-popover-border-primary: var(--aui-surface-border-primary);
+    --aui-select-popover-radius-md: var(--aui-control-radius-md);
+    --aui-select-popover-max-h: 240px;
+    --aui-select-item-bg-hover: var(--aui-surface-bg-muted);
+    --aui-select-item-fg-primary: var(--aui-page-fg-primary);
+    --aui-select-item-pad-x-md: var(--aui-space-12);
+    --aui-select-item-pad-y-md: var(--aui-space-4);
+    --aui-select-item-radius-md: var(--aui-control-radius-sm);
+    --aui-select-clear-radius-md: var(--aui-control-radius-sm);
+    --aui-select-duration-fast: var(--aui-control-duration-fast);
+    --aui-select-ease-out: var(--aui-control-ease-out);
+
+    /* multi-select — aliases select */
+    --aui-multi-select-bg-primary: var(--aui-select-bg-primary);
+    --aui-multi-select-fg-primary: var(--aui-select-fg-primary);
+    --aui-multi-select-fg-muted: var(--aui-select-fg-muted);
+    --aui-multi-select-border-primary: var(--aui-select-border-primary);
+    --aui-multi-select-border-focus: var(--aui-select-border-focus);
+    --aui-multi-select-border-danger: var(--aui-select-border-danger);
+    --aui-multi-select-radius-md: var(--aui-select-radius-md);
+    --aui-multi-select-h-sm: var(--aui-select-h-sm);
+    --aui-multi-select-h-md: var(--aui-select-h-md);
+    --aui-multi-select-h-lg: var(--aui-select-h-lg);
+    --aui-multi-select-pad-x-sm: var(--aui-select-pad-x-sm);
+    --aui-multi-select-pad-x-md: var(--aui-select-pad-x-md);
+    --aui-multi-select-pad-x-lg: var(--aui-select-pad-x-lg);
+    --aui-multi-select-pad-y-sm: var(--aui-space-4);
+    --aui-multi-select-pad-y-md: var(--aui-space-4);
+    --aui-multi-select-pad-y-lg: var(--aui-space-8);
+    --aui-multi-select-gap-md: var(--aui-select-gap-md);
+    --aui-multi-select-gap-tags-md: var(--aui-space-4);
+    --aui-multi-select-icon-size-md: var(--aui-select-icon-size-md);
+    --aui-multi-select-icon-hit-md: var(--aui-select-icon-hit-md);
+    --aui-multi-select-list-pad-md: var(--aui-select-list-pad-md);
+    --aui-multi-select-popover-bg-primary: var(--aui-select-popover-bg-primary);
+    --aui-multi-select-popover-border-primary: var(--aui-select-popover-border-primary);
+    --aui-multi-select-popover-radius-md: var(--aui-select-popover-radius-md);
+    --aui-multi-select-popover-max-h: var(--aui-select-popover-max-h);
+    --aui-multi-select-item-bg-hover: var(--aui-select-item-bg-hover);
+    --aui-multi-select-item-fg-primary: var(--aui-select-item-fg-primary);
+    --aui-multi-select-item-pad-x-md: var(--aui-select-item-pad-x-md);
+    --aui-multi-select-item-pad-y-md: var(--aui-select-item-pad-y-md);
+    --aui-multi-select-item-radius-md: var(--aui-select-item-radius-md);
+    --aui-multi-select-clear-radius-md: var(--aui-select-clear-radius-md);
+    --aui-multi-select-tag-bg-primary: var(--aui-tag-bg-primary);
+    --aui-multi-select-tag-fg-primary: var(--aui-tag-fg-primary);
+    --aui-multi-select-tag-fg-muted: var(--aui-tag-fg-muted);
+    --aui-multi-select-tag-border-primary: var(--aui-tag-border-primary);
+    --aui-multi-select-tag-border-focus: var(--aui-tag-border-focus);
+    --aui-multi-select-tag-radius-md: var(--aui-tag-radius-md);
+    --aui-multi-select-tag-gap-md: var(--aui-tag-gap-md);
+    --aui-multi-select-tag-pad-y-sm: var(--aui-tag-pad-y-sm);
+    --aui-multi-select-tag-pad-x-sm: var(--aui-tag-pad-x-sm);
+    --aui-multi-select-tag-pad-y-md: var(--aui-tag-pad-y-md);
+    --aui-multi-select-tag-pad-x-md: var(--aui-tag-pad-x-md);
+    --aui-multi-select-tag-h-sm: var(--aui-tag-h-sm);
+    --aui-multi-select-tag-h-md: var(--aui-tag-h-md);
+    --aui-multi-select-tag-icon-size-md: var(--aui-tag-icon-size-md);
+    --aui-multi-select-tag-icon-hit-md: var(--aui-tag-icon-hit-md);
+    --aui-multi-select-tag-line-height: var(--aui-tag-line-height);
+    --aui-multi-select-duration-fast: var(--aui-control-duration-fast);
+    --aui-multi-select-ease-out: var(--aui-control-ease-out);
+
+    /* badge — soft status pills */
+    --aui-badge-bg-neutral: var(--aui-surface-bg-muted);
+    --aui-badge-fg-neutral: var(--aui-page-fg-primary);
+    --aui-badge-bg-success: var(--aui-green-50);
+    --aui-badge-fg-success: var(--aui-green-700);
+    --aui-badge-bg-warning: var(--aui-yellow-50);
+    --aui-badge-fg-warning: var(--aui-yellow-700);
+    --aui-badge-bg-danger: var(--aui-red-50);
+    --aui-badge-fg-danger: var(--aui-red-700);
+    --aui-badge-bg-info: var(--aui-blue-50);
+    --aui-badge-fg-info: var(--aui-blue-700);
+    --aui-badge-radius-md: 999px;
+    --aui-badge-pad-y-sm: var(--aui-space-0);
+    --aui-badge-pad-x-sm: var(--aui-space-8);
+    --aui-badge-pad-y-md: var(--aui-space-4);
+    --aui-badge-pad-x-md: var(--aui-space-12);
+    --aui-badge-h-sm: var(--aui-space-20);
+    --aui-badge-h-md: var(--aui-space-24);
+    --aui-badge-line-height: var(--aui-line-height-tight);
+
+    /* tag — filter / multi-select chips */
+    --aui-tag-bg-primary: var(--aui-surface-bg-muted);
+    --aui-tag-fg-primary: var(--aui-page-fg-primary);
+    --aui-tag-fg-muted: var(--aui-page-fg-muted);
+    --aui-tag-border-primary: var(--aui-surface-border-primary);
+    --aui-tag-border-focus: var(--aui-control-border-focus);
+    --aui-tag-radius-md: var(--aui-control-radius-sm);
+    --aui-tag-gap-md: var(--aui-space-4);
+    --aui-tag-pad-y-sm: var(--aui-space-0);
+    --aui-tag-pad-x-sm: var(--aui-space-8);
+    --aui-tag-pad-y-md: var(--aui-space-4);
+    --aui-tag-pad-x-md: var(--aui-space-8);
+    --aui-tag-h-sm: var(--aui-space-20);
+    --aui-tag-h-md: var(--aui-space-24);
+    --aui-tag-icon-size-md: var(--aui-space-12);
+    --aui-tag-icon-hit-md: var(--aui-space-16);
+    --aui-tag-line-height: var(--aui-line-height-tight);
+}

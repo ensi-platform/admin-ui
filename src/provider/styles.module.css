@@ -1,0 +1,14 @@
+.root {
+    isolation: isolate;
+}
+
+.root,
+.root *,
+.root *::before,
+.root *::after {
+    box-sizing: border-box;
+}
+
+.root * {
+    margin: 0;
+}

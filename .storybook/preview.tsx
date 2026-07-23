@@ -1,0 +1,90 @@
+import { withThemeByDataAttribute } from '@storybook/addon-themes';
+
+import { AdminUiProvider, type IAuiLabels } from '../src/provider/index.js';
+
+import { auiDark, auiLight } from './themes.js';
+
+import type { Decorator, Preview } from '@storybook/react';
+
+import '../src/tokens/index.css';
+
+const RU_LABELS: IAuiLabels = {
+    close: 'Закрыть',
+    clear: 'Очистить',
+};
+
+const withProvider: Decorator = (Story, context) => {
+    const theme = (context.globals.theme as string) || 'light';
+    const locale = (context.globals.locale as string) || 'ru-RU';
+
+    context.parameters.docs = {
+        ...context.parameters.docs,
+        theme: theme === 'dark' ? auiDark : auiLight,
+    };
+
+    return (
+        <AdminUiProvider locale={locale} labels={locale.startsWith('ru') ? RU_LABELS : undefined}>
+            <div
+                style={{
+                    background: 'var(--aui-page-bg-primary)',
+                    color: 'var(--aui-page-fg-primary)',
+                    padding: 16,
+                    minHeight: '100%',
+                }}
+            >
+                <Story />
+            </div>
+        </AdminUiProvider>
+    );
+};
+
+const preview: Preview = {
+    tags: ['autodocs'],
+    globalTypes: {
+        locale: {
+            description: 'UI locale',
+            toolbar: {
+                title: 'Locale',
+                icon: 'globe',
+                items: [
+                    { value: 'ru-RU', title: 'ru-RU' },
+                    { value: 'en-US', title: 'en-US' },
+                ],
+                dynamicTitle: true,
+            },
+        },
+    },
+    initialGlobals: {
+        theme: 'light',
+        locale: 'ru-RU',
+    },
+    decorators: [
+        withThemeByDataAttribute({
+            themes: {
+                light: 'light',
+                dark: 'dark',
+            },
+            defaultTheme: 'light',
+            attributeName: 'data-theme',
+        }),
+        withProvider,
+    ],
+    parameters: {
+        controls: {
+            expanded: true,
+            matchers: {
+                color: /(background|color)$/i,
+                date: /Date$/i,
+            },
+        },
+        layout: 'fullscreen',
+        backgrounds: {
+            disable: true,
+        },
+        docs: {
+            theme: auiLight,
+        },
+    },
+};
+
+export default preview;

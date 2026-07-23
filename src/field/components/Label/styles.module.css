@@ -1,0 +1,7 @@
+.root {
+    color: var(--aui-field-label-fg);
+}
+
+.disabled {
+    opacity: 0.5;
+}

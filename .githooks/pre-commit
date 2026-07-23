@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+
+echo "Running pre-commit checks..."
+
+echo "Running TypeScript type check..."
+pnpm typecheck || { echo "TypeScript type check failed, commit aborted"; exit 1; }
+
+echo "Running tests..."
+pnpm test || { echo "Tests failed, commit aborted"; exit 1; }
+
+echo "All pre-commit checks passed!"

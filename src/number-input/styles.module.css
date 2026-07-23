@@ -1,0 +1,101 @@
+.group {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border: 1px solid var(--aui-number-input-border-primary);
+    border-radius: var(--aui-number-input-radius-md);
+    background: var(--aui-number-input-bg-primary);
+    color: var(--aui-number-input-fg-primary);
+    gap: var(--aui-number-input-gap-md);
+    transition: border-color var(--aui-number-input-duration-fast) var(--aui-number-input-ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .group {
+        transition: none;
+    }
+}
+
+.group[data-hovered]:not([data-disabled]):not([data-invalid]) {
+    border-color: var(--aui-number-input-border-focus);
+}
+
+.group[data-focus-within]:not([data-disabled]) {
+    border-color: var(--aui-number-input-border-focus);
+}
+
+.group[data-focus-visible]:not([data-disabled]) {
+    border-color: var(--aui-number-input-border-focus);
+    outline: 2px solid var(--aui-number-input-border-focus);
+    outline-offset: 0;
+}
+
+.group[data-invalid] {
+    border-color: var(--aui-number-input-border-danger);
+}
+
+.group[data-invalid][data-focus-within]:not([data-disabled]) {
+    border-color: var(--aui-number-input-border-danger);
+}
+
+.group[data-invalid][data-focus-visible]:not([data-disabled]) {
+    border-color: var(--aui-number-input-border-danger);
+    outline: 2px solid var(--aui-number-input-border-danger);
+    outline-offset: 0;
+}
+
+.group[data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.sm {
+    height: var(--aui-number-input-h-sm);
+    padding: 0 var(--aui-number-input-pad-x-sm);
+}
+
+.md {
+    height: var(--aui-number-input-h-md);
+    padding: 0 var(--aui-number-input-pad-x-md);
+}
+
+.lg {
+    height: var(--aui-number-input-h-lg);
+    padding: 0 var(--aui-number-input-pad-x-lg);
+}
+
+.addon {
+    flex-shrink: 0;
+    color: var(--aui-number-input-fg-muted);
+}
+
+.fieldInput {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    height: 100%;
+    margin: 0;
+    border: none;
+    background: transparent;
+    padding: 0;
+    color: inherit;
+    font: inherit;
+    outline: none;
+}
+
+.fieldInput:focus,
+.fieldInput:focus-visible {
+    outline: none;
+}
+
+.fieldInput::placeholder {
+    color: var(--aui-number-input-fg-muted);
+}
+
+.fieldInput:disabled {
+    cursor: inherit;
+}
+
+.root {
+    width: 100%;
+}

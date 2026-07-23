@@ -15,10 +15,58 @@ alwaysApply: false
 - type-алиас пропсов: `TButtonProps` (не `I*`, если это `type`)
 - interfaces: `I*` (`IButtonBaseProps`, `IIconButtonProps`)
 - компонент — arrow function
+- **запрещён `forwardRef`**: `ref` — обычный prop (`ref?: Ref<HTMLElement>`), React 19
 - `type` прокидывать только если рендер как `button`
 - классы: `cn(buttonVariants({ size, variant }), className)`
+- `displayName` — только для DevTools / compound, не ради forwardRef
 
 Пока не делать: `styles` override, typography-токены, `block` / `nowrap` / `hidden`.
+
+## Base props inheritance
+
+Корень определяет базу пропсов. Свои поля поверх; конфликты — `Omit`. В JSX: свои ключи вытащить, остальное `{...props}` на корень.
+
+- `dataTestId` — наш (не HTML)
+- `ref` — из `ComponentPropsWithRef` / React 19 prop (не дублировать без нужды)
+
+**DOM** (`span` / `div` / `label`):
+
+```tsx
+export interface IBadgeProps extends Omit<ComponentPropsWithRef<'span'>, 'children'> {
+    children: ReactNode;
+    size?: TBadgeSize;
+    variant?: TBadgeVariant;
+    dataTestId?: string;
+}
+```
+
+Или полиморфизм: `TMergeElementProps<P, IBase>` (эталон Button).
+
+**Либа (RAC)**:
+
+```tsx
+export interface IInputProps extends Omit<RacInputProps, 'className' | 'disabled' | 'size'> {
+    size?: TInputSize;
+    disabled?: boolean;
+    dataTestId?: string;
+    // …
+}
+```
+
+## Ref (React 19)
+
+```tsx
+export interface IInputProps {
+    ref?: Ref<HTMLInputElement>;
+    // …
+}
+
+export const Input = ({ ref, size = 'md', … }: IInputProps) => (
+    <RacInput ref={ref} … />
+);
+```
+
+Не импортировать `forwardRef` из `react`.
 
 ## Эталон Button
 

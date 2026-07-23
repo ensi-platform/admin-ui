@@ -1,0 +1,27 @@
+.bodyXs {
+    font-family: var(--aui-font-sans);
+    font-size: var(--aui-font-size-xs);
+    font-weight: var(--aui-font-weight-regular);
+    line-height: var(--aui-line-height-tight);
+}
+
+.bodyS {
+    font-family: var(--aui-font-sans);
+    font-size: var(--aui-font-size-sm);
+    font-weight: var(--aui-font-weight-regular);
+    line-height: var(--aui-line-height-normal);
+}
+
+.bodyM {
+    font-family: var(--aui-font-sans);
+    font-size: var(--aui-font-size-md);
+    font-weight: var(--aui-font-weight-regular);
+    line-height: var(--aui-line-height-normal);
+}
+
+.bodyL {
+    font-family: var(--aui-font-sans);
+    font-size: var(--aui-font-size-lg);
+    font-weight: var(--aui-font-weight-regular);
+    line-height: var(--aui-line-height-normal);
+}

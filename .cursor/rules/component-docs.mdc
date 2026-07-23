@@ -51,6 +51,15 @@ src/<name>/docs/
 
 Только визуальные варианты (`Default`, `WithIcon`, …). Полный API не дублировать — он в `Description.md` и `types.ts`.
 
+Для контролов с FormX (`FormInput` / …): один `index.stories.tsx`, title = `Form/<Name>`.
+
+Form-related (`Form`, `Field`, контролы) — группа `Form/`; остальное — корень.
+
+- `Default` — примитив без Form
+- `WithForm` — `Form` + FormX + submit
+
+Отдельный `form-*.stories.tsx` / title `Form*` не заводить.
+
 ## Канал для АП
 
 - source of truth — `docs/` в этом пакете

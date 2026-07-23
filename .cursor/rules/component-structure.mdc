@@ -10,25 +10,57 @@ alwaysApply: false
 
 ```
 src/<name>/
-  Component.tsx         # реализация
+  Component.tsx         # тонкий compose / реэкспорт
   index.ts              # публичный API
   types.ts
-  theme.ts              # cva-варианты (не публичный API)
-  styles.module.css
-  <name>.test.tsx       # имя сущности, не index.test / Button.test
+  <name>.test.tsx       # имя сущности, не index.test
   docs/                 # обязательно для публичного примитива
     Description.md
     index.stories.tsx
-  components/           # сабкомпоненты по мере появления
 ```
 
-## Правила
+## Плоский vs `components/`
 
-- `index.ts` только реэкспортит: `export * from './Component.js'` и `export * from './types.js'` (+ сабкомпоненты)
+**Плоский** — один `Component.tsx` + `styles.module.css` (+ `theme.ts` при cva):
+
+- простые примитивы без внутренних визуальных зон (Button, Input)
+
+```
+src/button/
+  Component.tsx
+  styles.module.css
+  theme.ts
+  …
+```
+
+**С `components/`** — объёмный RAC-shell, compound или >1 визуальная зона (Field, Select, later Modal…):
+
+```
+src/<name>/
+  Component.tsx              # тонкий: реэкспорт Root / Object.assign
+  components/
+    Root/
+      index.tsx
+      styles.module.css      # только .root / chrome корня
+      theme.ts               # если cva на Root
+    <Part>/
+      index.tsx
+      styles.module.css      # стили только этой части
+      theme.ts               # если cva нужен части
+```
+
+### Правила для `components/`
+
+- каждая часть: `components/<Part>/index.tsx` + `styles.module.css` рядом (+ `theme.ts` при cva)
+- не складывать стили всех частей в один `src/<name>/styles.module.css`
+- корневой `Component.tsx` — без большой вёрстки и без «мешка» стилей
+- сабкомпоненты не обязаны быть публичным compound API (могут быть внутренними)
+
+## Общее
+
+- `index.ts` только реэкспортит: `export * from './Component.js'` и `export * from './types.js'` (+ FormX / публичные сабкомпоненты)
 - только named exports
 - ESM-импорты с расширением `.js`
-- стили — только `styles.module.css` рядом с компонентом
-- `theme.ts` — `cva` + маппинг на классы модуля; не реэкспортить из `index`
 - shared-типы (`TMergeElementProps`, `TSVGRIcon`) — в `src/common/`
 - общие хелперы (`toCssSize`) — в `src/common/utils.ts`
 - формат `docs/` — см. правило `component-docs`

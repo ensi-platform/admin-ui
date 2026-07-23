@@ -1,0 +1,52 @@
+.root {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: fit-content;
+    max-width: 100%;
+    border-radius: var(--aui-badge-radius-md);
+    font: inherit;
+    font-weight: var(--aui-font-weight-medium);
+    line-height: var(--aui-badge-line-height);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sm {
+    height: var(--aui-badge-h-sm);
+    padding: var(--aui-badge-pad-y-sm) var(--aui-badge-pad-x-sm);
+    font-size: var(--aui-font-size-xs);
+}
+
+.md {
+    height: var(--aui-badge-h-md);
+    padding: var(--aui-badge-pad-y-md) var(--aui-badge-pad-x-md);
+    font-size: var(--aui-font-size-sm);
+}
+
+.neutral {
+    background: var(--aui-badge-bg-neutral);
+    color: var(--aui-badge-fg-neutral);
+}
+
+.success {
+    background: var(--aui-badge-bg-success);
+    color: var(--aui-badge-fg-success);
+}
+
+.warning {
+    background: var(--aui-badge-bg-warning);
+    color: var(--aui-badge-fg-warning);
+}
+
+.danger {
+    background: var(--aui-badge-bg-danger);
+    color: var(--aui-badge-fg-danger);
+}
+
+.info {
+    background: var(--aui-badge-bg-info);
+    color: var(--aui-badge-fg-info);
+}
