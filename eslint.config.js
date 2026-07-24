@@ -16,6 +16,9 @@ export default [
         },
         rules: {
             'import/prefer-default-export': 'off',
+            '@typescript-eslint/no-empty-object-type': 'off',
+            // Conflicts with Prettier on TSX generic trailing comma (`<T,>` vs `<T, >`).
+            'comma-spacing': 'off',
             'no-restricted-imports': [
                 'error',
                 {
@@ -35,6 +38,8 @@ export default [
                     pathGroups: [
                         { pattern: 'react', group: 'external', position: 'before' },
                         { pattern: 'react-dom{,/**}', group: 'external', position: 'before' },
+                        { pattern: '@ds{,/**}', group: 'internal', position: 'before' },
+                        { pattern: '@/**', group: 'internal', position: 'before' },
                         {
                             pattern: './**/*.css',
                             group: 'sibling',
@@ -54,12 +59,7 @@ export default [
         },
     },
     {
-        files: [
-            'vitest.setup.ts',
-            'vitest.config.ts',
-            'src/**/*.test.{ts,tsx}',
-            '.storybook/**/*.{ts,tsx}',
-        ],
+        files: ['vitest.setup.ts', 'vitest.config.ts', 'src/**/*.test.{ts,tsx}', '.storybook/**/*.{ts,tsx}'],
         rules: {
             'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
         },

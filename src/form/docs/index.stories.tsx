@@ -1,10 +1,11 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { z } from 'zod';
 
-import { Button } from '../../button/index.js';
-import { FormInput } from '../../input/index.js';
-import { Form } from '../Component.js';
-import { type TFormProps, type TFormSubmitHandler } from '../types.js';
+import { Button } from '@/button';
+import { FormInput } from '@/input';
+
+import { Form } from '../Component';
+import { type TFormProps, type TFormSubmitHandler } from '../types';
 
 import Description from './Description.md';
 

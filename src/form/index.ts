@@ -1,7 +1,7 @@
-export * from './Component.js';
-export * from './types.js';
-export * from './context.js';
-export * from './hooks/useFieldHook.js';
-export * from './utils.js';
+export * from './Component';
+export * from './types';
+export * from './context';
+export * from './hooks/useFieldHook';
+export * from './utils';
 
-export { useFormContext, useFormState, useFieldArray } from 'react-hook-form';
+export { useFormContext, useFormState, useFieldArray, useWatch, useController } from 'react-hook-form';

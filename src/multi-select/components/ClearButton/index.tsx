@@ -2,8 +2,11 @@ import { useContext } from 'react';
 
 import { SelectStateContext } from 'react-aria-components';
 
-import { Clear } from '../../../icons/index.js';
-import { useAuiLabels } from '../../../provider/index.js';
+import { Clear } from '@/icons';
+import { useAuiLabels } from '@/provider';
+import { type TSelectSize, type TSelectVariant } from '@/select/types';
+
+import { multiSelectClearVariants } from './theme';
 
 import styles from './styles.module.css';
 
@@ -19,7 +22,15 @@ const isEmptyValue = (value: unknown): boolean => {
     return false;
 };
 
-export const MultiSelectClearButton = ({ isDisabled }: { isDisabled: boolean }) => {
+export const MultiSelectClearButton = ({
+    isDisabled,
+    size,
+    variant,
+}: {
+    isDisabled: boolean;
+    size: TSelectSize;
+    variant: TSelectVariant;
+}) => {
     const state = useContext(SelectStateContext);
     const { clear } = useAuiLabels();
 
@@ -30,7 +41,7 @@ export const MultiSelectClearButton = ({ isDisabled }: { isDisabled: boolean }) 
     return (
         <button
             type="button"
-            className={styles.clear}
+            className={multiSelectClearVariants({ size, variant })}
             aria-label={clear}
             onPointerDown={event => {
                 event.preventDefault();

@@ -1,10 +1,10 @@
 import cn from 'classnames';
 
-import { Clear } from '../icons/index.js';
-import { useAuiLabels } from '../provider/index.js';
+import { Clear } from '@/icons';
+import { useAuiLabels } from '@/provider';
 
-import { tagVariants } from './theme.js';
-import { type ITagProps } from './types.js';
+import { tagVariants } from './theme';
+import { type ITagProps } from './types';
 
 import styles from './styles.module.css';
 
@@ -36,6 +36,7 @@ export const Tag = ({
     ref,
     children,
     size = 'md',
+    variant = 'primary',
     onRemove,
     disabled = false,
     className,
@@ -45,7 +46,7 @@ export const Tag = ({
     <span
         {...props}
         ref={ref}
-        className={cn(tagVariants({ size }), className)}
+        className={cn(tagVariants({ size, variant }), className)}
         data-disabled={disabled || undefined}
         data-test-id={dataTestId}
     >

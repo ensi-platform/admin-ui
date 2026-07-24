@@ -2,9 +2,9 @@ import { type InputHTMLAttributes } from 'react';
 
 import { type ArgTypes, type Meta, type StoryObj } from '@storybook/react';
 
-import { Field } from '../Component.js';
-import { useField } from '../context.js';
-import { type IFieldProps } from '../types.js';
+import { Field } from '../Component';
+import { useField } from '../context';
+import { type IFieldProps } from '../types';
 
 import Description from './Description.md';
 
@@ -15,7 +15,7 @@ type TFieldStoryProps = Omit<IFieldProps, 'children'> & {
 
 const DEFAULT_ARGS: TFieldStoryProps = {
     size: 'md',
-    isInvalid: false,
+    invalid: false,
     disabled: false,
     hint: 'Подсказка к полю',
     error: undefined,
@@ -23,7 +23,7 @@ const DEFAULT_ARGS: TFieldStoryProps = {
 
 const DEFAULT_ARG_TYPES: ArgTypes<Partial<TFieldStoryProps>> = {
     size: { control: { type: 'select' } },
-    isInvalid: { control: { type: 'boolean' } },
+    invalid: { control: { type: 'boolean' } },
     disabled: { control: { type: 'boolean' } },
 };
 
@@ -73,7 +73,7 @@ export const WithHint: StoryObj<typeof FieldDemo> = {
 
 export const WithError: StoryObj<typeof FieldDemo> = {
     args: {
-        isInvalid: true,
+        invalid: true,
         error: 'Некорректный email',
         hint: undefined,
     },

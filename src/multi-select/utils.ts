@@ -1,6 +1,6 @@
 import { type Key } from 'react-aria-components';
 
-import { type TSelectValue } from '../select/types.js';
+import { type TSelectValue } from '@/select/types';
 
 export const toMultiValue = (value: TSelectValue[] | undefined): readonly Key[] | undefined => {
     if (value === undefined) {

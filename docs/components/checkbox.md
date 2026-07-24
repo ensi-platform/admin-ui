@@ -1,7 +1,7 @@
 # Checkbox
 
-> Статус: `ready`  
-> База: `lib: react-aria-components` (`Checkbox`)  
+> Статус: `ready`
+> База: `lib: react-aria-components` (`CheckboxField` + `CheckboxButton`)
 > Пакет: `admin-ui-base`
 
 ## Зачем
@@ -12,7 +12,7 @@ Boolean-флаги в АП. FormCheckbox — Field + RHF рядом с прим�
 
 ### Поведение
 
-- [x] RAC `Checkbox` + `--aui-checkbox-*`
+- [x] RAC `CheckboxField` + `CheckboxButton` + `--aui-checkbox-*`
 - [x] sizes sm | md | lg
 - [x] invalid / disabled / focus / indeterminate
 - [x] item-лейбл = `children`
@@ -21,7 +21,7 @@ Boolean-флаги в АП. FormCheckbox — Field + RHF рядом с прим�
 
 ### API (черновик)
 
-- Checkbox: `checked`, `onChange(boolean)`, `indeterminate`, `value` (для Group), `children`, `size`, `disabled`, `isInvalid`, `dataTestId`
+- Checkbox: `checked`, `onChange(boolean)`, `indeterminate`, `value` (для Group), `children`, `size`, `disabled`, `invalid`, `dataTestId`
 - FormCheckbox: `name`, `hint`, `children` (без Field.Label)
 - `as` — нет
 
@@ -39,18 +39,18 @@ Boolean-флаги в АП. FormCheckbox — Field + RHF рядом с прим�
 
 ## Сравнение библиотек
 
-| Кандидат | Плюсы | Минусы | Fit |
-| --- | --- | --- | --- |
-| RAC Checkbox | a11y, group-ready через `value` | — | good |
-| native input | просто | сами states | ok |
+| Кандидат                           | Плюсы                           | Минусы      | Fit  |
+| ---------------------------------- | ------------------------------- | ----------- | ---- |
+| RAC CheckboxField + CheckboxButton | a11y, group-ready через `value` | —           | good |
+| native input                       | просто                          | сами states | ok   |
 
 ## Решение
 
-| Поле | Значение |
-| --- | --- |
-| База | `lib: react-aria-components` (`Checkbox`) |
-| Почему | соло boolean; group вынесен в checkbox-group |
-| Дата | 2026-07-23 |
+| Поле   | Значение                                                          |
+| ------ | ----------------------------------------------------------------- |
+| База   | `lib: react-aria-components` (`CheckboxField` + `CheckboxButton`) |
+| Почему | соло boolean; group вынесен в checkbox-group                      |
+| Дата   | 2026-07-23                                                        |
 
 ## Открытые вопросы
 

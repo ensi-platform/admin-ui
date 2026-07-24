@@ -2,7 +2,6 @@
     display: inline-flex;
     align-items: flex-start;
     gap: var(--aui-switch-gap-md);
-    color: var(--aui-switch-fg-primary);
     cursor: pointer;
 }
 
@@ -20,41 +19,13 @@
     justify-content: flex-start;
     padding: 2px;
     border-radius: var(--aui-switch-radius-md);
-    background: var(--aui-switch-track-bg-primary);
     transition: background-color var(--aui-switch-duration-fast) var(--aui-switch-ease-out);
-}
-
-.root[data-selected] .track {
-    background: var(--aui-switch-track-bg-selected);
-}
-
-.root:hover:not(:disabled):not([data-disabled]):not(.invalid) .track {
-    outline: 1px solid var(--aui-switch-border-focus);
-    outline-offset: 0;
-}
-
-.root[data-focus-visible]:not(:disabled):not([data-disabled]) .track {
-    outline: 2px solid var(--aui-switch-border-focus);
-    outline-offset: 0;
-}
-
-.invalid .track,
-.root[aria-invalid='true'] .track {
-    outline: 1px solid var(--aui-switch-border-danger);
-    outline-offset: 0;
-}
-
-.invalid[data-focus-visible]:not(:disabled):not([data-disabled]) .track,
-.root[aria-invalid='true'][data-focus-visible]:not(:disabled):not([data-disabled]) .track {
-    outline: 2px solid var(--aui-switch-border-danger);
-    outline-offset: 0;
 }
 
 .thumb {
     box-sizing: border-box;
     display: block;
     border-radius: var(--aui-switch-radius-md);
-    background: var(--aui-switch-thumb-bg-primary);
     transform: translateX(0);
     transition: transform var(--aui-switch-duration-fast) var(--aui-switch-ease-out);
 }
@@ -110,4 +81,42 @@
     .thumb {
         transition: none;
     }
+}
+
+.primary {
+    color: var(--aui-switch-fg-primary);
+}
+
+.primary .track {
+    background: var(--aui-switch-track-bg-primary);
+}
+
+.primary[data-selected] .track {
+    background: var(--aui-switch-track-bg-selected);
+}
+
+.primary .thumb {
+    background: var(--aui-switch-thumb-bg-primary);
+}
+
+.primary:hover:not(:disabled):not([data-disabled]):not(.invalid) .track {
+    outline: 1px solid var(--aui-switch-border-focus);
+    outline-offset: 0;
+}
+
+.primary[data-focus-visible]:not(:disabled):not([data-disabled]) .track {
+    outline: 2px solid var(--aui-switch-border-focus);
+    outline-offset: 0;
+}
+
+.primary.invalid .track,
+.primary[aria-invalid='true'] .track {
+    outline: 1px solid var(--aui-switch-border-danger);
+    outline-offset: 0;
+}
+
+.primary.invalid[data-focus-visible]:not(:disabled):not([data-disabled]) .track,
+.primary[aria-invalid='true'][data-focus-visible]:not(:disabled):not([data-disabled]) .track {
+    outline: 2px solid var(--aui-switch-border-danger);
+    outline-offset: 0;
 }

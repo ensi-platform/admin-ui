@@ -1,7 +1,7 @@
-import { CheckboxGroup } from '../Component.js';
-import { type ICheckboxGroupProps } from '../types.js';
+import { CheckboxGroup } from '../Component';
+import { type ICheckboxGroupProps } from '../types';
 
-/** Обёртка для react-docgen-typescript. */
+/** Story wrapper for react-docgen-typescript. */
 export const CheckboxGroupStoryComponent = (props: ICheckboxGroupProps) => <CheckboxGroup {...props} />;
 
 CheckboxGroupStoryComponent.displayName = 'CheckboxGroup';

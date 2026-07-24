@@ -12,6 +12,8 @@ import {
 } from 'react-hook-form';
 import { type ZodType } from 'zod';
 
+import { type IFieldProps } from '@/field/types';
+
 type TExtendedValue<T> = T | T[] | Record<string, T> | Record<string, T>[];
 
 export type TFieldValueType = Exclude<TExtendedValue<NativeFieldValue>, undefined>;
@@ -26,9 +28,24 @@ export interface IFormFieldComponent<
     TFieldValues extends FieldValues = FieldValues,
     TName extends Path<TFieldValues> = Path<TFieldValues>,
 > {
-    /** Имя поля в форме. */
+    /** RHF field name. */
     name: TName;
 }
+
+/** Field shell props shared by Form* components. */
+export interface IFormFieldShellProps extends Pick<
+    IFieldProps,
+    'size' | 'disabled' | 'block' | 'className' | 'dataTestId'
+> {}
+
+/** Label / hint slots for Form*. */
+export interface IFormFieldMessagesProps {
+    label?: ReactNode;
+    hint?: ReactNode;
+}
+
+/** `name` + Field shell + messages — base for text-like Form*. */
+export interface IFormFieldLayoutProps extends IFormFieldComponent, IFormFieldShellProps, IFormFieldMessagesProps {}
 
 export type TFormSubmitHandler<T extends FieldValues> = (
     values: T,
@@ -60,36 +77,36 @@ export interface IFormBaseProps<T extends FieldValues>
             HTMLProps<HTMLFormElement>,
             'onSubmit' | 'ref' | 'onReset' | 'children' | 'onChange' | 'onError' | 'onBlur'
         > {
-    /** Начальные значения полей. */
+    /** Initial field values. */
     initialValues: DefaultValues<T>;
-    /** Zod-схема валидации. */
+    /** Zod validation schema. */
     validationSchema?: ZodType<Partial<T>, FieldValues>;
-    /** Содержимое формы или render-prop с RHF API. */
+    /** Form children, or a render-prop with the RHF API. */
     children?: ReactNode | ((props: UseFormReturn<T, unknown>) => ReactNode);
     /**
-     * Сбрасывать форму при изменении `initialValues`.
+     * Reset the form when `initialValues` change.
      * @default false
      */
     enableReinitialize?: boolean;
     /**
-     * Рендерить нативный `<form>`.
+     * Render a native `<form>` element.
      * @default true
      */
     isForm?: boolean;
     /**
-     * Disabled для полей через FormContext.
+     * Disable fields through FormContext.
      * @default false
      */
     disabled?: boolean;
-    /** После reinitialize вызвать `form.trigger()`. */
+    /** Call `form.trigger()` after reinitialize. */
     triggerOnReinitialize?: boolean;
-    /** Обработчик reset. */
+    /** Reset handler. */
     onReset?: (values: T, formProps: UseFormReturn<T, unknown>) => void | Promise<void>;
-    /** Form-level onBlur. */
+    /** Form-level blur handler. */
     onBlur?: TFormBlurHandler<T>;
-    /** Обработчик ошибок валидации при submit. */
+    /** Validation error handler on submit. */
     onError?: (error: FieldErrors<T>, formProps: UseFormReturn<T, unknown>) => void | Promise<unknown>;
 }
 
-/** Пропы Form: обязателен `onSubmit` и/или `onChange`. */
+/** Form props. Requires `onSubmit` and/or `onChange`. */
 export type TFormProps<T extends FieldValues> = IFormBaseProps<T> & TFormActionProps<T>;

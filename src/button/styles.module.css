@@ -16,6 +16,10 @@
         color var(--aui-button-duration-fast) var(--aui-button-ease-out);
 }
 
+.block {
+    width: 100%;
+}
+
 @media (prefers-reduced-motion: reduce) {
     .root {
         transition: none;
@@ -58,38 +62,4 @@
 
 .primary:active:not(:disabled) {
     background: var(--aui-button-bg-primary-active);
-}
-
-.secondary {
-    background: var(--aui-button-bg-secondary);
-    color: var(--aui-button-fg-secondary);
-}
-
-.secondary:hover:not(:disabled) {
-    background: var(--aui-button-bg-secondary-hover);
-}
-
-.secondary:active:not(:disabled) {
-    background: var(--aui-button-bg-secondary-active);
-}
-
-.tertiary {
-    background: var(--aui-button-bg-tertiary);
-    color: var(--aui-button-fg-tertiary);
-    border-color: var(--aui-button-border-tertiary);
-}
-
-.tertiary:hover:not(:disabled) {
-    background: var(--aui-button-bg-tertiary-hover);
-}
-
-.tertiary:active:not(:disabled) {
-    background: var(--aui-button-bg-tertiary-active);
-}
-
-.icon {
-    flex-shrink: 0;
-    width: var(--button-icon-size, 1.25rem);
-    height: var(--button-icon-size, 1.25rem);
-    fill: var(--button-icon-fill, currentcolor);
 }

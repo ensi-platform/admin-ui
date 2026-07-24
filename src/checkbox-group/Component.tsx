@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { CheckboxGroup as RacCheckboxGroup } from 'react-aria-components';
 
-import { type ICheckboxGroupProps } from './types.js';
+import { type ICheckboxGroupProps } from './types';
 
 import styles from './styles.module.css';
 
@@ -12,7 +12,7 @@ export const CheckboxGroup = ({
     onChange,
     children,
     size = 'md',
-    isInvalid = false,
+    invalid = false,
     disabled = false,
     className,
     dataTestId,
@@ -25,8 +25,8 @@ export const CheckboxGroup = ({
         defaultValue={defaultValue}
         onChange={onChange}
         isDisabled={disabled}
-        isInvalid={isInvalid}
-        data-invalid={isInvalid || undefined}
+        isInvalid={invalid}
+        data-invalid={invalid || undefined}
         data-size={size}
         data-test-id={dataTestId}
         className={cn(styles.root, className)}

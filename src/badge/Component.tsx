@@ -1,7 +1,7 @@
 import cn from 'classnames';
 
-import { badgeVariants } from './theme.js';
-import { type IBadgeProps } from './types.js';
+import { badgeVariants } from './theme';
+import { type IBadgeProps } from './types';
 
 export const Badge = ({
     ref,

@@ -1,3 +1,3 @@
-export * from './Component.js';
-export * from './FormTextArea.js';
-export * from './types.js';
+export * from './Component';
+export * from './FormTextArea';
+export * from './types';

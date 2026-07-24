@@ -1,18 +1,18 @@
 import { type ComponentProps } from 'react';
 
-import { Field, useField } from '../field/index.js';
-import { useFieldHook } from '../form/hooks/useFieldHook.js';
-import { getError } from '../form/utils.js';
+import { Field, useField } from '@/field';
+import { useFieldHook } from '@/form/hooks/useFieldHook';
+import { getError } from '@/form/utils';
 
-import { Input } from './Component.js';
-import { type IFormInputProps } from './types.js';
+import { Input } from './Component';
+import { type IFormInputProps } from './types';
 
-type TFormInputControlProps = Omit<ComponentProps<typeof Input>, 'size' | 'isInvalid' | 'disabled'>;
+type TFormInputControlProps = Omit<ComponentProps<typeof Input>, 'size' | 'invalid' | 'disabled'>;
 
 const FormInputControl = (props: TFormInputControlProps) => {
-    const { controlProps, size, isInvalid, disabled } = useField();
+    const { controlProps, size, invalid, disabled } = useField();
 
-    return <Input {...controlProps} size={size} isInvalid={isInvalid} disabled={disabled} {...props} />;
+    return <Input {...controlProps} size={size} invalid={invalid} disabled={disabled} {...props} />;
 };
 
 export const FormInput = ({
@@ -20,6 +20,7 @@ export const FormInput = ({
     label,
     hint,
     size = 'md',
+    block = true,
     disabled,
     className,
     dataTestId,
@@ -31,9 +32,10 @@ export const FormInput = ({
 
     return (
         <Field
-            isInvalid={Boolean(error)}
+            invalid={Boolean(error)}
             disabled={isDisabled}
             size={size}
+            block={block}
             className={className}
             dataTestId={dataTestId}
         >
@@ -41,6 +43,7 @@ export const FormInput = ({
             <FormInputControl
                 {...inputProps}
                 {...rhfInputProps}
+                block={block}
                 ref={field.ref}
                 value={field.value ?? ''}
                 onChange={e => onChangeHandler(e)}

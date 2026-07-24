@@ -1,0 +1,20 @@
+.root {
+    display: flex;
+    flex-direction: column;
+}
+
+.block {
+    width: 100%;
+}
+
+.sm {
+    gap: var(--aui-field-gap-sm);
+}
+
+.md {
+    gap: var(--aui-field-gap-md);
+}
+
+.lg {
+    gap: var(--aui-field-gap-lg);
+}

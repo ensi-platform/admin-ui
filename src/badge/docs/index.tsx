@@ -1,7 +1,7 @@
-import { Badge } from '../Component.js';
-import { type IBadgeProps } from '../types.js';
+import { Badge } from '../Component';
+import { type IBadgeProps } from '../types';
 
-/** Обёртка для react-docgen-typescript. */
+/** Story wrapper for react-docgen-typescript. */
 export const BadgeStoryComponent = (props: IBadgeProps) => <Badge {...props} />;
 
 BadgeStoryComponent.displayName = 'Badge';

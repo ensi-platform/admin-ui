@@ -8,8 +8,12 @@ export const tagVariants = cva(styles.root, {
             sm: styles.sm,
             md: styles.md,
         },
+        variant: {
+            primary: styles.primary,
+        },
     },
     defaultVariants: {
         size: 'md',
+        variant: 'primary',
     },
 });

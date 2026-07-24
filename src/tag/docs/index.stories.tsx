@@ -1,10 +1,10 @@
 import { type ArgTypes, type Meta, type StoryObj } from '@storybook/react';
 
-import { type ITagProps } from '../types.js';
+import { type ITagProps } from '../types';
 
 import Description from './Description.md';
 
-import { TagStoryComponent } from './index.js';
+import { TagStoryComponent } from '.';
 
 const DEFAULT_ARGS: ITagProps = {
     children: 'vip',

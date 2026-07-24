@@ -30,24 +30,24 @@ export const Example = () => (
 
 Headless — [`react-aria-components`](https://react-aria.adobe.com); стили наши.
 
-Токены (`--aui-*`) пока живут в этом пакете (`src/tokens/`). Подключай CSS один раз в entry / Storybook. Later — вынос в `@ensi-platform/admin-ui-tokens`.
+Токены (`--aui-*`) пока живут в этом пакете (`src/ds/tokens/`). Подключай CSS один раз в entry / Storybook. Later — вынос в `@ensi-platform/admin-ui-tokens`.
 
 Тема: `document.documentElement.setAttribute('data-theme', 'light' | 'dark')`. Light — `:root` в `semantic.css`, dark — remap в `semantic.dark.css`. Компоненты тему не знают.
 
-Типографика v1: `typographyStyles.bodyXs | bodyS | bodyM | bodyL` (regular) на CSS vars `--aui-font-*` / `--aui-line-height-*`. Значения — в tokens; классы — в `src/typography/`. Примитивы compose классы в JSX. Роли `label*` / `heading*` — later. Reset (`box-sizing`, `margin: 0`) — в `AdminUiProvider`.
+Типографика v1: `typographyStyles.bodyXs | bodyS | bodyM | bodyL` (regular) на CSS vars `--aui-font-*` / `--aui-line-height-*`. Значения — в tokens; классы — в `src/ds/typography/` (внутри пакета: `@ds/typography`). Примитивы compose классы в JSX. Роли `label*` / `heading*` — later. Reset (`box-sizing`, `margin: 0`) — в `AdminUiProvider`.
 
 ## Develop
 
 ```bash
 pnpm install
 pnpm hooks:setup   # pre-commit: typecheck + test
-pnpm sync-package   # exports + src/index.ts из src/*/index.ts
+pnpm sync-package   # exports + src/index.ts из src/*/index.ts (+ nested typography)
 pnpm build
 pnpm dev
 pnpm storybook
 ```
 
-`pnpm build` сам вызывает `sync-package`. Public entry = каждый `src/<name>/index.ts` (кроме `common`) + `./tokens`.
+`pnpm build` сам вызывает `sync-package`. Public entry = каждый `src/<name>/index.ts` (кроме `ds`) + nested `./typography` + `./tokens`.
 
 ## Layers
 
@@ -56,7 +56,7 @@ admin-ui-kit (later)
   → admin-ui-layout (later)
   → admin-ui-base (this package — primitives + interim tokens)
     → admin-ui-icons (later)
-    → admin-ui-tokens (later) — вынос src/tokens/
+    → admin-ui-tokens (later) — вынос src/ds/tokens/
 ```
 
 Сейчас: `import '@ensi-platform/admin-ui-base/tokens'`. Компоненты пишут только `var(--aui-…)` в CSS Modules. Контракт: `.cursor/rules/tokens.mdc`.

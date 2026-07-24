@@ -4,10 +4,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import deepEqual from 'react-fast-compare';
 import { type FieldValues, FormProvider, type NativeFieldValue, type Resolver, useForm } from 'react-hook-form';
 
-import { usePrevious } from '../hooks/index.js';
+import { usePrevious } from '@/hooks';
 
-import { FormContext } from './context.js';
-import { type TFormProps } from './types.js';
+import { FormContext } from './context';
+import { type TFormProps } from './types';
 
 export const Form = <T extends FieldValues>({
     id,
@@ -34,10 +34,16 @@ export const Form = <T extends FieldValues>({
         ...props,
     });
 
-    const reset: typeof form.reset = useCallback(
+    const formRef = useRef(form);
+
+    useEffect(() => {
+        formRef.current = form;
+    }, [form]);
+
+    const reset: typeof formRef.current.reset = useCallback(
         (newValues, keepStateOptions) => {
-            form.reset(newValues, keepStateOptions);
-            const values = form.getValues();
+            formRef.current.reset(newValues, keepStateOptions);
+            const values = formRef.current.getValues();
             if (onReset) onReset(values, form);
         },
         [form, onReset]
@@ -52,20 +58,20 @@ export const Form = <T extends FieldValues>({
 
     useEffect(() => {
         if (enableReinitialize && !deepEqual(prevInitialValues, initialValues)) {
-            form.reset(initialValues);
-            if (triggerOnReinitialize) form.trigger();
+            formRef.current.reset(initialValues);
+            if (triggerOnReinitialize) formRef.current.trigger();
         }
-    }, [enableReinitialize, initialValues, form, prevInitialValues, triggerOnReinitialize]);
+    }, [enableReinitialize, initialValues, prevInitialValues, triggerOnReinitialize]);
 
     const onChangeHandler = useCallback(
         (key: string, value: NativeFieldValue) => {
-            if (onChange) onChange(form.getValues(), form, { [key]: value });
+            if (onChange) onChange(formRef.current.getValues(), formRef.current, { [key]: value });
         },
-        [form, onChange]
+        [onChange]
     );
 
     const formHandlerRef = useRef<(e?: BaseSyntheticEvent) => Promise<void> | null>(null);
-    formHandlerRef.current = form.handleSubmit(
+    formHandlerRef.current = formRef.current.handleSubmit(
         async v => {
             await onSubmit?.(v, form);
         },
@@ -83,9 +89,9 @@ export const Form = <T extends FieldValues>({
 
     const onBlurHandler = useCallback(
         (key: string, value: NativeFieldValue) => {
-            if (onBlur) onBlur(form.getValues(), form, { [key]: value });
+            if (onBlur) onBlur(formRef.current.getValues(), formRef.current, { [key]: value });
         },
-        [form, onBlur]
+        [onBlur]
     );
 
     const providerValue = useMemo(

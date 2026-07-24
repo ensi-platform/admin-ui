@@ -1,13 +1,9 @@
 import { cva } from 'class-variance-authority';
 import cn from 'classnames';
 
-import { typographyStyles } from '../../../typography/index.js';
-import { type TSelectSize } from '../../types.js';
+import { typographyStyles } from '@ds/typography';
 
 import styles from './styles.module.css';
-
-export const selectTypeClass = (size: TSelectSize = 'md') =>
-    size === 'lg' ? typographyStyles.bodyM : typographyStyles.bodyS;
 
 export const selectTriggerVariants = cva(styles.trigger, {
     variants: {
@@ -16,8 +12,12 @@ export const selectTriggerVariants = cva(styles.trigger, {
             md: cn(styles.md, typographyStyles.bodyS),
             lg: cn(styles.lg, typographyStyles.bodyM),
         },
+        variant: {
+            primary: styles.primary,
+        },
     },
     defaultVariants: {
         size: 'md',
+        variant: 'primary',
     },
 });

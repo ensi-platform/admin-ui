@@ -1,10 +1,10 @@
 import cn from 'classnames';
 import { Label } from 'react-aria-components';
 
-import { useField } from '../../context.js';
-import { type IFieldLabelProps } from '../../types.js';
+import { useField } from '@/field/context';
 
-import { fieldLabelVariants } from './theme.js';
+import { fieldLabelVariants } from './theme';
+import { type IFieldLabelProps } from './types';
 
 export const FieldLabel = ({ children, className, ...props }: IFieldLabelProps) => {
     const { id, labelId, size, disabled } = useField();

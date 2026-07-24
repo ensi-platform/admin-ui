@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import { type IFieldContextValue } from './types.js';
+import { type IFieldContextValue } from './types';
 
 export const FieldContext = createContext<IFieldContextValue | undefined>(undefined);
 

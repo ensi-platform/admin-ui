@@ -1,7 +1,7 @@
-import { Tag } from '../Component.js';
-import { type ITagProps } from '../types.js';
+import { Tag } from '../Component';
+import { type ITagProps } from '../types';
 
-/** Обёртка для react-docgen-typescript. */
+/** Story wrapper for react-docgen-typescript. */
 export const TagStoryComponent = (props: ITagProps) => <Tag {...props} />;
 
 TagStoryComponent.displayName = 'Tag';

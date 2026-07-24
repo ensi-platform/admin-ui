@@ -29,8 +29,13 @@ src/<name>/docs/
 
 ## API (кратко)
 
+Chrome (`Button` / `Input` / …):
+
 - `size`: sm | md | lg
-- `variant`: …
+- `variant`: primary (пока)
+
+Layout (`Field`): только `size`. Status (`Badge`): semantic `variant`. Skip (`Form` / `Icon` / `CheckboxGroup` / `Form*` / …): size×variant N/A (см. `component-api`).
+
 - `icon`: `{ Component, after?, … }` (если есть)
 - `dataTestId`
 - `as` — полиморфизм (если есть)

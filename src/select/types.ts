@@ -1,86 +1,79 @@
-import { type ReactNode, type Ref } from 'react';
+import { type Ref } from 'react';
 
 import { type SelectProps as RacSelectProps } from 'react-aria-components';
 
-import { type TFieldSize } from '../field/types.js';
-import { type IFormFieldComponent } from '../form/types.js';
+import { type IDataTestIdProps } from '@ds/common';
+
+import { type IFieldStateProps } from '@/field/types';
+import { type IFormFieldLayoutProps } from '@/form/types';
 
 export type TSelectSize = 'sm' | 'md' | 'lg';
+
+export type TSelectVariant = 'primary';
 
 export type TSelectValue = string | number;
 
 export interface ISelectOption {
-    /** Значение option (Key для RAC). */
+    /** Option value (RAC Key). */
     value: TSelectValue;
-    /** Подпись в списке и в trigger. */
+    /** Label shown in the list and in the trigger. */
     label: string;
     /** Disabled option. */
     disabled?: boolean;
 }
 
-type TRacSelectBase = Omit<
-    RacSelectProps<object, 'single'>,
+/** Theme inputs. */
+export interface ISelectThemeProps {
+    /** Select size. */
+    size?: TSelectSize;
+    /** Visual variant. */
+    variant?: TSelectVariant;
+}
+
+/** Control state (our names, not RAC). */
+export interface ISelectControlProps {
+    /** Controlled value. `null` means empty (after clear). */
+    value?: TSelectValue | null;
+    /** Uncontrolled initial value. */
+    defaultValue?: TSelectValue | null;
+    /** Selection change. Receives `null` on clear. */
+    onChange?: (value: TSelectValue | null) => void;
+    /** Show a clear button for the selected value. */
+    clear?: boolean;
+}
+
+/** Own / chrome props (not from RAC). */
+export interface ISelectOwnProps extends IDataTestIdProps {
+    /** Options list. */
+    options: ISelectOption[];
+    /** Ref to the Select root (React 19 prop). */
+    ref?: Ref<HTMLDivElement>;
+}
+
+/** Content slice for FormSelect. */
+export interface ISelectContentProps {
+    options: ISelectOption[];
+    clear?: boolean;
+    placeholder?: string;
+}
+
+export interface ISelectBaseProps extends ISelectThemeProps, IFieldStateProps, ISelectControlProps, ISelectOwnProps {}
+
+/** RAC keys omitted because names differ from ours or already live in Base. */
+export type TSelectRacOmit =
     | 'children'
-    | 'className'
     | 'isDisabled'
+    | 'isInvalid'
     | 'selectedKey'
     | 'defaultSelectedKey'
     | 'onSelectionChange'
     | 'value'
     | 'defaultValue'
     | 'onChange'
-    | 'selectionMode'
->;
+    | 'selectionMode';
 
-export interface ISelectProps extends TRacSelectBase {
-    /** Список опций. */
-    options: ISelectOption[];
-    /** Controlled value. `null` — пусто (после clear). */
-    value?: TSelectValue | null;
-    /** Uncontrolled initial value. */
-    defaultValue?: TSelectValue | null;
-    /** Выбор / clear (`null`). */
-    onChange?: (value: TSelectValue | null) => void;
-    /** Кнопка очистки выбранного значения. */
-    clear?: boolean;
-    /** Размер trigger. */
-    size?: TSelectSize;
-    /** Disabled. */
-    disabled?: boolean;
-    /** className корня RAC Select. */
-    className?: string;
-    /** `data-test-id` корня. */
-    dataTestId?: string;
-    /** Ref на корень RAC Select (React 19 prop). */
-    ref?: Ref<HTMLDivElement>;
-}
+export interface ISelectProps
+    extends ISelectBaseProps, Omit<RacSelectProps<object, 'single'>, keyof ISelectBaseProps | TSelectRacOmit> {}
 
 export interface IFormSelectProps
-    extends
-        IFormFieldComponent,
-        Omit<
-            ISelectProps,
-            | 'value'
-            | 'defaultValue'
-            | 'onChange'
-            | 'onBlur'
-            | 'name'
-            | 'disabled'
-            | 'isInvalid'
-            | 'size'
-            | 'className'
-            | 'dataTestId'
-        > {
-    /** Подпись поля (`Field.Label`). */
-    label?: ReactNode;
-    /** Подсказка (`Field.Hint`). */
-    hint?: ReactNode;
-    /** Размер Field + Select. */
-    size?: TFieldSize;
-    /** Disabled (OR с Form.disabled). */
-    disabled?: boolean;
-    /** className корневого Field. */
-    className?: string;
-    /** `data-test-id` корневого Field. */
-    dataTestId?: string;
-}
+    extends IFormFieldLayoutProps, Pick<ISelectThemeProps, 'variant'>, ISelectContentProps {}

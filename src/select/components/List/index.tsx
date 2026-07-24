@@ -1,28 +1,32 @@
-import cn from 'classnames';
-import { ListBox, ListBoxItem, Popover } from 'react-aria-components';
+import { ListBox, ListBoxItem } from 'react-aria-components';
 
-import { Check } from '../../../icons/index.js';
-import { type ISelectOption, type TSelectSize } from '../../types.js';
-import { selectTypeClass } from '../Trigger/theme.js';
+import { type ISelectOption, type TSelectSize, type TSelectVariant } from '../../types';
+import { SelectItemContent, selectItemVariants } from '../Item';
+import { SelectPopover } from '../Popover';
 
-import styles from './styles.module.css';
+import { selectListBoxVariants } from './theme';
 
 export interface ISelectListProps {
     options: ISelectOption[];
     size: TSelectSize;
+    variant: TSelectVariant;
 }
 
-export const SelectList = ({ options, size }: ISelectListProps) => (
-    <Popover className={styles.popover} offset={4}>
-        <ListBox className={cn(styles.list, selectTypeClass(size))} items={options}>
+export const SelectList = ({ options, size, variant }: ISelectListProps) => (
+    <SelectPopover variant={variant}>
+        <ListBox className={selectListBoxVariants({ size })} items={options}>
             {(item: ISelectOption) => (
-                <ListBoxItem id={item.value} textValue={item.label} isDisabled={item.disabled} className={styles.item}>
-                    <span className={styles.itemLabel}>{item.label}</span>
-                    <Check className={styles.check} />
+                <ListBoxItem
+                    id={item.value}
+                    textValue={item.label}
+                    isDisabled={item.disabled}
+                    className={selectItemVariants({ size, variant })}
+                >
+                    <SelectItemContent label={item.label} />
                 </ListBoxItem>
             )}
         </ListBox>
-    </Popover>
+    </SelectPopover>
 );
 
 SelectList.displayName = 'SelectList';

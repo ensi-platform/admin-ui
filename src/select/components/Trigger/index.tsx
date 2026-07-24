@@ -1,15 +1,17 @@
 import { Button as RacButton, SelectValue } from 'react-aria-components';
 
-import { ChevronDown } from '../../../icons/index.js';
-import { type TSelectSize } from '../../types.js';
-import { SelectClearButton } from '../ClearButton/index.js';
+import { ChevronDown } from '@/icons';
 
-import { selectTriggerVariants } from './theme.js';
+import { type TSelectSize, type TSelectVariant } from '../../types';
+import { SelectClearButton } from '../ClearButton';
+
+import { selectTriggerVariants } from './theme';
 
 import styles from './styles.module.css';
 
 export interface ISelectTriggerProps {
     size: TSelectSize;
+    variant: TSelectVariant;
     clear: boolean;
     isFocusVisible: boolean;
     isOpen: boolean;
@@ -17,7 +19,15 @@ export interface ISelectTriggerProps {
     isInvalid: boolean;
 }
 
-export const SelectTrigger = ({ size, clear, isFocusVisible, isOpen, isDisabled, isInvalid }: ISelectTriggerProps) => (
+export const SelectTrigger = ({
+    size,
+    variant,
+    clear,
+    isFocusVisible,
+    isOpen,
+    isDisabled,
+    isInvalid,
+}: ISelectTriggerProps) => (
     <div
         className={styles.triggerWrap}
         data-size={size}
@@ -27,7 +37,7 @@ export const SelectTrigger = ({ size, clear, isFocusVisible, isOpen, isDisabled,
         data-disabled={isDisabled || undefined}
         data-invalid={isInvalid || undefined}
     >
-        <RacButton className={selectTriggerVariants({ size })}>
+        <RacButton className={selectTriggerVariants({ size, variant })}>
             <SelectValue className={styles.value} />
             <span className={styles.chevronSlot}>
                 <ChevronDown className={styles.chevron} />
@@ -35,7 +45,7 @@ export const SelectTrigger = ({ size, clear, isFocusVisible, isOpen, isDisabled,
         </RacButton>
         {clear ? (
             <div className={styles.clearSlot}>
-                <SelectClearButton isDisabled={isDisabled} />
+                <SelectClearButton isDisabled={isDisabled} size={size} variant={variant} />
             </div>
         ) : null}
     </div>

@@ -11,7 +11,7 @@ Compound-обёртка label / hint / error вокруг любого конт�
 ## API (кратко)
 
 - `size`: `sm` | `md` | `lg`
-- `isInvalid`, `disabled`
+- `invalid`, `disabled`
 - `dataTestId`
 - `Field.Label` / `Field.Hint` / `Field.Error` — typography + disabled через `theme.ts` слота (`cva` + `Field.size`)
     - sm/md: Label `bodyS`, Hint/Error `bodyXs`
@@ -27,7 +27,7 @@ const EmailInput = () => {
     return <input {...controlProps} />;
 };
 
-<Field isInvalid={!!error} size="md" dataTestId="email-field">
+<Field invalid={!!error} size="md" dataTestId="email-field">
     <Field.Label>Email</Field.Label>
     <EmailInput />
     <Field.Hint>Мы не передаём email третьим лицам</Field.Hint>

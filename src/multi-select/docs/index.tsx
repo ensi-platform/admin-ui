@@ -1,7 +1,7 @@
-import { MultiSelect } from '../Component.js';
-import { type IMultiSelectProps } from '../types.js';
+import { MultiSelect } from '../Component';
+import { type IMultiSelectProps } from '../types';
 
-/** Обёртка для react-docgen-typescript. */
+/** Story wrapper for react-docgen-typescript. */
 export const MultiSelectStoryComponent = (props: IMultiSelectProps) => <MultiSelect {...props} />;
 
 MultiSelectStoryComponent.displayName = 'MultiSelect';

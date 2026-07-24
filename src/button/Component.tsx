@@ -1,19 +1,20 @@
-import { type CSSProperties, type ElementType, type SVGProps } from 'react';
+import { type CSSProperties, type ElementType } from 'react';
 
 import cn from 'classnames';
 
-import { toCssSize } from '../common/utils.js';
+import { toCssSize } from '@ds/common/utils';
 
-import { buttonVariants } from './theme.js';
-import { type TButtonProps } from './types.js';
+import { Icon } from '@/icon';
 
-import styles from './styles.module.css';
+import { buttonVariants } from './theme';
+import { type TButtonProps } from './types';
 
 export const Button = <P extends ElementType = 'button'>({
     as,
     type = 'button',
     size = 'md',
     variant = 'primary',
+    block = false,
     children,
     icon,
     className,
@@ -23,36 +24,22 @@ export const Button = <P extends ElementType = 'button'>({
 }: TButtonProps<P>) => {
     const Component = as ?? 'button';
 
-    const iconStyle = {
-        ...(icon?.size !== undefined && { '--button-icon-size': toCssSize(icon.size) }),
-        ...(icon?.fill !== undefined && { '--button-icon-fill': icon.fill }),
-    } as CSSProperties;
-
     const rootStyle = {
         ...style,
         ...(icon?.indent !== undefined && { '--button-icon-indent': toCssSize(icon.indent) }),
     } as CSSProperties;
 
-    const iconProps: SVGProps<SVGSVGElement> = {
-        className: cn(styles.icon, icon?.className),
-        style: iconStyle,
-        'aria-hidden': true,
-        focusable: false,
-    };
-
-    const Icon = icon?.Component;
-
     return (
         <Component
             {...(Component === 'button' ? { type } : {})}
-            className={cn(buttonVariants({ size, variant }), className)}
+            className={cn(buttonVariants({ size, variant, block }), className)}
             data-test-id={dataTestId}
             style={rootStyle}
             {...props}
         >
-            {Icon && !icon.after ? <Icon {...iconProps} /> : null}
+            {icon && !icon.after ? <Icon {...icon} /> : null}
             {children}
-            {Icon && icon.after ? <Icon {...iconProps} /> : null}
+            {icon && icon.after ? <Icon {...icon} /> : null}
         </Component>
     );
 };

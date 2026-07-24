@@ -26,7 +26,7 @@
 ### Состояния / визуал
 
 - light + dark
-- semantic status colors (не brand mint)
+- semantic status colors (не brand charcoal)
 
 ### Не в scope (v1)
 

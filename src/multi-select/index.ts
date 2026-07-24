@@ -1,3 +1,3 @@
-export * from './Component.js';
-export * from './FormMultiSelect.js';
-export * from './types.js';
+export * from './Component';
+export * from './FormMultiSelect';
+export * from './types';

@@ -4,14 +4,15 @@
 
 ## Когда использовать
 
-- primary / secondary / tertiary действия
+- primary-действие (другие variants — later)
 - submit в формах
 - ссылка-как-кнопка через `as`
 
 ## API (кратко)
 
 - `size`: `sm` | `md` | `lg`
-- `variant`: `primary` | `secondary` | `tertiary`
+- `variant`: `primary` (пока)
+- `block` — на всю ширину родителя (дефолт `false`)
 - `icon`: `{ Component, after?, indent?, size?, className?, fill? }`
 - `dataTestId`
 - `as` — полиморфизм (по умолчанию `button`)

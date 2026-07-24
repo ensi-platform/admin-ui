@@ -1,42 +1,34 @@
 import { type ElementType, type ReactNode } from 'react';
 
-import { type TMergeElementProps, type TSVGRIcon } from '../common/index.js';
+import { type IDataTestIdProps, type TMergeElementProps } from '@ds/common';
 
-export type TSize = 'sm' | 'md' | 'lg';
+import { type IIconButtonProps } from '@/icon';
 
-export type TVariant = 'primary' | 'secondary' | 'tertiary';
+export type TButtonSize = 'sm' | 'md' | 'lg';
 
-export interface IIconButtonProps {
-    /** SVG-компонент иконки (SVGR). */
-    Component: TSVGRIcon;
-    /** Рендерить иконку после текста. */
-    after?: boolean;
-    /** Отступ между иконкой и текстом. */
-    indent?: number | string;
-    /** Размер иконки. */
-    size?: number | string;
-    /** Дополнительный className иконки. */
-    className?: string;
-    /** Цвет заливки иконки. */
-    fill?: string;
+export type TButtonVariant = 'primary';
+
+/** Theme inputs. */
+export interface IButtonThemeProps {
+    /** Button size. */
+    size?: TButtonSize;
+    /** Visual variant. */
+    variant?: TButtonVariant;
 }
 
-export interface IButtonBaseProps {
-    /** Содержимое кнопки. */
+/** Own / chrome props (not from DOM). */
+export interface IButtonOwnProps extends IDataTestIdProps {
+    /** Content. */
     children: ReactNode;
-    /** Размер кнопки. */
-    size?: TSize;
-    /** Визуальный вариант. */
-    variant?: TVariant;
-    /** Иконка слева или справа от текста. */
+    /** Leading or trailing icon. See `IIconButtonProps`. */
     icon?: IIconButtonProps;
-    /** Дополнительный className корневого элемента. */
-    className?: string;
-    /** Значение атрибута `data-test-id`. */
-    dataTestId?: string;
+    /** Stretch to 100% of the parent width. */
+    block?: boolean;
 }
+
+export interface IButtonBaseProps extends IButtonThemeProps, IButtonOwnProps {}
 
 export type TButtonProps<P extends ElementType = 'button'> = {
-    /** HTML-элемент или компонент-обёртка (по умолчанию `button`). */
+    /** Polymorphic root element or component. Defaults to `button`. */
     as?: P;
 } & TMergeElementProps<P, IButtonBaseProps>;

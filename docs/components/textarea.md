@@ -17,11 +17,12 @@
 - [x] invalid / disabled / focus
 - [x] без FieldContext — a11y через `useField().controlProps` снаружи
 - [x] FormTextArea: `useFieldHook` + Field.Label / Hint / Error
+- [x] `clear` → `onChange('')`, label из `useAuiLabels().clear`
 
 ### API (черновик)
 
-- TextArea: `size`, `isInvalid`, `disabled`, `dataTestId`, native/RAC props (`rows`, `placeholder`, …)
-- FormTextArea: `name`, `label`, `hint`, `size`, `disabled`, `dataTestId`
+- TextArea: `size`, `isInvalid`, `disabled`, `clear`, `dataTestId`, native/RAC props (`rows`, `placeholder`, …)
+- FormTextArea: `name`, `label`, `hint`, `clear`, `size`, `disabled`, `dataTestId`
 - `as` — нет
 - без `variant`
 
@@ -32,7 +33,6 @@
 
 ### Не в scope (v1)
 
-- clear (`clear?: boolean` — позже на контроле, не на Field; эталон Select)
 - auto-resize / maxLength counter
 - RAC `TextField` as root
 

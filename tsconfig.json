@@ -13,13 +13,11 @@
         "declaration": true,
         "declarationMap": true,
         "verbatimModuleSyntax": true,
+        "paths": {
+            "@/*": ["./src/*"],
+            "@ds/*": ["./src/ds/*"]
+        },
         "types": ["vite/client"]
     },
-    "include": [
-        "src/**/*",
-        ".storybook/**/*",
-        "scripts/**/*",
-        "vite.config.ts",
-        "vitest.setup.ts"
-    ]
+    "include": ["src/**/*", ".storybook/**/*", "scripts/**/*", "vite.config.ts", "vitest.setup.ts"]
 }

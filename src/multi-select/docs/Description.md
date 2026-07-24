@@ -17,7 +17,7 @@
 - `placeholder`, `clear` → `onChange([])`
 - trigger: Tag + remove по одному
 - `size`: sm | md | lg
-- `isInvalid`, `disabled`
+- `invalid`, `disabled`
 - `dataTestId`, `className`
 - без `as` / compound Item
 

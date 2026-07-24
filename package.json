@@ -39,6 +39,10 @@
             "types": "./dist/hooks/index.d.ts",
             "import": "./dist/hooks/index.js"
         },
+        "./icon": {
+            "types": "./dist/icon/index.d.ts",
+            "import": "./dist/icon/index.js"
+        },
         "./icons": {
             "types": "./dist/icons/index.d.ts",
             "import": "./dist/icons/index.js"
@@ -89,7 +93,7 @@
     },
     "scripts": {
         "sync-package": "node --experimental-strip-types scripts/sync-package.ts",
-        "build": "pnpm sync-package && vite build && mkdir -p dist/tokens && cp src/tokens/*.css dist/tokens/",
+        "build": "pnpm sync-package && vite build && mkdir -p dist/tokens && cp src/ds/tokens/*.css dist/tokens/",
         "dev": "vite build --watch",
         "typecheck": "tsc --noEmit",
         "lint": "eslint ./src ./.storybook ./scripts --fix",
@@ -98,6 +102,7 @@
         "build-storybook": "storybook build",
         "test": "vitest run",
         "test:watch": "vitest",
+        "test:coverage": "vitest run --coverage",
         "hooks:setup": "chmod +x .githooks/pre-commit && git config core.hooksPath .githooks"
     },
     "keywords": [
@@ -133,6 +138,7 @@
         "@types/react": "^19",
         "@types/react-dom": "^19",
         "@vitejs/plugin-react": "^4.7.0",
+        "@vitest/coverage-v8": "^4.1.10",
         "eslint": "^9.39.5",
         "glob": "^11.0.3",
         "jsdom": "^29.1.1",

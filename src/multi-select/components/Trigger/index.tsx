@@ -11,15 +11,16 @@ import {
     TagList,
 } from 'react-aria-components';
 
-import { ChevronDown, Clear } from '../../../icons/index.js';
-import { type ISelectOption, type TSelectSize } from '../../../select/types.js';
-import { MultiSelectClearButton } from '../ClearButton/index.js';
+import { ChevronDown, Clear } from '@/icons';
+import { type ISelectOption, type TSelectSize, type TSelectVariant } from '@/select/types';
 
-import { multiSelectTagSizeClass, multiSelectTriggerVariants } from './theme.js';
+import { MultiSelectClearButton } from '../ClearButton';
+
+import { multiSelectTagSizeClass, multiSelectTriggerVariants } from './theme';
 
 import styles from './styles.module.css';
 
-/** RAC Tag remove slot — визуал наших tag-токенов. */
+/** RAC Tag remove slot, styled with our tag tokens. */
 const ButtonRemove = () => (
     <RacButton slot="remove" className={styles.tagRemove}>
         <Clear className={styles.tagRemoveIcon} />
@@ -37,6 +38,7 @@ const isInteractiveTarget = (target: EventTarget | null) => {
 export interface IMultiSelectTriggerProps {
     triggerRef: RefObject<HTMLDivElement | null>;
     size: TSelectSize;
+    variant: TSelectVariant;
     clear: boolean;
     placeholder: string;
     isFocusVisible: boolean;
@@ -50,6 +52,7 @@ export interface IMultiSelectTriggerProps {
 export const MultiSelectTrigger = ({
     triggerRef,
     size,
+    variant,
     clear,
     placeholder,
     isFocusVisible,
@@ -79,7 +82,7 @@ export const MultiSelectTrigger = ({
             data-disabled={isDisabled || undefined}
             data-invalid={isInvalid || undefined}
         >
-            <Group ref={triggerRef} className={multiSelectTriggerVariants({ size })} onClick={openFromField}>
+            <Group ref={triggerRef} className={multiSelectTriggerVariants({ size, variant })} onClick={openFromField}>
                 <SelectValue className={styles.value}>
                     {({ selectedItems, isPlaceholder, state }) => {
                         if (isPlaceholder) {
@@ -124,7 +127,7 @@ export const MultiSelectTrigger = ({
             </Group>
             {clear ? (
                 <div className={styles.clearSlot}>
-                    <MultiSelectClearButton isDisabled={isDisabled} />
+                    <MultiSelectClearButton isDisabled={isDisabled} size={size} variant={variant} />
                 </div>
             ) : null}
         </div>

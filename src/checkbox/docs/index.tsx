@@ -1,7 +1,7 @@
-import { Checkbox } from '../Component.js';
-import { type ICheckboxProps } from '../types.js';
+import { Checkbox } from '../Component';
+import { type ICheckboxProps } from '../types';
 
-/** Обёртка для react-docgen-typescript. */
+/** Story wrapper for react-docgen-typescript. */
 export const CheckboxStoryComponent = (props: ICheckboxProps) => <Checkbox {...props} />;
 
 CheckboxStoryComponent.displayName = 'Checkbox';

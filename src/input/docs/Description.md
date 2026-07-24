@@ -13,7 +13,8 @@
 ### Input
 
 - `size`: sm | md | lg
-- `isInvalid`, `disabled`
+- `invalid`, `disabled`
+- `clear` — кнопка очистки → `onChange` с `''`
 - `dataTestId`, `className`, `placeholder`, `type`, …
 - без `as` / `variant` / prefix/suffix
 - не знает про Field — a11y пропы снаружи
@@ -21,28 +22,28 @@
 ### FormInput
 
 - `name` — Path в Form
-- `label`, `hint`
+- `label`, `hint`, `clear`
 - `size`, `disabled`, `className`, `dataTestId` — на Field
 - value / onChange / onBlur / валидность — из Form
 
 ## Пример
 
 ```tsx
-<Input placeholder="Email" size="md" />
+<Input placeholder="Email" size="md" clear />
 
 const EmailControl = () => {
-  const { controlProps, size, isInvalid, disabled } = useField();
-  return <Input {...controlProps} size={size} isInvalid={isInvalid} disabled={disabled} />;
+  const { controlProps, size, invalid, disabled } = useField();
+  return <Input {...controlProps} size={size} invalid={invalid} disabled={disabled} clear />;
 };
 
-<Field isInvalid={Boolean(error)}>
+<Field invalid={Boolean(error)}>
   <Field.Label>Email</Field.Label>
   <EmailControl />
   <Field.Error>{error}</Field.Error>
 </Field>
 
 <Form initialValues={{ email: '' }} validationSchema={schema} onSubmit={save}>
-  <FormInput name="email" label="Email" hint="…" />
+  <FormInput name="email" label="Email" hint="…" clear />
   <Button type="submit">Save</Button>
 </Form>
 ```

@@ -1,16 +1,21 @@
 import { type ComponentPropsWithRef, type ReactNode } from 'react';
 
+import { type IDataTestIdProps } from '@ds/common';
+
 export type TBadgeSize = 'sm' | 'md';
 
 export type TBadgeVariant = 'neutral' | 'success' | 'warning' | 'danger' | 'info';
 
-export interface IBadgeProps extends Omit<ComponentPropsWithRef<'span'>, 'children'> {
-    /** Текст / содержимое. */
-    children: ReactNode;
-    /** Размер. */
+/** Theme inputs. */
+export interface IBadgeThemeProps {
+    /** Badge size. */
     size?: TBadgeSize;
-    /** Семантический статусный вариант. */
+    /** Semantic status variant. */
     variant?: TBadgeVariant;
-    /** `data-test-id` корня. */
-    dataTestId?: string;
+}
+
+export interface IBadgeProps
+    extends Omit<ComponentPropsWithRef<'span'>, 'children'>, IDataTestIdProps, IBadgeThemeProps {
+    /** Content. */
+    children: ReactNode;
 }

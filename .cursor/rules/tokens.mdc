@@ -6,7 +6,7 @@ alwaysApply: false
 
 # admin-ui-tokens (interim в base)
 
-Сейчас токены живут в `src/tokens/` внутри `@ensi-platform/admin-ui-base`.
+Сейчас токены живут в `src/ds/tokens/` внутри `@ensi-platform/admin-ui-base` (internal `@ds`, public `./tokens`).
 Позже — вынос в `@ensi-platform/admin-ui-tokens` (та же структура файлов).
 
 Не JS API, не Tailwind theme. Только CSS custom properties `--aui-*`.
@@ -14,7 +14,7 @@ alwaysApply: false
 ## Форма (сейчас / later)
 
 ```
-src/tokens/                 # сейчас в admin-ui-base
+src/ds/tokens/              # сейчас в admin-ui-base (алиас @ds/tokens)
   primitives.css
   semantic.css              # :root = light
   semantic.dark.css         # [data-theme="dark"]
@@ -91,13 +91,14 @@ admin-ui-base    →  var(--aui-…) в CSS Modules
 ```
 grey-50 … grey-800
 black-900, white, transparent
-mint-50, mint-100, mint-500, mint-600, mint-700
-red-500, red-600
-green-500
-yellow-500
+charcoal-50, charcoal-100, charcoal-500, charcoal-600, charcoal-700
+red-50, red-500, red-600, red-700
+green-50, green-500, green-700
+yellow-50, yellow-500, yellow-700
+blue-50, blue-500, blue-600, blue-700
 ```
 
-Brand = mint (`mint-500` = `#00BEA2`). Semantic `control-*-brand` / `page-fg-link` / focus → mint. Status (red/green/yellow) — отдельные шкалы, не из mint.
+Brand = charcoal (`charcoal-500` = `#3D3D3D`). Semantic `control-*-brand` → charcoal (dark: light fill + dark fg). `page-fg-link` / `control-border-focus` → blue (`blue-600` light / `blue-500` dark). Status (red/green/yellow/blue soft) — отдельные шкалы, не из brand.
 
 ### Color — semantic
 
@@ -112,6 +113,8 @@ Brand = mint (`mint-500` = `#00BEA2`). Semantic `control-*-brand` / `page-fg-lin
 | checkbox     | `checkbox-bg-primary/selected`, `checkbox-fg-primary/selected`, `checkbox-border-primary/focus/danger/selected`, `checkbox-radius-md`, `checkbox-gap-md`, `checkbox-box-sm\|md\|lg`, `checkbox-icon-sm\|md\|lg`, `checkbox-group-gap-md`                         |
 | switch       | `switch-track-bg-primary/selected`, `switch-thumb-bg-primary`, `switch-fg-primary`, `switch-border-focus/danger`, `switch-gap-md`, `switch-track-h/w-sm\|md\|lg`, `switch-thumb-sm\|md\|lg`, `switch-radius-md`                                                   |
 | number-input | `number-input-bg/fg-primary`, `number-input-fg-muted`, `number-input-border-primary/focus/danger`, `number-input-radius-md`, `number-input-h-sm\|md\|lg`, `number-input-pad-x-sm\|md\|lg`, `number-input-gap-md`                                                  |
+| select       | `select-bg/fg-primary`, `select-fg-muted`, `select-border-primary/focus/danger`, `select-radius-md`, `select-h-sm\|md\|lg`, `select-pad-x-sm\|md\|lg`, `select-gap-sm\|md\|lg`, `select-icon-size/hit-sm\|md\|lg`, `select-list-pad-sm\|md\|lg`, `select-popover-bg/border-primary`, `select-popover-radius-md`, `select-item-bg-hover`, `select-item-fg-primary`, `select-item-pad-x/y-sm\|md\|lg` |
+| multi-select | aliases `select-*` + `multi-select-pad-y-sm\|md\|lg`, `multi-select-gap-tags-md`, `multi-select-tag-*`                                                                                                                                                          |
 
 ### Space (primitive, n = px)
 
@@ -143,7 +146,7 @@ page-radius-md               →  radius-8
 --aui-line-height-tight | normal
 ```
 
-Готовые роли — CSS Module `typographyStyles` (`src/typography/`): только `var(--aui-…)`, без литералов.
+Готовые роли — CSS Module `typographyStyles` (`src/ds/typography/`, импорт `@ds/typography`): только `var(--aui-…)`, без литералов.
 
 ```
 bodyXs → sans + size-xs + weight-regular + line-height-tight

@@ -1,7 +1,7 @@
-import { Select } from '../Component.js';
-import { type ISelectProps } from '../types.js';
+import { Select } from '../Component';
+import { type ISelectProps } from '../types';
 
-/** Обёртка для react-docgen-typescript. */
+/** Story wrapper for react-docgen-typescript. */
 export const SelectStoryComponent = (props: ISelectProps) => <Select {...props} />;
 
 SelectStoryComponent.displayName = 'Select';

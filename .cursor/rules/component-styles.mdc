@@ -22,12 +22,18 @@ alwaysApply: false
 ## CSS
 
 ```css
-.root { }
-.root:disabled { }
-.sm { }
-.md { }
-.primary { }
-.icon { }
+.root {
+}
+.root:disabled {
+}
+.sm {
+}
+.md {
+}
+.primary {
+}
+.icon {
+}
 ```
 
 ## TS (`theme.ts`)
@@ -36,14 +42,17 @@ alwaysApply: false
 export const buttonVariants = cva(styles.root, {
     variants: {
         size: { sm: styles.sm, md: styles.md, lg: styles.lg },
-        variant: {
-            primary: styles.primary,
-            secondary: styles.secondary,
-            tertiary: styles.tertiary,
-        },
+        variant: { primary: styles.primary },
+        block: { true: styles.block, false: null },
     },
-    defaultVariants: { size: 'md', variant: 'primary' },
+    defaultVariants: { size: 'md', variant: 'primary', block: false },
 });
 ```
 
-В `Component.tsx`: `cn(buttonVariants({ size, variant }), className)` и `cn(styles.icon, icon.className)`.
+Chrome: всегда size + variant в cva. Пока только `primary` — secondary/tertiary не добавлять. `block` — опционально (Button / Field / text-like).
+
+- `.root` / size — layout, geometry, transition, disabled opacity, outline reset
+- `.primary` — palette (fg/bg/border и их hover/focus/selected); пустой маркер запрещён
+- state (invalid / disabled) — поверх variant: `.primary[data-invalid]…`
+
+В `Component.tsx`: `cn(buttonVariants({ size, variant, block }), className)` и `cn(styles.icon, icon.className)`.

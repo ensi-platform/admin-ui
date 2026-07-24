@@ -1,7 +1,7 @@
-import { Switch } from '../Component.js';
-import { type ISwitchProps } from '../types.js';
+import { Switch } from '../Component';
+import { type ISwitchProps } from '../types';
 
-/** Обёртка для react-docgen-typescript. */
+/** Story wrapper for react-docgen-typescript. */
 export const SwitchStoryComponent = (props: ISwitchProps) => <Switch {...props} />;
 
 SwitchStoryComponent.displayName = 'Switch';

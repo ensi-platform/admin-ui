@@ -1,16 +1,16 @@
 import { type ComponentProps } from 'react';
 
-import { Field, useField } from '../field/index.js';
-import { useFieldHook } from '../form/hooks/useFieldHook.js';
-import { getError } from '../form/utils.js';
+import { Field, useField, type IFieldContextValue } from '@/field';
+import { useFieldHook } from '@/form/hooks/useFieldHook';
+import { getError } from '@/form/utils';
 
-import { Checkbox } from './Component.js';
-import { type IFormCheckboxProps } from './types.js';
+import { Checkbox } from './Component';
+import { type IFormCheckboxProps } from './types';
 
-type TFormCheckboxControlProps = Omit<ComponentProps<typeof Checkbox>, 'size' | 'isInvalid' | 'disabled'>;
+type TFormCheckboxControlProps = Omit<ComponentProps<typeof Checkbox>, keyof IFieldContextValue>;
 
 const FormCheckboxControl = (props: TFormCheckboxControlProps) => {
-    const { controlProps, size, isInvalid, disabled } = useField();
+    const { controlProps, size, invalid, disabled } = useField();
     const { id, 'aria-describedby': ariaDescribedby, 'aria-invalid': ariaInvalid } = controlProps;
 
     return (
@@ -19,7 +19,7 @@ const FormCheckboxControl = (props: TFormCheckboxControlProps) => {
             aria-describedby={ariaDescribedby}
             aria-invalid={ariaInvalid}
             size={size}
-            isInvalid={isInvalid}
+            invalid={invalid}
             disabled={disabled}
             {...props}
         />
@@ -30,6 +30,7 @@ export const FormCheckbox = ({
     name,
     hint,
     size = 'md',
+    block = true,
     disabled,
     className,
     dataTestId,
@@ -42,9 +43,10 @@ export const FormCheckbox = ({
 
     return (
         <Field
-            isInvalid={Boolean(error)}
+            invalid={Boolean(error)}
             disabled={isDisabled}
             size={size}
+            block={block}
             className={className}
             dataTestId={dataTestId}
         >

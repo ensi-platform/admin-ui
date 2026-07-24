@@ -1,10 +1,10 @@
 import cn from 'classnames';
 import { Text } from 'react-aria-components';
 
-import { useField } from '../../context.js';
-import { type IFieldHintProps } from '../../types.js';
+import { useField } from '@/field/context';
 
-import { fieldHintVariants } from './theme.js';
+import { fieldHintVariants } from './theme';
+import { type IFieldHintProps } from './types';
 
 export const FieldHint = ({ children, className, ...props }: IFieldHintProps) => {
     const { hintId, size, disabled } = useField();

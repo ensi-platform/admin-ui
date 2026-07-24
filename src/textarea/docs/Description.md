@@ -13,36 +13,37 @@
 ### TextArea
 
 - `size`: sm | md | lg
-- `isInvalid`, `disabled`
+- `invalid`, `disabled`
+- `clear` — кнопка очистки → `onChange` с `''`
 - `dataTestId`, `className`, `placeholder`, `rows`, …
-- без `as` / `variant` / clear
+- без `as` / `variant`
 - не знает про Field — a11y пропы снаружи
 
 ### FormTextArea
 
 - `name` — Path в Form
-- `label`, `hint`
+- `label`, `hint`, `clear`
 - `size`, `disabled`, `className`, `dataTestId` — на Field
 - value / onChange / onBlur / валидность — из Form
 
 ## Пример
 
 ```tsx
-<TextArea placeholder="Комментарий" size="md" />
+<TextArea placeholder="Комментарий" size="md" clear />
 
 const CommentControl = () => {
-  const { controlProps, size, isInvalid, disabled } = useField();
-  return <TextArea {...controlProps} size={size} isInvalid={isInvalid} disabled={disabled} />;
+  const { controlProps, size, invalid, disabled } = useField();
+  return <TextArea {...controlProps} size={size} invalid={invalid} disabled={disabled} clear />;
 };
 
-<Field isInvalid={Boolean(error)}>
+<Field invalid={Boolean(error)}>
   <Field.Label>Комментарий</Field.Label>
   <CommentControl />
   <Field.Error>{error}</Field.Error>
 </Field>
 
 <Form initialValues={{ comment: '' }} validationSchema={schema} onSubmit={save}>
-  <FormTextArea name="comment" label="Комментарий" hint="…" />
+  <FormTextArea name="comment" label="Комментарий" hint="…" clear />
   <Button type="submit">Save</Button>
 </Form>
 ```

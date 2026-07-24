@@ -1,18 +1,18 @@
 import { type ComponentProps } from 'react';
 
-import { Field, useField } from '../field/index.js';
-import { useFieldHook } from '../form/hooks/useFieldHook.js';
-import { getError } from '../form/utils.js';
+import { Field, useField } from '@/field';
+import { useFieldHook } from '@/form/hooks/useFieldHook';
+import { getError } from '@/form/utils';
 
-import { Select } from './Component.js';
-import { type IFormSelectProps, type TSelectValue } from './types.js';
+import { Select } from './Component';
+import { type IFormSelectProps, type TSelectValue } from './types';
 
-type TFormSelectControlProps = Omit<ComponentProps<typeof Select>, 'size' | 'isInvalid' | 'disabled'>;
+type TFormSelectControlProps = Omit<ComponentProps<typeof Select>, 'size' | 'invalid' | 'disabled'>;
 
 const FormSelectControl = (props: TFormSelectControlProps) => {
-    const { controlProps, size, isInvalid, disabled } = useField();
+    const { controlProps, size, invalid, disabled } = useField();
 
-    return <Select {...controlProps} size={size} isInvalid={isInvalid} disabled={disabled} {...props} />;
+    return <Select {...controlProps} size={size} invalid={invalid} disabled={disabled} {...props} />;
 };
 
 export const FormSelect = ({
@@ -20,6 +20,7 @@ export const FormSelect = ({
     label,
     hint,
     size = 'md',
+    block = true,
     disabled,
     className,
     dataTestId,
@@ -31,15 +32,17 @@ export const FormSelect = ({
 
     return (
         <Field
-            isInvalid={Boolean(error)}
+            invalid={Boolean(error)}
             disabled={isDisabled}
             size={size}
+            block={block}
             className={className}
             dataTestId={dataTestId}
         >
             {label ? <Field.Label>{label}</Field.Label> : null}
             <FormSelectControl
                 {...selectProps}
+                block={block}
                 name={inputProps.name}
                 value={(field.value as TSelectValue | null | undefined) ?? null}
                 onChange={value => setFieldValue(value ?? '')}

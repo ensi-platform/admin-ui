@@ -1,18 +1,18 @@
 import { type ComponentProps } from 'react';
 
-import { Field, useField } from '../field/index.js';
-import { useFieldHook } from '../form/hooks/useFieldHook.js';
-import { getError } from '../form/utils.js';
+import { Field, useField } from '@/field';
+import { useFieldHook } from '@/form/hooks/useFieldHook';
+import { getError } from '@/form/utils';
 
-import { CheckboxGroup } from './Component.js';
-import { type IFormCheckboxGroupProps } from './types.js';
+import { CheckboxGroup } from './Component';
+import { type IFormCheckboxGroupProps } from './types';
 
-type TFormCheckboxGroupControlProps = Omit<ComponentProps<typeof CheckboxGroup>, 'size' | 'isInvalid' | 'disabled'>;
+type TFormCheckboxGroupControlProps = Omit<ComponentProps<typeof CheckboxGroup>, 'size' | 'invalid' | 'disabled'>;
 
 const FormCheckboxGroupControl = (props: TFormCheckboxGroupControlProps) => {
-    const { controlProps, size, isInvalid, disabled } = useField();
+    const { controlProps, size, invalid, disabled } = useField();
 
-    return <CheckboxGroup {...controlProps} size={size} isInvalid={isInvalid} disabled={disabled} {...props} />;
+    return <CheckboxGroup {...controlProps} size={size} invalid={invalid} disabled={disabled} {...props} />;
 };
 
 export const FormCheckboxGroup = ({
@@ -20,6 +20,7 @@ export const FormCheckboxGroup = ({
     label,
     hint,
     size = 'md',
+    block = true,
     disabled,
     className,
     dataTestId,
@@ -32,9 +33,10 @@ export const FormCheckboxGroup = ({
 
     return (
         <Field
-            isInvalid={Boolean(error)}
+            invalid={Boolean(error)}
             disabled={isDisabled}
             size={size}
+            block={block}
             className={className}
             dataTestId={dataTestId}
         >

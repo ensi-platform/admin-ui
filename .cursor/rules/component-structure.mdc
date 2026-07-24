@@ -10,10 +10,16 @@ alwaysApply: false
 
 ```
 src/<name>/
-  Component.tsx         # тонкий compose / реэкспорт
-  index.ts              # публичный API
+  Component.tsx         # shell / compose (RAC-корень живёт здесь)
+  FormX.tsx             # form-клей на корне (если есть)
+  styles.module.css     # стили shell (если нужны)
+  theme.ts              # cva shell (если нужен)
   types.ts
-  <name>.test.tsx       # имя сущности, не index.test
+  index.ts              # публичный API (только реэкспорт)
+  components/           # только составные UI-части (если есть)
+  __tests__/
+    <name>.test.tsx
+    form-<name>.test.tsx
   docs/                 # обязательно для публичного примитива
     Description.md
     index.stories.tsx
@@ -21,47 +27,66 @@ src/<name>/
 
 ## Плоский vs `components/`
 
-**Плоский** — один `Component.tsx` + `styles.module.css` (+ `theme.ts` при cva):
+**Плоский** — один `Component.tsx` + `styles.module.css` (+ `theme.ts` при cva), без `components/`:
 
-- простые примитивы без внутренних визуальных зон (Button, Input)
+- простые примитивы без отдельных визуальных частей (Button, Checkbox, Switch, Input, …)
 
 ```
 src/button/
   Component.tsx
   styles.module.css
   theme.ts
+  __tests__/button.test.tsx
   …
 ```
 
-**С `components/`** — объёмный RAC-shell, compound или >1 визуальная зона (Field, Select, later Modal…):
+**С `components/`** — compound или >1 составная UI-часть (Field, Select, MultiSelect, later Modal…):
 
 ```
 src/<name>/
-  Component.tsx              # тонкий: реэкспорт Root / Object.assign
+  Component.tsx              # shell: RAC-корень + compose частей
+  styles.module.css          # только chrome shell
+  theme.ts                   # если cva на shell
+  FormX.tsx                  # если есть
   components/
-    Root/
+    <Part>/                  # Trigger, List, Label, … — не Root
       index.tsx
-      styles.module.css      # только .root / chrome корня
-      theme.ts               # если cva на Root
-    <Part>/
-      index.tsx
-      styles.module.css      # стили только этой части
+      styles.module.css
       theme.ts               # если cva нужен части
+  __tests__/
+  docs/
 ```
 
 ### Правила для `components/`
 
+- **нет `components/Root`** — shell не выносить в parts; он в `Component.tsx`
 - каждая часть: `components/<Part>/index.tsx` + `styles.module.css` рядом (+ `theme.ts` при cva)
-- не складывать стили всех частей в один `src/<name>/styles.module.css`
-- корневой `Component.tsx` — без большой вёрстки и без «мешка» стилей
+- не складывать стили частей в `src/<name>/styles.module.css` (там только shell)
 - сабкомпоненты не обязаны быть публичным compound API (могут быть внутренними)
+- публичный compound (Field): `Object.assign(Field, { Label, Hint, Error })` в `Component.tsx`
+
+## Алиасы импортов
+
+Источник: `tsconfig.json` `paths` + `vite.config.ts` `resolve.alias`.
+
+| Алиас | Цель | Когда |
+| ----- | ---- | ----- |
+| `@/*` | `src/*` | кросс-примитив внутри `src` (`from '@/icon'`, `from '@/field'`) |
+| `@ds/*` | `src/ds/*` | DS-слой: `@ds/common`, `@ds/common/utils`, `@ds/typography`, `@ds/tokens` (CSS — через public `tokens`, не в module) |
+
+- между пакетами в `src/` — **только** `@/` или `@ds/`; relative `../…` через границу пакета запрещён ESLint (`local/no-cross-package-relative-imports`)
+- внутри одного примитива / его `components/` — **relative** (`from '../Item'`, `from '../../types'`, `from '../hooks'` у Provider)
+- папки — без `/index` (`from '@/icon'`, не `@/icon/index`)
+- без расширения (`.ts` / `.tsx` / `.js` резолвятся)
+- **не** использовать bare `@` (ломает `@react-aria/*` и т.п.) — только `@/`
+- shared-типы (`IDataTestIdProps`, `TMergeElementProps`, `TSVGRIcon`) — `@ds/common`
+- хелперы (`toCssSize`) — `@ds/common/utils`
+- типографика в JSX — `typographyStyles` из `@ds/typography`
 
 ## Общее
 
-- `index.ts` только реэкспортит: `export * from './Component.js'` и `export * from './types.js'` (+ FormX / публичные сабкомпоненты)
+- `index.ts` только реэкспортит: `export * from './Component'` и `export * from './types'` (+ FormX / публичные сабкомпоненты)
 - только named exports
-- ESM-импорты с расширением `.js`
-- shared-типы (`TMergeElementProps`, `TSVGRIcon`) — в `src/common/`
-- общие хелперы (`toCssSize`) — в `src/common/utils.ts`
+- chrome-примитивы: `size` + `variant` в `types.ts` / `theme.ts` (см. `component-api`)
 - формат `docs/` — см. правило `component-docs`
 - тесты — см. правило `component-tests`

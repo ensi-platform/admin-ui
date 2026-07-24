@@ -1,16 +1,30 @@
 import { type ComponentPropsWithRef, type ReactNode } from 'react';
 
+import { type IDataTestIdProps } from '@ds/common';
+
 export type TTagSize = 'sm' | 'md';
 
-export interface ITagProps extends Omit<ComponentPropsWithRef<'span'>, 'children' | 'disabled'> {
-    /** Текст / содержимое. */
-    children: ReactNode;
-    /** Размер. */
+export type TTagVariant = 'primary';
+
+/** Theme inputs. */
+export interface ITagThemeProps {
+    /** Tag size. */
     size?: TTagSize;
-    /** Показать крестик и вызвать при remove. */
-    onRemove?: () => void;
-    /** Disabled (включая кнопку remove). */
-    disabled?: boolean;
-    /** `data-test-id` корня. */
-    dataTestId?: string;
+    /** Visual variant. */
+    variant?: TTagVariant;
 }
+
+/** Own / chrome props (not from DOM). */
+export interface ITagOwnProps extends IDataTestIdProps {
+    /** Content. */
+    children: ReactNode;
+    /** Show a remove control and call this handler on remove. */
+    onRemove?: () => void;
+    /** Disabled state (includes the remove button). */
+    disabled?: boolean;
+}
+
+export interface ITagBaseProps extends ITagThemeProps, ITagOwnProps {}
+
+export interface ITagProps
+    extends ITagBaseProps, Omit<ComponentPropsWithRef<'span'>, keyof ITagBaseProps | 'children' | 'disabled'> {}

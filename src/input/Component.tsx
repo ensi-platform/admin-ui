@@ -1,27 +1,123 @@
-import cn from 'classnames';
-import { Input as RacInput } from 'react-aria-components';
+import { type ChangeEvent, type ChangeEventHandler, useRef, useState } from 'react';
 
-import { inputVariants } from './theme.js';
-import { type IInputProps } from './types.js';
+import cn from 'classnames';
+import { Group, Input as RacInput } from 'react-aria-components';
+
+import { Clear } from '@/icons';
+import { useAuiLabels } from '@/provider';
+
+import { inputVariants } from './theme';
+import { type IInputProps } from './types';
+
+import styles from './styles.module.css';
+
+const toStringValue = (value: unknown) => (value == null ? '' : String(value));
+
+const assignRef = <T,>(ref: IInputProps['ref'], node: T | null) => {
+    if (typeof ref === 'function') {
+        ref(node as never);
+        return;
+    }
+
+    if (ref) {
+        ref.current = node as never;
+    }
+};
+
+const InputClearButton = ({ onClear }: { onClear: () => void }) => {
+    const { clear } = useAuiLabels();
+
+    return (
+        <button
+            type="button"
+            className={styles.clear}
+            aria-label={clear}
+            onPointerDown={event => {
+                event.preventDefault();
+                event.stopPropagation();
+            }}
+            onClick={event => {
+                event.preventDefault();
+                event.stopPropagation();
+                onClear();
+            }}
+        >
+            <Clear className={styles.clearIcon} />
+        </button>
+    );
+};
 
 export const Input = ({
     ref,
     size = 'md',
-    isInvalid = false,
+    variant = 'primary',
+    block = true,
+    invalid = false,
     disabled = false,
+    clear = false,
     className,
     dataTestId,
+    value,
+    defaultValue,
+    onChange,
     ...props
-}: IInputProps) => (
-    <RacInput
-        {...props}
-        ref={ref}
-        disabled={disabled}
-        aria-invalid={isInvalid || undefined}
-        data-invalid={isInvalid || undefined}
-        data-test-id={dataTestId}
-        className={cn(inputVariants({ size }), className)}
-    />
-);
+}: IInputProps) => {
+    const inputRef = useRef<HTMLInputElement | null>(null);
+    const isControlled = value !== undefined;
+    const [uncontrolledValue, setUncontrolledValue] = useState(() => toStringValue(defaultValue));
+    const currentValue = isControlled ? toStringValue(value) : uncontrolledValue;
+    const showClear = clear && !disabled && currentValue !== '';
+
+    const handleChange: ChangeEventHandler<HTMLInputElement> = event => {
+        if (!isControlled) {
+            setUncontrolledValue(event.target.value);
+        }
+
+        onChange?.(event);
+    };
+
+    const emitEmptyChange = () => {
+        const el = inputRef.current;
+        const event = {
+            target: el ?? { value: '' },
+            currentTarget: el ?? { value: '' },
+        } as ChangeEvent<HTMLInputElement>;
+
+        if (el) {
+            const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
+            setter?.call(el, '');
+        }
+
+        if (!isControlled) {
+            setUncontrolledValue('');
+        }
+
+        onChange?.(event);
+    };
+
+    return (
+        <Group
+            className={cn(inputVariants({ size, variant, block }), className)}
+            data-test-id={dataTestId}
+            isInvalid={invalid}
+            isDisabled={disabled}
+        >
+            <RacInput
+                {...props}
+                ref={node => {
+                    inputRef.current = node;
+                    assignRef(ref, node);
+                }}
+                value={value}
+                defaultValue={defaultValue}
+                onChange={handleChange}
+                disabled={disabled}
+                aria-invalid={invalid || undefined}
+                className={styles.fieldInput}
+            />
+            {showClear ? <InputClearButton onClear={emitEmptyChange} /> : null}
+        </Group>
+    );
+};
 
 Input.displayName = 'Input';

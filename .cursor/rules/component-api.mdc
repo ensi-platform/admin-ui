@@ -8,60 +8,176 @@ alwaysApply: false
 
 Минимальный контракт примитива:
 
-- полиморфизм: `as?: ElementType` + `TMergeElementProps`
-- `size` / `variant` как `TSize` / `TVariant` (ключи совпадают с `cva`)
-- иконка объектом `IIconButtonProps` (`Component`, `after?`, `indent?`, `size?`, `className?`, `fill?`)
-- `dataTestId` → атрибут `data-test-id`
+- полиморфизм: `as?: ElementType` + `TMergeElementProps` (если нужен)
+- `size` / `variant` — см. секцию ниже (не у всех)
+- иконка объектом `IIconButtonProps` (`Component`, `after?`, `indent?`, `size?`, `className?`, `fill?`) — когда нужна
+- `dataTestId` — только через `IDataTestIdProps` из `@ds/common` → атрибут `data-test-id`
+- **`className` ВСЕГДА наследуем** — никогда не объявлять в `I*OwnProps` / Base / Theme:
+    - DOM / polymorphic → `ComponentPropsWithRef` / `TMergeElementProps`
+    - RAC → из RAC-пропсов; **не** класть `'className'` в `T*RacOmit`
+    - исключение: `Icon` / `IIconButtonProps` (нет DOM/RAC-базы у корня)
 - type-алиас пропсов: `TButtonProps` (не `I*`, если это `type`)
 - interfaces: `I*` (`IButtonBaseProps`, `IIconButtonProps`)
 - компонент — arrow function
 - **запрещён `forwardRef`**: `ref` — обычный prop (`ref?: Ref<HTMLElement>`), React 19
 - `type` прокидывать только если рендер как `button`
-- классы: `cn(buttonVariants({ size, variant }), className)`
+- классы: `cn(buttonVariants({ size, variant, block }), className)`
 - `displayName` — только для DevTools / compound, не ради forwardRef
+- **комментарии / JSDoc — только English** (см. `code-comments`)
 
-Пока не делать: `styles` override, typography-токены, `block` / `nowrap` / `hidden`.
+Пока не делать: `styles` override, typography-токены, `nowrap` / `hidden`.
+
+### block
+
+`block?: boolean` — не в Theme и не отдельный `IBlockProps`. Класс `.block` через cva → `width: 100%`.
+
+- `Field` и text-like (`Input` / …): в `IFieldStateProps` (рядом с `invalid` / `disabled`), дефолт `true`; Form* — через `IFormFieldShellProps` (`block`)
+- `Button`: в `IButtonOwnProps`, дефолт `false` (intrinsic size)
+- нет у: `Badge`, `Tag`; toggles формально наследуют поле из shared State, но chrome не используют
+
+## size / variant
+
+### Chrome (обязательны size + variant)
+
+Свой painted UI: `Button`, `Input`, `TextArea`, `NumberInput`, `Select`, `MultiSelect`, `Checkbox`, `Switch`, `Tag`.
+
+```ts
+export type TButtonSize = 'sm' | 'md' | 'lg';
+export type TButtonVariant = 'primary'; // secondary / tertiary — later, не заводить про запас
+```
+
+- `size?: T*Size`, дефолт `'md'`
+- `variant?: T*Variant`, дефолт `'primary'`
+- ключи совпадают с `cva` / CSS (`.sm`, `.md`, `.lg`, `.primary`)
+- имена префиксовать компонентом (`TButtonSize`, не голый `TSize`)
+
+### Layout (только size)
+
+- `Field` — `IFieldThemeProps` (`size`), **без** `variant`; `block` в `IFieldStateProps`
+- Field parts (`Label` / `Hint` / `Error`) — наследуют `Field.size`, свой size/variant не вводят
+- Сборка Field: `IFieldThemeProps` + `IFieldStateProps` + `IFieldOwnProps`
+
+### Status (size + semantic variant)
+
+- `Badge` — `size` + семантический `variant` (`neutral` | `success` | `warning` | `danger` | `info`), не `primary`
+
+### Без chrome size×variant
+
+| Компонент                 | Почему                                                                           |
+| ------------------------- | -------------------------------------------------------------------------------- |
+| `Form`                    | RHF-обёртка, без chrome                                                          |
+| `Provider`                | контекст + dir-root                                                              |
+| `Icon`                    | `size` = CSS-величина (`number \| string`), не `TSize`                           |
+| `icons/*`                 | SVG-ассеты                                                                       |
+| `hooks`                   | утилиты                                                                          |
+| `CheckboxGroup`           | контейнер; опциональный `size`/`data-size` — проброс/ритм, **не** visual variant |
+| `Form*` (`FormInput` / …) | glue: shell/layout + Pick theme + Content; свой variant не вводят                |
+
+## Props split (эталон Checkbox)
+
+Разбивать `types.ts` на куски, не один flat `I*Props`:
+
+```ts
+I * ThemeProps; // size?, variant? — без block
+I * ControlProps; // наши имена state (checked / value / onChange…)
+I * OwnProps; // extends IDataTestIdProps; children?, ref?… — без className / dataTestId / block
+I * ContentProps; // срез для Form* (children + специфичное / RAC-passthrough)
+I * BaseProps; // Theme + IFieldStateProps (invalid / disabled / block) + Control + Own
+T * RacOmit; // RAC-ключи с другими именами (isSelected → checked…) — без 'className'
+I * Props; // Base + Omit<Rac…, keyof Base | TRacOmit>
+IForm * Props; // чистая композиция, без Omit<I*Props, 'value' | …>
+```
+
+Публичный state: `invalid` / `disabled` / `block` из `IFieldStateProps` — **не** `isInvalid`. RAC-имена (`isInvalid`, `isSelected`, `isDisabled`) только внутри `Component.tsx` при маппинге.
+
+### Form* composition
+
+- text-like (`FormInput` / `FormTextArea` / `FormNumberInput` / `FormSelect` / `FormMultiSelect`):
+  `IFormFieldLayoutProps` (shell уже с `block`) + `Pick<Theme, 'variant'>` + `I*ContentProps`
+- toggles (`FormCheckbox` / `FormSwitch`):
+  `IFormFieldComponent` + `IFormFieldShellProps` + `Pick<Messages, 'hint'>` + `Pick<Theme, 'variant'>` + `I*ContentProps` (без `label`)
+- `FormCheckboxGroup`: shell + messages + Content(`children`)
+
+Запрещено: `Omit<I*Props, 'value' | 'isInvalid' | 'size' | …>` + ручной дубль shell-полей.
+
+Shared: `IFormFieldShellProps` / `IFormFieldMessagesProps` / `IFormFieldLayoutProps` в `form/types.ts`.
+Shared chrome: `IDataTestIdProps` / `TMergeElementProps` в `@ds/common`.
+
+### Исключения (не Form/Field-паттерн)
+
+- `Field` — Theme(`size`) + State(`invalid` / `disabled` / `block`) + Own (layout, не chrome-control)
+- `Button` — polymorphic `TButtonProps` + Theme/Own/Base (`IButtonThemeProps` / `IButtonOwnProps` / `IButtonBaseProps`)
+- `Badge` — semantic `variant`, не `primary`
+- `Tag` — Theme + Own (+ `onRemove`), без Form
+- `Icon` / `Provider` / `Form` — не chrome-control
 
 ## Base props inheritance
 
-Корень определяет базу пропсов. Свои поля поверх; конфликты — `Omit`. В JSX: свои ключи вытащить, остальное `{...props}` на корень.
+Корень определяет базу пропсов. Свои поля поверх; конфликты — `Omit` от RAC/DOM, не от собранного `I*Props` в Form*. В JSX: свои ключи вытащить, остальное `{...props}` на корень.
 
-- `dataTestId` — наш (не HTML)
-- `ref` — из `ComponentPropsWithRef` / React 19 prop (не дублировать без нужды)
+- `dataTestId` — наш (не HTML), через `IDataTestIdProps`
+- `className` — только наследование (см. выше)
+- `ref` — React 19 prop (не дублировать без нужды)
 
 **DOM** (`span` / `div` / `label`):
 
 ```tsx
-export interface IBadgeProps extends Omit<ComponentPropsWithRef<'span'>, 'children'> {
+export interface IBadgeProps extends Omit<ComponentPropsWithRef<'span'>, 'children'>, IDataTestIdProps {
     children: ReactNode;
     size?: TBadgeSize;
     variant?: TBadgeVariant;
-    dataTestId?: string;
 }
 ```
 
 Или полиморфизм: `TMergeElementProps<P, IBase>` (эталон Button).
 
-**Либа (RAC)**:
+**Либа (RAC)** — эталон Checkbox:
 
 ```tsx
-export interface IInputProps extends Omit<RacInputProps, 'className' | 'disabled' | 'size'> {
-    size?: TInputSize;
-    disabled?: boolean;
-    dataTestId?: string;
-    // …
+export interface ICheckboxThemeProps {
+    size?: TCheckboxSize;
+    variant?: TCheckboxVariant;
 }
+
+export interface ICheckboxControlProps {
+    checked?: boolean;
+    defaultChecked?: boolean;
+    onChange?: (checked: boolean) => void;
+    indeterminate?: boolean;
+}
+
+export interface ICheckboxOwnProps extends IDataTestIdProps {
+    children?: ReactNode;
+    ref?: Ref<HTMLLabelElement>;
+}
+
+export interface ICheckboxBaseProps
+    extends ICheckboxThemeProps, IFieldStateProps, ICheckboxControlProps, ICheckboxOwnProps {}
+
+export type TCheckboxRacOmit = 'isSelected' | 'defaultSelected' | 'isDisabled' | 'isInvalid' | 'isIndeterminate';
+
+export interface ICheckboxProps
+    extends ICheckboxBaseProps, Omit<RacCheckboxFieldProps, keyof ICheckboxBaseProps | TCheckboxRacOmit> {}
+
+export interface IFormCheckboxProps
+    extends
+        IFormFieldComponent,
+        IFormFieldShellProps,
+        Pick<IFormFieldMessagesProps, 'hint'>,
+        Pick<ICheckboxThemeProps, 'variant'>,
+        ICheckboxContentProps {}
 ```
+
+В Component: `invalid` → `isInvalid`, `checked` → `isSelected`, `disabled` → `isDisabled`.
 
 ## Ref (React 19)
 
 ```tsx
-export interface IInputProps {
+export interface IInputOwnProps extends IDataTestIdProps {
     ref?: Ref<HTMLInputElement>;
-    // …
 }
 
-export const Input = ({ ref, size = 'md', … }: IInputProps) => (
+export const Input = ({ ref, size = 'md', variant = 'primary', … }: IInputProps) => (
     <RacInput ref={ref} … />
 );
 ```
@@ -71,26 +187,21 @@ export const Input = ({ ref, size = 'md', … }: IInputProps) => (
 ## Эталон Button
 
 ```tsx
-export type TSize = 'sm' | 'md' | 'lg';
-export type TVariant = 'primary' | 'secondary' | 'tertiary';
+export type TButtonSize = 'sm' | 'md' | 'lg';
+export type TButtonVariant = 'primary';
 
-export interface IIconButtonProps {
-    Component: TSVGRIcon;
-    after?: boolean;
-    indent?: number | string;
-    size?: number | string;
-    className?: string;
-    fill?: string;
+export interface IButtonThemeProps {
+    size?: TButtonSize;
+    variant?: TButtonVariant;
 }
 
-export interface IButtonBaseProps {
+export interface IButtonOwnProps extends IDataTestIdProps {
     children: ReactNode;
-    size?: TSize;
-    variant?: TVariant;
     icon?: IIconButtonProps;
-    className?: string;
-    dataTestId?: string;
+    block?: boolean;
 }
+
+export interface IButtonBaseProps extends IButtonThemeProps, IButtonOwnProps {}
 
 export type TButtonProps<P extends ElementType = 'button'> = {
     as?: P;
@@ -101,6 +212,7 @@ export const Button = <P extends ElementType = 'button'>({
     type = 'button',
     size = 'md',
     variant = 'primary',
+    block = false,
     children,
     icon,
     className,
@@ -112,7 +224,7 @@ export const Button = <P extends ElementType = 'button'>({
     return (
         <Component
             {...(Component === 'button' ? { type } : {})}
-            className={cn(buttonVariants({ size, variant }), className)}
+            className={cn(buttonVariants({ size, variant, block }), className)}
             data-test-id={dataTestId}
             {...props}
         >

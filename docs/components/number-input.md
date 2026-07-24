@@ -17,11 +17,12 @@
 - [x] `min` / `max` / `step` на view
 - [x] FormNumberInput + optional `transform`
 - [x] `createScaleTransform` / `kopecksTransform`
+- [x] `clear` → `onChange(null)`, label из `useAuiLabels().clear`
 
 ### API (черновик)
 
-- NumberInput: `value`/`onChange` number|null, size, prefix/suffix, dataTestId
-- FormNumberInput: name, label, hint, transform
+- NumberInput: `value`/`onChange` number|null, size, prefix/suffix, `clear`, dataTestId
+- FormNumberInput: name, label, hint, transform, `clear`
 - stepper — нет
 
 ### Состояния / визуал

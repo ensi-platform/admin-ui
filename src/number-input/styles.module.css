@@ -1,47 +1,20 @@
 .group {
     display: flex;
     align-items: center;
-    width: 100%;
-    border: 1px solid var(--aui-number-input-border-primary);
+    border: 1px solid transparent;
     border-radius: var(--aui-number-input-radius-md);
-    background: var(--aui-number-input-bg-primary);
-    color: var(--aui-number-input-fg-primary);
     gap: var(--aui-number-input-gap-md);
     transition: border-color var(--aui-number-input-duration-fast) var(--aui-number-input-ease-out);
+}
+
+.block {
+    width: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {
     .group {
         transition: none;
     }
-}
-
-.group[data-hovered]:not([data-disabled]):not([data-invalid]) {
-    border-color: var(--aui-number-input-border-focus);
-}
-
-.group[data-focus-within]:not([data-disabled]) {
-    border-color: var(--aui-number-input-border-focus);
-}
-
-.group[data-focus-visible]:not([data-disabled]) {
-    border-color: var(--aui-number-input-border-focus);
-    outline: 2px solid var(--aui-number-input-border-focus);
-    outline-offset: 0;
-}
-
-.group[data-invalid] {
-    border-color: var(--aui-number-input-border-danger);
-}
-
-.group[data-invalid][data-focus-within]:not([data-disabled]) {
-    border-color: var(--aui-number-input-border-danger);
-}
-
-.group[data-invalid][data-focus-visible]:not([data-disabled]) {
-    border-color: var(--aui-number-input-border-danger);
-    outline: 2px solid var(--aui-number-input-border-danger);
-    outline-offset: 0;
 }
 
 .group[data-disabled] {
@@ -66,7 +39,6 @@
 
 .addon {
     flex-shrink: 0;
-    color: var(--aui-number-input-fg-muted);
 }
 
 .fieldInput {
@@ -88,14 +60,97 @@
     outline: none;
 }
 
-.fieldInput::placeholder {
-    color: var(--aui-number-input-fg-muted);
-}
-
 .fieldInput:disabled {
     cursor: inherit;
 }
 
+.clearIcon {
+    display: block;
+    width: var(--aui-number-input-icon-size-md);
+    height: var(--aui-number-input-icon-size-md);
+    flex-shrink: 0;
+}
+
+.clear {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: var(--aui-number-input-icon-hit-md);
+    height: var(--aui-number-input-icon-hit-md);
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--aui-number-input-fg-muted);
+    cursor: pointer;
+    border-radius: var(--aui-number-input-clear-radius-md);
+    transition: color var(--aui-number-input-duration-fast) var(--aui-number-input-ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .clear {
+        transition: none;
+    }
+}
+
+.clear:hover {
+    color: var(--aui-number-input-fg-primary);
+}
+
+.clear:focus {
+    outline: none;
+}
+
+.clear:focus-visible {
+    outline: 2px solid var(--aui-number-input-border-focus);
+    outline-offset: 0;
+    color: var(--aui-number-input-fg-primary);
+}
+
 .root {
     width: 100%;
+}
+
+.primary {
+    border-color: var(--aui-number-input-border-primary);
+    background: var(--aui-number-input-bg-primary);
+    color: var(--aui-number-input-fg-primary);
+}
+
+.primary[data-hovered]:not([data-disabled]):not([data-invalid]) {
+    border-color: var(--aui-number-input-border-focus);
+}
+
+.primary[data-focus-within]:not([data-disabled]) {
+    border-color: var(--aui-number-input-border-focus);
+}
+
+.primary[data-focus-visible]:not([data-disabled]) {
+    border-color: var(--aui-number-input-border-focus);
+    outline: 2px solid var(--aui-number-input-border-focus);
+    outline-offset: 0;
+}
+
+.primary[data-invalid] {
+    border-color: var(--aui-number-input-border-danger);
+}
+
+.primary[data-invalid][data-focus-within]:not([data-disabled]) {
+    border-color: var(--aui-number-input-border-danger);
+}
+
+.primary[data-invalid][data-focus-visible]:not([data-disabled]) {
+    border-color: var(--aui-number-input-border-danger);
+    outline: 2px solid var(--aui-number-input-border-danger);
+    outline-offset: 0;
+}
+
+.primary .addon {
+    color: var(--aui-number-input-fg-muted);
+}
+
+.primary .fieldInput::placeholder {
+    color: var(--aui-number-input-fg-muted);
 }

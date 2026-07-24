@@ -1,18 +1,18 @@
 import { type ComponentProps } from 'react';
 
-import { Field, useField } from '../field/index.js';
-import { useFieldHook } from '../form/hooks/useFieldHook.js';
-import { getError } from '../form/utils.js';
+import { Field, useField } from '@/field';
+import { useFieldHook } from '@/form/hooks/useFieldHook';
+import { getError } from '@/form/utils';
 
-import { TextArea } from './Component.js';
-import { type IFormTextAreaProps } from './types.js';
+import { TextArea } from './Component';
+import { type IFormTextAreaProps } from './types';
 
-type TFormTextAreaControlProps = Omit<ComponentProps<typeof TextArea>, 'size' | 'isInvalid' | 'disabled'>;
+type TFormTextAreaControlProps = Omit<ComponentProps<typeof TextArea>, 'size' | 'invalid' | 'disabled'>;
 
 const FormTextAreaControl = (props: TFormTextAreaControlProps) => {
-    const { controlProps, size, isInvalid, disabled } = useField();
+    const { controlProps, size, invalid, disabled } = useField();
 
-    return <TextArea {...controlProps} size={size} isInvalid={isInvalid} disabled={disabled} {...props} />;
+    return <TextArea {...controlProps} size={size} invalid={invalid} disabled={disabled} {...props} />;
 };
 
 export const FormTextArea = ({
@@ -20,6 +20,7 @@ export const FormTextArea = ({
     label,
     hint,
     size = 'md',
+    block = true,
     disabled,
     className,
     dataTestId,
@@ -31,9 +32,10 @@ export const FormTextArea = ({
 
     return (
         <Field
-            isInvalid={Boolean(error)}
+            invalid={Boolean(error)}
             disabled={isDisabled}
             size={size}
+            block={block}
             className={className}
             dataTestId={dataTestId}
         >
@@ -41,6 +43,7 @@ export const FormTextArea = ({
             <FormTextAreaControl
                 {...textAreaProps}
                 {...rhfInputProps}
+                block={block}
                 ref={field.ref}
                 value={field.value ?? ''}
                 onChange={e => onChangeHandler(e)}

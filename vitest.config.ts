@@ -1,8 +1,18 @@
+import { resolve } from 'node:path';
+
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vitest/config';
 
+const packageRoot = import.meta.dirname;
+
 export default defineConfig({
     plugins: [react()],
+    resolve: {
+        alias: [
+            { find: '@ds', replacement: resolve(packageRoot, 'src/ds') },
+            { find: /^@\//, replacement: `${resolve(packageRoot, 'src')}/` },
+        ],
+    },
     css: {
         modules: {
             localsConvention: 'camelCase',

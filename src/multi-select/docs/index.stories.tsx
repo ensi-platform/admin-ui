@@ -3,15 +3,16 @@ import { useState } from 'react';
 import { type ArgTypes, type Meta, type StoryObj } from '@storybook/react';
 import { z } from 'zod';
 
-import { Button } from '../../button/index.js';
-import { Field, useField } from '../../field/index.js';
-import { Form } from '../../form/index.js';
-import { FormMultiSelect } from '../FormMultiSelect.js';
-import { type IMultiSelectProps, type TSelectValue } from '../types.js';
+import { Button } from '@/button';
+import { Field, useField } from '@/field';
+import { Form } from '@/form';
+
+import { FormMultiSelect } from '../FormMultiSelect';
+import { type IMultiSelectProps, type TSelectValue } from '../types';
 
 import Description from './Description.md';
 
-import { MultiSelectStoryComponent } from './index.js';
+import { MultiSelectStoryComponent } from '.';
 
 const OPTIONS = [
     { value: 'vip', label: 'vip' },
@@ -30,26 +31,26 @@ const DEFAULT_ARGS: IMultiSelectProps = {
     size: 'md',
     placeholder: 'Выберите метки',
     disabled: false,
-    isInvalid: false,
+    invalid: false,
     clear: false,
 };
 
 const DEFAULT_ARG_TYPES: ArgTypes<Partial<IMultiSelectProps>> = {
     size: { control: { type: 'select' } },
     disabled: { control: { type: 'boolean' } },
-    isInvalid: { control: { type: 'boolean' } },
+    invalid: { control: { type: 'boolean' } },
     clear: { control: { type: 'boolean' } },
 };
 
 const FieldBoundMultiSelect = (props: Omit<IMultiSelectProps, 'options'>) => {
-    const { controlProps, size, isInvalid, disabled } = useField();
+    const { controlProps, size, invalid, disabled } = useField();
 
     return (
         <MultiSelectStoryComponent
             {...controlProps}
             options={OPTIONS}
             size={size}
-            isInvalid={isInvalid}
+            invalid={invalid}
             disabled={disabled}
             {...props}
         />
@@ -132,7 +133,7 @@ export const Disabled: StoryObj<IMultiSelectProps> = {
 
 export const Invalid: StoryObj<IMultiSelectProps> = {
     args: {
-        isInvalid: true,
+        invalid: true,
         defaultValue: ['vip'],
     },
     render: Default.render,
@@ -141,7 +142,7 @@ export const Invalid: StoryObj<IMultiSelectProps> = {
 export const WithField: StoryObj<IMultiSelectProps> = {
     render: () => (
         <div style={{ maxWidth: 320 }}>
-            <Field isInvalid>
+            <Field invalid>
                 <Field.Label>Метки</Field.Label>
                 <FieldBoundMultiSelect placeholder="Выберите…" />
                 <Field.Hint>Можно выбрать несколько</Field.Hint>

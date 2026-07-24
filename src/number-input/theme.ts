@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 import cn from 'classnames';
 
-import { typographyStyles } from '../typography/index.js';
+import { typographyStyles } from '@ds/typography';
 
 import styles from './styles.module.css';
 
@@ -12,8 +12,17 @@ export const numberInputGroupVariants = cva(styles.group, {
             md: cn(styles.md, typographyStyles.bodyS),
             lg: cn(styles.lg, typographyStyles.bodyM),
         },
+        variant: {
+            primary: styles.primary,
+        },
+        block: {
+            true: styles.block,
+            false: null,
+        },
     },
     defaultVariants: {
         size: 'md',
+        variant: 'primary',
+        block: true,
     },
 });

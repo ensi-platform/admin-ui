@@ -1,10 +1,10 @@
 import { type ArgTypes, type Meta, type StoryObj } from '@storybook/react';
 
-import { type IBadgeProps } from '../types.js';
+import { type IBadgeProps } from '../types';
 
 import Description from './Description.md';
 
-import { BadgeStoryComponent } from './index.js';
+import { BadgeStoryComponent } from '.';
 
 const DEFAULT_ARGS: IBadgeProps = {
     children: 'В сборке',

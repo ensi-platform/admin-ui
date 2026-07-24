@@ -20,7 +20,7 @@
 ### API (черновик)
 
 - `size`: `sm` | `md` | `lg` (gap + Label/Hint/Error typography)
-- `isInvalid`, `disabled`
+- `invalid`, `disabled`
 - `dataTestId`
 - `useField().controlProps` на контрол
 - `as` — нет

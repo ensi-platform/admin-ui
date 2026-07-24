@@ -1,20 +1,21 @@
 import { type ArgTypes, type Meta, type StoryObj } from '@storybook/react';
 import { z } from 'zod';
 
-import { Button } from '../../button/index.js';
-import { Field } from '../../field/index.js';
-import { Form } from '../../form/index.js';
-import { FormCheckbox } from '../FormCheckbox.js';
-import { type ICheckboxProps } from '../types.js';
+import { Button } from '@/button';
+import { Field } from '@/field';
+import { Form } from '@/form';
+
+import { FormCheckbox } from '../FormCheckbox';
+import { type ICheckboxProps } from '../types';
 
 import Description from './Description.md';
 
-import { CheckboxStoryComponent } from './index.js';
+import { CheckboxStoryComponent } from '.';
 
 const DEFAULT_ARGS: ICheckboxProps = {
     size: 'md',
     disabled: false,
-    isInvalid: false,
+    invalid: false,
     indeterminate: false,
     children: 'Согласен с условиями',
 };
@@ -22,7 +23,7 @@ const DEFAULT_ARGS: ICheckboxProps = {
 const DEFAULT_ARG_TYPES: ArgTypes<Partial<ICheckboxProps>> = {
     size: { control: { type: 'select' } },
     disabled: { control: { type: 'boolean' } },
-    isInvalid: { control: { type: 'boolean' } },
+    invalid: { control: { type: 'boolean' } },
     indeterminate: { control: { type: 'boolean' } },
 };
 
@@ -63,7 +64,7 @@ export const Disabled: StoryObj<ICheckboxProps> = {
 };
 
 export const Invalid: StoryObj<ICheckboxProps> = {
-    args: { isInvalid: true, defaultChecked: true },
+    args: { invalid: true, defaultChecked: true },
     render: Default.render,
 };
 
@@ -74,7 +75,7 @@ export const Indeterminate: StoryObj<ICheckboxProps> = {
 
 export const WithField: StoryObj<ICheckboxProps> = {
     render: () => (
-        <Field isInvalid>
+        <Field invalid>
             <CheckboxStoryComponent>Согласен</CheckboxStoryComponent>
             <Field.Hint>Нужно согласие</Field.Hint>
             <Field.Error>Обязательное поле</Field.Error>

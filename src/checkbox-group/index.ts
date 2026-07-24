@@ -1,3 +1,3 @@
-export * from './Component.js';
-export * from './FormCheckboxGroup.js';
-export * from './types.js';
+export * from './Component';
+export * from './FormCheckboxGroup';
+export * from './types';

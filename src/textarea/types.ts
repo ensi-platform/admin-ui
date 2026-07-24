@@ -1,53 +1,53 @@
-import { type ReactNode, type Ref } from 'react';
+import { type Ref } from 'react';
 
 import { type TextAreaProps as RacTextAreaProps } from 'react-aria-components';
 
-import { type TFieldSize } from '../field/types.js';
-import { type IFormFieldComponent } from '../form/types.js';
+import { type IDataTestIdProps } from '@ds/common';
+
+import { type IFieldStateProps } from '@/field/types';
+import { type IFormFieldLayoutProps } from '@/form/types';
 
 export type TTextAreaSize = 'sm' | 'md' | 'lg';
 
-export interface ITextAreaProps extends Omit<RacTextAreaProps, 'className' | 'disabled'> {
-    /** Размер контрола. Внутри Field наследует `Field.size`, если не задан. */
+export type TTextAreaVariant = 'primary';
+
+/** Theme inputs. */
+export interface ITextAreaThemeProps {
+    /** Control size. Inside Field, inherits `Field.size` when omitted. */
     size?: TTextAreaSize;
-    /** Невалидное состояние (бордер + aria-invalid). Внутри Field наследует `Field.isInvalid`. */
-    isInvalid?: boolean;
-    /** Disabled. Внутри Field наследует `Field.disabled`. */
-    disabled?: boolean;
-    /** Дополнительный className. */
-    className?: string;
-    /** Значение атрибута `data-test-id`. */
-    dataTestId?: string;
-    /** Ref на native textarea (React 19 prop). */
+    /** Visual variant. */
+    variant?: TTextAreaVariant;
+}
+
+/** Own / chrome props (not from RAC). */
+export interface ITextAreaOwnProps extends IDataTestIdProps {
+    /** Clear button for the current value. */
+    clear?: boolean;
+    /** Ref to the native textarea (React 19 prop). */
     ref?: Ref<HTMLTextAreaElement>;
 }
 
-export interface IFormTextAreaProps
-    extends
-        IFormFieldComponent,
-        Omit<
-            ITextAreaProps,
-            | 'value'
-            | 'defaultValue'
-            | 'onChange'
-            | 'onBlur'
-            | 'name'
-            | 'disabled'
-            | 'isInvalid'
-            | 'size'
-            | 'className'
-            | 'dataTestId'
-        > {
-    /** Подпись поля (`Field.Label`). */
-    label?: ReactNode;
-    /** Подсказка (`Field.Hint`). */
-    hint?: ReactNode;
-    /** Размер Field + TextArea. */
-    size?: TFieldSize;
-    /** Disabled (OR с Form.disabled). */
-    disabled?: boolean;
-    /** className корневого Field. */
-    className?: string;
-    /** `data-test-id` корневого Field. */
-    dataTestId?: string;
+export interface ITextAreaBaseProps extends ITextAreaThemeProps, IFieldStateProps, ITextAreaOwnProps {}
+
+export type TTextAreaRacOmit = 'disabled' | 'isDisabled' | 'isInvalid';
+
+export interface ITextAreaProps
+    extends ITextAreaBaseProps, Omit<RacTextAreaProps, keyof ITextAreaBaseProps | TTextAreaRacOmit> {}
+
+/** className belongs on the Field shell. */
+export type TTextAreaFormRacOmit =
+    | TTextAreaRacOmit
+    | keyof ITextAreaBaseProps
+    | 'value'
+    | 'defaultValue'
+    | 'onChange'
+    | 'onBlur'
+    | 'name'
+    | 'className';
+
+export interface ITextAreaContentProps extends Omit<RacTextAreaProps, TTextAreaFormRacOmit> {
+    clear?: boolean;
 }
+
+export interface IFormTextAreaProps
+    extends IFormFieldLayoutProps, Pick<ITextAreaThemeProps, 'variant'>, ITextAreaContentProps {}

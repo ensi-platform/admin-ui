@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
-import { AuiContext } from './context.js';
-import { type IAuiContextValue, type IAuiLabels, type TTextDirection } from './types.js';
+import { AuiContext } from './context';
+import { type IAuiContextValue, type IAuiLabels, type TTextDirection } from './types';
 
 const useAuiContext = (): IAuiContextValue => {
     const context = useContext(AuiContext);

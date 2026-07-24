@@ -1,7 +1,7 @@
-import { Button } from '../Component.js';
-import { type TButtonProps } from '../types.js';
+import { Button } from '../Component';
+import { type TButtonProps } from '../types';
 
-/** Обёртка без generic — чтобы react-docgen-typescript собрал таблицу пропов. */
+/** Story wrapper for react-docgen-typescript. */
 export const ButtonStoryComponent = (props: TButtonProps) => <Button {...props} />;
 
 ButtonStoryComponent.displayName = 'Button';

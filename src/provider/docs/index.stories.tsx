@@ -1,8 +1,9 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 
-import { AdminUiProvider } from '../Component.js';
-import { useAuiLabels, useAuiLocale } from '../hooks.js';
-import { type IAdminUiProviderProps } from '../types.js';
+import { useAuiLabels, useAuiLocale } from '@/hooks';
+
+import { AdminUiProvider } from '../Component';
+import { type IAdminUiProviderProps } from '../types';
 
 import Description from './Description.md';
 

@@ -1,76 +1,70 @@
-import { type ReactNode, type Ref } from 'react';
+import { type Ref } from 'react';
 
 import { type SelectProps as RacSelectProps } from 'react-aria-components';
 
-import { type TFieldSize } from '../field/types.js';
-import { type IFormFieldComponent } from '../form/types.js';
-import { type ISelectOption, type TSelectSize, type TSelectValue } from '../select/types.js';
+import { type IDataTestIdProps } from '@ds/common';
 
-export type { ISelectOption, TSelectSize, TSelectValue };
+import { type IFieldStateProps } from '@/field/types';
+import { type IFormFieldLayoutProps } from '@/form/types';
+import { type ISelectOption, type TSelectSize, type TSelectValue, type TSelectVariant } from '@/select/types';
 
-type TRacMultiSelectBase = Omit<
-    RacSelectProps<object, 'multiple'>,
+export type { ISelectOption, TSelectSize, TSelectValue, TSelectVariant };
+
+/** Theme inputs. */
+export interface IMultiSelectThemeProps {
+    /** MultiSelect size. */
+    size?: TSelectSize;
+    /** Visual variant. */
+    variant?: TSelectVariant;
+}
+
+/** Control state (our names, not RAC). */
+export interface IMultiSelectControlProps {
+    /** Controlled value. `[]` means empty (after clear). */
+    value?: TSelectValue[];
+    /** Uncontrolled initial value. */
+    defaultValue?: TSelectValue[];
+    /** Selection change. Receives `[]` on clear. */
+    onChange?: (value: TSelectValue[]) => void;
+    /** Show a clear button for the entire selection. */
+    clear?: boolean;
+}
+
+/** Own / chrome props (not from RAC). */
+export interface IMultiSelectOwnProps extends IDataTestIdProps {
+    /** Options list. */
+    options: ISelectOption[];
+    /** Ref to the Select root (React 19 prop). */
+    ref?: Ref<HTMLDivElement>;
+}
+
+/** Content slice for FormMultiSelect. */
+export interface IMultiSelectContentProps {
+    options: ISelectOption[];
+    clear?: boolean;
+    placeholder?: string;
+}
+
+export interface IMultiSelectBaseProps
+    extends IMultiSelectThemeProps, IFieldStateProps, IMultiSelectControlProps, IMultiSelectOwnProps {}
+
+/** RAC keys omitted because names differ from ours or already live in Base. */
+export type TMultiSelectRacOmit =
     | 'children'
-    | 'className'
     | 'isDisabled'
+    | 'isInvalid'
     | 'selectedKey'
     | 'defaultSelectedKey'
     | 'onSelectionChange'
     | 'value'
     | 'defaultValue'
     | 'onChange'
-    | 'selectionMode'
->;
+    | 'selectionMode';
 
-export interface IMultiSelectProps extends TRacMultiSelectBase {
-    /** Список опций. */
-    options: ISelectOption[];
-    /** Controlled value. `[]` — пусто (после clear). */
-    value?: TSelectValue[];
-    /** Uncontrolled initial value. */
-    defaultValue?: TSelectValue[];
-    /** Выбор / clear (`[]`). */
-    onChange?: (value: TSelectValue[]) => void;
-    /** Кнопка очистки всего выбора. */
-    clear?: boolean;
-    /** Размер trigger. */
-    size?: TSelectSize;
-    /** Disabled. */
-    disabled?: boolean;
-    /** className корня RAC Select. */
-    className?: string;
-    /** `data-test-id` корня. */
-    dataTestId?: string;
-    /** Ref на корень RAC Select (React 19 prop). */
-    ref?: Ref<HTMLDivElement>;
-}
+export interface IMultiSelectProps
+    extends
+        IMultiSelectBaseProps,
+        Omit<RacSelectProps<object, 'multiple'>, keyof IMultiSelectBaseProps | TMultiSelectRacOmit> {}
 
 export interface IFormMultiSelectProps
-    extends
-        IFormFieldComponent,
-        Omit<
-            IMultiSelectProps,
-            | 'value'
-            | 'defaultValue'
-            | 'onChange'
-            | 'onBlur'
-            | 'name'
-            | 'disabled'
-            | 'isInvalid'
-            | 'size'
-            | 'className'
-            | 'dataTestId'
-        > {
-    /** Подпись поля (`Field.Label`). */
-    label?: ReactNode;
-    /** Подсказка (`Field.Hint`). */
-    hint?: ReactNode;
-    /** Размер Field + MultiSelect. */
-    size?: TFieldSize;
-    /** Disabled (OR с Form.disabled). */
-    disabled?: boolean;
-    /** className корневого Field. */
-    className?: string;
-    /** `data-test-id` корневого Field. */
-    dataTestId?: string;
-}
+    extends IFormFieldLayoutProps, Pick<IMultiSelectThemeProps, 'variant'>, IMultiSelectContentProps {}

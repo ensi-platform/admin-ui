@@ -16,7 +16,7 @@ Single-select на React Aria `Select`. Импорт: `import { Select, FormSele
 - `value` / `defaultValue` / `onChange` (`string | number | null`)
 - `placeholder`, `clear`
 - `size`: sm | md | lg
-- `isInvalid`, `disabled`
+- `invalid`, `disabled`
 - `dataTestId`, `className`
 - без `as` / compound Item
 

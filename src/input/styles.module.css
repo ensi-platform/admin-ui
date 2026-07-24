@@ -1,10 +1,14 @@
 .root {
-    width: 100%;
-    border: 1px solid var(--aui-input-border-primary);
+    display: flex;
+    align-items: center;
+    gap: var(--aui-space-8);
+    border: 1px solid transparent;
     border-radius: var(--aui-input-radius-md);
-    background: var(--aui-input-bg-primary);
-    color: var(--aui-input-fg-primary);
     transition: border-color var(--aui-input-duration-fast) var(--aui-input-ease-out);
+}
+
+.block {
+    width: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -13,47 +17,6 @@
     }
 }
 
-.root::placeholder {
-    color: var(--aui-input-fg-muted);
-}
-
-.root:hover:not(:disabled):not([data-invalid]):not([aria-invalid='true']) {
-    border-color: var(--aui-input-border-focus);
-}
-
-.root:focus,
-.root:focus-visible {
-    outline: none;
-}
-
-.root[data-focused]:not(:disabled) {
-    border-color: var(--aui-input-border-focus);
-}
-
-.root[data-focus-visible]:not(:disabled) {
-    border-color: var(--aui-input-border-focus);
-    outline: 2px solid var(--aui-input-border-focus);
-    outline-offset: 0;
-}
-
-.root[data-invalid],
-.root[aria-invalid='true'] {
-    border-color: var(--aui-input-border-danger);
-}
-
-.root[data-invalid][data-focused]:not(:disabled),
-.root[aria-invalid='true'][data-focused]:not(:disabled) {
-    border-color: var(--aui-input-border-danger);
-}
-
-.root[data-invalid][data-focus-visible]:not(:disabled),
-.root[aria-invalid='true'][data-focus-visible]:not(:disabled) {
-    border-color: var(--aui-input-border-danger);
-    outline: 2px solid var(--aui-input-border-danger);
-    outline-offset: 0;
-}
-
-.root:disabled,
 .root[data-disabled] {
     opacity: 0.5;
     cursor: not-allowed;
@@ -72,4 +35,110 @@
 .lg {
     height: var(--aui-input-h-lg);
     padding: 0 var(--aui-input-pad-x-lg);
+}
+
+.fieldInput {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    height: 100%;
+    margin: 0;
+    border: none;
+    background: transparent;
+    padding: 0;
+    color: inherit;
+    font: inherit;
+    outline: none;
+}
+
+.fieldInput:focus,
+.fieldInput:focus-visible {
+    outline: none;
+}
+
+.fieldInput:disabled {
+    cursor: inherit;
+}
+
+.clearIcon {
+    display: block;
+    width: var(--aui-input-icon-size-md);
+    height: var(--aui-input-icon-size-md);
+    flex-shrink: 0;
+}
+
+.clear {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: var(--aui-input-icon-hit-md);
+    height: var(--aui-input-icon-hit-md);
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--aui-input-fg-muted);
+    cursor: pointer;
+    border-radius: var(--aui-input-clear-radius-md);
+    transition: color var(--aui-input-duration-fast) var(--aui-input-ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .clear {
+        transition: none;
+    }
+}
+
+.clear:hover {
+    color: var(--aui-input-fg-primary);
+}
+
+.clear:focus {
+    outline: none;
+}
+
+.clear:focus-visible {
+    outline: 2px solid var(--aui-input-border-focus);
+    outline-offset: 0;
+    color: var(--aui-input-fg-primary);
+}
+
+.primary {
+    border-color: var(--aui-input-border-primary);
+    background: var(--aui-input-bg-primary);
+    color: var(--aui-input-fg-primary);
+}
+
+.primary .fieldInput::placeholder {
+    color: var(--aui-input-fg-muted);
+}
+
+.primary[data-hovered]:not([data-disabled]):not([data-invalid]) {
+    border-color: var(--aui-input-border-focus);
+}
+
+.primary[data-focus-within]:not([data-disabled]) {
+    border-color: var(--aui-input-border-focus);
+}
+
+.primary[data-focus-visible]:not([data-disabled]) {
+    border-color: var(--aui-input-border-focus);
+    outline: 2px solid var(--aui-input-border-focus);
+    outline-offset: 0;
+}
+
+.primary[data-invalid] {
+    border-color: var(--aui-input-border-danger);
+}
+
+.primary[data-invalid][data-focus-within]:not([data-disabled]) {
+    border-color: var(--aui-input-border-danger);
+}
+
+.primary[data-invalid][data-focus-visible]:not([data-disabled]) {
+    border-color: var(--aui-input-border-danger);
+    outline: 2px solid var(--aui-input-border-danger);
+    outline-offset: 0;
 }

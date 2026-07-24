@@ -3,8 +3,8 @@ import { useMemo } from 'react';
 import cn from 'classnames';
 import { I18nProvider, useLocale } from 'react-aria-components';
 
-import { AuiContext, defaultLabels } from './context.js';
-import { type IAdminUiProviderProps, type IAuiContextValue, type TTextDirection } from './types.js';
+import { AuiContext, defaultLabels } from './context';
+import { type IAdminUiProviderProps, type IAuiContextValue, type TTextDirection } from './types';
 
 import styles from './styles.module.css';
 

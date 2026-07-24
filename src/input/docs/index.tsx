@@ -1,7 +1,7 @@
-import { Input } from '../Component.js';
-import { type IInputProps } from '../types.js';
+import { Input } from '../Component';
+import { type IInputProps } from '../types';
 
-/** Обёртка для react-docgen-typescript. */
+/** Story wrapper for react-docgen-typescript. */
 export const InputStoryComponent = (props: IInputProps) => <Input {...props} />;
 
 InputStoryComponent.displayName = 'Input';

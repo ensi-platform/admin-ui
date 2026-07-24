@@ -5,10 +5,8 @@
     box-sizing: border-box;
     width: fit-content;
     max-width: 100%;
-    border: 1px solid var(--aui-tag-border-primary);
+    border: 1px solid transparent;
     border-radius: var(--aui-tag-radius-md);
-    background: var(--aui-tag-bg-primary);
-    color: var(--aui-tag-fg-primary);
     font: inherit;
     font-weight: var(--aui-font-weight-medium);
     line-height: var(--aui-tag-line-height);
@@ -57,13 +55,8 @@
     padding: 0;
     border: none;
     background: transparent;
-    color: var(--aui-tag-fg-muted);
     cursor: pointer;
     border-radius: var(--aui-tag-radius-md);
-}
-
-.remove:hover:not(:disabled) {
-    color: var(--aui-tag-fg-primary);
 }
 
 .remove:disabled {
@@ -74,7 +67,21 @@
     outline: none;
 }
 
-.remove:focus-visible {
+.primary {
+    border-color: var(--aui-tag-border-primary);
+    background: var(--aui-tag-bg-primary);
+    color: var(--aui-tag-fg-primary);
+}
+
+.primary .remove {
+    color: var(--aui-tag-fg-muted);
+}
+
+.primary .remove:hover:not(:disabled) {
+    color: var(--aui-tag-fg-primary);
+}
+
+.primary .remove:focus-visible {
     outline: 2px solid var(--aui-tag-border-focus);
     outline-offset: 0;
     color: var(--aui-tag-fg-primary);

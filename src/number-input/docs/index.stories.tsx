@@ -3,27 +3,30 @@ import { useState } from 'react';
 import { type ArgTypes, type Meta, type StoryObj } from '@storybook/react';
 import { z } from 'zod';
 
-import { Button } from '../../button/index.js';
-import { Form } from '../../form/index.js';
-import { FormNumberInput } from '../FormNumberInput.js';
-import { kopecksTransform } from '../transforms.js';
-import { type INumberInputProps } from '../types.js';
+import { Button } from '@/button';
+import { Form } from '@/form';
+
+import { FormNumberInput } from '../FormNumberInput';
+import { kopecksTransform } from '../transforms';
+import { type INumberInputProps } from '../types';
 
 import Description from './Description.md';
 
-import { NumberInputStoryComponent } from './index.js';
+import { NumberInputStoryComponent } from '.';
 
 const DEFAULT_ARGS: INumberInputProps = {
     size: 'md',
     disabled: false,
-    isInvalid: false,
+    invalid: false,
+    clear: false,
     placeholder: '0',
 };
 
 const DEFAULT_ARG_TYPES: ArgTypes<Partial<INumberInputProps>> = {
     size: { control: { type: 'select' } },
     disabled: { control: { type: 'boolean' } },
-    isInvalid: { control: { type: 'boolean' } },
+    invalid: { control: { type: 'boolean' } },
+    clear: { control: { type: 'boolean' } },
 };
 
 const DefaultDemo = (args: INumberInputProps) => {
@@ -85,7 +88,7 @@ export const WithForm: StoryObj = {
             onSubmit={() => undefined}
         >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 320 }}>
-                <FormNumberInput name="qty" label="Количество" />
+                <FormNumberInput name="qty" label="Количество" clear />
                 <FormNumberInput
                     name="price"
                     label="Цена"
@@ -101,8 +104,22 @@ export const WithForm: StoryObj = {
     ),
 };
 
+const ClearDemo = (args: INumberInputProps) => {
+    const [value, setValue] = useState<number | null>(42);
+
+    return (
+        <div style={{ maxWidth: 320 }}>
+            <NumberInputStoryComponent aria-label="Количество" {...args} clear value={value} onChange={setValue} />
+        </div>
+    );
+};
+
 export const WithSuffix: StoryObj<INumberInputProps> = {
     render: () => <SuffixDemo />,
+};
+
+export const Clear: StoryObj<INumberInputProps> = {
+    render: args => <ClearDemo {...args} />,
 };
 
 export const Disabled: StoryObj<INumberInputProps> = {

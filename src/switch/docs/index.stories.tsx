@@ -1,27 +1,28 @@
 import { type ArgTypes, type Meta, type StoryObj } from '@storybook/react';
 import { z } from 'zod';
 
-import { Button } from '../../button/index.js';
-import { Field } from '../../field/index.js';
-import { Form } from '../../form/index.js';
-import { FormSwitch } from '../FormSwitch.js';
-import { type ISwitchProps } from '../types.js';
+import { Button } from '@/button';
+import { Field } from '@/field';
+import { Form } from '@/form';
+
+import { FormSwitch } from '../FormSwitch';
+import { type ISwitchProps } from '../types';
 
 import Description from './Description.md';
 
-import { SwitchStoryComponent } from './index.js';
+import { SwitchStoryComponent } from '.';
 
 const DEFAULT_ARGS: ISwitchProps = {
     size: 'md',
     disabled: false,
-    isInvalid: false,
+    invalid: false,
     children: 'Уведомления',
 };
 
 const DEFAULT_ARG_TYPES: ArgTypes<Partial<ISwitchProps>> = {
     size: { control: { type: 'select' } },
     disabled: { control: { type: 'boolean' } },
-    isInvalid: { control: { type: 'boolean' } },
+    invalid: { control: { type: 'boolean' } },
 };
 
 export default {
@@ -61,13 +62,13 @@ export const Disabled: StoryObj<ISwitchProps> = {
 };
 
 export const Invalid: StoryObj<ISwitchProps> = {
-    args: { isInvalid: true, defaultChecked: true },
+    args: { invalid: true, defaultChecked: true },
     render: Default.render,
 };
 
 export const WithField: StoryObj<ISwitchProps> = {
     render: () => (
-        <Field isInvalid>
+        <Field invalid>
             <SwitchStoryComponent>Уведомления</SwitchStoryComponent>
             <Field.Hint>Рекомендуем включить</Field.Hint>
             <Field.Error>Обязательно</Field.Error>

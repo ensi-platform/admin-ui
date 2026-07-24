@@ -1,3 +1,3 @@
-export * from './Component.js';
-export * from './FormSwitch.js';
-export * from './types.js';
+export * from './Component';
+export * from './FormSwitch';
+export * from './types';

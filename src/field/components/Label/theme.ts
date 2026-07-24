@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority';
 
-import { typographyStyles } from '../../../typography/index.js';
+import { typographyStyles } from '@ds/typography';
 
 import styles from './styles.module.css';
 

@@ -1,0 +1,31 @@
+---
+description: Code comments and JSDoc language (English only)
+globs: src/**/*.{ts,tsx,css,js,jsx}
+alwaysApply: true
+---
+
+# Comments language
+
+All code comments and JSDoc — **English only**.
+
+- JSDoc on props / types / exports
+- inline `//` and block `/* */`
+- section markers in `types.ts`
+
+Allowed in product language (not comments):
+
+- UI copy in stories / tests / fixtures
+- `Description.md` and other human docs (see `component-docs`)
+
+## Style
+
+Keep JSDoc short and consistent across primitives:
+
+- `/** Theme inputs. */`
+- `/** {Name} size. */` / `/** Visual variant. */`
+- `/** Control state (our names, not RAC). */`
+- `/** Own / chrome props (not from RAC|DOM). */`
+- `/** Content slice for FormX. */`
+- `/** RAC keys omitted because names differ from ours. */`
+- refs: `/** Ref to the … (React 19 prop). */`
+- stories: `/** Story wrapper for react-docgen-typescript. */`

@@ -15,7 +15,7 @@
 - `onChange(value: string[])`
 - `children` — Checkbox’и + layout
 - `size` — chrome (`data-size`); size items задавать на каждом Checkbox
-- `isInvalid`, `disabled`, `dataTestId`
+- `invalid`, `disabled`, `dataTestId`
 
 ### FormCheckboxGroup
 

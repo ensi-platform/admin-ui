@@ -1,12 +1,12 @@
 import { withThemeByDataAttribute } from '@storybook/addon-themes';
 
-import { AdminUiProvider, type IAuiLabels } from '../src/provider/index.js';
+import { AdminUiProvider, type IAuiLabels } from '../src/provider';
 
-import { auiDark, auiLight } from './themes.js';
+import { auiDark, auiLight } from './themes';
 
 import type { Decorator, Preview } from '@storybook/react';
 
-import '../src/tokens/index.css';
+import '../src/ds/tokens/index.css';
 
 const RU_LABELS: IAuiLabels = {
     close: 'Закрыть',

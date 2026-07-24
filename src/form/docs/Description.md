@@ -18,7 +18,7 @@
 - `mode` (default `all`), `isForm`, `disabled`, `className`, `id`
 - `useFieldHook({ name })` — для Form-компонентов контролов
 - `getError(fieldState.error)` — message ошибки
-- re-export RHF: `useFormContext`, `useFormState`, `useFieldArray`
+- re-export RHF: `useFormContext`, `useFormState`, `useFieldArray`, `useWatch`, `useController`
 
 ## Пример
 
@@ -36,7 +36,7 @@ const schema = z.object({
 >
     <FormInput name="email" label="Email" />
     <Button type="submit">Save</Button>
-</Form>
+</Form>;
 ```
 
 ## Не делать

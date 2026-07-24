@@ -13,7 +13,7 @@ On/off тумблер на React Aria `Switch`. Импорт: `import { Switch, 
 
 - `checked` / `defaultChecked` / `onChange(boolean)`
 - `children` — видимый лейбл (без children — `aria-label`)
-- `size`, `isInvalid`, `disabled`, `dataTestId`
+- `size`, `invalid`, `disabled`, `dataTestId`
 - без Group / `as` / `variant`
 
 ### FormSwitch

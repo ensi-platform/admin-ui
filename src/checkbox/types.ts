@@ -1,69 +1,66 @@
 import { type ReactNode, type Ref } from 'react';
 
-import { type TFieldSize } from '../field/types.js';
-import { type IFormFieldComponent } from '../form/types.js';
+import { type CheckboxFieldProps as RacCheckboxFieldProps } from 'react-aria-components';
+
+import { type IDataTestIdProps } from '@ds/common';
+
+import { type IFieldStateProps } from '@/field/types';
+import { type IFormFieldComponent, type IFormFieldMessagesProps, type IFormFieldShellProps } from '@/form/types';
 
 export type TCheckboxSize = 'sm' | 'md' | 'lg';
 
-export interface ICheckboxProps {
-    /** Размер. */
+export type TCheckboxVariant = 'primary';
+
+/** Theme inputs. */
+export interface ICheckboxThemeProps {
+    /** Checkbox size. */
     size?: TCheckboxSize;
-    /** Controlled checked (соло). Внутри CheckboxGroup не передавать. */
-    checked?: boolean;
-    /** Uncontrolled initial checked (соло). */
-    defaultChecked?: boolean;
-    /** Change (соло). Внутри CheckboxGroup не передавать. */
-    onChange?: (checked: boolean) => void;
-    /** Indeterminate (полоска вместо галочки). */
-    indeterminate?: boolean;
-    /** Значение опции внутри RAC CheckboxGroup. */
-    value?: string;
-    /** Видимый лейбл. Без children нужен `aria-label` / `aria-labelledby`. */
-    children?: ReactNode;
-    /** Невалидное состояние. */
-    isInvalid?: boolean;
-    /** Disabled. */
-    disabled?: boolean;
-    /** Дополнительный className. */
-    className?: string;
-    /** Значение атрибута `data-test-id`. */
-    dataTestId?: string;
-    /** Ref на root label (React 19 prop). */
-    ref?: Ref<HTMLLabelElement>;
-    id?: string;
-    name?: string;
-    onBlur?: () => void;
-    'aria-label'?: string;
-    'aria-labelledby'?: string;
-    'aria-describedby'?: string;
-    'aria-invalid'?: boolean | 'true' | 'false';
+    /** Visual variant. */
+    variant?: TCheckboxVariant;
 }
+
+/**
+ * Control state (our names, not RAC).
+ * Do not pass `checked` / `onChange` when used inside CheckboxGroup.
+ */
+export interface ICheckboxControlProps {
+    /** Controlled checked state. */
+    checked?: boolean;
+    /** Uncontrolled initial checked state. */
+    defaultChecked?: boolean;
+    /** Checked change handler. */
+    onChange?: (checked: boolean) => void;
+    /** Indeterminate state (dash instead of checkmark). */
+    indeterminate?: boolean;
+}
+
+/** Own / chrome props (not from RAC Field). */
+export interface ICheckboxOwnProps extends IDataTestIdProps {
+    /** Visible label. Without children, provide `aria-label` / `aria-labelledby`. */
+    children?: ReactNode;
+    /** Ref to the label element (React 19 prop). */
+    ref?: Ref<HTMLLabelElement>;
+}
+
+/** Content slice for FormCheckbox. */
+export interface ICheckboxContentProps {
+    children?: ReactNode;
+    indeterminate?: boolean;
+}
+
+export interface ICheckboxBaseProps
+    extends ICheckboxThemeProps, IFieldStateProps, ICheckboxControlProps, ICheckboxOwnProps {}
+
+/** RAC keys omitted because names differ from ours. */
+export type TCheckboxRacOmit = 'isSelected' | 'defaultSelected' | 'isDisabled' | 'isInvalid' | 'isIndeterminate';
+
+export interface ICheckboxProps
+    extends ICheckboxBaseProps, Omit<RacCheckboxFieldProps, keyof ICheckboxBaseProps | TCheckboxRacOmit> {}
 
 export interface IFormCheckboxProps
     extends
         IFormFieldComponent,
-        Omit<
-            ICheckboxProps,
-            | 'checked'
-            | 'defaultChecked'
-            | 'onChange'
-            | 'onBlur'
-            | 'name'
-            | 'disabled'
-            | 'isInvalid'
-            | 'size'
-            | 'className'
-            | 'dataTestId'
-            | 'value'
-        > {
-    /** Подсказка (`Field.Hint`). */
-    hint?: ReactNode;
-    /** Размер Field + Checkbox. */
-    size?: TFieldSize;
-    /** Disabled (OR с Form.disabled). */
-    disabled?: boolean;
-    /** className корневого Field. */
-    className?: string;
-    /** `data-test-id` корневого Field. */
-    dataTestId?: string;
-}
+        IFormFieldShellProps,
+        Pick<IFormFieldMessagesProps, 'hint'>,
+        Pick<ICheckboxThemeProps, 'variant'>,
+        ICheckboxContentProps {}

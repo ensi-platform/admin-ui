@@ -1,14 +1,14 @@
 import cn from 'classnames';
 
-import { useField } from '../../context.js';
-import { type IFieldErrorProps } from '../../types.js';
+import { useField } from '@/field/context';
 
-import { fieldErrorVariants } from './theme.js';
+import { fieldErrorVariants } from './theme';
+import { type IFieldErrorProps } from './types';
 
 export const FieldError = ({ children, className, ...props }: IFieldErrorProps) => {
-    const { errorId, isInvalid, size } = useField();
+    const { errorId, invalid, size } = useField();
 
-    if (!children || !isInvalid) {
+    if (!children || !invalid) {
         return null;
     }
 

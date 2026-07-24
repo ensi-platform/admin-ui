@@ -15,19 +15,20 @@
 - `value` / `onChange`: `number | null`
 - `min` / `max` / `step` — на view
 - `prefix` / `suffix`
-- `size`, `isInvalid`, `disabled`, `dataTestId`
+- `clear` — кнопка очистки → `onChange(null)`
+- `size`, `invalid`, `disabled`, `dataTestId`
 - без stepper в v1
 
 ### FormNumberInput
 
-- `name`, `label`, `hint`, `size`, `disabled`
+- `name`, `label`, `hint`, `size`, `disabled`, `clear`
 - `transform?: { format, parse }` — store ↔ view
 - без transform store = `number | null`
 
 ## Пример
 
 ```tsx
-<NumberInput aria-label="Qty" value={qty} onChange={setQty} />
+<NumberInput aria-label="Qty" value={qty} onChange={setQty} clear />
 
 <Form
   initialValues={{ price: 1050 }}
@@ -38,6 +39,7 @@
     name="price"
     label="Цена"
     suffix="₽"
+    clear
     transform={kopecksTransform}
     step={0.01}
   />

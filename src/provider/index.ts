@@ -1,3 +1,3 @@
-export * from './Component.js';
-export * from './hooks.js';
-export * from './types.js';
+export * from './Component';
+export * from './hooks';
+export * from './types';

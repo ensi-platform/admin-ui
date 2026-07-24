@@ -1,23 +1,20 @@
 import { type Ref } from 'react';
 
-import { Field, useField } from '../field/index.js';
-import { useFieldHook } from '../form/hooks/useFieldHook.js';
-import { getError } from '../form/utils.js';
+import { Field, useField } from '@/field';
+import { useFieldHook } from '@/form/hooks/useFieldHook';
+import { getError } from '@/form/utils';
 
-import { NumberInput } from './Component.js';
-import { type IFormNumberInputProps, type INumberInputProps } from './types.js';
+import { NumberInput } from './Component';
+import { type IFormNumberInputProps, type INumberInputProps } from './types';
 
-type TFormNumberInputControlProps = Omit<
-    INumberInputProps,
-    'size' | 'isInvalid' | 'disabled' | 'value' | 'onChange'
-> & {
+type TFormNumberInputControlProps = Omit<INumberInputProps, 'size' | 'invalid' | 'disabled' | 'value' | 'onChange'> & {
     value: number | null;
     onChange: (value: number | null) => void;
     ref?: Ref<HTMLInputElement>;
 };
 
 const FormNumberInputControl = ({ ref, value, onChange, onBlur, ...props }: TFormNumberInputControlProps) => {
-    const { controlProps, size, isInvalid, disabled } = useField();
+    const { controlProps, size, invalid, disabled } = useField();
 
     return (
         <NumberInput
@@ -25,7 +22,7 @@ const FormNumberInputControl = ({ ref, value, onChange, onBlur, ...props }: TFor
             {...props}
             ref={ref}
             size={size}
-            isInvalid={isInvalid}
+            invalid={invalid}
             disabled={disabled}
             value={value}
             onChange={onChange}
@@ -55,6 +52,7 @@ export const FormNumberInput = ({
     label,
     hint,
     size = 'md',
+    block = true,
     disabled,
     className,
     dataTestId,
@@ -68,15 +66,17 @@ export const FormNumberInput = ({
 
     return (
         <Field
-            isInvalid={Boolean(error)}
+            invalid={Boolean(error)}
             disabled={isDisabled}
             size={size}
+            block={block}
             className={className}
             dataTestId={dataTestId}
         >
             {label ? <Field.Label>{label}</Field.Label> : null}
             <FormNumberInputControl
                 {...inputProps}
+                block={block}
                 name={rhfInputProps.name}
                 ref={field.ref}
                 value={viewValue}

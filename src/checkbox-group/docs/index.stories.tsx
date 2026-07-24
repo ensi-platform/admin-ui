@@ -1,13 +1,14 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 
-import { Button } from '../../button/index.js';
-import { Checkbox } from '../../checkbox/index.js';
-import { Form } from '../../form/index.js';
-import { FormCheckboxGroup } from '../FormCheckboxGroup.js';
+import { Button } from '@/button';
+import { Checkbox } from '@/checkbox';
+import { Form } from '@/form';
+
+import { FormCheckboxGroup } from '../FormCheckboxGroup';
 
 import Description from './Description.md';
 
-import { CheckboxGroupStoryComponent } from './index.js';
+import { CheckboxGroupStoryComponent } from '.';
 
 export default {
     title: 'CheckboxGroup',

@@ -1,33 +1,36 @@
 import { type ArgTypes, type Meta, type StoryObj } from '@storybook/react';
 import { z } from 'zod';
 
-import { Button } from '../../button/index.js';
-import { Field, useField } from '../../field/index.js';
-import { Form } from '../../form/index.js';
-import { FormInput } from '../FormInput.js';
-import { type IInputProps } from '../types.js';
+import { Button } from '@/button';
+import { Field, useField } from '@/field';
+import { Form } from '@/form';
+
+import { FormInput } from '../FormInput';
+import { type IInputProps } from '../types';
 
 import Description from './Description.md';
 
-import { InputStoryComponent } from './index.js';
+import { InputStoryComponent } from '.';
 
 const DEFAULT_ARGS: IInputProps = {
     size: 'md',
     placeholder: 'Email',
     disabled: false,
-    isInvalid: false,
+    invalid: false,
+    clear: false,
 };
 
 const DEFAULT_ARG_TYPES: ArgTypes<Partial<IInputProps>> = {
     size: { control: { type: 'select' } },
     disabled: { control: { type: 'boolean' } },
-    isInvalid: { control: { type: 'boolean' } },
+    invalid: { control: { type: 'boolean' } },
+    clear: { control: { type: 'boolean' } },
 };
 
 const FieldBoundInput = (props: IInputProps) => {
-    const { controlProps, size, isInvalid, disabled } = useField();
+    const { controlProps, size, invalid, disabled } = useField();
 
-    return <InputStoryComponent {...controlProps} size={size} isInvalid={isInvalid} disabled={disabled} {...props} />;
+    return <InputStoryComponent {...controlProps} size={size} invalid={invalid} disabled={disabled} {...props} />;
 };
 
 export default {
@@ -66,7 +69,7 @@ export const WithForm: StoryObj = {
             onSubmit={() => undefined}
         >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 320 }}>
-                <FormInput name="firstName" label="Имя" />
+                <FormInput name="firstName" label="Имя" clear />
                 <FormInput name="email" label="Email" hint="Рабочий email" placeholder="name@example.com" />
                 <Button type="submit">Отправить</Button>
             </div>
@@ -84,6 +87,14 @@ export const Sizes: StoryObj<IInputProps> = {
     ),
 };
 
+export const Clear: StoryObj<IInputProps> = {
+    args: {
+        clear: true,
+        defaultValue: 'user@example.com',
+    },
+    render: Default.render,
+};
+
 export const Disabled: StoryObj<IInputProps> = {
     args: {
         disabled: true,
@@ -94,7 +105,7 @@ export const Disabled: StoryObj<IInputProps> = {
 
 export const Invalid: StoryObj<IInputProps> = {
     args: {
-        isInvalid: true,
+        invalid: true,
         defaultValue: 'not-an-email',
     },
     render: Default.render,
@@ -103,7 +114,7 @@ export const Invalid: StoryObj<IInputProps> = {
 export const WithField: StoryObj<IInputProps> = {
     render: () => (
         <div style={{ maxWidth: 320 }}>
-            <Field isInvalid>
+            <Field invalid>
                 <Field.Label>Email</Field.Label>
                 <FieldBoundInput placeholder="name@example.com" />
                 <Field.Hint>Мы не передаём email третьим лицам</Field.Hint>

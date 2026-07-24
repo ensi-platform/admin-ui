@@ -9,8 +9,9 @@ alwaysApply: false
 ## Стек / файлы
 
 - Vitest + `@testing-library/react` + `user-event` + `jest-dom`
-- файл: `src/<name>/<name>.test.tsx` (не `index.test` / `Button.test`)
-- импорт компонента из `./index` (публичный API), не из `./Component` напрямую
+- файл: `src/<name>/__tests__/<name>.test.tsx` (+ `form-<name>.test.tsx` при FormX)
+- не `index.test` / `Button.test`, не плоско в корне примитива, не папка `tests/`
+- импорт компонента из `../index` (публичный API), не из `../Component` напрямую
 
 ## Что покрывать
 

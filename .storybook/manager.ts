@@ -1,7 +1,7 @@
 import { GLOBALS_UPDATED } from 'storybook/internal/core-events';
 import { addons } from 'storybook/manager-api';
 
-import { auiDark, auiLight } from './themes.js';
+import { auiDark, auiLight } from './themes';
 
 const applyManagerTheme = (theme?: string) => {
     addons.setConfig({

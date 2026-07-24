@@ -17,11 +17,12 @@
 - [x] invalid / disabled / focus
 - [x] без FieldContext — a11y через `useField().controlProps` снаружи
 - [x] FormInput: `useFieldHook` + Field.Label / Hint / Error
+- [x] `clear` → `onChange('')`, label из `useAuiLabels().clear`
 
 ### API (черновик)
 
-- Input: `size`, `isInvalid`, `disabled`, `dataTestId`, native/RAC props
-- FormInput: `name`, `label`, `hint`, `size`, `disabled`, `dataTestId`
+- Input: `size`, `isInvalid`, `disabled`, `clear`, `dataTestId`, native/RAC props
+- FormInput: `name`, `label`, `hint`, `clear`, `size`, `disabled`, `dataTestId`
 - `as` — нет
 - без `variant` / prefix / suffix
 
@@ -32,7 +33,7 @@
 
 ### Не в scope (v1)
 
-- prefix / suffix / clear
+- prefix / suffix
 - Textarea / SearchInput
 - RAC `TextField` as root
 

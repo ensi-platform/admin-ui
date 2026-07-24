@@ -38,7 +38,6 @@ Single-select справочник / enum в АП. FormSelect — Field + RHF р
 - ComboBox / typeahead
 - sections / groups
 - custom option render / async load
-- Input `clear` (тот же prop позже)
 
 ## Сравнение библиотек
 

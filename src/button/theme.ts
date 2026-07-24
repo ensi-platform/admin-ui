@@ -11,12 +11,15 @@ export const buttonVariants = cva(styles.root, {
         },
         variant: {
             primary: styles.primary,
-            secondary: styles.secondary,
-            tertiary: styles.tertiary,
+        },
+        block: {
+            true: styles.block,
+            false: null,
         },
     },
     defaultVariants: {
         size: 'md',
         variant: 'primary',
+        block: false,
     },
 });

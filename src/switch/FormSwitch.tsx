@@ -1,16 +1,16 @@
 import { type ComponentProps } from 'react';
 
-import { Field, useField } from '../field/index.js';
-import { useFieldHook } from '../form/hooks/useFieldHook.js';
-import { getError } from '../form/utils.js';
+import { Field, useField } from '@/field';
+import { useFieldHook } from '@/form/hooks/useFieldHook';
+import { getError } from '@/form/utils';
 
-import { Switch } from './Component.js';
-import { type IFormSwitchProps } from './types.js';
+import { Switch } from './Component';
+import { type IFormSwitchProps } from './types';
 
-type TFormSwitchControlProps = Omit<ComponentProps<typeof Switch>, 'size' | 'isInvalid' | 'disabled'>;
+type TFormSwitchControlProps = Omit<ComponentProps<typeof Switch>, 'size' | 'invalid' | 'disabled'>;
 
 const FormSwitchControl = (props: TFormSwitchControlProps) => {
-    const { controlProps, size, isInvalid, disabled } = useField();
+    const { controlProps, size, invalid, disabled } = useField();
     const { id, 'aria-describedby': ariaDescribedby, 'aria-invalid': ariaInvalid } = controlProps;
 
     return (
@@ -19,7 +19,7 @@ const FormSwitchControl = (props: TFormSwitchControlProps) => {
             aria-describedby={ariaDescribedby}
             aria-invalid={ariaInvalid}
             size={size}
-            isInvalid={isInvalid}
+            invalid={invalid}
             disabled={disabled}
             {...props}
         />
@@ -30,6 +30,7 @@ export const FormSwitch = ({
     name,
     hint,
     size = 'md',
+    block = true,
     disabled,
     className,
     dataTestId,
@@ -42,9 +43,10 @@ export const FormSwitch = ({
 
     return (
         <Field
-            isInvalid={Boolean(error)}
+            invalid={Boolean(error)}
             disabled={isDisabled}
             size={size}
+            block={block}
             className={className}
             dataTestId={dataTestId}
         >

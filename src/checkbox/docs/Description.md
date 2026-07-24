@@ -16,7 +16,7 @@ Boolean-флаг на React Aria `Checkbox`. Импорт: `import { Checkbox, F
 - `checked` / `defaultChecked` / `onChange(boolean)` — соло
 - `value` — ключ внутри CheckboxGroup (RAC)
 - `children` — видимый лейбл (без children — `aria-label`)
-- `size`, `indeterminate`, `isInvalid`, `disabled`, `dataTestId`
+- `size`, `indeterminate`, `invalid`, `disabled`, `dataTestId`
 - без `label` prop / `as` / `variant`
 
 ### FormCheckbox

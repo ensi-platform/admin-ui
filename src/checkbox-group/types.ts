@@ -1,68 +1,53 @@
 import { type ReactNode, type Ref } from 'react';
 
-import { type TFieldSize } from '../field/types.js';
-import { type IFormFieldComponent } from '../form/types.js';
+import { type CheckboxGroupProps as RacCheckboxGroupProps } from 'react-aria-components';
+
+import { type IDataTestIdProps } from '@ds/common';
+
+import { type IFieldStateProps } from '@/field/types';
+import { type IFormFieldComponent, type IFormFieldMessagesProps, type IFormFieldShellProps } from '@/form/types';
 
 export type TCheckboxGroupSize = 'sm' | 'md' | 'lg';
 
-export interface ICheckboxGroupProps {
-    /** Controlled selection. */
-    value?: string[];
-    /** Uncontrolled initial selection. */
-    defaultValue?: string[];
-    /** Selection change. */
-    onChange?: (value: string[]) => void;
-    /** Checkbox’и и произвольная вёрстка. */
-    children: ReactNode;
-    /** Размер chrome (`data-size`); size Checkbox задаётся явно на items. */
+/** Theme inputs (layout chrome only — no visual variant). */
+export interface ICheckboxGroupThemeProps {
+    /** Group chrome size (`data-size`). Set Checkbox `size` on each item explicitly. */
     size?: TCheckboxGroupSize;
-    /** Невалидное состояние. */
-    isInvalid?: boolean;
-    /** Disabled всей группы. */
-    disabled?: boolean;
-    /** className корня. */
-    className?: string;
-    /** `data-test-id` корня. */
-    dataTestId?: string;
-    /** Ref на корень group (React 19 prop). */
-    ref?: Ref<HTMLDivElement>;
-    id?: string;
-    name?: string;
-    onBlur?: () => void;
-    'aria-label'?: string;
-    'aria-labelledby'?: string;
-    'aria-describedby'?: string;
 }
 
-export interface IFormCheckboxGroupProps
-    extends
-        IFormFieldComponent,
-        Omit<
-            ICheckboxGroupProps,
-            | 'value'
-            | 'defaultValue'
-            | 'onChange'
-            | 'onBlur'
-            | 'name'
-            | 'disabled'
-            | 'isInvalid'
-            | 'size'
-            | 'className'
-            | 'dataTestId'
-            | 'children'
-        > {
-    /** Подпись группы (`Field.Label`). */
-    label?: ReactNode;
-    /** Подсказка (`Field.Hint`). */
-    hint?: ReactNode;
-    /** Checkbox’и / layout-wrapper’ы. */
-    children: ReactNode;
-    /** Размер Field + Group chrome. */
-    size?: TFieldSize;
-    /** Disabled (OR с Form.disabled). */
-    disabled?: boolean;
-    /** className корневого Field. */
-    className?: string;
-    /** `data-test-id` корневого Field. */
-    dataTestId?: string;
+/** Control state (our names, not RAC). */
+export interface ICheckboxGroupControlProps {
+    /** Controlled selected values. */
+    value?: string[];
+    /** Uncontrolled initial selected values. */
+    defaultValue?: string[];
+    /** Selection change handler. */
+    onChange?: (value: string[]) => void;
 }
+
+/** Own props. */
+export interface ICheckboxGroupOwnProps extends IDataTestIdProps {
+    /** Checkboxes and arbitrary layout. */
+    children: ReactNode;
+    /** Ref to the group root (React 19 prop). */
+    ref?: Ref<HTMLDivElement>;
+}
+
+/** Content slice for FormCheckboxGroup. */
+export interface ICheckboxGroupContentProps {
+    children: ReactNode;
+}
+
+export interface ICheckboxGroupBaseProps
+    extends ICheckboxGroupThemeProps, IFieldStateProps, ICheckboxGroupControlProps, ICheckboxGroupOwnProps {}
+
+/** RAC keys omitted because names differ from ours. */
+export type TCheckboxGroupRacOmit = 'isDisabled' | 'isInvalid';
+
+export interface ICheckboxGroupProps
+    extends
+        ICheckboxGroupBaseProps,
+        Omit<RacCheckboxGroupProps, keyof ICheckboxGroupBaseProps | TCheckboxGroupRacOmit> {}
+
+export interface IFormCheckboxGroupProps
+    extends IFormFieldComponent, IFormFieldShellProps, IFormFieldMessagesProps, ICheckboxGroupContentProps {}
