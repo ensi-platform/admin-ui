@@ -4,14 +4,14 @@
 
 ## Когда использовать
 
-- primary-действие (другие variants — later)
+- primary / secondary / danger действия
 - submit в формах
 - ссылка-как-кнопка через `as`
 
 ## API (кратко)
 
 - `size`: `sm` | `md` | `lg`
-- `variant`: `primary` (пока)
+- `variant`: `primary` | `secondary` | `danger`
 - `block` — на всю ширину родителя (дефолт `false`)
 - `icon`: `{ Component, after?, indent?, size?, className?, fill? }`
 - `dataTestId`

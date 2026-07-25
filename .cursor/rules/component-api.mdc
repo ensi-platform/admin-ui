@@ -43,7 +43,7 @@ alwaysApply: false
 
 ```ts
 export type TButtonSize = 'sm' | 'md' | 'lg';
-export type TButtonVariant = 'primary'; // secondary / tertiary — later, не заводить про запас
+export type TButtonVariant = 'primary' | 'secondary' | 'danger'; // tertiary — later
 ```
 
 - `size?: T*Size`, дефолт `'md'`
@@ -188,7 +188,7 @@ export const Input = ({ ref, size = 'md', variant = 'primary', … }: IInputProp
 
 ```tsx
 export type TButtonSize = 'sm' | 'md' | 'lg';
-export type TButtonVariant = 'primary';
+export type TButtonVariant = 'primary' | 'secondary' | 'danger';
 
 export interface IButtonThemeProps {
     size?: TButtonSize;

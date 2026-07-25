@@ -6,11 +6,18 @@ import { OverlayTriggerStateContext } from 'react-aria-components';
 import { Clear } from '@/icons';
 import { useAuiLabels } from '@/provider';
 
+import { drawerCloseButtonVariants } from './theme';
 import { type IDrawerCloseButtonProps } from './types';
 
 import styles from './styles.module.css';
 
-export const DrawerCloseButton = ({ className, dataTestId, onClick, ...props }: IDrawerCloseButtonProps) => {
+export const DrawerCloseButton = ({
+    className,
+    dataTestId,
+    onClick,
+    size = 'md',
+    ...props
+}: IDrawerCloseButtonProps) => {
     const { close } = useAuiLabels();
     const state = useContext(OverlayTriggerStateContext);
 
@@ -18,7 +25,7 @@ export const DrawerCloseButton = ({ className, dataTestId, onClick, ...props }: 
         <button
             {...props}
             type="button"
-            className={cn(styles.root, className)}
+            className={cn(drawerCloseButtonVariants({ size }), className)}
             aria-label={close}
             data-test-id={dataTestId}
             onClick={event => {

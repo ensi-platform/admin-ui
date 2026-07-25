@@ -37,6 +37,16 @@ describe('Button', () => {
         expect(button).toHaveClass(styles.primary);
     });
 
+    it('applies secondary and danger variant classes', () => {
+        const { rerender } = render(<Button variant="secondary">Cancel</Button>);
+
+        expect(screen.getByRole('button', { name: 'Cancel' })).toHaveClass(styles.secondary);
+
+        rerender(<Button variant="danger">Delete</Button>);
+
+        expect(screen.getByRole('button', { name: 'Delete' })).toHaveClass(styles.danger);
+    });
+
     it('applies block class when block is true', () => {
         render(<Button block>Save</Button>);
 
@@ -104,5 +114,15 @@ describe('Button', () => {
         const icon = screen.getByTestId('test-icon');
 
         expect(button.lastElementChild).toBe(icon);
+    });
+
+    it('sets --button-icon-indent when icon.indent is provided', () => {
+        render(
+            <Button icon={{ Component: TestIcon, indent: 8 }} dataTestId="indent-btn">
+                Save
+            </Button>
+        );
+
+        expect(screen.getByTestId('indent-btn')).toHaveStyle({ '--button-icon-indent': '8px' });
     });
 });

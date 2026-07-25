@@ -33,20 +33,6 @@ const FormNumberInputControl = ({ ref, value, onChange, onBlur, ...props }: TFor
 
 FormNumberInputControl.displayName = 'FormNumberInputControl';
 
-const toViewValue = (store: unknown, transform: IFormNumberInputProps['transform']): number | null => {
-    if (transform) {
-        return transform.format(store as number | null | undefined);
-    }
-
-    if (store == null || store === '') {
-        return null;
-    }
-
-    const numeric = typeof store === 'number' ? store : Number(store);
-
-    return Number.isNaN(numeric) ? null : numeric;
-};
-
 export const FormNumberInput = ({
     name,
     label,
@@ -56,13 +42,11 @@ export const FormNumberInput = ({
     disabled,
     className,
     dataTestId,
-    transform,
     ...inputProps
 }: IFormNumberInputProps) => {
     const { field, fieldState, inputProps: rhfInputProps, setFieldValue, onBlurHandler } = useFieldHook({ name });
     const error = getError(fieldState.error)?.message;
     const isDisabled = disabled ?? rhfInputProps.disabled;
-    const viewValue = toViewValue(field.value, transform);
 
     return (
         <Field
@@ -79,10 +63,9 @@ export const FormNumberInput = ({
                 block={block}
                 name={rhfInputProps.name}
                 ref={field.ref}
-                value={viewValue}
+                value={field.value ?? null}
                 onChange={view => {
-                    const store = transform ? transform.parse(view) : view;
-                    setFieldValue(store);
+                    setFieldValue(view);
                 }}
                 onBlur={() => onBlurHandler()}
             />

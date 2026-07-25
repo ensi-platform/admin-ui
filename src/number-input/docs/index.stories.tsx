@@ -7,7 +7,6 @@ import { Button } from '@/button';
 import { Form } from '@/form';
 
 import { FormNumberInput } from '../FormNumberInput';
-import { kopecksTransform } from '../transforms';
 import { type INumberInputProps } from '../types';
 
 import Description from './Description.md';
@@ -48,9 +47,9 @@ const SuffixDemo = () => {
                 aria-label="Цена"
                 value={value}
                 onChange={setValue}
-                suffix="₽"
                 step={0.01}
                 min={0}
+                formatOptions={{ style: 'currency', currency: 'RUB' }}
             />
         </div>
     );
@@ -80,7 +79,7 @@ export const Default: StoryObj<INumberInputProps> = {
 export const WithForm: StoryObj = {
     render: () => (
         <Form
-            initialValues={{ qty: null as number | null, price: 1050 }}
+            initialValues={{ qty: null as number | null, price: 10.5 }}
             validationSchema={z.object({
                 qty: z.number().min(1, 'Минимум 1'),
                 price: z.number().min(0, 'Неотрицательная цена'),
@@ -92,11 +91,10 @@ export const WithForm: StoryObj = {
                 <FormNumberInput
                     name="price"
                     label="Цена"
-                    hint="В форме хранятся копейки"
-                    suffix="₽"
-                    transform={kopecksTransform}
+                    hint="В форме хранятся рубли"
                     step={0.01}
                     min={0}
+                    formatOptions={{ style: 'currency', currency: 'RUB' }}
                 />
                 <Button type="submit">Отправить</Button>
             </div>

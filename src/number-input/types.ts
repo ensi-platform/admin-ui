@@ -11,12 +11,6 @@ export type TNumberInputSize = 'sm' | 'md' | 'lg';
 
 export type TNumberInputVariant = 'primary';
 
-/** Maps store values ↔ view values (e.g. kopecks ↔ rubles). */
-export interface INumberTransform<TStore = number> {
-    format: (store: TStore | null | undefined) => number | null;
-    parse: (view: number | null) => TStore | null;
-}
-
 /** Theme inputs. */
 export interface INumberInputThemeProps {
     /** NumberInput size. */
@@ -71,7 +65,8 @@ export interface INumberInputContentProps {
     min?: number;
     max?: number;
     step?: number;
-    transform?: INumberTransform;
+    /** Intl.NumberFormat options for RAC NumberField display/parse. */
+    formatOptions?: Intl.NumberFormatOptions;
 }
 
 export interface INumberInputBaseProps

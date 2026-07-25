@@ -81,10 +81,8 @@ export const Form = <T extends FieldValues>({
     );
 
     const onSubmitHandler = useCallback((e?: BaseSyntheticEvent) => {
-        if (formHandlerRef.current) {
-            e?.stopPropagation();
-            formHandlerRef.current(e);
-        }
+        e?.stopPropagation();
+        formHandlerRef.current?.(e);
     }, []);
 
     const onBlurHandler = useCallback(

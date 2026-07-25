@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type MouseEvent } from 'react';
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -14,10 +14,12 @@ import styles from '../styles.module.css';
 const DrawerHarness = ({
     open: openProp = true,
     onOpenChange,
+    closeButtonOnClick,
     ...props
 }: Omit<IDrawerProps, 'open' | 'onOpenChange' | 'children'> & {
     open?: boolean;
     onOpenChange?: IDrawerProps['onOpenChange'];
+    closeButtonOnClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 }) => {
     const [open, setOpen] = useState(openProp);
 
@@ -33,7 +35,7 @@ const DrawerHarness = ({
             >
                 <Drawer.Header>
                     <Drawer.Title>Заголовок</Drawer.Title>
-                    <Drawer.CloseButton dataTestId="drawer-close" />
+                    <Drawer.CloseButton dataTestId="drawer-close" onClick={closeButtonOnClick} />
                 </Drawer.Header>
                 <Drawer.Body>Контент</Drawer.Body>
                 <Drawer.Footer>
@@ -83,6 +85,26 @@ describe('Drawer', () => {
         await user.click(screen.getByTestId('drawer-close'));
 
         expect(onOpenChange).toHaveBeenCalledWith(false);
+    });
+
+    it('does not close when CloseButton onClick calls preventDefault', async () => {
+        const user = userEvent.setup();
+        const onOpenChange = vi.fn();
+
+        render(
+            <DrawerHarness
+                open
+                onOpenChange={onOpenChange}
+                closeButtonOnClick={event => {
+                    event.preventDefault();
+                }}
+            />
+        );
+
+        await user.click(screen.getByTestId('drawer-close'));
+
+        expect(onOpenChange).not.toHaveBeenCalled();
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
     });
 
     it('calls onOpenChange on Escape when keyboardDismissable', async () => {

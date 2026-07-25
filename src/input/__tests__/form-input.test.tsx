@@ -82,6 +82,17 @@ describe('FormInput', () => {
         expect(screen.getByText('We never share email')).toBeInTheDocument();
     });
 
+    it('renders without label and with nullish value', () => {
+        render(
+            <Form initialValues={{ email: undefined }} onSubmit={vi.fn()}>
+                <FormInput name="email" aria-label="Email" />
+            </Form>
+        );
+
+        expect(screen.queryByText('Email')).not.toBeInTheDocument();
+        expect(screen.getByRole('textbox', { name: 'Email' })).toHaveValue('');
+    });
+
     it('clears value with clear', async () => {
         const user = userEvent.setup();
         const onSubmit = vi.fn();

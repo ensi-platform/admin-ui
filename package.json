@@ -11,9 +11,17 @@
             "types": "./dist/index.d.ts",
             "import": "./dist/index.js"
         },
+        "./action-popup": {
+            "types": "./dist/action-popup/index.d.ts",
+            "import": "./dist/action-popup/index.js"
+        },
         "./badge": {
             "types": "./dist/badge/index.d.ts",
             "import": "./dist/badge/index.js"
+        },
+        "./bottom-sheet": {
+            "types": "./dist/bottom-sheet/index.d.ts",
+            "import": "./dist/bottom-sheet/index.js"
         },
         "./button": {
             "types": "./dist/button/index.d.ts",

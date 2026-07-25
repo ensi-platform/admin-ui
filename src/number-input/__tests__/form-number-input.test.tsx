@@ -6,16 +6,21 @@ import { z } from 'zod';
 import { Form } from '@/form';
 import { AdminUiProvider } from '@/provider';
 
-import { FormNumberInput, kopecksTransform } from '..';
+import { FormNumberInput } from '..';
 
 describe('FormNumberInput', () => {
-    it('submits scaled store value with kopecksTransform', async () => {
+    it('submits ruble store value', async () => {
         const user = userEvent.setup();
         const onSubmit = vi.fn();
 
         render(
             <Form initialValues={{ price: null as number | null }} onSubmit={onSubmit}>
-                <FormNumberInput name="price" label="Цена" suffix="₽" transform={kopecksTransform} step={0.01} />
+                <FormNumberInput
+                    name="price"
+                    label="Цена"
+                    step={0.01}
+                    formatOptions={{ style: 'currency', currency: 'RUB' }}
+                />
                 <button type="submit">Save</button>
             </Form>
         );
@@ -27,19 +32,19 @@ describe('FormNumberInput', () => {
             expect(onSubmit).toHaveBeenCalledTimes(1);
         });
 
-        expect(onSubmit.mock.calls[0][0]).toEqual({ price: 1050 });
+        expect(onSubmit.mock.calls[0][0]).toEqual({ price: 10.5 });
     });
 
     it('shows validation error for store schema', async () => {
         const user = userEvent.setup();
         const onSubmit = vi.fn();
         const schema = z.object({
-            price: z.number().min(1000, 'Минимум 10 ₽'),
+            price: z.number().min(10, 'Минимум 10 ₽'),
         });
 
         render(
             <Form initialValues={{ price: null as number | null }} validationSchema={schema} onSubmit={onSubmit}>
-                <FormNumberInput name="price" label="Цена" transform={kopecksTransform} />
+                <FormNumberInput name="price" label="Цена" />
                 <button type="submit">Save</button>
             </Form>
         );
@@ -59,6 +64,18 @@ describe('FormNumberInput', () => {
         );
 
         expect(screen.getByLabelText('Цена')).toBeDisabled();
+    });
+
+    it('renders without label and with hint', () => {
+        render(
+            <Form initialValues={{ price: null as number | null }} onSubmit={vi.fn()}>
+                <FormNumberInput name="price" hint="In rubles" aria-label="Цена" />
+            </Form>
+        );
+
+        expect(screen.queryByText('Цена')).not.toBeInTheDocument();
+        expect(screen.getByText('In rubles')).toBeInTheDocument();
+        expect(screen.getByRole('textbox', { name: 'Цена' })).toBeInTheDocument();
     });
 
     it('clears value with clear', async () => {
@@ -82,5 +99,26 @@ describe('FormNumberInput', () => {
         });
 
         expect(onSubmit.mock.calls[0][0]).toEqual({ qty: null });
+    });
+
+    it('applies formatOptions after blur', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <Form initialValues={{ price: null as number | null }} onSubmit={vi.fn()}>
+                <FormNumberInput
+                    name="price"
+                    label="Цена"
+                    step={0.01}
+                    formatOptions={{ maximumFractionDigits: 2, minimumFractionDigits: 2 }}
+                />
+            </Form>
+        );
+
+        const input = screen.getByLabelText('Цена');
+        await user.type(input, '10.5');
+        await user.tab();
+
+        expect(input).toHaveDisplayValue(/10[,.]50/);
     });
 });

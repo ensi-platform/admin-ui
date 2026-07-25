@@ -12,6 +12,10 @@ import '../src/ds/tokens/index.css';
 const RU_LABELS: IAuiLabels = {
     close: 'Закрыть',
     clear: 'Очистить',
+    confirm: 'Подтвердить',
+    cancel: 'Отмена',
+    delete: 'Удалить',
+    notDelete: 'Не удалять',
 };
 
 const withProvider: Decorator = (Story, context) => {

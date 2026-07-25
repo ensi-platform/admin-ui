@@ -82,6 +82,17 @@ describe('FormTextArea', () => {
         expect(screen.getByText('Optional note')).toBeInTheDocument();
     });
 
+    it('renders without label and with nullish value', () => {
+        render(
+            <Form initialValues={{ comment: undefined }} onSubmit={vi.fn()}>
+                <FormTextArea name="comment" aria-label="Comment" />
+            </Form>
+        );
+
+        expect(screen.queryByText('Comment')).not.toBeInTheDocument();
+        expect(screen.getByRole('textbox', { name: 'Comment' })).toHaveValue('');
+    });
+
     it('clears value with clear', async () => {
         const user = userEvent.setup();
         const onSubmit = vi.fn();

@@ -15,11 +15,13 @@ src/<name>/
   styles.module.css     # стили shell (если нужны)
   theme.ts              # cva shell (если нужен)
   types.ts
+  utils.ts              # чистые хелперы примитива (если есть)
   index.ts              # публичный API (только реэкспорт)
   components/           # только составные UI-части (если есть)
   __tests__/
     <name>.test.tsx
     form-<name>.test.tsx
+    utils.test.ts       # если utils.ts покрывается отдельно
   docs/                 # обязательно для публичного примитива
     Description.md
     index.stories.tsx
@@ -82,6 +84,14 @@ src/<name>/
 - shared-типы (`IDataTestIdProps`, `TMergeElementProps`, `TSVGRIcon`) — `@ds/common`
 - хелперы (`toCssSize`) — `@ds/common/utils`
 - типографика в JSX — `typographyStyles` из `@ds/typography`
+
+## `utils.ts`
+
+Чистые хелперы примитива (маппинг значений, предикты жестов, нормализация и т.п.) — в `src/<name>/utils.ts` рядом с корнем, не отдельным файлом на функцию и не в `utils/`.
+
+- только pure / без React (хуки — в `hooks/`)
+- не реэкспортить из `index.ts`, пока это не публичный API
+- тесты: `__tests__/utils.test.ts` или секция в `<name>.test.tsx`
 
 ## Общее
 

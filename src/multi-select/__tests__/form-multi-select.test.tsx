@@ -79,6 +79,18 @@ describe('FormMultiSelect', () => {
         expect(screen.getByTestId('tags-field')).toBeInTheDocument();
     });
 
+    it('renders without label, with nullish value and hint', () => {
+        render(
+            <Form initialValues={{ tags: undefined }} onSubmit={vi.fn()}>
+                <FormMultiSelect name="tags" options={OPTIONS} hint="Pick tags" aria-label="Метки" />
+            </Form>
+        );
+
+        expect(screen.queryByText('Метки')).not.toBeInTheDocument();
+        expect(screen.getByText('Pick tags')).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: /Метки/ })).toBeInTheDocument();
+    });
+
     it('clears value with clear', async () => {
         const user = userEvent.setup();
         const onSubmit = vi.fn();

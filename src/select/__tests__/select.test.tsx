@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -149,5 +149,37 @@ describe('Select', () => {
         const listbox = screen.getByRole('listbox');
 
         expect(within(listbox).getByRole('option', { name: 'Черновик' })).toBeInTheDocument();
+    });
+
+    it('opens from field click on Group', () => {
+        render(<Select aria-label="Status" options={OPTIONS} />);
+
+        fireEvent.click(screen.getByRole('group'));
+
+        expect(screen.getByRole('listbox')).toBeInTheDocument();
+    });
+
+    it('does not open when interactive target inside trigger is clicked', () => {
+        const { container } = render(
+            <AdminUiProvider labels={{ clear: 'Очистить' }}>
+                <Select aria-label="Status" options={OPTIONS} value="draft" clear />
+            </AdminUiProvider>
+        );
+
+        const group = screen.getByRole('group');
+        const chevron = container.querySelector(`.${triggerStyles.chevron}`);
+
+        expect(chevron).toBeTruthy();
+        fireEvent.click(group, { target: chevron! });
+
+        expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    });
+
+    it('does not open from field click when disabled', () => {
+        render(<Select aria-label="Status" options={OPTIONS} value="draft" disabled />);
+
+        fireEvent.click(screen.getByRole('group'));
+
+        expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
     });
 });

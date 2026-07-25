@@ -87,4 +87,11 @@ describe('Checkbox', () => {
 
         expect(screen.getByTestId('indet-box')).toHaveAttribute('data-indeterminate');
     });
+
+    it('renders without label when children are omitted', () => {
+        render(<Checkbox aria-label="Agree" dataTestId="no-label" />);
+
+        expect(screen.getByRole('checkbox', { name: 'Agree' })).toBeInTheDocument();
+        expect(screen.getByTestId('no-label').querySelector(`.${styles.label}`)).not.toBeInTheDocument();
+    });
 });

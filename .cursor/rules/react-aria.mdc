@@ -31,7 +31,7 @@ import { AdminUiProvider, useAuiLabels } from '@ensi-platform/admin-ui-base';
 Встроенные a11y/chrome-строки — только через словарь:
 
 ```tsx
-const { close, clear } = useAuiLabels();
+const { close, clear, confirm, cancel, delete: deleteLabel, notDelete } = useAuiLabels();
 ```
 
 - хардкод пользовательских строк в примитивах запрещён

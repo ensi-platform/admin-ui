@@ -77,6 +77,18 @@ describe('FormSelect', () => {
         expect(screen.getByTestId('status-field')).toBeInTheDocument();
     });
 
+    it('renders without label, with nullish value and hint', () => {
+        render(
+            <Form initialValues={{ status: null as string | null }} onSubmit={vi.fn()}>
+                <FormSelect name="status" options={OPTIONS} hint="Choose one" aria-label="Статус" />
+            </Form>
+        );
+
+        expect(screen.queryByText('Статус')).not.toBeInTheDocument();
+        expect(screen.getByText('Choose one')).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: /Статус/ })).toBeInTheDocument();
+    });
+
     it('clears value with clear', async () => {
         const user = userEvent.setup();
         const onSubmit = vi.fn();

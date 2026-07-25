@@ -1,0 +1,70 @@
+.root {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--aui-bottom-sheet-close-fg);
+}
+
+.root:hover:not(:disabled) {
+    color: var(--aui-bottom-sheet-close-fg-hover);
+}
+
+.root:focus {
+    outline: none;
+}
+
+.root:focus-visible {
+    outline: 2px solid var(--aui-bottom-sheet-close-border-focus);
+    outline-offset: 0;
+    color: var(--aui-bottom-sheet-close-fg-hover);
+}
+
+.root:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.icon {
+    display: block;
+    flex-shrink: 0;
+}
+
+.sm {
+    width: var(--aui-bottom-sheet-close-hit-sm);
+    height: var(--aui-bottom-sheet-close-hit-sm);
+    border-radius: var(--aui-bottom-sheet-close-radius-sm);
+}
+
+.sm .icon {
+    width: var(--aui-bottom-sheet-close-size-sm);
+    height: var(--aui-bottom-sheet-close-size-sm);
+}
+
+.md {
+    width: var(--aui-bottom-sheet-close-hit-md);
+    height: var(--aui-bottom-sheet-close-hit-md);
+    border-radius: var(--aui-bottom-sheet-close-radius-md);
+}
+
+.md .icon {
+    width: var(--aui-bottom-sheet-close-size-md);
+    height: var(--aui-bottom-sheet-close-size-md);
+}
+
+.lg {
+    width: var(--aui-bottom-sheet-close-hit-lg);
+    height: var(--aui-bottom-sheet-close-hit-lg);
+    border-radius: var(--aui-bottom-sheet-close-radius-lg);
+}
+
+.lg .icon {
+    width: var(--aui-bottom-sheet-close-size-lg);
+    height: var(--aui-bottom-sheet-close-size-lg);
+}

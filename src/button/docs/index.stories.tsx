@@ -60,3 +60,13 @@ export const Block: StoryObj<TButtonProps> = {
         block: true,
     },
 };
+
+export const Variants: StoryObj<TButtonProps> = {
+    render: () => (
+        <div style={{ display: 'flex', gap: 8 }}>
+            <ButtonStoryComponent variant="primary">Primary</ButtonStoryComponent>
+            <ButtonStoryComponent variant="secondary">Secondary</ButtonStoryComponent>
+            <ButtonStoryComponent variant="danger">Danger</ButtonStoryComponent>
+        </div>
+    ),
+};

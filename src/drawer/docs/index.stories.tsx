@@ -5,6 +5,7 @@ import { type ArgTypes, type Meta, type StoryObj } from '@storybook/react';
 import { Button } from '@/button';
 
 import { Drawer } from '../Component';
+import { type TDrawerCloseButtonSize } from '../components/CloseButton/types';
 import { type IDrawerProps } from '../types';
 
 import Description from './Description.md';
@@ -31,8 +32,12 @@ const DEFAULT_ARG_TYPES: ArgTypes<Partial<IDrawerProps>> = {
 
 const DrawerDemo = ({
     triggerLabel,
+    closeButtonSize,
     ...props
-}: Omit<IDrawerProps, 'open' | 'onOpenChange' | 'children'> & { triggerLabel?: string }) => {
+}: Omit<IDrawerProps, 'open' | 'onOpenChange' | 'children'> & {
+    triggerLabel?: string;
+    closeButtonSize?: TDrawerCloseButtonSize;
+}) => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -41,7 +46,7 @@ const DrawerDemo = ({
             <Drawer {...props} open={open} onOpenChange={setOpen}>
                 <Drawer.Header>
                     <Drawer.Title>Заголовок</Drawer.Title>
-                    <Drawer.CloseButton />
+                    <Drawer.CloseButton size={closeButtonSize} />
                 </Drawer.Header>
                 <Drawer.Body>Контент боковой панели.</Drawer.Body>
                 <Drawer.Footer>
@@ -88,6 +93,16 @@ export const Sizes: StoryObj<IDrawerProps> = {
             <DrawerDemo size="sm" triggerLabel="Открыть Drawer sm" />
             <DrawerDemo size="md" triggerLabel="Открыть Drawer md" />
             <DrawerDemo size="lg" triggerLabel="Открыть Drawer lg" />
+        </div>
+    ),
+};
+
+export const CloseButtonSizes: StoryObj<IDrawerProps> = {
+    render: () => (
+        <div style={{ display: 'flex', gap: 8 }}>
+            <DrawerDemo closeButtonSize="sm" triggerLabel="CloseButton sm" />
+            <DrawerDemo closeButtonSize="md" triggerLabel="CloseButton md" />
+            <DrawerDemo closeButtonSize="lg" triggerLabel="CloseButton lg" />
         </div>
     ),
 };

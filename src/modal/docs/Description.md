@@ -18,6 +18,7 @@
 - `dismissable` / `keyboardDismissable` (дефолт `true`)
 - `dataTestId`
 - слоты: `Modal.Header` / `Modal.Title` / `Modal.Body` / `Modal.Footer` / `Modal.CloseButton`
+- `CloseButton.size`: `sm` | `md` | `lg` (дефолт `md`; не связан с `Modal.size`)
 
 ## Пример
 

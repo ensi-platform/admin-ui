@@ -44,4 +44,18 @@ describe('FormCheckboxGroup', () => {
 
         expect(screen.getByTestId('tags-field')).toBeInTheDocument();
     });
+
+    it('renders without label and with hint', () => {
+        render(
+            <Form initialValues={{ tags: undefined }} onSubmit={vi.fn()}>
+                <FormCheckboxGroup name="tags" hint="Pick at least one" aria-label="Tags">
+                    <Checkbox value="a">A</Checkbox>
+                </FormCheckboxGroup>
+            </Form>
+        );
+
+        expect(screen.queryByText('Tags')).not.toBeInTheDocument();
+        expect(screen.getByText('Pick at least one')).toBeInTheDocument();
+        expect(screen.getByRole('checkbox', { name: 'A' })).not.toBeChecked();
+    });
 });

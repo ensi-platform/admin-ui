@@ -16,7 +16,7 @@
     --aui-surface-border-primary: var(--aui-grey-600);
     --aui-surface-border-muted: var(--aui-grey-700);
 
-    /* overlay — shared backdrop for modal / drawer */
+    /* overlay — shared backdrop for modal / drawer / bottom-sheet */
     --aui-overlay-bg-primary: color-mix(in srgb, var(--aui-black-900) 60%, transparent);
 
     /* control — brand / status */
@@ -25,6 +25,7 @@
     --aui-control-bg-brand-active: var(--aui-grey-200);
     --aui-control-bg-danger: var(--aui-red-500);
     --aui-control-bg-danger-hover: var(--aui-red-600);
+    --aui-control-bg-danger-active: var(--aui-red-700);
     --aui-control-fg-brand: var(--aui-black-900);
     --aui-control-fg-danger: var(--aui-red-500);
     --aui-control-border-focus: var(--aui-blue-500);
@@ -40,6 +41,11 @@
     --aui-button-bg-secondary-hover: var(--aui-surface-bg-muted-hover);
     --aui-button-bg-secondary-active: var(--aui-surface-bg-muted-active);
     --aui-button-fg-secondary: var(--aui-page-fg-primary);
+
+    --aui-button-bg-danger: var(--aui-control-bg-danger);
+    --aui-button-bg-danger-hover: var(--aui-control-bg-danger-hover);
+    --aui-button-bg-danger-active: var(--aui-control-bg-danger-active);
+    --aui-button-fg-danger: var(--aui-white);
 
     --aui-button-bg-tertiary: var(--aui-transparent);
     --aui-button-bg-tertiary-hover: var(--aui-surface-bg-muted);
@@ -167,4 +173,15 @@
     --aui-drawer-close-fg: var(--aui-page-fg-muted);
     --aui-drawer-close-fg-hover: var(--aui-page-fg-primary);
     --aui-drawer-close-border-focus: var(--aui-control-border-focus);
+
+    /* bottom-sheet */
+    --aui-bottom-sheet-overlay-bg-primary: var(--aui-overlay-bg-primary);
+    --aui-bottom-sheet-bg-primary: var(--aui-surface-bg-elevated);
+    --aui-bottom-sheet-fg-primary: var(--aui-page-fg-primary);
+    --aui-bottom-sheet-fg-muted: var(--aui-page-fg-muted);
+    --aui-bottom-sheet-border-primary: var(--aui-surface-border-primary);
+    --aui-bottom-sheet-handle-bg-primary: var(--aui-grey-300);
+    --aui-bottom-sheet-close-fg: var(--aui-page-fg-muted);
+    --aui-bottom-sheet-close-fg-hover: var(--aui-page-fg-primary);
+    --aui-bottom-sheet-close-border-focus: var(--aui-control-border-focus);
 }

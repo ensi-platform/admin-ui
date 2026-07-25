@@ -171,6 +171,54 @@ describe('Form', () => {
         expect(screen.getByLabelText('Email')).toHaveValue('reset@example.com');
     });
 
+    it('resets without onReset callback', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <Form initialValues={{ email: '' }} onSubmit={vi.fn()}>
+                {({ reset }) => (
+                    <>
+                        <EmailField />
+                        <button type="button" onClick={() => reset({ email: 'reset@example.com' })}>
+                            Reset
+                        </button>
+                    </>
+                )}
+            </Form>
+        );
+
+        await user.type(screen.getByLabelText('Email'), 'a');
+        await user.click(screen.getByRole('button', { name: 'Reset' }));
+
+        await waitFor(() => {
+            expect(screen.getByLabelText('Email')).toHaveValue('reset@example.com');
+        });
+    });
+
+    it('submits via onSubmitHandler without an event', async () => {
+        const onSubmit = vi.fn();
+
+        const SubmitProbe = () => {
+            const { onSubmitHandler } = useAuiForm();
+
+            useEffect(() => {
+                onSubmitHandler();
+            }, [onSubmitHandler]);
+
+            return null;
+        };
+
+        render(
+            <Form initialValues={{ email: 'user@example.com' }} validationSchema={schema} onSubmit={onSubmit}>
+                <SubmitProbe />
+            </Form>
+        );
+
+        await waitFor(() => {
+            expect(onSubmit).toHaveBeenCalledWith({ email: 'user@example.com' }, expect.anything());
+        });
+    });
+
     it('reinitializes values when enableReinitialize and initialValues change', async () => {
         const onSubmit = vi.fn();
 
@@ -263,5 +311,15 @@ describe('Form', () => {
         await waitFor(() => {
             expect(screen.getByLabelText('Email')).toHaveValue('from-val');
         });
+    });
+});
+
+describe('getError', () => {
+    it('returns the first item when value is an array', () => {
+        expect(getError([{ message: 'first' }, { message: 'second' }])).toEqual({ message: 'first' });
+    });
+
+    it('returns the value when it is not an array', () => {
+        expect(getError({ message: 'solo' })).toEqual({ message: 'solo' });
     });
 });

@@ -11,6 +11,8 @@ export const buttonVariants = cva(styles.root, {
         },
         variant: {
             primary: styles.primary,
+            secondary: styles.secondary,
+            danger: styles.danger,
         },
         block: {
             true: styles.block,

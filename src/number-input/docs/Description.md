@@ -1,11 +1,11 @@
 # NumberInput
 
-Числовой контрол на React Aria `NumberField`. Импорт: `import { NumberInput, FormNumberInput, kopecksTransform, createScaleTransform } from '@ensi-platform/admin-ui-base'`.
+Числовой контрол на React Aria `NumberField`. Импорт: `import { NumberInput, FormNumberInput } from '@ensi-platform/admin-ui-base'`.
 
 ## Когда использовать
 
 - количества, цены, веса
-- деньги: `transform={kopecksTransform}` + `suffix="₽"` (store = копейки)
+- деньги: `formatOptions={{ style: 'currency', currency: 'RUB' }}` (store = рубли)
 - `FormNumberInput` — Field + RHF
 
 ## API (кратко)
@@ -22,8 +22,8 @@
 ### FormNumberInput
 
 - `name`, `label`, `hint`, `size`, `disabled`, `clear`
-- `transform?: { format, parse }` — store ↔ view
-- без transform store = `number | null`
+- `formatOptions?: Intl.NumberFormatOptions` — отображение/парс (RAC)
+- store = `number | null`
 
 ## Пример
 
@@ -31,23 +31,21 @@
 <NumberInput aria-label="Qty" value={qty} onChange={setQty} clear />
 
 <Form
-  initialValues={{ price: 1050 }}
+  initialValues={{ price: 10.5 }}
   validationSchema={z.object({ price: z.number().min(0) })}
   onSubmit={save}
 >
   <FormNumberInput
     name="price"
     label="Цена"
-    suffix="₽"
     clear
-    transform={kopecksTransform}
     step={0.01}
+    formatOptions={{ style: 'currency', currency: 'RUB' }}
   />
 </Form>
 ```
 
 ## Не делать
 
-- не класть transform в текстовый Input
-- не заводить MoneyInput — пресет + suffix
+- не заводить MoneyInput — `formatOptions` + currency
 - не читать FieldContext внутри NumberInput

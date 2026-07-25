@@ -4,14 +4,11 @@
     justify-content: center;
     flex-shrink: 0;
     box-sizing: border-box;
-    width: var(--aui-modal-close-hit-md);
-    height: var(--aui-modal-close-hit-md);
     margin: 0;
     padding: 0;
     border: none;
     background: transparent;
     cursor: pointer;
-    border-radius: var(--aui-modal-close-radius-md);
     color: var(--aui-modal-close-fg);
 }
 
@@ -36,7 +33,38 @@
 
 .icon {
     display: block;
+    flex-shrink: 0;
+}
+
+.sm {
+    width: var(--aui-modal-close-hit-sm);
+    height: var(--aui-modal-close-hit-sm);
+    border-radius: var(--aui-modal-close-radius-sm);
+}
+
+.sm .icon {
+    width: var(--aui-modal-close-size-sm);
+    height: var(--aui-modal-close-size-sm);
+}
+
+.md {
+    width: var(--aui-modal-close-hit-md);
+    height: var(--aui-modal-close-hit-md);
+    border-radius: var(--aui-modal-close-radius-md);
+}
+
+.md .icon {
     width: var(--aui-modal-close-size-md);
     height: var(--aui-modal-close-size-md);
-    flex-shrink: 0;
+}
+
+.lg {
+    width: var(--aui-modal-close-hit-lg);
+    height: var(--aui-modal-close-hit-lg);
+    border-radius: var(--aui-modal-close-radius-lg);
+}
+
+.lg .icon {
+    width: var(--aui-modal-close-size-lg);
+    height: var(--aui-modal-close-size-lg);
 }

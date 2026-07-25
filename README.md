@@ -19,7 +19,17 @@ import { AdminUiProvider, Button, typographyStyles } from '@ensi-platform/admin-
 // import { typographyStyles } from '@ensi-platform/admin-ui-base/typography';
 
 export const Example = () => (
-    <AdminUiProvider locale="ru-RU" labels={{ close: t('aui.close'), clear: t('aui.clear') }}>
+    <AdminUiProvider
+        locale="ru-RU"
+        labels={{
+            close: t('aui.close'),
+            clear: t('aui.clear'),
+            confirm: t('aui.confirm'),
+            cancel: t('aui.cancel'),
+            delete: t('aui.delete'),
+            notDelete: t('aui.notDelete'),
+        }}
+    >
         <p className={typographyStyles.bodyM}>Body text</p>
         <Button>Save</Button>
     </AdminUiProvider>

@@ -77,4 +77,11 @@ describe('Switch', () => {
 
         expect(screen.getByTestId('invalid-sw')).toHaveClass(styles.invalid);
     });
+
+    it('renders without label when children are omitted', () => {
+        render(<Switch aria-label="Notifications" dataTestId="no-label" />);
+
+        expect(screen.getByRole('switch', { name: 'Notifications' })).toBeInTheDocument();
+        expect(screen.getByTestId('no-label').querySelector(`.${styles.label}`)).not.toBeInTheDocument();
+    });
 });

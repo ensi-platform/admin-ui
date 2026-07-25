@@ -18,6 +18,7 @@
 - `dismissable` / `keyboardDismissable` (дефолт `true`)
 - `dataTestId`
 - слоты: `Drawer.Header` / `Drawer.Title` / `Drawer.Body` / `Drawer.Footer` / `Drawer.CloseButton`
+- `CloseButton.size`: `sm` | `md` | `lg` (дефолт `md`; не связан с `Drawer.size`)
 
 ## Пример
 

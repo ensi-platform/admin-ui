@@ -47,6 +47,12 @@ describe('MultiSelect', () => {
         expect(container.querySelector(`.${triggerStyles.primary}`)).toBeInTheDocument();
     });
 
+    it('applies tagSm class for selected tags when size is sm', () => {
+        const { container } = render(<MultiSelect aria-label="Метки" options={OPTIONS} size="sm" value={['vip']} />);
+
+        expect(container.querySelector(`.${triggerStyles.tagSm}`)).toBeInTheDocument();
+    });
+
     it('applies list size and variant classes when open', async () => {
         const user = userEvent.setup();
 

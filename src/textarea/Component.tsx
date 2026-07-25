@@ -1,4 +1,4 @@
-import { type ChangeEvent, type ChangeEventHandler, useRef, useState } from 'react';
+import { type ChangeEventHandler, useRef, useState } from 'react';
 
 import cn from 'classnames';
 import { Group, TextArea as RacTextArea } from 'react-aria-components';
@@ -8,6 +8,7 @@ import { useAuiLabels } from '@/provider';
 
 import { textAreaVariants } from './theme';
 import { type ITextAreaProps } from './types';
+import { clearTextAreaElementValue, toEmptyTextAreaChangeEvent } from './utils';
 
 import styles from './styles.module.css';
 
@@ -78,15 +79,9 @@ export const TextArea = ({
 
     const emitEmptyChange = () => {
         const el = textAreaRef.current;
-        const event = {
-            target: el ?? { value: '' },
-            currentTarget: el ?? { value: '' },
-        } as ChangeEvent<HTMLTextAreaElement>;
+        const event = toEmptyTextAreaChangeEvent(el);
 
-        if (el) {
-            const setter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value')?.set;
-            setter?.call(el, '');
-        }
+        clearTextAreaElementValue(el);
 
         if (!isControlled) {
             setUncontrolledValue('');

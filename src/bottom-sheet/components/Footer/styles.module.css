@@ -1,0 +1,11 @@
+.root {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: var(--aui-bottom-sheet-gap-footer-md);
+    flex-shrink: 0;
+    box-sizing: border-box;
+    padding: var(--aui-bottom-sheet-pad-y-footer-md) var(--aui-bottom-sheet-pad-x-md);
+    border-top: 1px solid var(--aui-bottom-sheet-border-primary);
+}

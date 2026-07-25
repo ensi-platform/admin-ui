@@ -9,10 +9,6 @@ import { type IFieldHintProps } from './types';
 export const FieldHint = ({ children, className, ...props }: IFieldHintProps) => {
     const { hintId, size, disabled } = useField();
 
-    if (!children) {
-        return null;
-    }
-
     return (
         <Text
             {...props}

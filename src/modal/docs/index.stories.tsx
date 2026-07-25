@@ -5,6 +5,7 @@ import { type ArgTypes, type Meta, type StoryObj } from '@storybook/react';
 import { Button } from '@/button';
 
 import { Modal } from '../Component';
+import { type TModalCloseButtonSize } from '../components/CloseButton/types';
 import { type IModalProps } from '../types';
 
 import Description from './Description.md';
@@ -29,8 +30,12 @@ const DEFAULT_ARG_TYPES: ArgTypes<Partial<IModalProps>> = {
 
 const ModalDemo = ({
     triggerLabel,
+    closeButtonSize,
     ...props
-}: Omit<IModalProps, 'open' | 'onOpenChange' | 'children'> & { triggerLabel?: string }) => {
+}: Omit<IModalProps, 'open' | 'onOpenChange' | 'children'> & {
+    triggerLabel?: string;
+    closeButtonSize?: TModalCloseButtonSize;
+}) => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -39,7 +44,7 @@ const ModalDemo = ({
             <Modal {...props} open={open} onOpenChange={setOpen}>
                 <Modal.Header>
                     <Modal.Title>Заголовок</Modal.Title>
-                    <Modal.CloseButton />
+                    <Modal.CloseButton size={closeButtonSize} />
                 </Modal.Header>
                 <Modal.Body>Контент модального окна.</Modal.Body>
                 <Modal.Footer>
@@ -78,6 +83,16 @@ export const Sizes: StoryObj<IModalProps> = {
             <ModalDemo size="sm" triggerLabel="Открыть Modal sm" />
             <ModalDemo size="md" triggerLabel="Открыть Modal md" />
             <ModalDemo size="lg" triggerLabel="Открыть Modal lg" />
+        </div>
+    ),
+};
+
+export const CloseButtonSizes: StoryObj<IModalProps> = {
+    render: () => (
+        <div style={{ display: 'flex', gap: 8 }}>
+            <ModalDemo closeButtonSize="sm" triggerLabel="CloseButton sm" />
+            <ModalDemo closeButtonSize="md" triggerLabel="CloseButton md" />
+            <ModalDemo closeButtonSize="lg" triggerLabel="CloseButton lg" />
         </div>
     ),
 };

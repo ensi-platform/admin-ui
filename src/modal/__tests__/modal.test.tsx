@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type MouseEvent } from 'react';
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -14,10 +14,12 @@ import styles from '../styles.module.css';
 const ModalHarness = ({
     open: openProp = true,
     onOpenChange,
+    closeButtonOnClick,
     ...props
 }: Omit<IModalProps, 'open' | 'onOpenChange' | 'children'> & {
     open?: boolean;
     onOpenChange?: IModalProps['onOpenChange'];
+    closeButtonOnClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 }) => {
     const [open, setOpen] = useState(openProp);
 
@@ -33,7 +35,7 @@ const ModalHarness = ({
             >
                 <Modal.Header>
                     <Modal.Title>Заголовок</Modal.Title>
-                    <Modal.CloseButton dataTestId="modal-close" />
+                    <Modal.CloseButton dataTestId="modal-close" onClick={closeButtonOnClick} />
                 </Modal.Header>
                 <Modal.Body>Контент</Modal.Body>
                 <Modal.Footer>
@@ -81,6 +83,26 @@ describe('Modal', () => {
         await user.click(screen.getByTestId('modal-close'));
 
         expect(onOpenChange).toHaveBeenCalledWith(false);
+    });
+
+    it('does not close when CloseButton onClick calls preventDefault', async () => {
+        const user = userEvent.setup();
+        const onOpenChange = vi.fn();
+
+        render(
+            <ModalHarness
+                open
+                onOpenChange={onOpenChange}
+                closeButtonOnClick={event => {
+                    event.preventDefault();
+                }}
+            />
+        );
+
+        await user.click(screen.getByTestId('modal-close'));
+
+        expect(onOpenChange).not.toHaveBeenCalled();
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
     });
 
     it('calls onOpenChange on Escape when keyboardDismissable', async () => {

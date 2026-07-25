@@ -63,3 +63,29 @@
 .primary:active:not(:disabled) {
     background: var(--aui-button-bg-primary-active);
 }
+
+.secondary {
+    background: var(--aui-button-bg-secondary);
+    color: var(--aui-button-fg-secondary);
+}
+
+.secondary:hover:not(:disabled) {
+    background: var(--aui-button-bg-secondary-hover);
+}
+
+.secondary:active:not(:disabled) {
+    background: var(--aui-button-bg-secondary-active);
+}
+
+.danger {
+    background: var(--aui-button-bg-danger);
+    color: var(--aui-button-fg-danger);
+}
+
+.danger:hover:not(:disabled) {
+    background: var(--aui-button-bg-danger-hover);
+}
+
+.danger:active:not(:disabled) {
+    background: var(--aui-button-bg-danger-active);
+}

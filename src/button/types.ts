@@ -6,7 +6,7 @@ import { type IIconButtonProps } from '@/icon';
 
 export type TButtonSize = 'sm' | 'md' | 'lg';
 
-export type TButtonVariant = 'primary';
+export type TButtonVariant = 'primary' | 'secondary' | 'danger';
 
 /** Theme inputs. */
 export interface IButtonThemeProps {

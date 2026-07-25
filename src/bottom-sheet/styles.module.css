@@ -1,0 +1,86 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: var(--aui-bottom-sheet-z);
+    display: flex;
+    align-items: flex-end;
+    justify-content: stretch;
+    background: var(--aui-bottom-sheet-overlay-bg-primary);
+    opacity: 1;
+    transition: opacity var(--aui-bottom-sheet-duration-normal) var(--aui-bottom-sheet-ease-out);
+}
+
+.overlay[data-entering],
+.overlay[data-exiting] {
+    opacity: 0;
+}
+
+.panel {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    max-height: var(--aui-bottom-sheet-max-h);
+    overflow: hidden;
+    border: 1px solid transparent;
+    border-radius: var(--aui-bottom-sheet-radius-md) var(--aui-bottom-sheet-radius-md) 0 0;
+    box-shadow: var(--aui-bottom-sheet-shadow);
+    outline: none;
+    touch-action: none;
+    transform: translateY(0);
+    transition: transform var(--aui-bottom-sheet-duration-normal) var(--aui-bottom-sheet-ease-out);
+}
+
+.panel[data-entering],
+.panel[data-exiting] {
+    transform: translateY(100%);
+}
+
+.fullscreen {
+    height: var(--aui-bottom-sheet-h-fullscreen);
+    max-height: var(--aui-bottom-sheet-h-fullscreen);
+    border-radius: var(--aui-bottom-sheet-radius-fullscreen);
+}
+
+.primary {
+    border-color: var(--aui-bottom-sheet-border-primary);
+    background: var(--aui-bottom-sheet-bg-primary);
+    color: var(--aui-bottom-sheet-fg-primary);
+}
+
+.dialog {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+}
+
+.handle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding-block: var(--aui-bottom-sheet-pad-y-handle-md);
+}
+
+.handleLine {
+    width: var(--aui-bottom-sheet-handle-w-md);
+    height: var(--aui-bottom-sheet-handle-h-md);
+    border-radius: var(--aui-bottom-sheet-handle-radius-md);
+    background: var(--aui-bottom-sheet-handle-bg-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .overlay,
+    .panel {
+        transition: none;
+    }
+
+    .panel[data-entering],
+    .panel[data-exiting] {
+        transform: none;
+    }
+}

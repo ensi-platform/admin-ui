@@ -6,11 +6,18 @@ import { OverlayTriggerStateContext } from 'react-aria-components';
 import { Clear } from '@/icons';
 import { useAuiLabels } from '@/provider';
 
+import { modalCloseButtonVariants } from './theme';
 import { type IModalCloseButtonProps } from './types';
 
 import styles from './styles.module.css';
 
-export const ModalCloseButton = ({ className, dataTestId, onClick, ...props }: IModalCloseButtonProps) => {
+export const ModalCloseButton = ({
+    className,
+    dataTestId,
+    onClick,
+    size = 'md',
+    ...props
+}: IModalCloseButtonProps) => {
     const { close } = useAuiLabels();
     const state = useContext(OverlayTriggerStateContext);
 
@@ -18,7 +25,7 @@ export const ModalCloseButton = ({ className, dataTestId, onClick, ...props }: I
         <button
             {...props}
             type="button"
-            className={cn(styles.root, className)}
+            className={cn(modalCloseButtonVariants({ size }), className)}
             aria-label={close}
             data-test-id={dataTestId}
             onClick={event => {

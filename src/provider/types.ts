@@ -6,6 +6,10 @@ export type TTextDirection = 'ltr' | 'rtl';
 export interface IAuiLabels {
     close: string;
     clear: string;
+    confirm: string;
+    cancel: string;
+    delete: string;
+    notDelete: string;
 }
 
 export type TAuiLabels = IAuiLabels;

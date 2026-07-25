@@ -1,4 +1,4 @@
-import { type ChangeEvent, type ChangeEventHandler, useRef, useState } from 'react';
+import { type ChangeEventHandler, useRef, useState } from 'react';
 
 import cn from 'classnames';
 import { Group, Input as RacInput } from 'react-aria-components';
@@ -8,6 +8,7 @@ import { useAuiLabels } from '@/provider';
 
 import { inputVariants } from './theme';
 import { type IInputProps } from './types';
+import { clearInputElementValue, toEmptyInputChangeEvent } from './utils';
 
 import styles from './styles.module.css';
 
@@ -78,15 +79,9 @@ export const Input = ({
 
     const emitEmptyChange = () => {
         const el = inputRef.current;
-        const event = {
-            target: el ?? { value: '' },
-            currentTarget: el ?? { value: '' },
-        } as ChangeEvent<HTMLInputElement>;
+        const event = toEmptyInputChangeEvent(el);
 
-        if (el) {
-            const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
-            setter?.call(el, '');
-        }
+        clearInputElementValue(el);
 
         if (!isControlled) {
             setUncontrolledValue('');
