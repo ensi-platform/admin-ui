@@ -16,6 +16,9 @@
     --aui-surface-border-primary: var(--aui-grey-600);
     --aui-surface-border-muted: var(--aui-grey-700);
 
+    /* overlay — shared backdrop for modal / drawer */
+    --aui-overlay-bg-primary: color-mix(in srgb, var(--aui-black-900) 60%, transparent);
+
     /* control — brand / status */
     --aui-control-bg-brand: var(--aui-grey-100);
     --aui-control-bg-brand-hover: var(--aui-white);
@@ -135,4 +138,33 @@
     --aui-tag-fg-muted: var(--aui-page-fg-muted);
     --aui-tag-border-primary: var(--aui-surface-border-primary);
     --aui-tag-border-focus: var(--aui-control-border-focus);
+
+    /* tooltip — inverted chrome */
+    --aui-tooltip-bg-primary: var(--aui-grey-200);
+    --aui-tooltip-fg-primary: var(--aui-grey-800);
+
+    /* popover — elevated surface */
+    --aui-popover-bg-primary: var(--aui-surface-bg-elevated);
+    --aui-popover-fg-primary: var(--aui-page-fg-primary);
+    --aui-popover-border-primary: var(--aui-surface-border-primary);
+
+    /* modal */
+    --aui-modal-overlay-bg-primary: var(--aui-overlay-bg-primary);
+    --aui-modal-bg-primary: var(--aui-surface-bg-elevated);
+    --aui-modal-fg-primary: var(--aui-page-fg-primary);
+    --aui-modal-fg-muted: var(--aui-page-fg-muted);
+    --aui-modal-border-primary: var(--aui-surface-border-primary);
+    --aui-modal-close-fg: var(--aui-page-fg-muted);
+    --aui-modal-close-fg-hover: var(--aui-page-fg-primary);
+    --aui-modal-close-border-focus: var(--aui-control-border-focus);
+
+    /* drawer */
+    --aui-drawer-overlay-bg-primary: var(--aui-overlay-bg-primary);
+    --aui-drawer-bg-primary: var(--aui-surface-bg-elevated);
+    --aui-drawer-fg-primary: var(--aui-page-fg-primary);
+    --aui-drawer-fg-muted: var(--aui-page-fg-muted);
+    --aui-drawer-border-primary: var(--aui-surface-border-primary);
+    --aui-drawer-close-fg: var(--aui-page-fg-muted);
+    --aui-drawer-close-fg-hover: var(--aui-page-fg-primary);
+    --aui-drawer-close-border-focus: var(--aui-control-border-focus);
 }

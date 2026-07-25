@@ -1,3 +1,5 @@
+import { createRef } from 'react';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
@@ -64,6 +66,38 @@ describe('Input', () => {
         await user.type(input, 'a');
 
         expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it('assigns object ref', () => {
+        const ref = createRef<HTMLInputElement>();
+
+        render(<Input aria-label="Email" ref={ref} />);
+
+        expect(ref.current).toBeInstanceOf(HTMLInputElement);
+    });
+
+    it('updates uncontrolled value on type and clear', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(
+            <AdminUiProvider labels={{ clear: 'Очистить' }}>
+                <Input aria-label="Email" defaultValue="hello" clear onChange={onChange} />
+            </AdminUiProvider>
+        );
+
+        const input = screen.getByRole('textbox', { name: 'Email' });
+
+        expect(input).toHaveValue('hello');
+
+        await user.type(input, '!');
+        expect(onChange).toHaveBeenCalled();
+        expect(input).toHaveValue('hello!');
+
+        await user.click(screen.getByRole('button', { name: 'Очистить' }));
+
+        expect(onChange.mock.calls.at(-1)?.[0].target.value).toBe('');
+        expect(input).toHaveValue('');
     });
 
     it('clears value when clear is clicked', async () => {

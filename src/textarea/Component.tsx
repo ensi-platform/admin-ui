@@ -99,8 +99,6 @@ export const TextArea = ({
         <Group
             className={cn(textAreaVariants({ size, variant, block }), className)}
             data-test-id={dataTestId}
-            data-size={size}
-            data-clear={clear || undefined}
             isInvalid={invalid}
             isDisabled={disabled}
         >

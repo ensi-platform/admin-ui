@@ -165,4 +165,8 @@ describe('Field', () => {
         expect(screen.getByText('Hint').className).toMatch(/bodyS/);
         expect(screen.getByRole('alert').className).toMatch(/bodyS/);
     });
+
+    it('throws useField outside Field', () => {
+        expect(() => render(<DemoInput />)).toThrow('This component must be used within a <Field> component');
+    });
 });

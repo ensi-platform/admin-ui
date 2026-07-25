@@ -345,29 +345,7 @@
 <a name='L280'></a><a href='#L280'>280</a>
 <a name='L281'></a><a href='#L281'>281</a>
 <a name='L282'></a><a href='#L282'>282</a>
-<a name='L283'></a><a href='#L283'>283</a>
-<a name='L284'></a><a href='#L284'>284</a>
-<a name='L285'></a><a href='#L285'>285</a>
-<a name='L286'></a><a href='#L286'>286</a>
-<a name='L287'></a><a href='#L287'>287</a>
-<a name='L288'></a><a href='#L288'>288</a>
-<a name='L289'></a><a href='#L289'>289</a>
-<a name='L290'></a><a href='#L290'>290</a>
-<a name='L291'></a><a href='#L291'>291</a>
-<a name='L292'></a><a href='#L292'>292</a>
-<a name='L293'></a><a href='#L293'>293</a>
-<a name='L294'></a><a href='#L294'>294</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L283'></a><a href='#L283'>283</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -650,7 +628,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">.triggerWrap {
-    position: relative;
     width: 100%;
 }
 &nbsp;
@@ -690,6 +667,12 @@
     align-items: center;
     flex: 1;
     min-width: 0;
+}
+&nbsp;
+.actions {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
 }
 &nbsp;
 .placeholder {
@@ -807,28 +790,14 @@
     transform: rotate(180deg);
 }
 &nbsp;
-.clearSlot {
-    position: absolute;
-    top: 50%;
-    z-index: 1;
-    transform: translateY(-50%);
-}
-&nbsp;
-.triggerWrap[data-size='sm'] .clearSlot {
-    right: calc(var(--aui-multi-select-pad-x-sm) + var(--aui-multi-select-icon-hit-sm));
-}
-&nbsp;
-.triggerWrap[data-size='md'] .clearSlot {
-    right: calc(var(--aui-multi-select-pad-x-md) + var(--aui-multi-select-icon-hit-md));
-}
-&nbsp;
-.triggerWrap[data-size='lg'] .clearSlot {
-    right: calc(var(--aui-multi-select-pad-x-lg) + var(--aui-multi-select-icon-hit-lg));
-}
-&nbsp;
 .sm {
     min-height: var(--aui-multi-select-h-sm);
-    padding: var(--aui-multi-select-pad-y-sm) var(--aui-multi-select-pad-x-sm);
+    padding-block: var(--aui-multi-select-pad-y-sm);
+    padding-inline: var(--aui-multi-select-pad-x-sm);
+    padding-inline-end: calc(
+        var(--aui-multi-select-pad-x-sm) - (var(--aui-multi-select-icon-hit-sm) - var(--aui-multi-select-icon-size-sm)) /
+            2
+    );
     gap: var(--aui-multi-select-gap-sm);
 }
 &nbsp;
@@ -843,13 +812,14 @@
     margin-block: calc((var(--aui-multi-select-icon-hit-sm) - var(--aui-multi-select-icon-size-sm)) / -2);
 }
 &nbsp;
-.triggerWrap[data-clear] .sm .chevronButton {
-    margin-inline-start: calc(var(--aui-multi-select-icon-hit-sm) + var(--aui-multi-select-gap-sm));
-}
-&nbsp;
 .md {
     min-height: var(--aui-multi-select-h-md);
-    padding: var(--aui-multi-select-pad-y-md) var(--aui-multi-select-pad-x-md);
+    padding-block: var(--aui-multi-select-pad-y-md);
+    padding-inline: var(--aui-multi-select-pad-x-md);
+    padding-inline-end: calc(
+        var(--aui-multi-select-pad-x-md) - (var(--aui-multi-select-icon-hit-md) - var(--aui-multi-select-icon-size-md)) /
+            2
+    );
     gap: var(--aui-multi-select-gap-md);
 }
 &nbsp;
@@ -864,13 +834,14 @@
     margin-block: calc((var(--aui-multi-select-icon-hit-md) - var(--aui-multi-select-icon-size-md)) / -2);
 }
 &nbsp;
-.triggerWrap[data-clear] .md .chevronButton {
-    margin-inline-start: calc(var(--aui-multi-select-icon-hit-md) + var(--aui-multi-select-gap-md));
-}
-&nbsp;
 .lg {
     min-height: var(--aui-multi-select-h-lg);
-    padding: var(--aui-multi-select-pad-y-lg) var(--aui-multi-select-pad-x-lg);
+    padding-block: var(--aui-multi-select-pad-y-lg);
+    padding-inline: var(--aui-multi-select-pad-x-lg);
+    padding-inline-end: calc(
+        var(--aui-multi-select-pad-x-lg) - (var(--aui-multi-select-icon-hit-lg) - var(--aui-multi-select-icon-size-lg)) /
+            2
+    );
     gap: var(--aui-multi-select-gap-lg);
 }
 &nbsp;
@@ -883,10 +854,6 @@
     width: var(--aui-multi-select-icon-hit-lg);
     height: var(--aui-multi-select-icon-hit-lg);
     margin-block: calc((var(--aui-multi-select-icon-hit-lg) - var(--aui-multi-select-icon-size-lg)) / -2);
-}
-&nbsp;
-.triggerWrap[data-clear] .lg .chevronButton {
-    margin-inline-start: calc(var(--aui-multi-select-icon-hit-lg) + var(--aui-multi-select-gap-lg));
 }
 &nbsp;
 .primary {
@@ -949,7 +916,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-07-24T21:41:46.495Z
+                at 2026-07-25T09:29:10.545Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

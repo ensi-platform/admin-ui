@@ -41,7 +41,7 @@ export const useFieldHook = <TElement extends HTMLElement = HTMLElement>({ name 
 
     const onChangeHandler = useCallback(
         <T extends HTMLInputElement | HTMLTextAreaElement, E extends Event>(
-            e: SyntheticEvent<T, E> | undefined,
+            e?: SyntheticEvent<T, E>,
             val?: NativeFieldValue
         ) => {
             if (val !== undefined) {

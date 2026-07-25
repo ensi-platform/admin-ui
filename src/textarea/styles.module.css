@@ -1,6 +1,7 @@
 .root {
-    position: relative;
     display: flex;
+    align-items: flex-start;
+    gap: var(--aui-space-8);
     border: 1px solid transparent;
     border-radius: var(--aui-textarea-radius-md);
     transition: border-color var(--aui-textarea-duration-fast) var(--aui-textarea-ease-out);
@@ -36,18 +37,6 @@
     padding: var(--aui-textarea-pad-y-lg) var(--aui-textarea-pad-x-lg);
 }
 
-.root[data-clear].sm {
-    padding-right: calc(var(--aui-textarea-pad-x-sm) + var(--aui-textarea-icon-hit-md));
-}
-
-.root[data-clear].md {
-    padding-right: calc(var(--aui-textarea-pad-x-md) + var(--aui-textarea-icon-hit-md));
-}
-
-.root[data-clear].lg {
-    padding-right: calc(var(--aui-textarea-pad-x-lg) + var(--aui-textarea-icon-hit-md));
-}
-
 .fieldInput {
     flex: 1;
     width: 100%;
@@ -74,9 +63,6 @@
 }
 
 .clear {
-    position: absolute;
-    top: var(--aui-textarea-pad-y-md);
-    right: var(--aui-textarea-pad-x-md);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -92,16 +78,6 @@
     cursor: pointer;
     border-radius: var(--aui-textarea-clear-radius-md);
     transition: color var(--aui-textarea-duration-fast) var(--aui-textarea-ease-out);
-}
-
-.root[data-size='sm'] .clear {
-    top: var(--aui-textarea-pad-y-sm);
-    right: var(--aui-textarea-pad-x-sm);
-}
-
-.root[data-size='lg'] .clear {
-    top: var(--aui-textarea-pad-y-lg);
-    right: var(--aui-textarea-pad-x-lg);
 }
 
 @media (prefers-reduced-motion: reduce) {

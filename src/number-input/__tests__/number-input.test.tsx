@@ -74,4 +74,47 @@ describe('NumberInput', () => {
 
         expect(onChange).toHaveBeenCalledWith(null);
     });
+
+    it('clears uncontrolled value when clear is clicked', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(
+            <AdminUiProvider labels={{ clear: 'Очистить' }}>
+                <NumberInput aria-label="Qty" defaultValue={12} clear onChange={onChange} />
+            </AdminUiProvider>
+        );
+
+        expect(screen.getByRole('textbox', { name: 'Qty' })).toHaveValue('12');
+
+        await user.click(screen.getByRole('button', { name: 'Очистить' }));
+
+        expect(onChange).toHaveBeenCalledWith(null);
+        expect(screen.getByRole('textbox', { name: 'Qty' })).toHaveValue('');
+    });
+
+    it('treats NaN defaultValue as empty uncontrolled state', () => {
+        render(<NumberInput aria-label="Qty" defaultValue={Number.NaN} />);
+
+        expect(screen.getByRole('textbox', { name: 'Qty' })).toHaveValue('');
+    });
+
+    it('renders prefix', () => {
+        render(<NumberInput aria-label="Price" prefix="$" />);
+
+        expect(screen.getByText('$')).toBeInTheDocument();
+    });
+
+    it('emits null when input is cleared via typing', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(<NumberInput aria-label="Qty" defaultValue={5} onChange={onChange} />);
+
+        const input = screen.getByRole('textbox', { name: 'Qty' });
+        await user.clear(input);
+        await user.tab();
+
+        expect(onChange.mock.calls.at(-1)?.[0]).toBeNull();
+    });
 });

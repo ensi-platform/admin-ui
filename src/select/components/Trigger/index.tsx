@@ -1,8 +1,11 @@
-import { Button as RacButton, SelectValue } from 'react-aria-components';
+import { type MouseEvent, type RefObject, useContext } from 'react';
+
+import { Button as RacButton, Group, SelectStateContext, SelectValue } from 'react-aria-components';
 
 import { ChevronDown } from '@/icons';
 
 import { type TSelectSize, type TSelectVariant } from '../../types';
+import { isInteractiveTarget } from '../../utils';
 import { SelectClearButton } from '../ClearButton';
 
 import { selectTriggerVariants } from './theme';
@@ -10,6 +13,7 @@ import { selectTriggerVariants } from './theme';
 import styles from './styles.module.css';
 
 export interface ISelectTriggerProps {
+    triggerRef: RefObject<HTMLDivElement | null>;
     size: TSelectSize;
     variant: TSelectVariant;
     clear: boolean;
@@ -20,6 +24,7 @@ export interface ISelectTriggerProps {
 }
 
 export const SelectTrigger = ({
+    triggerRef,
     size,
     variant,
     clear,
@@ -27,28 +32,38 @@ export const SelectTrigger = ({
     isOpen,
     isDisabled,
     isInvalid,
-}: ISelectTriggerProps) => (
-    <div
-        className={styles.triggerWrap}
-        data-size={size}
-        data-clear={clear || undefined}
-        data-focus-visible={isFocusVisible || undefined}
-        data-open={isOpen || undefined}
-        data-disabled={isDisabled || undefined}
-        data-invalid={isInvalid || undefined}
-    >
-        <RacButton className={selectTriggerVariants({ size, variant })}>
-            <SelectValue className={styles.value} />
-            <span className={styles.chevronSlot}>
-                <ChevronDown className={styles.chevron} />
-            </span>
-        </RacButton>
-        {clear ? (
-            <div className={styles.clearSlot}>
-                <SelectClearButton isDisabled={isDisabled} size={size} variant={variant} />
-            </div>
-        ) : null}
-    </div>
-);
+}: ISelectTriggerProps) => {
+    const selectState = useContext(SelectStateContext);
+
+    const openFromField = (event: MouseEvent) => {
+        if (isDisabled || isInteractiveTarget(event.target)) {
+            return;
+        }
+
+        selectState?.open();
+    };
+
+    return (
+        <div
+            className={styles.triggerWrap}
+            data-focus-visible={isFocusVisible || undefined}
+            data-open={isOpen || undefined}
+            data-disabled={isDisabled || undefined}
+            data-invalid={isInvalid || undefined}
+        >
+            <Group ref={triggerRef} className={selectTriggerVariants({ size, variant })} onClick={openFromField}>
+                <SelectValue className={styles.value}>
+                    {({ selectedText, isPlaceholder }) => (isPlaceholder ? null : selectedText)}
+                </SelectValue>
+                <span className={styles.actions}>
+                    {clear ? <SelectClearButton isDisabled={isDisabled} size={size} variant={variant} /> : null}
+                    <RacButton className={styles.chevronButton} isDisabled={isDisabled}>
+                        <ChevronDown className={styles.chevron} />
+                    </RacButton>
+                </span>
+            </Group>
+        </div>
+    );
+};
 
 SelectTrigger.displayName = 'SelectTrigger';

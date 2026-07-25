@@ -1,3 +1,5 @@
+import { createRef } from 'react';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
@@ -64,6 +66,38 @@ describe('TextArea', () => {
         await user.type(textarea, 'a');
 
         expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it('assigns object ref', () => {
+        const ref = createRef<HTMLTextAreaElement>();
+
+        render(<TextArea aria-label="Comment" ref={ref} />);
+
+        expect(ref.current).toBeInstanceOf(HTMLTextAreaElement);
+    });
+
+    it('updates uncontrolled value on type and clear', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(
+            <AdminUiProvider labels={{ clear: 'Очистить' }}>
+                <TextArea aria-label="Comment" defaultValue="hello" clear onChange={onChange} />
+            </AdminUiProvider>
+        );
+
+        const textarea = screen.getByRole('textbox', { name: 'Comment' });
+
+        expect(textarea).toHaveValue('hello');
+
+        await user.type(textarea, '!');
+        expect(onChange).toHaveBeenCalled();
+        expect(textarea).toHaveValue('hello!');
+
+        await user.click(screen.getByRole('button', { name: 'Очистить' }));
+
+        expect(onChange.mock.calls.at(-1)?.[0].target.value).toBe('');
+        expect(textarea).toHaveValue('');
     });
 
     it('clears value when clear is clicked', async () => {

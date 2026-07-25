@@ -239,25 +239,7 @@
 <a name='L174'></a><a href='#L174'>174</a>
 <a name='L175'></a><a href='#L175'>175</a>
 <a name='L176'></a><a href='#L176'>176</a>
-<a name='L177'></a><a href='#L177'>177</a>
-<a name='L178'></a><a href='#L178'>178</a>
-<a name='L179'></a><a href='#L179'>179</a>
-<a name='L180'></a><a href='#L180'>180</a>
-<a name='L181'></a><a href='#L181'>181</a>
-<a name='L182'></a><a href='#L182'>182</a>
-<a name='L183'></a><a href='#L183'>183</a>
-<a name='L184'></a><a href='#L184'>184</a>
-<a name='L185'></a><a href='#L185'>185</a>
-<a name='L186'></a><a href='#L186'>186</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L177'></a><a href='#L177'>177</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -434,7 +416,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">.triggerWrap {
-    position: relative;
     width: 100%;
 }
 &nbsp;
@@ -464,15 +445,9 @@
     }
 }
 &nbsp;
-.trigger:disabled,
 .triggerWrap[data-disabled] .trigger {
     opacity: 0.5;
     cursor: not-allowed;
-}
-&nbsp;
-.trigger:focus,
-.trigger:focus-visible {
-    outline: none;
 }
 &nbsp;
 .value {
@@ -485,46 +460,50 @@
     white-space: nowrap;
 }
 &nbsp;
+.actions {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+&nbsp;
+.chevronButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: var(--aui-select-clear-radius-md);
+}
+&nbsp;
+.chevronButton:disabled {
+    cursor: not-allowed;
+}
+&nbsp;
+.chevronButton:focus {
+    outline: none;
+}
+&nbsp;
 .chevron {
     display: block;
     flex-shrink: 0;
     transition: transform var(--aui-select-duration-fast) var(--aui-select-ease-out);
 }
 &nbsp;
-.chevronSlot {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    box-sizing: border-box;
-}
-&nbsp;
 .triggerWrap[data-open] .chevron {
     transform: rotate(180deg);
 }
 &nbsp;
-.clearSlot {
-    position: absolute;
-    top: 50%;
-    z-index: 1;
-    transform: translateY(-50%);
-}
-&nbsp;
-.triggerWrap[data-size='sm'] .clearSlot {
-    right: calc(var(--aui-select-pad-x-sm) + var(--aui-select-icon-hit-sm));
-}
-&nbsp;
-.triggerWrap[data-size='md'] .clearSlot {
-    right: calc(var(--aui-select-pad-x-md) + var(--aui-select-icon-hit-md));
-}
-&nbsp;
-.triggerWrap[data-size='lg'] .clearSlot {
-    right: calc(var(--aui-select-pad-x-lg) + var(--aui-select-icon-hit-lg));
-}
-&nbsp;
 .sm {
     height: var(--aui-select-h-sm);
-    padding: 0 var(--aui-select-pad-x-sm);
+    padding-inline: var(--aui-select-pad-x-sm);
+    padding-inline-end: calc(
+        var(--aui-select-pad-x-sm) - (var(--aui-select-icon-hit-sm) - var(--aui-select-icon-size-sm)) / 2
+    );
     gap: var(--aui-select-gap-sm);
 }
 &nbsp;
@@ -533,19 +512,18 @@
     height: var(--aui-select-icon-size-sm);
 }
 &nbsp;
-.sm .chevronSlot {
+.sm .chevronButton {
     width: var(--aui-select-icon-hit-sm);
     height: var(--aui-select-icon-hit-sm);
     margin-block: calc((var(--aui-select-icon-hit-sm) - var(--aui-select-icon-size-sm)) / -2);
 }
 &nbsp;
-.triggerWrap[data-clear] .sm .chevronSlot {
-    margin-inline-start: calc(var(--aui-select-icon-hit-sm) + var(--aui-select-gap-sm));
-}
-&nbsp;
 .md {
     height: var(--aui-select-h-md);
-    padding: 0 var(--aui-select-pad-x-md);
+    padding-inline: var(--aui-select-pad-x-md);
+    padding-inline-end: calc(
+        var(--aui-select-pad-x-md) - (var(--aui-select-icon-hit-md) - var(--aui-select-icon-size-md)) / 2
+    );
     gap: var(--aui-select-gap-md);
 }
 &nbsp;
@@ -554,19 +532,18 @@
     height: var(--aui-select-icon-size-md);
 }
 &nbsp;
-.md .chevronSlot {
+.md .chevronButton {
     width: var(--aui-select-icon-hit-md);
     height: var(--aui-select-icon-hit-md);
     margin-block: calc((var(--aui-select-icon-hit-md) - var(--aui-select-icon-size-md)) / -2);
 }
 &nbsp;
-.triggerWrap[data-clear] .md .chevronSlot {
-    margin-inline-start: calc(var(--aui-select-icon-hit-md) + var(--aui-select-gap-md));
-}
-&nbsp;
 .lg {
     height: var(--aui-select-h-lg);
-    padding: 0 var(--aui-select-pad-x-lg);
+    padding-inline: var(--aui-select-pad-x-lg);
+    padding-inline-end: calc(
+        var(--aui-select-pad-x-lg) - (var(--aui-select-icon-hit-lg) - var(--aui-select-icon-size-lg)) / 2
+    );
     gap: var(--aui-select-gap-lg);
 }
 &nbsp;
@@ -575,14 +552,10 @@
     height: var(--aui-select-icon-size-lg);
 }
 &nbsp;
-.lg .chevronSlot {
+.lg .chevronButton {
     width: var(--aui-select-icon-hit-lg);
     height: var(--aui-select-icon-hit-lg);
     margin-block: calc((var(--aui-select-icon-hit-lg) - var(--aui-select-icon-size-lg)) / -2);
-}
-&nbsp;
-.triggerWrap[data-clear] .lg .chevronSlot {
-    margin-inline-start: calc(var(--aui-select-icon-hit-lg) + var(--aui-select-gap-lg));
 }
 &nbsp;
 .primary {
@@ -591,7 +564,7 @@
     color: var(--aui-select-fg-primary);
 }
 &nbsp;
-.triggerWrap:not([data-invalid]) .primary:hover:not(:disabled) {
+.triggerWrap:not([data-invalid]) .primary:hover {
     border-color: var(--aui-select-border-focus);
 }
 &nbsp;
@@ -615,7 +588,7 @@
     color: var(--aui-select-fg-muted);
 }
 &nbsp;
-.primary .chevron {
+.primary .chevronButton {
     color: var(--aui-select-fg-muted);
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -625,7 +598,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-07-24T21:41:46.495Z
+                at 2026-07-25T09:29:10.545Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

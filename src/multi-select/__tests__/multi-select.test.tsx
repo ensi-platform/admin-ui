@@ -1,11 +1,13 @@
-import { render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { SelectStateContext } from 'react-aria-components';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Field, useField } from '@/field';
 import { AdminUiProvider } from '@/provider';
 
 import { MultiSelect } from '..';
+import { MultiSelectClearButton } from '../components/ClearButton';
 
 import clearStyles from '../components/ClearButton/styles.module.css';
 import listStyles from '../components/List/styles.module.css';
@@ -211,5 +213,64 @@ describe('MultiSelect', () => {
         const listbox = screen.getByRole('listbox');
 
         expect(within(listbox).getByRole('option', { name: 'vip' })).toBeInTheDocument();
+    });
+
+    it('does not open when interactive target inside trigger is clicked', () => {
+        render(
+            <AdminUiProvider>
+                <MultiSelect aria-label="Метки" options={OPTIONS} value={['vip']} />
+            </AdminUiProvider>
+        );
+
+        const group = screen.getByRole('group');
+        const row = screen.getByRole('row');
+
+        fireEvent.click(group, { target: row });
+
+        expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    });
+
+    it('does not open from field click when disabled', () => {
+        render(
+            <AdminUiProvider>
+                <MultiSelect aria-label="Метки" options={OPTIONS} value={['vip']} disabled />
+            </AdminUiProvider>
+        );
+
+        fireEvent.click(screen.getByRole('group'));
+
+        expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    });
+
+    it('hides clear button for empty or non-array select values', () => {
+        const { rerender, container } = render(
+            <AdminUiProvider labels={{ clear: 'Очистить' }}>
+                <SelectStateContext.Provider value={{ value: null, setValue: vi.fn() } as never}>
+                    <MultiSelectClearButton isDisabled={false} size="md" variant="primary" />
+                </SelectStateContext.Provider>
+            </AdminUiProvider>
+        );
+
+        expect(container.querySelector(`.${clearStyles.clear}`)).not.toBeInTheDocument();
+
+        rerender(
+            <AdminUiProvider labels={{ clear: 'Очистить' }}>
+                <SelectStateContext.Provider value={{ value: 'vip', setValue: vi.fn() } as never}>
+                    <MultiSelectClearButton isDisabled={false} size="md" variant="primary" />
+                </SelectStateContext.Provider>
+            </AdminUiProvider>
+        );
+
+        expect(container.querySelector(`.${clearStyles.clear}`)).toBeInTheDocument();
+
+        rerender(
+            <AdminUiProvider labels={{ clear: 'Очистить' }}>
+                <SelectStateContext.Provider value={{ value: [], setValue: vi.fn() } as never}>
+                    <MultiSelectClearButton isDisabled={false} size="md" variant="primary" />
+                </SelectStateContext.Provider>
+            </AdminUiProvider>
+        );
+
+        expect(container.querySelector(`.${clearStyles.clear}`)).not.toBeInTheDocument();
     });
 });

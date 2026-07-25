@@ -1,5 +1,4 @@
 .triggerWrap {
-    position: relative;
     width: 100%;
 }
 
@@ -39,6 +38,12 @@
     align-items: center;
     flex: 1;
     min-width: 0;
+}
+
+.actions {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 .placeholder {
@@ -156,28 +161,14 @@
     transform: rotate(180deg);
 }
 
-.clearSlot {
-    position: absolute;
-    top: 50%;
-    z-index: 1;
-    transform: translateY(-50%);
-}
-
-.triggerWrap[data-size='sm'] .clearSlot {
-    right: calc(var(--aui-multi-select-pad-x-sm) + var(--aui-multi-select-icon-hit-sm));
-}
-
-.triggerWrap[data-size='md'] .clearSlot {
-    right: calc(var(--aui-multi-select-pad-x-md) + var(--aui-multi-select-icon-hit-md));
-}
-
-.triggerWrap[data-size='lg'] .clearSlot {
-    right: calc(var(--aui-multi-select-pad-x-lg) + var(--aui-multi-select-icon-hit-lg));
-}
-
 .sm {
     min-height: var(--aui-multi-select-h-sm);
-    padding: var(--aui-multi-select-pad-y-sm) var(--aui-multi-select-pad-x-sm);
+    padding-block: var(--aui-multi-select-pad-y-sm);
+    padding-inline: var(--aui-multi-select-pad-x-sm);
+    padding-inline-end: calc(
+        var(--aui-multi-select-pad-x-sm) - (var(--aui-multi-select-icon-hit-sm) - var(--aui-multi-select-icon-size-sm)) /
+            2
+    );
     gap: var(--aui-multi-select-gap-sm);
 }
 
@@ -192,13 +183,14 @@
     margin-block: calc((var(--aui-multi-select-icon-hit-sm) - var(--aui-multi-select-icon-size-sm)) / -2);
 }
 
-.triggerWrap[data-clear] .sm .chevronButton {
-    margin-inline-start: calc(var(--aui-multi-select-icon-hit-sm) + var(--aui-multi-select-gap-sm));
-}
-
 .md {
     min-height: var(--aui-multi-select-h-md);
-    padding: var(--aui-multi-select-pad-y-md) var(--aui-multi-select-pad-x-md);
+    padding-block: var(--aui-multi-select-pad-y-md);
+    padding-inline: var(--aui-multi-select-pad-x-md);
+    padding-inline-end: calc(
+        var(--aui-multi-select-pad-x-md) - (var(--aui-multi-select-icon-hit-md) - var(--aui-multi-select-icon-size-md)) /
+            2
+    );
     gap: var(--aui-multi-select-gap-md);
 }
 
@@ -213,13 +205,14 @@
     margin-block: calc((var(--aui-multi-select-icon-hit-md) - var(--aui-multi-select-icon-size-md)) / -2);
 }
 
-.triggerWrap[data-clear] .md .chevronButton {
-    margin-inline-start: calc(var(--aui-multi-select-icon-hit-md) + var(--aui-multi-select-gap-md));
-}
-
 .lg {
     min-height: var(--aui-multi-select-h-lg);
-    padding: var(--aui-multi-select-pad-y-lg) var(--aui-multi-select-pad-x-lg);
+    padding-block: var(--aui-multi-select-pad-y-lg);
+    padding-inline: var(--aui-multi-select-pad-x-lg);
+    padding-inline-end: calc(
+        var(--aui-multi-select-pad-x-lg) - (var(--aui-multi-select-icon-hit-lg) - var(--aui-multi-select-icon-size-lg)) /
+            2
+    );
     gap: var(--aui-multi-select-gap-lg);
 }
 
@@ -232,10 +225,6 @@
     width: var(--aui-multi-select-icon-hit-lg);
     height: var(--aui-multi-select-icon-hit-lg);
     margin-block: calc((var(--aui-multi-select-icon-hit-lg) - var(--aui-multi-select-icon-size-lg)) / -2);
-}
-
-.triggerWrap[data-clear] .lg .chevronButton {
-    margin-inline-start: calc(var(--aui-multi-select-icon-hit-lg) + var(--aui-multi-select-gap-lg));
 }
 
 .primary {

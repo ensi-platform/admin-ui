@@ -1,5 +1,4 @@
 .triggerWrap {
-    position: relative;
     width: 100%;
 }
 
@@ -29,15 +28,9 @@
     }
 }
 
-.trigger:disabled,
 .triggerWrap[data-disabled] .trigger {
     opacity: 0.5;
     cursor: not-allowed;
-}
-
-.trigger:focus,
-.trigger:focus-visible {
-    outline: none;
 }
 
 .value {
@@ -50,46 +43,50 @@
     white-space: nowrap;
 }
 
+.actions {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.chevronButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: var(--aui-select-clear-radius-md);
+}
+
+.chevronButton:disabled {
+    cursor: not-allowed;
+}
+
+.chevronButton:focus {
+    outline: none;
+}
+
 .chevron {
     display: block;
     flex-shrink: 0;
     transition: transform var(--aui-select-duration-fast) var(--aui-select-ease-out);
 }
 
-.chevronSlot {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    box-sizing: border-box;
-}
-
 .triggerWrap[data-open] .chevron {
     transform: rotate(180deg);
 }
 
-.clearSlot {
-    position: absolute;
-    top: 50%;
-    z-index: 1;
-    transform: translateY(-50%);
-}
-
-.triggerWrap[data-size='sm'] .clearSlot {
-    right: calc(var(--aui-select-pad-x-sm) + var(--aui-select-icon-hit-sm));
-}
-
-.triggerWrap[data-size='md'] .clearSlot {
-    right: calc(var(--aui-select-pad-x-md) + var(--aui-select-icon-hit-md));
-}
-
-.triggerWrap[data-size='lg'] .clearSlot {
-    right: calc(var(--aui-select-pad-x-lg) + var(--aui-select-icon-hit-lg));
-}
-
 .sm {
     height: var(--aui-select-h-sm);
-    padding: 0 var(--aui-select-pad-x-sm);
+    padding-inline: var(--aui-select-pad-x-sm);
+    padding-inline-end: calc(
+        var(--aui-select-pad-x-sm) - (var(--aui-select-icon-hit-sm) - var(--aui-select-icon-size-sm)) / 2
+    );
     gap: var(--aui-select-gap-sm);
 }
 
@@ -98,19 +95,18 @@
     height: var(--aui-select-icon-size-sm);
 }
 
-.sm .chevronSlot {
+.sm .chevronButton {
     width: var(--aui-select-icon-hit-sm);
     height: var(--aui-select-icon-hit-sm);
     margin-block: calc((var(--aui-select-icon-hit-sm) - var(--aui-select-icon-size-sm)) / -2);
 }
 
-.triggerWrap[data-clear] .sm .chevronSlot {
-    margin-inline-start: calc(var(--aui-select-icon-hit-sm) + var(--aui-select-gap-sm));
-}
-
 .md {
     height: var(--aui-select-h-md);
-    padding: 0 var(--aui-select-pad-x-md);
+    padding-inline: var(--aui-select-pad-x-md);
+    padding-inline-end: calc(
+        var(--aui-select-pad-x-md) - (var(--aui-select-icon-hit-md) - var(--aui-select-icon-size-md)) / 2
+    );
     gap: var(--aui-select-gap-md);
 }
 
@@ -119,19 +115,18 @@
     height: var(--aui-select-icon-size-md);
 }
 
-.md .chevronSlot {
+.md .chevronButton {
     width: var(--aui-select-icon-hit-md);
     height: var(--aui-select-icon-hit-md);
     margin-block: calc((var(--aui-select-icon-hit-md) - var(--aui-select-icon-size-md)) / -2);
 }
 
-.triggerWrap[data-clear] .md .chevronSlot {
-    margin-inline-start: calc(var(--aui-select-icon-hit-md) + var(--aui-select-gap-md));
-}
-
 .lg {
     height: var(--aui-select-h-lg);
-    padding: 0 var(--aui-select-pad-x-lg);
+    padding-inline: var(--aui-select-pad-x-lg);
+    padding-inline-end: calc(
+        var(--aui-select-pad-x-lg) - (var(--aui-select-icon-hit-lg) - var(--aui-select-icon-size-lg)) / 2
+    );
     gap: var(--aui-select-gap-lg);
 }
 
@@ -140,14 +135,10 @@
     height: var(--aui-select-icon-size-lg);
 }
 
-.lg .chevronSlot {
+.lg .chevronButton {
     width: var(--aui-select-icon-hit-lg);
     height: var(--aui-select-icon-hit-lg);
     margin-block: calc((var(--aui-select-icon-hit-lg) - var(--aui-select-icon-size-lg)) / -2);
-}
-
-.triggerWrap[data-clear] .lg .chevronSlot {
-    margin-inline-start: calc(var(--aui-select-icon-hit-lg) + var(--aui-select-gap-lg));
 }
 
 .primary {
@@ -156,7 +147,7 @@
     color: var(--aui-select-fg-primary);
 }
 
-.triggerWrap:not([data-invalid]) .primary:hover:not(:disabled) {
+.triggerWrap:not([data-invalid]) .primary:hover {
     border-color: var(--aui-select-border-focus);
 }
 
@@ -180,6 +171,6 @@
     color: var(--aui-select-fg-muted);
 }
 
-.primary .chevron {
+.primary .chevronButton {
     color: var(--aui-select-fg-muted);
 }

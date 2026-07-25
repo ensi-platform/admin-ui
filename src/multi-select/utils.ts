@@ -11,3 +11,15 @@ export const toMultiValue = (value: TSelectValue[] | undefined): readonly Key[] 
 };
 
 export const fromMultiValue = (keys: Key[]): TSelectValue[] => keys as TSelectValue[];
+
+/** True when click originated from tag / remove / nested button chrome. */
+export const isInteractiveTarget = (target: EventTarget | null) => {
+    if (!(target instanceof HTMLElement)) {
+        return false;
+    }
+
+    return Boolean(target.closest('[role="row"], [slot="remove"], button'));
+};
+
+/** Normalize RAC select value to a key list for tag remove / clear. */
+export const toKeyList = (value: unknown): Key[] => (Array.isArray(value) ? value : []);

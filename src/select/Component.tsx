@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 import cn from 'classnames';
 import { Select as RacSelect } from 'react-aria-components';
 
@@ -25,6 +27,7 @@ export const Select = ({
     onBlur,
     ...props
 }: ISelectProps) => {
+    const triggerRef = useRef<HTMLDivElement>(null);
     const selectedKey = toSelectedKey(value);
     const defaultSelectedKey = toSelectedKey(defaultValue);
 
@@ -48,6 +51,7 @@ export const Select = ({
             {({ isFocusVisible, isOpen, isDisabled: isSelectDisabled, isInvalid: isSelectInvalid }) => (
                 <>
                     <SelectTrigger
+                        triggerRef={triggerRef}
                         size={size}
                         variant={variant}
                         clear={clear}
@@ -56,7 +60,7 @@ export const Select = ({
                         isDisabled={isSelectDisabled}
                         isInvalid={isSelectInvalid}
                     />
-                    <SelectList options={options} size={size} variant={variant} />
+                    <SelectList triggerRef={triggerRef} options={options} size={size} variant={variant} />
                 </>
             )}
         </RacSelect>

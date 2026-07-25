@@ -14,6 +14,7 @@ import {
 import { ChevronDown, Clear } from '@/icons';
 import { type ISelectOption, type TSelectSize, type TSelectVariant } from '@/select/types';
 
+import { isInteractiveTarget, toKeyList } from '../../utils';
 import { MultiSelectClearButton } from '../ClearButton';
 
 import { multiSelectTagSizeClass, multiSelectTriggerVariants } from './theme';
@@ -26,14 +27,6 @@ const ButtonRemove = () => (
         <Clear className={styles.tagRemoveIcon} />
     </RacButton>
 );
-
-const isInteractiveTarget = (target: EventTarget | null) => {
-    if (!(target instanceof HTMLElement)) {
-        return false;
-    }
-
-    return Boolean(target.closest('[role="row"], [slot="remove"], button'));
-};
 
 export interface IMultiSelectTriggerProps {
     triggerRef: RefObject<HTMLDivElement | null>;
@@ -75,8 +68,6 @@ export const MultiSelectTrigger = ({
     return (
         <div
             className={styles.triggerWrap}
-            data-size={size}
-            data-clear={clear || undefined}
             data-focus-visible={isFocusVisible || undefined}
             data-open={isOpen || undefined}
             data-disabled={isDisabled || undefined}
@@ -97,7 +88,7 @@ export const MultiSelectTrigger = ({
                                 aria-labelledby={ariaLabelledby}
                                 className={styles.tagGroup}
                                 onRemove={keys => {
-                                    const current = Array.isArray(state.value) ? state.value : [];
+                                    const current = toKeyList(state.value);
                                     state.setValue(current.filter(key => !keys.has(key)));
                                 }}
                             >
@@ -108,7 +99,7 @@ export const MultiSelectTrigger = ({
                                             textValue={item.label}
                                             className={cn(styles.tag, multiSelectTagSizeClass(size))}
                                             onAction={() => {
-                                                const current = Array.isArray(state.value) ? state.value : [];
+                                                const current = toKeyList(state.value);
                                                 state.setValue(current.filter(key => key !== item.value));
                                             }}
                                         >
@@ -121,15 +112,13 @@ export const MultiSelectTrigger = ({
                         );
                     }}
                 </SelectValue>
-                <RacButton className={styles.chevronButton} isDisabled={isDisabled}>
-                    <ChevronDown className={styles.chevron} />
-                </RacButton>
+                <span className={styles.actions}>
+                    {clear ? <MultiSelectClearButton isDisabled={isDisabled} size={size} variant={variant} /> : null}
+                    <RacButton className={styles.chevronButton} isDisabled={isDisabled}>
+                        <ChevronDown className={styles.chevron} />
+                    </RacButton>
+                </span>
             </Group>
-            {clear ? (
-                <div className={styles.clearSlot}>
-                    <MultiSelectClearButton isDisabled={isDisabled} size={size} variant={variant} />
-                </div>
-            ) : null}
         </div>
     );
 };

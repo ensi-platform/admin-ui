@@ -1,0 +1,8 @@
+.root {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+    box-sizing: border-box;
+    padding: var(--aui-drawer-pad-y-body-md) var(--aui-drawer-pad-x-md);
+    color: var(--aui-drawer-fg-primary);
+}

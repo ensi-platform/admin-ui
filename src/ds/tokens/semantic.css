@@ -17,6 +17,9 @@
     --aui-surface-border-primary: var(--aui-grey-200);
     --aui-surface-border-muted: var(--aui-grey-100);
 
+    /* overlay — shared backdrop for modal / drawer */
+    --aui-overlay-bg-primary: color-mix(in srgb, var(--aui-black-900) 40%, transparent);
+
     /* control — brand / status */
     --aui-control-bg-brand: var(--aui-charcoal-500);
     --aui-control-bg-brand-hover: var(--aui-charcoal-600);
@@ -332,4 +335,100 @@
     --aui-tag-icon-size-md: var(--aui-space-12);
     --aui-tag-icon-hit-md: var(--aui-space-16);
     --aui-tag-line-height: var(--aui-line-height-tight);
+
+    /* tooltip — inverted chrome */
+    --aui-tooltip-bg-primary: var(--aui-grey-800);
+    --aui-tooltip-fg-primary: var(--aui-white);
+    --aui-tooltip-radius-md: var(--aui-control-radius-sm);
+    --aui-tooltip-pad-y-sm: var(--aui-space-4);
+    --aui-tooltip-pad-x-sm: var(--aui-space-8);
+    --aui-tooltip-pad-y-md: var(--aui-space-8);
+    --aui-tooltip-pad-x-md: var(--aui-space-12);
+    --aui-tooltip-pad-y-lg: var(--aui-space-12);
+    --aui-tooltip-pad-x-lg: var(--aui-space-16);
+    --aui-tooltip-max-w-md: 240px;
+    --aui-tooltip-arrow-size-md: var(--aui-space-12);
+    --aui-tooltip-shadow: var(--aui-shadow-sm);
+    --aui-tooltip-z: var(--aui-z-dropdown);
+    --aui-tooltip-duration-fast: var(--aui-control-duration-fast);
+    --aui-tooltip-ease-out: var(--aui-control-ease-out);
+
+    /* popover — elevated surface */
+    --aui-popover-bg-primary: var(--aui-surface-bg-elevated);
+    --aui-popover-fg-primary: var(--aui-page-fg-primary);
+    --aui-popover-border-primary: var(--aui-surface-border-primary);
+    --aui-popover-radius-md: var(--aui-control-radius-md);
+    --aui-popover-pad-y-sm: var(--aui-space-8);
+    --aui-popover-pad-x-sm: var(--aui-space-8);
+    --aui-popover-pad-y-md: var(--aui-space-12);
+    --aui-popover-pad-x-md: var(--aui-space-12);
+    --aui-popover-pad-y-lg: var(--aui-space-16);
+    --aui-popover-pad-x-lg: var(--aui-space-16);
+    --aui-popover-max-w-md: 320px;
+    --aui-popover-arrow-size-md: var(--aui-space-12);
+    --aui-popover-shadow: var(--aui-shadow-sm);
+    --aui-popover-z: var(--aui-z-dropdown);
+    --aui-popover-duration-fast: var(--aui-control-duration-fast);
+    --aui-popover-ease-out: var(--aui-control-ease-out);
+
+    /* modal — centered dialog */
+    --aui-modal-overlay-bg-primary: var(--aui-overlay-bg-primary);
+    --aui-modal-bg-primary: var(--aui-surface-bg-elevated);
+    --aui-modal-fg-primary: var(--aui-page-fg-primary);
+    --aui-modal-fg-muted: var(--aui-page-fg-muted);
+    --aui-modal-border-primary: var(--aui-surface-border-primary);
+    --aui-modal-shadow: var(--aui-shadow-md);
+    --aui-modal-radius-md: var(--aui-control-radius-lg);
+    --aui-modal-radius-fullscreen: var(--aui-radius-0);
+    --aui-modal-w-sm: 400px;
+    --aui-modal-w-md: 560px;
+    --aui-modal-w-lg: 720px;
+    --aui-modal-max-h: min(90vh, 800px);
+    --aui-modal-w-fullscreen: 100%;
+    --aui-modal-h-fullscreen: 100%;
+    --aui-modal-max-h-fullscreen: 100dvh;
+    --aui-modal-pad-x-md: var(--aui-space-24);
+    --aui-modal-pad-y-header-md: var(--aui-space-16);
+    --aui-modal-pad-y-body-md: var(--aui-space-16);
+    --aui-modal-pad-y-footer-md: var(--aui-space-16);
+    --aui-modal-gap-header-md: var(--aui-space-12);
+    --aui-modal-gap-footer-md: var(--aui-space-8);
+    --aui-modal-gap-sections-md: 0;
+    --aui-modal-close-size-md: var(--aui-space-16);
+    --aui-modal-close-hit-md: var(--aui-space-32);
+    --aui-modal-close-radius-md: var(--aui-control-radius-sm);
+    --aui-modal-close-fg: var(--aui-page-fg-muted);
+    --aui-modal-close-fg-hover: var(--aui-page-fg-primary);
+    --aui-modal-close-border-focus: var(--aui-control-border-focus);
+    --aui-modal-z: var(--aui-z-modal);
+    --aui-modal-duration-normal: var(--aui-control-duration-normal);
+    --aui-modal-ease-out: var(--aui-control-ease-out);
+
+    /* drawer — side panel */
+    --aui-drawer-overlay-bg-primary: var(--aui-overlay-bg-primary);
+    --aui-drawer-bg-primary: var(--aui-surface-bg-elevated);
+    --aui-drawer-fg-primary: var(--aui-page-fg-primary);
+    --aui-drawer-fg-muted: var(--aui-page-fg-muted);
+    --aui-drawer-border-primary: var(--aui-surface-border-primary);
+    --aui-drawer-shadow: var(--aui-shadow-md);
+    --aui-drawer-radius-md: var(--aui-radius-0);
+    --aui-drawer-w-sm: 320px;
+    --aui-drawer-w-md: 400px;
+    --aui-drawer-w-lg: 560px;
+    --aui-drawer-w-fullscreen: 100%;
+    --aui-drawer-pad-x-md: var(--aui-space-24);
+    --aui-drawer-pad-y-header-md: var(--aui-space-16);
+    --aui-drawer-pad-y-body-md: var(--aui-space-16);
+    --aui-drawer-pad-y-footer-md: var(--aui-space-16);
+    --aui-drawer-gap-header-md: var(--aui-space-12);
+    --aui-drawer-gap-footer-md: var(--aui-space-8);
+    --aui-drawer-close-size-md: var(--aui-space-16);
+    --aui-drawer-close-hit-md: var(--aui-space-32);
+    --aui-drawer-close-radius-md: var(--aui-control-radius-sm);
+    --aui-drawer-close-fg: var(--aui-page-fg-muted);
+    --aui-drawer-close-fg-hover: var(--aui-page-fg-primary);
+    --aui-drawer-close-border-focus: var(--aui-control-border-focus);
+    --aui-drawer-z: var(--aui-z-modal);
+    --aui-drawer-duration-normal: var(--aui-control-duration-normal);
+    --aui-drawer-ease-out: var(--aui-control-ease-out);
 }

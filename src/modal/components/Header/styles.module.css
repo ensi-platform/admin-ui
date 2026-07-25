@@ -1,0 +1,10 @@
+.root {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--aui-modal-gap-header-md);
+    flex-shrink: 0;
+    box-sizing: border-box;
+    padding: var(--aui-modal-pad-y-header-md) var(--aui-modal-pad-x-md);
+    border-bottom: 1px solid var(--aui-modal-border-primary);
+}

@@ -1,0 +1,42 @@
+.root {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: var(--aui-modal-close-hit-md);
+    height: var(--aui-modal-close-hit-md);
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: var(--aui-modal-close-radius-md);
+    color: var(--aui-modal-close-fg);
+}
+
+.root:hover:not(:disabled) {
+    color: var(--aui-modal-close-fg-hover);
+}
+
+.root:focus {
+    outline: none;
+}
+
+.root:focus-visible {
+    outline: 2px solid var(--aui-modal-close-border-focus);
+    outline-offset: 0;
+    color: var(--aui-modal-close-fg-hover);
+}
+
+.root:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.icon {
+    display: block;
+    width: var(--aui-modal-close-size-md);
+    height: var(--aui-modal-close-size-md);
+    flex-shrink: 0;
+}

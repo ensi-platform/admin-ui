@@ -1,5 +1,6 @@
 import { withThemeByDataAttribute } from '@storybook/addon-themes';
 
+import { ModalHub, ModalProvider } from '../src/modal-hub';
 import { AdminUiProvider, type IAuiLabels } from '../src/provider';
 
 import { auiDark, auiLight } from './themes';
@@ -24,16 +25,19 @@ const withProvider: Decorator = (Story, context) => {
 
     return (
         <AdminUiProvider locale={locale} labels={locale.startsWith('ru') ? RU_LABELS : undefined}>
-            <div
-                style={{
-                    background: 'var(--aui-page-bg-primary)',
-                    color: 'var(--aui-page-fg-primary)',
-                    padding: 16,
-                    minHeight: '100%',
-                }}
-            >
-                <Story />
-            </div>
+            <ModalProvider>
+                <div
+                    style={{
+                        background: 'var(--aui-page-bg-primary)',
+                        color: 'var(--aui-page-fg-primary)',
+                        padding: 16,
+                        minHeight: '100%',
+                    }}
+                >
+                    <Story />
+                </div>
+                <ModalHub />
+            </ModalProvider>
         </AdminUiProvider>
     );
 };

@@ -1,0 +1,10 @@
+.root {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--aui-drawer-gap-header-md);
+    flex-shrink: 0;
+    box-sizing: border-box;
+    padding: var(--aui-drawer-pad-y-header-md) var(--aui-drawer-pad-x-md);
+    border-bottom: 1px solid var(--aui-drawer-border-primary);
+}
