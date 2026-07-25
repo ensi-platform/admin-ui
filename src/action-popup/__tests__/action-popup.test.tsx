@@ -250,9 +250,7 @@ describe('ActionPopup', () => {
     });
 
     it('renders without body when children are omitted', () => {
-        render(
-            <ActionPopupHarness title="Custom" confirmLabel="Yes" cancelLabel="No" onConfirm={vi.fn()} />
-        );
+        render(<ActionPopupHarness title="Custom" confirmLabel="Yes" cancelLabel="No" onConfirm={vi.fn()} />);
 
         expect(screen.getByRole('dialog')).toBeInTheDocument();
         expect(screen.getByRole('heading', { name: 'Custom' })).toBeInTheDocument();

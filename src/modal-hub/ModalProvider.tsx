@@ -1,7 +1,12 @@
 import { useCallback, useContext, useMemo, useState } from 'react';
 
 import { ModalHubContext } from './context';
-import { type IModalHubContextValue, type IModalHubEntry, type IModalHubItemProps, type IModalProviderProps } from './types';
+import {
+    type IModalHubContextValue,
+    type IModalHubEntry,
+    type IModalHubItemProps,
+    type IModalProviderProps,
+} from './types';
 
 export const ModalProvider = ({ children }: IModalProviderProps) => {
     const [modals, setModals] = useState<IModalHubEntry[]>([]);

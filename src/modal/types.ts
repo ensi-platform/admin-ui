@@ -44,12 +44,7 @@ export interface IModalBaseProps extends IModalThemeProps, IModalControlProps, I
 
 /** RAC keys omitted because names differ from ours or already live in Base. */
 export type TModalRacOmit =
-    | 'children'
-    | 'isOpen'
-    | 'defaultOpen'
-    | 'onOpenChange'
-    | 'isDismissable'
-    | 'isKeyboardDismissDisabled';
+    'children' | 'isOpen' | 'defaultOpen' | 'onOpenChange' | 'isDismissable' | 'isKeyboardDismissDisabled';
 
 export interface IModalProps
     extends IModalBaseProps, Omit<RacModalOverlayProps, keyof IModalBaseProps | TModalRacOmit> {}

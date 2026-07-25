@@ -48,12 +48,7 @@ export interface IDrawerBaseProps extends IDrawerThemeProps, IDrawerControlProps
 
 /** RAC keys omitted because names differ from ours or already live in Base. */
 export type TDrawerRacOmit =
-    | 'children'
-    | 'isOpen'
-    | 'defaultOpen'
-    | 'onOpenChange'
-    | 'isDismissable'
-    | 'isKeyboardDismissDisabled';
+    'children' | 'isOpen' | 'defaultOpen' | 'onOpenChange' | 'isDismissable' | 'isKeyboardDismissDisabled';
 
 export interface IDrawerProps
     extends IDrawerBaseProps, Omit<RacModalOverlayProps, keyof IDrawerBaseProps | TDrawerRacOmit> {}

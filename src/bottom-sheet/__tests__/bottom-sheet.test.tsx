@@ -3,11 +3,12 @@ import { createRef, useState, type MouseEvent } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
+
 import { AdminUiProvider } from '@/provider';
 
 import { BottomSheet } from '../index';
-import { shouldCloseSheet } from '../utils';
 import { type IBottomSheetProps } from '../types';
+import { shouldCloseSheet } from '../utils';
 
 import styles from '../styles.module.css';
 
