@@ -22,12 +22,7 @@
 ## Пример
 
 ```tsx
-<MultiAutocomplete
-  aria-label="Метки"
-  options={TAG_OPTIONS}
-  clear
-  placeholder="Начните вводить…"
-/>
+<MultiAutocomplete aria-label="Метки" options={TAG_OPTIONS} clear placeholder="Начните вводить…" />
 ```
 
 ## Не делать

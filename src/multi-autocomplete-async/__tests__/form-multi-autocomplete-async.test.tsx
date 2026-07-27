@@ -59,4 +59,24 @@ describe('FormMultiAutocompleteAsync', () => {
 
         expect(onSubmit.mock.calls[0][0]).toEqual({ brands: ['nike'] });
     });
+
+    it('renders without label, with nullish value and hint', () => {
+        render(
+            <AdminUiProvider>
+                <Form initialValues={{ brands: undefined }} onSubmit={vi.fn()}>
+                    <FormMultiAutocompleteAsync
+                        name="brands"
+                        useSuggest={useStaticSuggest}
+                        debounceMs={0}
+                        hint="Pick brands"
+                        aria-label="Бренды"
+                    />
+                </Form>
+            </AdminUiProvider>
+        );
+
+        expect(screen.queryByText('Бренды')).not.toBeInTheDocument();
+        expect(screen.getByText('Pick brands')).toBeInTheDocument();
+        expect(screen.getByRole('combobox', { name: /Бренды/ })).toBeInTheDocument();
+    });
 });

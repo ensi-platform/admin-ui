@@ -62,4 +62,24 @@ describe('MultiAutocomplete', () => {
 
         expect(onChange).toHaveBeenCalledWith([]);
     });
+
+    it('removes one tag', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        renderMulti(
+            <MultiAutocomplete aria-label="Tags" options={OPTIONS} value={['vip', 'new']} onChange={onChange} />
+        );
+
+        const removeButtons = screen.getAllByRole('button').filter(btn => btn.getAttribute('slot') === 'remove');
+
+        expect(removeButtons.length).toBeGreaterThanOrEqual(1);
+        await user.click(removeButtons[0]!);
+
+        expect(onChange).toHaveBeenCalled();
+        const next = onChange.mock.calls.at(-1)?.[0] as string[];
+
+        expect(next).toHaveLength(1);
+        expect(next).not.toContain('vip');
+    });
 });

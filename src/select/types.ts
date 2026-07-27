@@ -4,14 +4,9 @@ import { type SelectProps as RacSelectProps } from 'react-aria-components';
 
 import { type IDataTestIdProps } from '@ds/common';
 
+import { type IComboboxOption, type TComboboxSize, type TComboboxValue, type TComboboxVariant } from '@/combobox/types';
 import { type IFieldStateProps } from '@/field/types';
 import { type IFormFieldLayoutProps } from '@/form/types';
-import {
-    type IComboboxOption,
-    type TComboboxSize,
-    type TComboboxValue,
-    type TComboboxVariant,
-} from '@/combobox/types';
 
 export type { IComboboxOption, TComboboxSize, TComboboxValue, TComboboxVariant };
 

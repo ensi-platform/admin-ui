@@ -17,14 +17,14 @@ const isEmptyMultiValue = (value: unknown): boolean => {
     return false;
 };
 
-type TAdapterProps = {
+interface IAdapterProps {
     isDisabled: boolean;
     size: TFieldClearSize;
     variant: TFieldClearVariant;
-};
+}
 
 /** Clear for single Select (SelectStateContext). */
-export const FieldSelectClearButton = ({ isDisabled, size, variant }: TAdapterProps) => {
+export const FieldSelectClearButton = ({ isDisabled, size, variant }: IAdapterProps) => {
     const state = useContext(SelectStateContext);
 
     if (!state || state.selectedKey == null || isDisabled) {
@@ -46,7 +46,7 @@ export const FieldSelectClearButton = ({ isDisabled, size, variant }: TAdapterPr
 FieldSelectClearButton.displayName = 'FieldSelectClearButton';
 
 /** Clear for multi Select. */
-export const FieldMultiSelectClearButton = ({ isDisabled, size, variant }: TAdapterProps) => {
+export const FieldMultiSelectClearButton = ({ isDisabled, size, variant }: IAdapterProps) => {
     const state = useContext(SelectStateContext);
 
     if (!state || isEmptyMultiValue(state.value) || isDisabled) {
@@ -68,7 +68,7 @@ export const FieldMultiSelectClearButton = ({ isDisabled, size, variant }: TAdap
 FieldMultiSelectClearButton.displayName = 'FieldMultiSelectClearButton';
 
 /** Clear for single ComboBox. */
-export const FieldComboBoxClearButton = ({ isDisabled, size, variant }: TAdapterProps) => {
+export const FieldComboBoxClearButton = ({ isDisabled, size, variant }: IAdapterProps) => {
     const state = useContext(ComboBoxStateContext);
     const selected = state?.value;
 
@@ -92,7 +92,7 @@ export const FieldComboBoxClearButton = ({ isDisabled, size, variant }: TAdapter
 FieldComboBoxClearButton.displayName = 'FieldComboBoxClearButton';
 
 /** Clear for multi ComboBox. */
-export const FieldMultiComboBoxClearButton = ({ isDisabled, size, variant }: TAdapterProps) => {
+export const FieldMultiComboBoxClearButton = ({ isDisabled, size, variant }: IAdapterProps) => {
     const state = useContext(ComboBoxStateContext);
 
     if (!state || isEmptyMultiValue(state.value) || isDisabled) {

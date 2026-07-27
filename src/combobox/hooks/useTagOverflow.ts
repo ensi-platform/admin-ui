@@ -96,8 +96,8 @@ export const useTagOverflow = (
             return;
         }
 
-        setVisibleCount(itemCount > 0 ? 1 : 0);
-    }, [expanded, itemCount, trailingReserveRef, trailingContentKey]);
+        setVisibleCount(1);
+    }, [expanded, itemCount, trailingReserveRef]);
 
     useLayoutEffect(() => {
         recalculate();
@@ -123,7 +123,7 @@ export const useTagOverflow = (
         return () => {
             observer.disconnect();
         };
-    }, [recalculate, itemCount, trailingReserveRef, trailingContentKey]);
+    }, [recalculate, trailingContentKey, trailingReserveRef]);
 
     return { visibleCount, containerRef, measureRef, overflowMeasureRef };
 };

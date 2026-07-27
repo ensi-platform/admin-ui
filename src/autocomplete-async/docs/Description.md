@@ -11,14 +11,11 @@ Single autocomplete with injected suggest hook. Импорт: `import { Autocomp
 ## Контракт `useSuggest`
 
 ```ts
-type TUseAutocompleteSuggest = (input: {
-  query: string;
-  enabled?: boolean;
-}) => {
-  options: IComboboxOption[];
-  isLoading: boolean;
-  isError?: boolean;
-  error?: Error | null;
+type TUseAutocompleteSuggest = (input: { query: string; enabled?: boolean }) => {
+    options: IComboboxOption[];
+    isLoading: boolean;
+    isError?: boolean;
+    error?: Error | null;
 };
 ```
 
@@ -39,15 +36,15 @@ type TUseAutocompleteSuggest = (input: {
 
 ```tsx
 const useBrandSuggest: TUseAutocompleteSuggest = ({ query, enabled }) => {
-  const { data, isFetching, isError } = useQuery({
-    queryKey: ['brands', query],
-    queryFn: () => fetchBrands(query),
-    enabled,
-  });
-  return { options: data ?? [], isLoading: isFetching, isError };
+    const { data, isFetching, isError } = useQuery({
+        queryKey: ['brands', query],
+        queryFn: () => fetchBrands(query),
+        enabled,
+    });
+    return { options: data ?? [], isLoading: isFetching, isError };
 };
 
-<AutocompleteAsync aria-label="Бренд" useSuggest={useBrandSuggest} minLength={2} clear />
+<AutocompleteAsync aria-label="Бренд" useSuggest={useBrandSuggest} minLength={2} clear />;
 ```
 
 ## Не делать

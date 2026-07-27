@@ -1,8 +1,8 @@
 import { Clear } from '@/icons';
 import { useAuiLabels } from '@/provider';
 
-import { type IFieldClearButtonProps } from './types';
 import { fieldClearVariants } from './theme';
+import { type IFieldClearButtonProps } from './types';
 
 import styles from './styles.module.css';
 

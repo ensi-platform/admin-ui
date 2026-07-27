@@ -1,7 +1,4 @@
-import {
-    useAutocompleteAsyncInput,
-    useAutocompleteAsyncSuggest,
-} from '@/autocomplete-async/hooks/useAsyncSuggest';
+import { useAutocompleteAsyncInput, useAutocompleteAsyncSuggest } from '@/autocomplete-async/hooks/useAsyncSuggest';
 import { isAsyncSuggestLoading } from '@/autocomplete-async/utils';
 import { MultiAutocomplete } from '@/multi-autocomplete';
 

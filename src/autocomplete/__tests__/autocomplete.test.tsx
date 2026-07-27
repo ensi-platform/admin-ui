@@ -2,14 +2,14 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
+import listStyles from '@/combobox/components/List/styles.module.css';
+import triggerStyles from '@/combobox/components/Trigger/styles.module.css';
 import { Field, useField } from '@/field';
+import clearStyles from '@/field-clear-button/styles.module.css';
 import { AdminUiProvider } from '@/provider';
 
 import { Autocomplete } from '..';
 
-import clearStyles from '@/field-clear-button/styles.module.css';
-import listStyles from '@/combobox/components/List/styles.module.css';
-import triggerStyles from '@/combobox/components/Trigger/styles.module.css';
 import styles from '../styles.module.css';
 
 const OPTIONS = [

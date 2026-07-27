@@ -63,7 +63,10 @@ export const ComboboxTrigger = ({
         >
             <Group
                 ref={triggerRef}
-                className={cn(comboboxTriggerVariants({ size, variant }), mode === 'combobox' && styles.triggerCombobox)}
+                className={cn(
+                    comboboxTriggerVariants({ size, variant }),
+                    mode === 'combobox' && styles.triggerCombobox
+                )}
                 onClick={mode === 'select' ? openFromField : undefined}
             >
                 {mode === 'select' ? (

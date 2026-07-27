@@ -26,4 +26,5 @@ export const comboboxMultiTriggerVariants = cva(styles.trigger, {
 
 export const comboboxTagSizeClass = (size: TComboboxSize) => (size === 'sm' ? styles.tagSm : styles.tagMd);
 
-export const comboboxOverflowSizeClass = (size: TComboboxSize) => (size === 'sm' ? styles.overflowSm : styles.overflowMd);
+export const comboboxOverflowSizeClass = (size: TComboboxSize) =>
+    size === 'sm' ? styles.overflowSm : styles.overflowMd;

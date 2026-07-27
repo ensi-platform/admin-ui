@@ -12,6 +12,9 @@ describe('autocomplete utils', () => {
     });
 
     it('isInteractiveTarget detects button chrome', () => {
+        expect(isInteractiveTarget(null)).toBe(false);
+        expect(isInteractiveTarget(document.createTextNode('x'))).toBe(false);
+
         const button = document.createElement('button');
         const span = document.createElement('span');
 

@@ -171,11 +171,7 @@ export const ComboboxMultiTrigger = ({
             data-invalid={isInvalid || undefined}
             onBlur={handleWrapBlur}
         >
-            <Group
-                ref={triggerRef}
-                className={comboboxMultiTriggerVariants({ size, variant })}
-                onClick={openFromField}
-            >
+            <Group ref={triggerRef} className={comboboxMultiTriggerVariants({ size, variant })} onClick={openFromField}>
                 {showSelectPlaceholder ? (
                     <span className={styles.placeholder}>{placeholder}</span>
                 ) : (

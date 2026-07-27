@@ -42,4 +42,18 @@ describe('FormMultiAutocomplete', () => {
 
         expect(onSubmit.mock.calls[0][0]).toEqual({ tags: ['vip'] });
     });
+
+    it('renders without label, with nullish value and hint', () => {
+        render(
+            <AdminUiProvider>
+                <Form initialValues={{ tags: undefined }} onSubmit={vi.fn()}>
+                    <FormMultiAutocomplete name="tags" options={OPTIONS} hint="Pick tags" aria-label="Метки" />
+                </Form>
+            </AdminUiProvider>
+        );
+
+        expect(screen.queryByText('Метки')).not.toBeInTheDocument();
+        expect(screen.getByText('Pick tags')).toBeInTheDocument();
+        expect(screen.getByRole('combobox', { name: /Метки/ })).toBeInTheDocument();
+    });
 });

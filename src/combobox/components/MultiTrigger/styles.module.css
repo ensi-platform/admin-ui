@@ -149,8 +149,7 @@
     padding-block: var(--aui-combobox-pad-y-sm);
     padding-inline: var(--aui-combobox-pad-x-sm);
     padding-inline-end: calc(
-        var(--aui-combobox-pad-x-sm) -
-            (var(--aui-combobox-icon-hit-sm) - var(--aui-combobox-icon-size-sm)) / 2
+        var(--aui-combobox-pad-x-sm) - (var(--aui-combobox-icon-hit-sm) - var(--aui-combobox-icon-size-sm)) / 2
     );
     gap: var(--aui-combobox-gap-sm);
 }
@@ -171,8 +170,7 @@
     padding-block: var(--aui-combobox-pad-y-md);
     padding-inline: var(--aui-combobox-pad-x-md);
     padding-inline-end: calc(
-        var(--aui-combobox-pad-x-md) -
-            (var(--aui-combobox-icon-hit-md) - var(--aui-combobox-icon-size-md)) / 2
+        var(--aui-combobox-pad-x-md) - (var(--aui-combobox-icon-hit-md) - var(--aui-combobox-icon-size-md)) / 2
     );
     gap: var(--aui-combobox-gap-md);
 }
@@ -193,8 +191,7 @@
     padding-block: var(--aui-combobox-pad-y-lg);
     padding-inline: var(--aui-combobox-pad-x-lg);
     padding-inline-end: calc(
-        var(--aui-combobox-pad-x-lg) -
-            (var(--aui-combobox-icon-hit-lg) - var(--aui-combobox-icon-size-lg)) / 2
+        var(--aui-combobox-pad-x-lg) - (var(--aui-combobox-icon-hit-lg) - var(--aui-combobox-icon-size-lg)) / 2
     );
     gap: var(--aui-combobox-gap-lg);
 }

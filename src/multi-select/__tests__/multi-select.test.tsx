@@ -3,16 +3,16 @@ import userEvent from '@testing-library/user-event';
 import { SelectStateContext } from 'react-aria-components';
 import { describe, expect, it, vi } from 'vitest';
 
-import { FieldMultiSelectClearButton } from '@/field-clear-button';
+import listStyles from '@/combobox/components/List/styles.module.css';
+import triggerStyles from '@/combobox/components/MultiTrigger/styles.module.css';
+import popoverStyles from '@/combobox/components/Popover/styles.module.css';
 import { Field, useField } from '@/field';
+import { FieldMultiSelectClearButton } from '@/field-clear-button';
+import clearStyles from '@/field-clear-button/styles.module.css';
 import { AdminUiProvider } from '@/provider';
 
 import { MultiSelect } from '..';
 
-import clearStyles from '@/field-clear-button/styles.module.css';
-import listStyles from '@/combobox/components/List/styles.module.css';
-import popoverStyles from '@/combobox/components/Popover/styles.module.css';
-import triggerStyles from '@/combobox/components/MultiTrigger/styles.module.css';
 import styles from '../styles.module.css';
 
 const OPTIONS = [

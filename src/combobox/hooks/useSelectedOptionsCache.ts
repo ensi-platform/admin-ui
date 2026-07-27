@@ -15,15 +15,13 @@ export const useSelectedOptionsCache = (
 ): IComboboxOption[] => {
     const cacheRef = useRef(new Map<TComboboxValue, IComboboxOption>());
 
-    const optionsByValue = useMemo(() => {
+    return useMemo(() => {
         const cache = cacheRef.current;
 
-        for (const option of options) {
+        options.forEach(option => {
             cache.set(option.value, option);
-        }
+        });
 
-        return cache;
-    }, [options]);
-
-    return useMemo(() => resolveSelectedOptions(keys, optionsByValue), [keys, options, optionsByValue]);
+        return resolveSelectedOptions(keys, cache);
+    }, [keys, options]);
 };

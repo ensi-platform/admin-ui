@@ -82,4 +82,16 @@ describe('FormAutocomplete', () => {
 
         expect(onSubmit.mock.calls[0][0]).toEqual({ city: '' });
     });
+
+    it('renders without label, with nullish value and hint', () => {
+        render(
+            <Form initialValues={{ city: undefined }} onSubmit={vi.fn()}>
+                <FormAutocomplete name="city" options={OPTIONS} hint="Pick city" aria-label="Город" />
+            </Form>
+        );
+
+        expect(screen.queryByText('Город')).not.toBeInTheDocument();
+        expect(screen.getByText('Pick city')).toBeInTheDocument();
+        expect(screen.getByRole('combobox', { name: /Город/ })).toBeInTheDocument();
+    });
 });
