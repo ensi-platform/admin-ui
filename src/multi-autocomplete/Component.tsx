@@ -3,8 +3,8 @@ import { useRef } from 'react';
 import cn from 'classnames';
 import { type Key, ComboBox as RacComboBox } from 'react-aria-components';
 
-import { MultiAutocompleteList } from './components/List';
-import { MultiAutocompleteTrigger } from './components/Trigger';
+import { ComboboxList, ComboboxMultiTrigger } from '@/combobox';
+
 import { multiAutocompleteVariants } from './theme';
 import { type IMultiAutocompleteProps } from './types';
 import { fromMultiValue, toMultiValue } from './utils';
@@ -64,8 +64,10 @@ export const MultiAutocomplete = ({
         >
             {({ isOpen, isDisabled: isComboDisabled, isInvalid: isComboInvalid }) => (
                 <>
-                    <MultiAutocompleteTrigger
+                    <ComboboxMultiTrigger
+                        mode="combobox"
                         triggerRef={triggerRef}
+                        options={options}
                         size={size}
                         variant={variant}
                         clear={clear}
@@ -76,13 +78,14 @@ export const MultiAutocomplete = ({
                         aria-label={ariaLabel}
                         aria-labelledby={ariaLabelledby}
                     />
-                    <MultiAutocompleteList
+                    <ComboboxList
                         triggerRef={triggerRef}
                         options={options}
                         size={size}
                         variant={variant}
                         isLoading={isLoading}
                         isError={isError}
+                        showEmptyStatus
                     />
                 </>
             )}

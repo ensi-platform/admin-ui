@@ -6,26 +6,26 @@ import { type IDataTestIdProps } from '@ds/common';
 
 import { type IFieldStateProps } from '@/field/types';
 import { type IFormFieldLayoutProps } from '@/form/types';
-import { type ISelectOption, type TSelectSize, type TSelectValue, type TSelectVariant } from '@/select/types';
+import { type IComboboxOption, type TComboboxSize, type TComboboxValue, type TComboboxVariant } from '@/select/types';
 
-export type { ISelectOption, TSelectSize, TSelectValue, TSelectVariant };
+export type { IComboboxOption, TComboboxSize, TComboboxValue, TComboboxVariant };
 
 /** Theme inputs. */
 export interface IMultiSelectThemeProps {
     /** MultiSelect size. */
-    size?: TSelectSize;
+    size?: TComboboxSize;
     /** Visual variant. */
-    variant?: TSelectVariant;
+    variant?: TComboboxVariant;
 }
 
 /** Control state (our names, not RAC). */
 export interface IMultiSelectControlProps {
     /** Controlled value. `[]` means empty (after clear). */
-    value?: TSelectValue[];
+    value?: TComboboxValue[];
     /** Uncontrolled initial value. */
-    defaultValue?: TSelectValue[];
+    defaultValue?: TComboboxValue[];
     /** Selection change. Receives `[]` on clear. */
-    onChange?: (value: TSelectValue[]) => void;
+    onChange?: (value: TComboboxValue[]) => void;
     /** Show a clear button for the entire selection. */
     clear?: boolean;
 }
@@ -33,14 +33,14 @@ export interface IMultiSelectControlProps {
 /** Own / chrome props (not from RAC). */
 export interface IMultiSelectOwnProps extends IDataTestIdProps {
     /** Options list. */
-    options: ISelectOption[];
+    options: IComboboxOption[];
     /** Ref to the Select root (React 19 prop). */
     ref?: Ref<HTMLDivElement>;
 }
 
 /** Content slice for FormMultiSelect. */
 export interface IMultiSelectContentProps {
-    options: ISelectOption[];
+    options: IComboboxOption[];
     clear?: boolean;
     placeholder?: string;
 }

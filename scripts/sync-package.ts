@@ -2,7 +2,7 @@ import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
-const EXCLUDED_PACKAGES = new Set(['ds']);
+const EXCLUDED_PACKAGES = new Set(['ds', 'field-clear-button']);
 
 /** Public entries that live under `src/ds/` but keep top-level package export names. */
 const NESTED_PUBLIC_PACKAGES = [{ name: 'typography', entryRel: 'ds/typography/index.ts' }] as const;

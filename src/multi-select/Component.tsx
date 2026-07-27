@@ -3,8 +3,8 @@ import { useRef } from 'react';
 import cn from 'classnames';
 import { type Key, Select as RacSelect } from 'react-aria-components';
 
-import { MultiSelectList } from './components/List';
-import { MultiSelectTrigger } from './components/Trigger';
+import { ComboboxList, ComboboxMultiTrigger } from '@/combobox';
+
 import { multiSelectVariants } from './theme';
 import { type IMultiSelectProps } from './types';
 import { fromMultiValue, toMultiValue } from './utils';
@@ -53,8 +53,10 @@ export const MultiSelect = ({
         >
             {({ isFocusVisible, isOpen, isDisabled: isSelectDisabled, isInvalid: isSelectInvalid }) => (
                 <>
-                    <MultiSelectTrigger
+                    <ComboboxMultiTrigger
+                        mode="select"
                         triggerRef={triggerRef}
+                        options={options}
                         size={size}
                         variant={variant}
                         clear={clear}
@@ -66,7 +68,7 @@ export const MultiSelect = ({
                         aria-label={ariaLabel}
                         aria-labelledby={ariaLabelledby}
                     />
-                    <MultiSelectList triggerRef={triggerRef} options={options} size={size} variant={variant} />
+                    <ComboboxList triggerRef={triggerRef} options={options} size={size} variant={variant} />
                 </>
             )}
         </RacSelect>

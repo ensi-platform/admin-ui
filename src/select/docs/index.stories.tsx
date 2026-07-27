@@ -8,7 +8,7 @@ import { Field, useField } from '@/field';
 import { Form } from '@/form';
 
 import { FormSelect } from '../FormSelect';
-import { type ISelectProps, type TSelectValue } from '../types';
+import { type ISelectProps, type TComboboxValue } from '../types';
 
 import Description from './Description.md';
 
@@ -64,13 +64,13 @@ const FieldBoundSelect = (props: Omit<ISelectProps, 'options'>) => {
 };
 
 const ControlledSelect = (props: ISelectProps) => {
-    const [value, setValue] = useState<TSelectValue | null>(props.value ?? props.defaultValue ?? null);
+    const [value, setValue] = useState<TComboboxValue | null>(props.value ?? props.defaultValue ?? null);
 
     return <SelectStoryComponent {...props} value={value} defaultValue={undefined} onChange={setValue} />;
 };
 
 export default {
-    title: 'Form/Select',
+    title: 'Form/Combobox/Select',
     component: SelectStoryComponent,
     parameters: {
         docs: {

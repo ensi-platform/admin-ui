@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { type ArgTypes, type Meta, type StoryObj } from '@storybook/react';
 import { z } from 'zod';
 
-import { type TUseAutocompleteSuggest } from '@/autocomplete-shared/suggest';
+import { type TUseAutocompleteSuggest } from '@/autocomplete-async/suggest';
 import { Button } from '@/button';
 import { Form } from '@/form';
 
@@ -63,7 +63,7 @@ const DEFAULT_ARG_TYPES: ArgTypes<Partial<IAutocompleteAsyncProps>> = {
 };
 
 export default {
-    title: 'Form/AutocompleteAsync',
+    title: 'Form/Combobox/AutocompleteAsync',
     component: AutocompleteAsyncStoryComponent,
     parameters: {
         docs: {

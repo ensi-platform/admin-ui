@@ -1,8 +1,8 @@
 import { type Key } from 'react-aria-components';
 
-import { type TSelectValue } from '@/select/types';
+import { type TComboboxValue } from '@/select/types';
 
-export const toSelectedKey = (value: TSelectValue | null | undefined): Key | null | undefined => {
+export const toSelectedKey = (value: TComboboxValue | null | undefined): Key | null | undefined => {
     if (value === undefined) {
         return undefined;
     }

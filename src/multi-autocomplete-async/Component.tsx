@@ -1,4 +1,8 @@
-import { useAutocompleteAsyncInput, useAutocompleteAsyncSuggest } from '@/autocomplete-shared/use-async-suggest';
+import {
+    useAutocompleteAsyncInput,
+    useAutocompleteAsyncSuggest,
+} from '@/autocomplete-async/hooks/useAsyncSuggest';
+import { isAsyncSuggestLoading } from '@/autocomplete-async/utils';
 import { MultiAutocomplete } from '@/multi-autocomplete';
 
 import { type IMultiAutocompleteAsyncProps } from './types';
@@ -24,7 +28,13 @@ export const MultiAutocompleteAsync = ({
             disabled={disabled}
             options={options}
             clientFilter={false}
-            isLoading={isLoading}
+            isLoading={isAsyncSuggestLoading({
+                disabled,
+                inputValue,
+                debouncedQuery,
+                minLength,
+                isLoading,
+            })}
             isError={Boolean(isError)}
             inputValue={inputValue}
             onInputChange={setInputValue}

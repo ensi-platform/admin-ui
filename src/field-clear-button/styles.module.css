@@ -1,0 +1,73 @@
+.root {
+    display: block;
+    flex-shrink: 0;
+}
+
+.clear {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: var(--aui-field-clear-radius-md);
+    transition: color var(--aui-field-clear-duration-fast) var(--aui-field-clear-ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .clear {
+        transition: none;
+    }
+}
+
+.clear:focus {
+    outline: none;
+}
+
+.sm {
+    width: var(--aui-field-clear-icon-hit-sm);
+    height: var(--aui-field-clear-icon-hit-sm);
+}
+
+.sm .root {
+    width: var(--aui-field-clear-icon-size-sm);
+    height: var(--aui-field-clear-icon-size-sm);
+}
+
+.md {
+    width: var(--aui-field-clear-icon-hit-md);
+    height: var(--aui-field-clear-icon-hit-md);
+}
+
+.md .root {
+    width: var(--aui-field-clear-icon-size-md);
+    height: var(--aui-field-clear-icon-size-md);
+}
+
+.lg {
+    width: var(--aui-field-clear-icon-hit-lg);
+    height: var(--aui-field-clear-icon-hit-lg);
+}
+
+.lg .root {
+    width: var(--aui-field-clear-icon-size-lg);
+    height: var(--aui-field-clear-icon-size-lg);
+}
+
+.primary {
+    color: var(--aui-field-clear-fg-muted);
+}
+
+.primary:hover {
+    color: var(--aui-field-clear-fg-primary);
+}
+
+.primary:focus-visible {
+    outline: 2px solid var(--aui-field-clear-border-focus);
+    outline-offset: 0;
+    color: var(--aui-field-clear-fg-primary);
+}

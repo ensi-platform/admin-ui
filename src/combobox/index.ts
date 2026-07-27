@@ -1,0 +1,10 @@
+export { ComboboxItemContent, comboboxItemVariants } from './components/Item';
+export { ComboboxList, type IComboboxListProps } from './components/List';
+export { ComboboxListStatus, type IComboboxListStatusProps } from './components/ListStatus';
+export { ComboboxMultiTrigger, type IComboboxMultiTriggerProps } from './components/MultiTrigger';
+export { ComboboxPopover, type IComboboxPopoverProps } from './components/Popover';
+export { ComboboxTrigger, type IComboboxTriggerProps } from './components/Trigger';
+export { useSelectedOptionsCache } from './hooks/useSelectedOptionsCache';
+export { useTagOverflow } from './hooks/useTagOverflow';
+export type { IComboboxOption, TComboboxSize, TComboboxValue, TComboboxVariant } from './types';
+export { isInteractiveTarget, resolveSelectedOptions, toKeyList } from './utils';

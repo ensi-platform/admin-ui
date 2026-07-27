@@ -3,10 +3,10 @@ import { useRef } from 'react';
 import cn from 'classnames';
 import { ComboBox as RacComboBox } from 'react-aria-components';
 
-import { AutocompleteList } from './components/List';
-import { AutocompleteTrigger } from './components/Trigger';
+import { ComboboxList, ComboboxTrigger } from '@/combobox';
+
 import { autocompleteVariants } from './theme';
-import { type IAutocompleteProps, type TSelectValue } from './types';
+import { type IAutocompleteProps, type TComboboxValue } from './types';
 import { toSelectedKey } from './utils';
 
 export const Autocomplete = ({
@@ -45,7 +45,7 @@ export const Autocomplete = ({
             value={selectedKey}
             defaultValue={defaultSelectedKey}
             onChange={key => {
-                onChange?.(key as TSelectValue | null);
+                onChange?.(key as TComboboxValue | null);
             }}
             inputValue={inputValue}
             defaultInputValue={defaultInputValue}
@@ -62,7 +62,8 @@ export const Autocomplete = ({
         >
             {({ isOpen, isDisabled: isComboDisabled, isInvalid: isComboInvalid }) => (
                 <>
-                    <AutocompleteTrigger
+                    <ComboboxTrigger
+                        mode="combobox"
                         triggerRef={triggerRef}
                         size={size}
                         variant={variant}
@@ -72,13 +73,14 @@ export const Autocomplete = ({
                         isDisabled={isComboDisabled}
                         isInvalid={isComboInvalid}
                     />
-                    <AutocompleteList
+                    <ComboboxList
                         triggerRef={triggerRef}
                         options={options}
                         size={size}
                         variant={variant}
                         isLoading={isLoading}
                         isError={isError}
+                        showEmptyStatus
                     />
                 </>
             )}

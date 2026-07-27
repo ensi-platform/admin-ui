@@ -5,7 +5,7 @@ import { useFieldHook } from '@/form/hooks/useFieldHook';
 import { getError } from '@/form/utils';
 
 import { Autocomplete } from './Component';
-import { type IFormAutocompleteProps, type TSelectValue } from './types';
+import { type IFormAutocompleteProps, type TComboboxValue } from './types';
 
 type TFormAutocompleteControlProps = Omit<ComponentProps<typeof Autocomplete>, 'size' | 'invalid' | 'disabled'>;
 
@@ -44,7 +44,7 @@ export const FormAutocomplete = ({
                 {...autocompleteProps}
                 block={block}
                 name={inputProps.name}
-                value={(field.value as TSelectValue | null | undefined) ?? null}
+                value={(field.value as TComboboxValue | null | undefined) ?? null}
                 onChange={next => setFieldValue(next ?? '')}
                 onBlur={() => onBlurHandler()}
             />

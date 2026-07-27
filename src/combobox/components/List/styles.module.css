@@ -1,0 +1,16 @@
+.root {
+    display: block;
+    outline: none;
+}
+
+.sm {
+    padding: var(--aui-combobox-list-pad-sm);
+}
+
+.md {
+    padding: var(--aui-combobox-list-pad-md);
+}
+
+.lg {
+    padding: var(--aui-combobox-list-pad-lg);
+}

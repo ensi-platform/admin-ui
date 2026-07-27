@@ -1,8 +1,8 @@
 import { type Key } from 'react-aria-components';
 
-import { type TSelectValue } from '@/select/types';
+import { type TComboboxValue } from '@/select/types';
 
-export const toMultiValue = (value: TSelectValue[] | undefined): readonly Key[] | undefined => {
+export const toMultiValue = (value: TComboboxValue[] | undefined): readonly Key[] | undefined => {
     if (value === undefined) {
         return undefined;
     }
@@ -10,7 +10,7 @@ export const toMultiValue = (value: TSelectValue[] | undefined): readonly Key[] 
     return value;
 };
 
-export const fromMultiValue = (keys: Key[]): TSelectValue[] => keys as TSelectValue[];
+export const fromMultiValue = (keys: Key[]): TComboboxValue[] => keys as TComboboxValue[];
 
 /** True when click originated from tag / remove / nested button chrome. */
 export const isInteractiveTarget = (target: EventTarget | null) => {

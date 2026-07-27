@@ -7,7 +7,7 @@ import { Button } from '@/button';
 import { Form } from '@/form';
 
 import { FormMultiAutocomplete } from '../FormMultiAutocomplete';
-import { type IMultiAutocompleteProps, type TSelectValue } from '../types';
+import { type IMultiAutocompleteProps, type TComboboxValue } from '../types';
 
 import Description from './Description.md';
 
@@ -38,13 +38,13 @@ const DEFAULT_ARG_TYPES: ArgTypes<Partial<IMultiAutocompleteProps>> = {
 };
 
 const Controlled = (props: IMultiAutocompleteProps) => {
-    const [value, setValue] = useState<TSelectValue[]>(props.value ?? props.defaultValue ?? []);
+    const [value, setValue] = useState<TComboboxValue[]>(props.value ?? props.defaultValue ?? []);
 
     return <MultiAutocompleteStoryComponent {...props} value={value} defaultValue={undefined} onChange={setValue} />;
 };
 
 export default {
-    title: 'Form/MultiAutocomplete',
+    title: 'Form/Combobox/MultiAutocomplete',
     component: MultiAutocompleteStoryComponent,
     parameters: {
         docs: {

@@ -5,7 +5,7 @@ import { useFieldHook } from '@/form/hooks/useFieldHook';
 import { getError } from '@/form/utils';
 
 import { Select } from './Component';
-import { type IFormSelectProps, type TSelectValue } from './types';
+import { type IFormSelectProps, type TComboboxValue } from './types';
 
 type TFormSelectControlProps = Omit<ComponentProps<typeof Select>, 'size' | 'invalid' | 'disabled'>;
 
@@ -44,7 +44,7 @@ export const FormSelect = ({
                 {...selectProps}
                 block={block}
                 name={inputProps.name}
-                value={(field.value as TSelectValue | null | undefined) ?? null}
+                value={(field.value as TComboboxValue | null | undefined) ?? null}
                 onChange={value => setFieldValue(value ?? '')}
                 onBlur={() => onBlurHandler()}
             />

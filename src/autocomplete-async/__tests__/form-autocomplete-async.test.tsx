@@ -3,8 +3,9 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import { z } from 'zod';
 
-import { type TUseAutocompleteSuggest } from '@/autocomplete-shared/suggest';
+import { type TUseAutocompleteSuggest } from '@/autocomplete-async/suggest';
 import { Form } from '@/form';
+import { AdminUiProvider } from '@/provider';
 
 import { FormAutocompleteAsync } from '..';
 
@@ -34,10 +35,12 @@ describe('FormAutocompleteAsync', () => {
         const onSubmit = vi.fn();
 
         render(
+            <AdminUiProvider>
             <Form initialValues={{ brand: '' }} validationSchema={schema} onSubmit={onSubmit}>
                 <FormAutocompleteAsync name="brand" label="Бренд" useSuggest={useStaticSuggest} debounceMs={0} />
                 <button type="submit">Save</button>
             </Form>
+            </AdminUiProvider>
         );
 
         const input = screen.getByRole('combobox', { name: /Бренд/ });
@@ -45,6 +48,9 @@ describe('FormAutocompleteAsync', () => {
         await user.click(input);
         await user.type(input, 'Adi');
         await user.click(await screen.findByRole('option', { name: 'Adidas' }));
+
+        expect(input).toHaveValue('Adidas');
+
         await user.click(screen.getByRole('button', { name: 'Save' }));
 
         await waitFor(() => {
@@ -52,5 +58,19 @@ describe('FormAutocompleteAsync', () => {
         });
 
         expect(onSubmit.mock.calls[0][0]).toEqual({ brand: 'adidas' });
+    });
+
+    it('shows initial value label', async () => {
+        render(
+            <AdminUiProvider>
+            <Form initialValues={{ brand: 'nike' }} validationSchema={schema} onSubmit={() => undefined}>
+                <FormAutocompleteAsync name="brand" label="Бренд" useSuggest={useStaticSuggest} debounceMs={0} />
+            </Form>
+            </AdminUiProvider>
+        );
+
+        await waitFor(() => {
+            expect(screen.getByRole('combobox', { name: /Бренд/ })).toHaveValue('Nike');
+        });
     });
 });

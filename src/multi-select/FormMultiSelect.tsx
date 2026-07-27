@@ -5,7 +5,7 @@ import { useFieldHook } from '@/form/hooks/useFieldHook';
 import { getError } from '@/form/utils';
 
 import { MultiSelect } from './Component';
-import { type IFormMultiSelectProps, type TSelectValue } from './types';
+import { type IFormMultiSelectProps, type TComboboxValue } from './types';
 
 type TFormMultiSelectControlProps = Omit<ComponentProps<typeof MultiSelect>, 'size' | 'invalid' | 'disabled'>;
 
@@ -44,7 +44,7 @@ export const FormMultiSelect = ({
                 {...selectProps}
                 block={block}
                 name={inputProps.name}
-                value={(field.value as TSelectValue[] | undefined) ?? []}
+                value={(field.value as TComboboxValue[] | undefined) ?? []}
                 onChange={next => setFieldValue(next)}
                 onBlur={() => onBlurHandler()}
             />

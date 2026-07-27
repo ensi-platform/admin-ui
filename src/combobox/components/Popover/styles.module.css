@@ -1,0 +1,14 @@
+.root {
+    width: var(--trigger-width);
+    min-width: var(--trigger-width);
+    max-height: var(--aui-combobox-popover-max-h);
+    overflow: auto;
+    border: 1px solid transparent;
+    border-radius: var(--aui-combobox-popover-radius-md);
+    box-sizing: border-box;
+}
+
+.primary {
+    border-color: var(--aui-combobox-popover-border-primary);
+    background: var(--aui-combobox-popover-bg-primary);
+}

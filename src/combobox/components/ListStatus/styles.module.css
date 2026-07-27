@@ -1,0 +1,55 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--aui-combobox-list-status-gap-md);
+    padding: var(--aui-combobox-list-pad-md);
+    box-sizing: border-box;
+    min-height: var(--aui-combobox-list-status-min-h-md);
+}
+
+.message {
+    margin: 0;
+    text-align: center;
+    color: var(--aui-combobox-fg-muted);
+}
+
+.skeletonList {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    width: 100%;
+    gap: var(--aui-combobox-list-status-gap-md);
+}
+
+.skeletonRow {
+    width: 100%;
+    height: var(--aui-combobox-skeleton-h-md);
+    border-radius: var(--aui-combobox-item-radius-md);
+    background: linear-gradient(
+        90deg,
+        var(--aui-combobox-skeleton-bg-primary) 0%,
+        var(--aui-combobox-skeleton-bg-shine) 50%,
+        var(--aui-combobox-skeleton-bg-primary) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer var(--aui-combobox-skeleton-duration) linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skeletonRow {
+        animation: none;
+        background: var(--aui-combobox-skeleton-bg-primary);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}

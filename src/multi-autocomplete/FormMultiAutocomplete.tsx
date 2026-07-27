@@ -5,7 +5,7 @@ import { useFieldHook } from '@/form/hooks/useFieldHook';
 import { getError } from '@/form/utils';
 
 import { MultiAutocomplete } from './Component';
-import { type IFormMultiAutocompleteProps, type TSelectValue } from './types';
+import { type IFormMultiAutocompleteProps, type TComboboxValue } from './types';
 
 type TFormMultiAutocompleteControlProps = Omit<
     ComponentProps<typeof MultiAutocomplete>,
@@ -47,7 +47,7 @@ export const FormMultiAutocomplete = ({
                 {...autocompleteProps}
                 block={block}
                 name={inputProps.name}
-                value={(field.value as TSelectValue[] | undefined) ?? []}
+                value={(field.value as TComboboxValue[] | undefined) ?? []}
                 onChange={next => setFieldValue(next)}
                 onBlur={() => onBlurHandler()}
             />

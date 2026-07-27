@@ -8,6 +8,7 @@ export * from './bottom-sheet';
 export * from './button';
 export * from './checkbox';
 export * from './checkbox-group';
+export * from './combobox';
 export * from './drawer';
 export * from './field';
 export * from './form';

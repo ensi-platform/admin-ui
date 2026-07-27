@@ -15,16 +15,17 @@ type TUseAutocompleteSuggest = (input: {
   query: string;
   enabled?: boolean;
 }) => {
-  options: ISelectOption[];
+  options: IComboboxOption[];
   isLoading: boolean;
   isError?: boolean;
   error?: Error | null;
 };
 ```
 
-- debounce / `minLength` — в `AutocompleteAsync`
+- debounce / `minLength` — в `AutocompleteAsync`; UI `isLoading` = debounce-pending **или** `isLoading` из хука
 - merge `selected ∪ fetched` — обязанность хука (иначе label выбранного пропадёт)
 - не менять `useSuggest` между рендерами одного инстанса
+- в хуке `isLoading` — на весь активный запрос (RQ: `isFetching`)
 
 ## API (кратко)
 

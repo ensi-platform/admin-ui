@@ -6,38 +6,31 @@ import { type IDataTestIdProps } from '@ds/common';
 
 import { type IFieldStateProps } from '@/field/types';
 import { type IFormFieldLayoutProps } from '@/form/types';
+import {
+    type IComboboxOption,
+    type TComboboxSize,
+    type TComboboxValue,
+    type TComboboxVariant,
+} from '@/combobox/types';
 
-export type TSelectSize = 'sm' | 'md' | 'lg';
-
-export type TSelectVariant = 'primary';
-
-export type TSelectValue = string | number;
-
-export interface ISelectOption {
-    /** Option value (RAC Key). */
-    value: TSelectValue;
-    /** Label shown in the list and in the trigger. */
-    label: string;
-    /** Disabled option. */
-    disabled?: boolean;
-}
+export type { IComboboxOption, TComboboxSize, TComboboxValue, TComboboxVariant };
 
 /** Theme inputs. */
 export interface ISelectThemeProps {
     /** Select size. */
-    size?: TSelectSize;
+    size?: TComboboxSize;
     /** Visual variant. */
-    variant?: TSelectVariant;
+    variant?: TComboboxVariant;
 }
 
 /** Control state (our names, not RAC). */
 export interface ISelectControlProps {
     /** Controlled value. `null` means empty (after clear). */
-    value?: TSelectValue | null;
+    value?: TComboboxValue | null;
     /** Uncontrolled initial value. */
-    defaultValue?: TSelectValue | null;
+    defaultValue?: TComboboxValue | null;
     /** Selection change. Receives `null` on clear. */
-    onChange?: (value: TSelectValue | null) => void;
+    onChange?: (value: TComboboxValue | null) => void;
     /** Show a clear button for the selected value. */
     clear?: boolean;
 }
@@ -45,14 +38,14 @@ export interface ISelectControlProps {
 /** Own / chrome props (not from RAC). */
 export interface ISelectOwnProps extends IDataTestIdProps {
     /** Options list. */
-    options: ISelectOption[];
+    options: IComboboxOption[];
     /** Ref to the Select root (React 19 prop). */
     ref?: Ref<HTMLDivElement>;
 }
 
 /** Content slice for FormSelect. */
 export interface ISelectContentProps {
-    options: ISelectOption[];
+    options: IComboboxOption[];
     clear?: boolean;
     placeholder?: string;
 }

@@ -9,9 +9,10 @@ import {
     type TAutocompleteSize,
     type TAutocompleteVariant,
 } from '@/autocomplete/types';
-import { type TUseAutocompleteSuggest } from '@/autocomplete-shared/suggest';
 import { type IFieldStateProps } from '@/field/types';
 import { type IFormFieldLayoutProps } from '@/form/types';
+
+import { type TUseAutocompleteSuggest } from './suggest';
 
 export type { TAutocompleteSize, TAutocompleteVariant, TUseAutocompleteSuggest };
 

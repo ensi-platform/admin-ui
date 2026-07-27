@@ -3,7 +3,7 @@ import { type ComponentProps } from 'react';
 import { Field, useField } from '@/field';
 import { useFieldHook } from '@/form/hooks/useFieldHook';
 import { getError } from '@/form/utils';
-import { type TSelectValue } from '@/select/types';
+import { type TComboboxValue } from '@/select/types';
 
 import { MultiAutocompleteAsync } from './Component';
 import { type IFormMultiAutocompleteAsyncProps } from './types';
@@ -48,7 +48,7 @@ export const FormMultiAutocompleteAsync = ({
                 {...autocompleteProps}
                 block={block}
                 name={inputProps.name}
-                value={(field.value as TSelectValue[] | undefined) ?? []}
+                value={(field.value as TComboboxValue[] | undefined) ?? []}
                 onChange={next => setFieldValue(next)}
                 onBlur={() => onBlurHandler()}
             />

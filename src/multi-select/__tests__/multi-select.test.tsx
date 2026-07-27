@@ -3,16 +3,16 @@ import userEvent from '@testing-library/user-event';
 import { SelectStateContext } from 'react-aria-components';
 import { describe, expect, it, vi } from 'vitest';
 
+import { FieldMultiSelectClearButton } from '@/field-clear-button';
 import { Field, useField } from '@/field';
 import { AdminUiProvider } from '@/provider';
 
 import { MultiSelect } from '..';
-import { MultiSelectClearButton } from '../components/ClearButton';
 
-import clearStyles from '../components/ClearButton/styles.module.css';
-import listStyles from '../components/List/styles.module.css';
-import popoverStyles from '../components/Popover/styles.module.css';
-import triggerStyles from '../components/Trigger/styles.module.css';
+import clearStyles from '@/field-clear-button/styles.module.css';
+import listStyles from '@/combobox/components/List/styles.module.css';
+import popoverStyles from '@/combobox/components/Popover/styles.module.css';
+import triggerStyles from '@/combobox/components/MultiTrigger/styles.module.css';
 import styles from '../styles.module.css';
 
 const OPTIONS = [
@@ -163,7 +163,7 @@ describe('MultiSelect', () => {
         expect(next).not.toContain('vip');
     });
 
-    it('removes tag when tag label is clicked', async () => {
+    it('opens listbox when tag label is clicked without removing', async () => {
         const user = userEvent.setup();
         const onChange = vi.fn();
 
@@ -178,10 +178,8 @@ describe('MultiSelect', () => {
 
         await user.click(within(vipTag!).getByText('vip'));
 
-        expect(onChange).toHaveBeenCalled();
-        const next = onChange.mock.calls.at(-1)?.[0] as string[];
-        expect(next).toEqual(['regular']);
-        expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+        expect(onChange).not.toHaveBeenCalled();
+        expect(screen.getByRole('listbox')).toBeInTheDocument();
     });
 
     it('does not open when disabled', async () => {
@@ -252,7 +250,7 @@ describe('MultiSelect', () => {
         const { rerender, container } = render(
             <AdminUiProvider labels={{ clear: 'Очистить' }}>
                 <SelectStateContext.Provider value={{ value: null, setValue: vi.fn() } as never}>
-                    <MultiSelectClearButton isDisabled={false} size="md" variant="primary" />
+                    <FieldMultiSelectClearButton isDisabled={false} size="md" variant="primary" />
                 </SelectStateContext.Provider>
             </AdminUiProvider>
         );
@@ -262,7 +260,7 @@ describe('MultiSelect', () => {
         rerender(
             <AdminUiProvider labels={{ clear: 'Очистить' }}>
                 <SelectStateContext.Provider value={{ value: 'vip', setValue: vi.fn() } as never}>
-                    <MultiSelectClearButton isDisabled={false} size="md" variant="primary" />
+                    <FieldMultiSelectClearButton isDisabled={false} size="md" variant="primary" />
                 </SelectStateContext.Provider>
             </AdminUiProvider>
         );
@@ -272,7 +270,7 @@ describe('MultiSelect', () => {
         rerender(
             <AdminUiProvider labels={{ clear: 'Очистить' }}>
                 <SelectStateContext.Provider value={{ value: [], setValue: vi.fn() } as never}>
-                    <MultiSelectClearButton isDisabled={false} size="md" variant="primary" />
+                    <FieldMultiSelectClearButton isDisabled={false} size="md" variant="primary" />
                 </SelectStateContext.Provider>
             </AdminUiProvider>
         );

@@ -43,6 +43,10 @@
             "types": "./dist/checkbox-group/index.d.ts",
             "import": "./dist/checkbox-group/index.js"
         },
+        "./combobox": {
+            "types": "./dist/combobox/index.d.ts",
+            "import": "./dist/combobox/index.js"
+        },
         "./drawer": {
             "types": "./dist/drawer/index.d.ts",
             "import": "./dist/drawer/index.js"

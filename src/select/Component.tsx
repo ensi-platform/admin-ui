@@ -3,10 +3,10 @@ import { useRef } from 'react';
 import cn from 'classnames';
 import { Select as RacSelect } from 'react-aria-components';
 
-import { SelectList } from './components/List';
-import { SelectTrigger } from './components/Trigger';
+import { ComboboxList, ComboboxTrigger } from '@/combobox';
+
 import { selectVariants } from './theme';
-import { type ISelectProps, type TSelectValue } from './types';
+import { type ISelectProps, type TComboboxValue } from './types';
 import { toSelectedKey } from './utils';
 
 export const Select = ({
@@ -38,7 +38,7 @@ export const Select = ({
             selectedKey={selectedKey}
             defaultSelectedKey={defaultSelectedKey}
             onSelectionChange={key => {
-                onChange?.(key as TSelectValue | null);
+                onChange?.(key as TComboboxValue | null);
             }}
             placeholder={placeholder ?? ''}
             isDisabled={disabled}
@@ -50,7 +50,8 @@ export const Select = ({
         >
             {({ isFocusVisible, isOpen, isDisabled: isSelectDisabled, isInvalid: isSelectInvalid }) => (
                 <>
-                    <SelectTrigger
+                    <ComboboxTrigger
+                        mode="select"
                         triggerRef={triggerRef}
                         size={size}
                         variant={variant}
@@ -60,7 +61,7 @@ export const Select = ({
                         isDisabled={isSelectDisabled}
                         isInvalid={isSelectInvalid}
                     />
-                    <SelectList triggerRef={triggerRef} options={options} size={size} variant={variant} />
+                    <ComboboxList triggerRef={triggerRef} options={options} size={size} variant={variant} />
                 </>
             )}
         </RacSelect>

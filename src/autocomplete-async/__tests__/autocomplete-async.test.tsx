@@ -4,7 +4,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
-import { type TUseAutocompleteSuggest } from '@/autocomplete-shared/suggest';
+import { type TUseAutocompleteSuggest } from '@/autocomplete-async/suggest';
 import { AdminUiProvider } from '@/provider';
 
 import { AutocompleteAsync } from '..';
@@ -53,6 +53,19 @@ describe('AutocompleteAsync', () => {
         await user.click(screen.getByRole('option', { name: 'Nike' }));
 
         expect(onChange).toHaveBeenCalledWith('nike');
+        expect(input).toHaveValue('Nike');
+    });
+
+    it('shows label for controlled value when option loads', async () => {
+        render(
+            <AdminUiProvider>
+                <AutocompleteAsync aria-label="Brand" useSuggest={useStaticSuggest} debounceMs={0} value="nike" />
+            </AdminUiProvider>
+        );
+
+        await waitFor(() => {
+            expect(screen.getByRole('combobox', { name: /Brand/ })).toHaveValue('Nike');
+        });
     });
 
     it('respects minLength before enabling suggest', async () => {

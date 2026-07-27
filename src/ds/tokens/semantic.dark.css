@@ -97,67 +97,31 @@
     --aui-number-input-border-focus: var(--aui-input-border-focus);
     --aui-number-input-border-danger: var(--aui-input-border-danger);
 
-    /* select — aliases input/surface/page (same as light) */
-    --aui-select-bg-primary: var(--aui-input-bg-primary);
-    --aui-select-fg-primary: var(--aui-input-fg-primary);
-    --aui-select-fg-muted: var(--aui-input-fg-muted);
-    --aui-select-border-primary: var(--aui-input-border-primary);
-    --aui-select-border-focus: var(--aui-input-border-focus);
-    --aui-select-border-danger: var(--aui-input-border-danger);
-    --aui-select-popover-bg-primary: var(--aui-surface-bg-elevated);
-    --aui-select-popover-border-primary: var(--aui-surface-border-primary);
-    --aui-select-item-bg-hover: var(--aui-surface-bg-muted);
-    --aui-select-item-fg-primary: var(--aui-page-fg-primary);
+    /* combobox — aliases input/surface/page/tag (same as light) */
+    --aui-combobox-bg-primary: var(--aui-input-bg-primary);
+    --aui-combobox-fg-primary: var(--aui-input-fg-primary);
+    --aui-combobox-fg-muted: var(--aui-input-fg-muted);
+    --aui-combobox-border-primary: var(--aui-input-border-primary);
+    --aui-combobox-border-focus: var(--aui-input-border-focus);
+    --aui-combobox-border-danger: var(--aui-input-border-danger);
+    --aui-combobox-popover-bg-primary: var(--aui-surface-bg-elevated);
+    --aui-combobox-popover-border-primary: var(--aui-surface-border-primary);
+    --aui-combobox-item-bg-hover: var(--aui-surface-bg-muted);
+    --aui-combobox-item-fg-primary: var(--aui-page-fg-primary);
+    --aui-combobox-skeleton-bg-primary: var(--aui-surface-bg-muted);
+    --aui-combobox-skeleton-bg-shine: var(--aui-surface-bg-elevated);
+    --aui-combobox-tag-bg-primary: var(--aui-tag-bg-primary);
+    --aui-combobox-tag-fg-primary: var(--aui-tag-fg-primary);
+    --aui-combobox-tag-fg-muted: var(--aui-tag-fg-muted);
+    --aui-combobox-tag-border-primary: var(--aui-tag-border-primary);
+    --aui-combobox-tag-border-focus: var(--aui-tag-border-focus);
+    --aui-combobox-overflow-bg-primary: var(--aui-combobox-tag-bg-primary);
+    --aui-combobox-overflow-fg-primary: var(--aui-combobox-tag-fg-primary);
 
-    /* multi-select — aliases select (same as light) */
-    --aui-multi-select-bg-primary: var(--aui-select-bg-primary);
-    --aui-multi-select-fg-primary: var(--aui-select-fg-primary);
-    --aui-multi-select-fg-muted: var(--aui-select-fg-muted);
-    --aui-multi-select-border-primary: var(--aui-select-border-primary);
-    --aui-multi-select-border-focus: var(--aui-select-border-focus);
-    --aui-multi-select-border-danger: var(--aui-select-border-danger);
-    --aui-multi-select-popover-bg-primary: var(--aui-select-popover-bg-primary);
-    --aui-multi-select-popover-border-primary: var(--aui-select-popover-border-primary);
-    --aui-multi-select-item-bg-hover: var(--aui-select-item-bg-hover);
-    --aui-multi-select-item-fg-primary: var(--aui-select-item-fg-primary);
-    --aui-multi-select-tag-bg-primary: var(--aui-tag-bg-primary);
-    --aui-multi-select-tag-fg-primary: var(--aui-tag-fg-primary);
-    --aui-multi-select-tag-fg-muted: var(--aui-tag-fg-muted);
-    --aui-multi-select-tag-border-primary: var(--aui-tag-border-primary);
-    --aui-multi-select-tag-border-focus: var(--aui-tag-border-focus);
-
-    /* autocomplete — aliases select (same as light) */
-    --aui-autocomplete-bg-primary: var(--aui-select-bg-primary);
-    --aui-autocomplete-fg-primary: var(--aui-select-fg-primary);
-    --aui-autocomplete-fg-muted: var(--aui-select-fg-muted);
-    --aui-autocomplete-border-primary: var(--aui-select-border-primary);
-    --aui-autocomplete-border-focus: var(--aui-select-border-focus);
-    --aui-autocomplete-border-danger: var(--aui-select-border-danger);
-    --aui-autocomplete-popover-bg-primary: var(--aui-select-popover-bg-primary);
-    --aui-autocomplete-popover-border-primary: var(--aui-select-popover-border-primary);
-    --aui-autocomplete-item-bg-hover: var(--aui-select-item-bg-hover);
-    --aui-autocomplete-item-fg-primary: var(--aui-select-item-fg-primary);
-    --aui-autocomplete-skeleton-bg-primary: var(--aui-surface-bg-muted);
-    --aui-autocomplete-skeleton-bg-shine: var(--aui-surface-bg-elevated);
-
-    /* multi-autocomplete — aliases multi-select (same as light) */
-    --aui-multi-autocomplete-bg-primary: var(--aui-multi-select-bg-primary);
-    --aui-multi-autocomplete-fg-primary: var(--aui-multi-select-fg-primary);
-    --aui-multi-autocomplete-fg-muted: var(--aui-multi-select-fg-muted);
-    --aui-multi-autocomplete-border-primary: var(--aui-multi-select-border-primary);
-    --aui-multi-autocomplete-border-focus: var(--aui-multi-select-border-focus);
-    --aui-multi-autocomplete-border-danger: var(--aui-multi-select-border-danger);
-    --aui-multi-autocomplete-popover-bg-primary: var(--aui-multi-select-popover-bg-primary);
-    --aui-multi-autocomplete-popover-border-primary: var(--aui-multi-select-popover-border-primary);
-    --aui-multi-autocomplete-item-bg-hover: var(--aui-multi-select-item-bg-hover);
-    --aui-multi-autocomplete-item-fg-primary: var(--aui-multi-select-item-fg-primary);
-    --aui-multi-autocomplete-tag-bg-primary: var(--aui-multi-select-tag-bg-primary);
-    --aui-multi-autocomplete-tag-fg-primary: var(--aui-multi-select-tag-fg-primary);
-    --aui-multi-autocomplete-tag-fg-muted: var(--aui-multi-select-tag-fg-muted);
-    --aui-multi-autocomplete-tag-border-primary: var(--aui-multi-select-tag-border-primary);
-    --aui-multi-autocomplete-tag-border-focus: var(--aui-multi-select-tag-border-focus);
-    --aui-multi-autocomplete-overflow-bg-primary: var(--aui-multi-select-tag-bg-primary);
-    --aui-multi-autocomplete-overflow-fg-primary: var(--aui-multi-select-tag-fg-primary);
+    /* field-clear */
+    --aui-field-clear-fg-muted: var(--aui-combobox-fg-muted);
+    --aui-field-clear-fg-primary: var(--aui-combobox-fg-primary);
+    --aui-field-clear-border-focus: var(--aui-combobox-border-focus);
 
     /* badge — soft status on dark surfaces */
     --aui-badge-bg-neutral: var(--aui-surface-bg-muted);

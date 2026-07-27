@@ -13,7 +13,7 @@
 ### MultiSelect
 
 - `options`: `{ value, label, disabled? }[]`
-- `value` / `defaultValue` / `onChange` (`TSelectValue[]`)
+- `value` / `defaultValue` / `onChange` (`TComboboxValue[]`)
 - `placeholder`, `clear` → `onChange([])`
 - trigger: Tag + remove по одному
 - `size`: sm | md | lg

@@ -22,7 +22,7 @@
 
 ### API (черновик)
 
-- MultiSelect: `options`, `value` / `onChange` (`TSelectValue[]`), `placeholder`, `clear`, `size`, `isInvalid`, `disabled`, `dataTestId`
+- MultiSelect: `options`, `value` / `onChange` (`TComboboxValue[]`), `placeholder`, `clear`, `size`, `isInvalid`, `disabled`, `dataTestId`
 - FormMultiSelect: `name`, `label`, `hint`, `options`, `clear`, `size`, `disabled`, `dataTestId`
 - `as` — нет
 - без compound Item / sections / typeahead

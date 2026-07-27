@@ -8,7 +8,7 @@ import { Field, useField } from '@/field';
 import { Form } from '@/form';
 
 import { FormAutocomplete } from '../FormAutocomplete';
-import { type IAutocompleteProps, type TSelectValue } from '../types';
+import { type IAutocompleteProps, type TComboboxValue } from '../types';
 
 import Description from './Description.md';
 
@@ -58,13 +58,13 @@ const FieldBoundAutocomplete = (props: Omit<IAutocompleteProps, 'options'>) => {
 };
 
 const ControlledAutocomplete = (props: IAutocompleteProps) => {
-    const [value, setValue] = useState<TSelectValue | null>(props.value ?? props.defaultValue ?? null);
+    const [value, setValue] = useState<TComboboxValue | null>(props.value ?? props.defaultValue ?? null);
 
     return <AutocompleteStoryComponent {...props} value={value} defaultValue={undefined} onChange={setValue} />;
 };
 
 export default {
-    title: 'Form/Autocomplete',
+    title: 'Form/Combobox/Autocomplete',
     component: AutocompleteStoryComponent,
     parameters: {
         docs: {

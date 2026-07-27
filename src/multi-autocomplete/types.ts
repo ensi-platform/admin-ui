@@ -6,12 +6,12 @@ import { type IDataTestIdProps } from '@ds/common';
 
 import { type IFieldStateProps } from '@/field/types';
 import { type IFormFieldLayoutProps } from '@/form/types';
-import { type ISelectOption, type TSelectSize, type TSelectValue, type TSelectVariant } from '@/select/types';
+import { type IComboboxOption, type TComboboxSize, type TComboboxValue, type TComboboxVariant } from '@/select/types';
 
-export type { ISelectOption, TSelectSize, TSelectValue, TSelectVariant };
+export type { IComboboxOption, TComboboxSize, TComboboxValue, TComboboxVariant };
 
-export type TMultiAutocompleteSize = TSelectSize;
-export type TMultiAutocompleteVariant = TSelectVariant;
+export type TMultiAutocompleteSize = TComboboxSize;
+export type TMultiAutocompleteVariant = TComboboxVariant;
 
 /** Theme inputs. */
 export interface IMultiAutocompleteThemeProps {
@@ -24,11 +24,11 @@ export interface IMultiAutocompleteThemeProps {
 /** Control state (our names, not RAC). */
 export interface IMultiAutocompleteControlProps {
     /** Controlled value. `[]` means empty (after clear). */
-    value?: TSelectValue[];
+    value?: TComboboxValue[];
     /** Uncontrolled initial value. */
-    defaultValue?: TSelectValue[];
+    defaultValue?: TComboboxValue[];
     /** Selection change. Receives `[]` on clear. */
-    onChange?: (value: TSelectValue[]) => void;
+    onChange?: (value: TComboboxValue[]) => void;
     /** Controlled input text. */
     inputValue?: string;
     /** Uncontrolled initial input text. */
@@ -42,7 +42,7 @@ export interface IMultiAutocompleteControlProps {
 /** Own / chrome props (not from RAC). */
 export interface IMultiAutocompleteOwnProps extends IDataTestIdProps {
     /** Options list. */
-    options: ISelectOption[];
+    options: IComboboxOption[];
     /** Input placeholder. */
     placeholder?: string;
     /** When true, RAC filters `defaultItems` locally. When false, `items` are controlled (async). */
@@ -57,7 +57,7 @@ export interface IMultiAutocompleteOwnProps extends IDataTestIdProps {
 
 /** Content slice for FormMultiAutocomplete. */
 export interface IMultiAutocompleteContentProps {
-    options: ISelectOption[];
+    options: IComboboxOption[];
     clear?: boolean;
     placeholder?: string;
     clientFilter?: boolean;

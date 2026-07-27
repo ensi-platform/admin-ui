@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { type Meta, type StoryObj } from '@storybook/react';
 import { z } from 'zod';
 
-import { type TUseAutocompleteSuggest } from '@/autocomplete-shared/suggest';
+import { type TUseAutocompleteSuggest } from '@/autocomplete-async/suggest';
 import { Button } from '@/button';
 import { Form } from '@/form';
 
@@ -46,7 +46,7 @@ const useMockBrandSuggest: TUseAutocompleteSuggest = ({ query, enabled }) => {
 };
 
 export default {
-    title: 'Form/MultiAutocompleteAsync',
+    title: 'Form/Combobox/MultiAutocompleteAsync',
     component: MultiAutocompleteAsyncStoryComponent,
     parameters: {
         docs: {

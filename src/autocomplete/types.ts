@@ -6,12 +6,12 @@ import { type IDataTestIdProps } from '@ds/common';
 
 import { type IFieldStateProps } from '@/field/types';
 import { type IFormFieldLayoutProps } from '@/form/types';
-import { type ISelectOption, type TSelectSize, type TSelectValue, type TSelectVariant } from '@/select/types';
+import { type IComboboxOption, type TComboboxSize, type TComboboxValue, type TComboboxVariant } from '@/select/types';
 
-export type { ISelectOption, TSelectSize, TSelectValue, TSelectVariant };
+export type { IComboboxOption, TComboboxSize, TComboboxValue, TComboboxVariant };
 
-export type TAutocompleteSize = TSelectSize;
-export type TAutocompleteVariant = TSelectVariant;
+export type TAutocompleteSize = TComboboxSize;
+export type TAutocompleteVariant = TComboboxVariant;
 
 /** Theme inputs. */
 export interface IAutocompleteThemeProps {
@@ -24,11 +24,11 @@ export interface IAutocompleteThemeProps {
 /** Control state (our names, not RAC). */
 export interface IAutocompleteControlProps {
     /** Controlled value. `null` means empty (after clear). */
-    value?: TSelectValue | null;
+    value?: TComboboxValue | null;
     /** Uncontrolled initial value. */
-    defaultValue?: TSelectValue | null;
+    defaultValue?: TComboboxValue | null;
     /** Selection change. Receives `null` on clear. */
-    onChange?: (value: TSelectValue | null) => void;
+    onChange?: (value: TComboboxValue | null) => void;
     /** Controlled input text. */
     inputValue?: string;
     /** Uncontrolled initial input text. */
@@ -42,7 +42,7 @@ export interface IAutocompleteControlProps {
 /** Own / chrome props (not from RAC). */
 export interface IAutocompleteOwnProps extends IDataTestIdProps {
     /** Options list. */
-    options: ISelectOption[];
+    options: IComboboxOption[];
     /** Input placeholder. */
     placeholder?: string;
     /** When true, RAC filters `defaultItems` locally. When false, `items` are controlled (async). */
@@ -57,7 +57,7 @@ export interface IAutocompleteOwnProps extends IDataTestIdProps {
 
 /** Content slice for FormAutocomplete. */
 export interface IAutocompleteContentProps {
-    options: ISelectOption[];
+    options: IComboboxOption[];
     clear?: boolean;
     placeholder?: string;
     clientFilter?: boolean;

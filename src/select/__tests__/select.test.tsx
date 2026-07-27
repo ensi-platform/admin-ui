@@ -7,10 +7,10 @@ import { AdminUiProvider } from '@/provider';
 
 import { Select } from '..';
 
-import clearStyles from '../components/ClearButton/styles.module.css';
-import listStyles from '../components/List/styles.module.css';
-import popoverStyles from '../components/Popover/styles.module.css';
-import triggerStyles from '../components/Trigger/styles.module.css';
+import clearStyles from '@/field-clear-button/styles.module.css';
+import listStyles from '@/combobox/components/List/styles.module.css';
+import popoverStyles from '@/combobox/components/Popover/styles.module.css';
+import triggerStyles from '@/combobox/components/Trigger/styles.module.css';
 import styles from '../styles.module.css';
 
 const OPTIONS = [

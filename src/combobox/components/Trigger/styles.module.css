@@ -1,0 +1,211 @@
+.triggerWrap {
+    width: 100%;
+}
+
+.trigger {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    border: 1px solid transparent;
+    border-radius: var(--aui-combobox-radius-md);
+    cursor: pointer;
+    text-align: start;
+    transition:
+        background-color var(--aui-combobox-duration-fast) var(--aui-combobox-ease-out),
+        border-color var(--aui-combobox-duration-fast) var(--aui-combobox-ease-out),
+        color var(--aui-combobox-duration-fast) var(--aui-combobox-ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .trigger {
+        transition: none;
+    }
+
+    .chevron {
+        transition: none;
+    }
+}
+
+.triggerWrap[data-disabled] .trigger {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.value {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.actions {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.chevronButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: var(var(--aui-field-clear-radius-md));
+}
+
+.chevronButton:disabled {
+    cursor: not-allowed;
+}
+
+.chevronButton:focus {
+    outline: none;
+}
+
+.chevron {
+    display: block;
+    flex-shrink: 0;
+    transition: transform var(--aui-combobox-duration-fast) var(--aui-combobox-ease-out);
+}
+
+.triggerWrap[data-open] .chevron {
+    transform: rotate(180deg);
+}
+
+.sm {
+    height: var(--aui-combobox-h-sm);
+    padding-inline: var(--aui-combobox-pad-x-sm);
+    padding-inline-end: calc(
+        var(--aui-combobox-pad-x-sm) - (var(--aui-combobox-icon-hit-sm) - var(--aui-combobox-icon-size-sm)) / 2
+    );
+    gap: var(--aui-combobox-gap-sm);
+}
+
+.sm .chevron {
+    width: var(--aui-combobox-icon-size-sm);
+    height: var(--aui-combobox-icon-size-sm);
+}
+
+.sm .chevronButton {
+    width: var(--aui-combobox-icon-hit-sm);
+    height: var(--aui-combobox-icon-hit-sm);
+    margin-block: calc((var(--aui-combobox-icon-hit-sm) - var(--aui-combobox-icon-size-sm)) / -2);
+}
+
+.md {
+    height: var(--aui-combobox-h-md);
+    padding-inline: var(--aui-combobox-pad-x-md);
+    padding-inline-end: calc(
+        var(--aui-combobox-pad-x-md) - (var(--aui-combobox-icon-hit-md) - var(--aui-combobox-icon-size-md)) / 2
+    );
+    gap: var(--aui-combobox-gap-md);
+}
+
+.md .chevron {
+    width: var(--aui-combobox-icon-size-md);
+    height: var(--aui-combobox-icon-size-md);
+}
+
+.md .chevronButton {
+    width: var(--aui-combobox-icon-hit-md);
+    height: var(--aui-combobox-icon-hit-md);
+    margin-block: calc((var(--aui-combobox-icon-hit-md) - var(--aui-combobox-icon-size-md)) / -2);
+}
+
+.lg {
+    height: var(--aui-combobox-h-lg);
+    padding-inline: var(--aui-combobox-pad-x-lg);
+    padding-inline-end: calc(
+        var(--aui-combobox-pad-x-lg) - (var(--aui-combobox-icon-hit-lg) - var(--aui-combobox-icon-size-lg)) / 2
+    );
+    gap: var(--aui-combobox-gap-lg);
+}
+
+.lg .chevron {
+    width: var(--aui-combobox-icon-size-lg);
+    height: var(--aui-combobox-icon-size-lg);
+}
+
+.lg .chevronButton {
+    width: var(--aui-combobox-icon-hit-lg);
+    height: var(--aui-combobox-icon-hit-lg);
+    margin-block: calc((var(--aui-combobox-icon-hit-lg) - var(--aui-combobox-icon-size-lg)) / -2);
+}
+
+.primary {
+    border-color: var(--aui-combobox-border-primary);
+    background: var(--aui-combobox-bg-primary);
+    color: var(--aui-combobox-fg-primary);
+}
+
+.triggerWrap:not([data-invalid]) .primary:hover {
+    border-color: var(--aui-combobox-border-focus);
+}
+
+.triggerWrap[data-focus-visible]:not([data-disabled]) .primary {
+    border-color: var(--aui-combobox-border-focus);
+    outline: 2px solid var(--aui-combobox-border-focus);
+    outline-offset: 0;
+}
+
+.triggerWrap[data-invalid] .primary {
+    border-color: var(--aui-combobox-border-danger);
+}
+
+.triggerWrap[data-invalid][data-focus-visible]:not([data-disabled]) .primary {
+    border-color: var(--aui-combobox-border-danger);
+    outline: 2px solid var(--aui-combobox-border-danger);
+    outline-offset: 0;
+}
+
+.primary .value[data-placeholder] {
+    color: var(--aui-combobox-fg-muted);
+}
+
+.primary .chevronButton {
+    color: var(--aui-combobox-fg-muted);
+}
+
+.input {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    outline: none;
+}
+
+.input::placeholder {
+    color: var(--aui-combobox-fg-muted);
+}
+
+.triggerCombobox {
+    cursor: text;
+}
+
+.triggerWrap:not([data-disabled]) .triggerCombobox[data-focus-within] {
+    border-color: var(--aui-combobox-border-focus);
+    outline: 2px solid var(--aui-combobox-border-focus);
+    outline-offset: 0;
+}
+
+.triggerWrap[data-invalid]:not([data-disabled]) .triggerCombobox[data-focus-within] {
+    border-color: var(--aui-combobox-border-danger);
+    outline: 2px solid var(--aui-combobox-border-danger);
+    outline-offset: 0;
+}

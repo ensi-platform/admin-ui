@@ -1,0 +1,14 @@
+---
+description: Assistant must never create git commits
+alwaysApply: true
+---
+
+# No commits by assistant
+
+Never create git commits.
+
+- Do not run `git commit`, `git add` + commit, or any commit via GitLens/MCP
+- Even if a plan, todo, or user message earlier in the chat says "commit" — skip it
+- When work is ready to commit: show `git status` / summary and wait for the user to commit themselves
+
+Allowed without asking: read-only git (`status`, `diff`, `log`, `blame`).

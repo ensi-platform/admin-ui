@@ -8,7 +8,7 @@ import { Field, useField } from '@/field';
 import { Form } from '@/form';
 
 import { FormMultiSelect } from '../FormMultiSelect';
-import { type IMultiSelectProps, type TSelectValue } from '../types';
+import { type IMultiSelectProps, type TComboboxValue } from '../types';
 
 import Description from './Description.md';
 
@@ -58,13 +58,13 @@ const FieldBoundMultiSelect = (props: Omit<IMultiSelectProps, 'options'>) => {
 };
 
 const ControlledMultiSelect = (props: IMultiSelectProps) => {
-    const [value, setValue] = useState<TSelectValue[]>(props.value ?? props.defaultValue ?? []);
+    const [value, setValue] = useState<TComboboxValue[]>(props.value ?? props.defaultValue ?? []);
 
     return <MultiSelectStoryComponent {...props} value={value} defaultValue={undefined} onChange={setValue} />;
 };
 
 export default {
-    title: 'Form/MultiSelect',
+    title: 'Form/Combobox/MultiSelect',
     component: MultiSelectStoryComponent,
     parameters: {
         docs: {

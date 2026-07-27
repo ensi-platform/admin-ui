@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import { z } from 'zod';
 
-import { type TUseAutocompleteSuggest } from '@/autocomplete-shared/suggest';
+import { type TUseAutocompleteSuggest } from '@/autocomplete-async/suggest';
 import { Form } from '@/form';
 import { AdminUiProvider } from '@/provider';
 
