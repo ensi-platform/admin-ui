@@ -1,32 +1,39 @@
 ---
-description: Общие React-хуки через @uidotdev/usehooks (не дублировать локально)
+description: Общие React-хуки через usehooks-ts (не дублировать локально)
 globs: src/**/*.{ts,tsx}
 alwaysApply: false
 ---
 
-# @uidotdev/usehooks
+# usehooks-ts
 
-Общие утилитарные React-хуки — из [`@uidotdev/usehooks`](https://usehooks.com) (dependency пакета).
+Общие утилитарные React-хуки — из [`usehooks-ts`](https://usehooks-ts.com) (dependency пакета).
 
 ## Когда
 
-- debounce / throttle / previous / media / storage и т.п. — **сначала** смотреть `@uidotdev/usehooks`
+- debounce / throttle / previous / media / storage и т.п. — **сначала** смотреть `usehooks-ts`
 - не писать локальный аналог, если хук уже есть в пакете
 
 ```ts
-import { useDebounce } from '@uidotdev/usehooks';
+import { useDebounceValue, useDebounceCallback } from 'usehooks-ts';
 
-const debouncedQuery = useDebounce(inputValue, 300);
+// debounce внешнего value (input → query)
+const [inputValue, setInputValue] = useState('');
+const [debouncedQuery] = useDebounceValue(inputValue, 300);
+
+// debounce колбэка
+const onSearch = useDebounceCallback(handleSearch, 300);
 ```
+
+В v3 нет `useDebounce(value, delay)` — для value используй `useDebounceValue`, для функций — `useDebounceCallback`.
 
 ## Не путать с RAC
 
 - headless UI / a11y / selection / collections — `react-aria-components` (см. `react-aria.mdc`)
-- `@uidotdev/usehooks` **не** заменяет RAC и не реэкспортируется из публичного API примитивов
+- `usehooks-ts` **не** заменяет RAC и не реэкспортируется из публичного API примитивов
 
 ## Исключения
 
 Допустимы свои хуки только если:
 
-- в usehooks нет подходящего API, или
+- в usehooks-ts нет подходящего API, или
 - нужна доменная логика пакета (например `useInjectedAutocompleteSuggest`, `useOverlayExitComplete`)

@@ -204,10 +204,10 @@
         "url": "git@git.greensight.ru:ensi/opensource/packages/admin-ui/admin-ui-base.git"
     },
     "dependencies": {
-        "@uidotdev/usehooks": "^2.4.1",
         "class-variance-authority": "0.7.1",
         "classnames": "2.5.1",
         "react-aria-components": "^1.19.0",
-        "react-fast-compare": "^3.2.2"
+        "react-fast-compare": "^3.2.2",
+        "usehooks-ts": "^3.1.1"
     }
 }

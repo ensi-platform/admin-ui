@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useDebounce } from '@uidotdev/usehooks';
+import { useDebounceValue } from 'usehooks-ts';
 
 import { type TUseAutocompleteSuggest } from './suggest';
 import { useInjectedAutocompleteSuggest } from './use-injected-suggest';
@@ -8,7 +8,7 @@ import { useInjectedAutocompleteSuggest } from './use-injected-suggest';
 /** Local input state for async suggest wiring. */
 export const useAutocompleteAsyncInput = (debounceMs: number) => {
     const [inputValue, setInputValue] = useState('');
-    const debouncedQuery = useDebounce(inputValue, debounceMs);
+    const [debouncedQuery] = useDebounceValue(inputValue, debounceMs);
 
     return { inputValue, setInputValue, debouncedQuery };
 };
