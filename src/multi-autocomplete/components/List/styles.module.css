@@ -1,0 +1,16 @@
+.root {
+    display: block;
+    outline: none;
+}
+
+.sm {
+    padding: var(--aui-multi-autocomplete-list-pad-sm);
+}
+
+.md {
+    padding: var(--aui-multi-autocomplete-list-pad-md);
+}
+
+.lg {
+    padding: var(--aui-multi-autocomplete-list-pad-lg);
+}

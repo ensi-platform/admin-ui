@@ -12,7 +12,7 @@
 
 - `direction`: `ltr` | `rtl` (optional) — override; иначе из locale через React Aria `useLocale` + `dir` на корне
 - `locale`: string (default `ru-RU`) — `I18nProvider` + `Intl` в примитивах
-- `labels`: `Partial<IAuiLabels>` — merge поверх EN-дефолтов (`close`, `clear`, …)
+- `labels`: `Partial<IAuiLabels>` — merge поверх EN-дефолтов (`close`, `clear`, `loadingSuggestions`, `noSuggestions`, `suggestionsError`, `moreSelected`, …)
 - `className` — на root-`div` с `isolation: isolate` + base reset (`box-sizing: border-box`, `margin: 0` на потомках)
 
 Хуки (только внутри провайдера):

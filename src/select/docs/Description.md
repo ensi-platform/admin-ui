@@ -53,4 +53,4 @@ Single-select на React Aria `Select`. Импорт: `import { Select, FormSele
 - не читать FieldContext внутри Select
 - не дублировать FormFieldWrapper — FormSelect рядом с Select
 - не копировать стили Select в АП
-- multi / ComboBox — отдельные компоненты
+- multi / ComboBox / Autocomplete — отдельные компоненты (`Autocomplete`, `MultiAutocomplete`, `*Async`)

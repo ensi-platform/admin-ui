@@ -16,6 +16,10 @@ const RU_LABELS: IAuiLabels = {
     cancel: 'Отмена',
     delete: 'Удалить',
     notDelete: 'Не удалять',
+    loadingSuggestions: 'Загрузка подсказок',
+    noSuggestions: 'Ничего не найдено',
+    suggestionsError: 'Не удалось загрузить подсказки',
+    moreSelected: 'ещё выбрано',
 };
 
 const withProvider: Decorator = (Story, context) => {

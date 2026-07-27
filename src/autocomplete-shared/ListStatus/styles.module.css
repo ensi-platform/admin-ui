@@ -1,0 +1,48 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    gap: var(--aui-autocomplete-list-status-gap-md);
+    padding: var(--aui-autocomplete-list-pad-md);
+    box-sizing: border-box;
+}
+
+.message {
+    margin: 0;
+    color: var(--aui-autocomplete-fg-muted);
+}
+
+.skeletonList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--aui-autocomplete-list-status-gap-md);
+}
+
+.skeletonRow {
+    height: var(--aui-autocomplete-skeleton-h-md);
+    border-radius: var(--aui-autocomplete-item-radius-md);
+    background: linear-gradient(
+        90deg,
+        var(--aui-autocomplete-skeleton-bg-primary) 0%,
+        var(--aui-autocomplete-skeleton-bg-shine) 50%,
+        var(--aui-autocomplete-skeleton-bg-primary) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer var(--aui-autocomplete-skeleton-duration) linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skeletonRow {
+        animation: none;
+        background: var(--aui-autocomplete-skeleton-bg-primary);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}

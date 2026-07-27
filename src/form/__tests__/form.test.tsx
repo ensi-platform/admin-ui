@@ -316,10 +316,15 @@ describe('Form', () => {
 
 describe('getError', () => {
     it('returns the first item when value is an array', () => {
-        expect(getError([{ message: 'first' }, { message: 'second' }])).toEqual({ message: 'first' });
+        expect(
+            getError([
+                { type: 'custom', message: 'first' },
+                { type: 'custom', message: 'second' },
+            ] as never)
+        ).toEqual({ type: 'custom', message: 'first' });
     });
 
     it('returns the value when it is not an array', () => {
-        expect(getError({ message: 'solo' })).toEqual({ message: 'solo' });
+        expect(getError({ type: 'custom', message: 'solo' })).toEqual({ type: 'custom', message: 'solo' });
     });
 });

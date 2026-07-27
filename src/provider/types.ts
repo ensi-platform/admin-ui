@@ -10,6 +10,14 @@ export interface IAuiLabels {
     cancel: string;
     delete: string;
     notDelete: string;
+    /** Autocomplete list: loading state. */
+    loadingSuggestions: string;
+    /** Autocomplete list: empty results. */
+    noSuggestions: string;
+    /** Autocomplete list: failed load. */
+    suggestionsError: string;
+    /** MultiAutocomplete overflow chip (+N) accessible name prefix. */
+    moreSelected: string;
 }
 
 export type TAuiLabels = IAuiLabels;

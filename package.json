@@ -15,6 +15,14 @@
             "types": "./dist/action-popup/index.d.ts",
             "import": "./dist/action-popup/index.js"
         },
+        "./autocomplete": {
+            "types": "./dist/autocomplete/index.d.ts",
+            "import": "./dist/autocomplete/index.js"
+        },
+        "./autocomplete-async": {
+            "types": "./dist/autocomplete-async/index.d.ts",
+            "import": "./dist/autocomplete-async/index.js"
+        },
         "./badge": {
             "types": "./dist/badge/index.d.ts",
             "import": "./dist/badge/index.js"
@@ -70,6 +78,14 @@
         "./modal-hub": {
             "types": "./dist/modal-hub/index.d.ts",
             "import": "./dist/modal-hub/index.js"
+        },
+        "./multi-autocomplete": {
+            "types": "./dist/multi-autocomplete/index.d.ts",
+            "import": "./dist/multi-autocomplete/index.js"
+        },
+        "./multi-autocomplete-async": {
+            "types": "./dist/multi-autocomplete-async/index.d.ts",
+            "import": "./dist/multi-autocomplete-async/index.js"
         },
         "./multi-select": {
             "types": "./dist/multi-select/index.d.ts",
@@ -188,6 +204,7 @@
         "url": "git@git.greensight.ru:ensi/opensource/packages/admin-ui/admin-ui-base.git"
     },
     "dependencies": {
+        "@uidotdev/usehooks": "^2.4.1",
         "class-variance-authority": "0.7.1",
         "classnames": "2.5.1",
         "react-aria-components": "^1.19.0",

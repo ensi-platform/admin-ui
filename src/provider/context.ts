@@ -9,6 +9,10 @@ export const defaultLabels: IAuiLabels = {
     cancel: 'Cancel',
     delete: 'Delete',
     notDelete: "Don't delete",
+    loadingSuggestions: 'Loading suggestions',
+    noSuggestions: 'No suggestions',
+    suggestionsError: 'Failed to load suggestions',
+    moreSelected: 'more selected',
 };
 
 export const AuiContext = createContext<IAuiContextValue | null>(null);

@@ -1,0 +1,32 @@
+---
+description: Общие React-хуки через @uidotdev/usehooks (не дублировать локально)
+globs: src/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# @uidotdev/usehooks
+
+Общие утилитарные React-хуки — из [`@uidotdev/usehooks`](https://usehooks.com) (dependency пакета).
+
+## Когда
+
+- debounce / throttle / previous / media / storage и т.п. — **сначала** смотреть `@uidotdev/usehooks`
+- не писать локальный аналог, если хук уже есть в пакете
+
+```ts
+import { useDebounce } from '@uidotdev/usehooks';
+
+const debouncedQuery = useDebounce(inputValue, 300);
+```
+
+## Не путать с RAC
+
+- headless UI / a11y / selection / collections — `react-aria-components` (см. `react-aria.mdc`)
+- `@uidotdev/usehooks` **не** заменяет RAC и не реэкспортируется из публичного API примитивов
+
+## Исключения
+
+Допустимы свои хуки только если:
+
+- в usehooks нет подходящего API, или
+- нужна доменная логика пакета (например `useInjectedAutocompleteSuggest`, `useOverlayExitComplete`)
