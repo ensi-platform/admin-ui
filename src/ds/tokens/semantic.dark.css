@@ -211,6 +211,29 @@
     --aui-drawer-close-fg-hover: var(--aui-page-fg-primary);
     --aui-drawer-close-border-focus: var(--aui-control-border-focus);
 
+    /* table — data list chrome (aliases surface/page; zebra via mix) */
+    --aui-table-bg-primary: var(--aui-surface-bg-primary);
+    --aui-table-bg-hover: var(--aui-surface-bg-muted-active);
+    --aui-table-bg-selected: var(--aui-surface-bg-muted);
+    --aui-table-bg-active: var(--aui-surface-bg-muted);
+    --aui-table-bg-zebra: color-mix(in srgb, var(--aui-surface-bg-muted) 18%, var(--aui-surface-bg-primary));
+    --aui-table-bg-header: var(--aui-surface-bg-primary);
+    --aui-table-bg-footer: var(--aui-surface-bg-primary);
+    --aui-table-accent-active: var(--aui-control-border-focus);
+    --aui-table-fg-primary: var(--aui-page-fg-primary);
+    --aui-table-fg-header: var(--aui-page-fg-muted);
+    --aui-table-fg-muted: var(--aui-page-fg-muted);
+    --aui-table-fg-disabled: var(--aui-page-fg-muted);
+    --aui-table-border-primary: var(--aui-surface-border-primary);
+    --aui-table-border-on-fill: var(--aui-page-fg-muted);
+    --aui-table-border-focus: var(--aui-control-border-focus);
+    --aui-table-pagination-current-bg: var(--aui-surface-bg-muted);
+
+    /* loader */
+    --aui-loader-overlay-bg: color-mix(in srgb, var(--aui-surface-bg-primary) 75%, transparent);
+    --aui-loader-spinner-fg: var(--aui-page-fg-primary);
+    --aui-loader-spinner-track: var(--aui-surface-border-primary);
+
     /* bottom-sheet */
     --aui-bottom-sheet-overlay-bg-primary: var(--aui-overlay-bg-primary);
     --aui-bottom-sheet-bg-primary: var(--aui-surface-bg-elevated);

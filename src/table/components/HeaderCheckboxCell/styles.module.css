@@ -1,0 +1,10 @@
+/* Keep table-cell display — do not set display:grid on th/td. */
+.root {
+    box-sizing: border-box;
+    width: var(--aui-table-checkbox-w);
+    min-width: var(--aui-table-checkbox-w);
+    max-width: var(--aui-table-checkbox-w);
+    text-align: center;
+    vertical-align: middle;
+    line-height: 0;
+}

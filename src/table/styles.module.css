@@ -1,0 +1,48 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    color: var(--aui-table-fg-primary);
+    background: var(--aui-table-bg-primary);
+}
+
+.scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    min-width: 0;
+    overflow: auto;
+}
+
+.block {
+    width: 100%;
+}
+
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: auto;
+}
+
+.hasChecked {
+    --aui-table-checkbox-slot: var(--aui-table-checkbox-w);
+}
+
+.zebra :global(tbody tr:nth-child(even):not([data-checked]):not([data-active]):not(:hover)) {
+    background: var(--aui-table-bg-zebra);
+}
+
+.sm {
+    --aui-table-pad-x: var(--aui-table-pad-x-sm);
+    --aui-table-pad-y: var(--aui-table-pad-y-sm);
+}
+
+.md {
+    --aui-table-pad-x: var(--aui-table-pad-x-md);
+    --aui-table-pad-y: var(--aui-table-pad-y-md);
+}
+
+.lg {
+    --aui-table-pad-x: var(--aui-table-pad-x-lg);
+    --aui-table-pad-y: var(--aui-table-pad-y-lg);
+}

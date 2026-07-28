@@ -1,0 +1,16 @@
+.root {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--aui-table-footer-gap);
+    flex-shrink: 0;
+    box-sizing: border-box;
+    padding: var(--aui-table-footer-pad-y) var(--aui-table-footer-pad-x);
+    color: var(--aui-table-fg-muted);
+    background: var(--aui-table-bg-footer);
+}
+
+.sticky {
+    border-top: 1px solid var(--aui-table-border-primary);
+}

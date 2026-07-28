@@ -10,6 +10,8 @@ export interface IAuiLabels {
     cancel: string;
     delete: string;
     notDelete: string;
+    /** Loader overlay accessible name. */
+    loading: string;
     /** Autocomplete list: loading state. */
     loadingSuggestions: string;
     /** Autocomplete list: empty results. */
@@ -20,6 +22,10 @@ export interface IAuiLabels {
     moreSelected: string;
     /** DatePicker / DateRangePicker: open calendar button. */
     openCalendar: string;
+    /** Table.PageSize: label before the select. */
+    pageSize: string;
+    /** Table.Pagination: next-page control label. */
+    paginationNext: string;
 }
 
 export type TAuiLabels = IAuiLabels;

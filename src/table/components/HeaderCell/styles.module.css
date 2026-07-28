@@ -1,0 +1,93 @@
+.root {
+    padding: var(--aui-table-pad-y) var(--aui-table-pad-x);
+    vertical-align: middle;
+    text-align: start;
+    font-weight: var(--aui-table-font-weight-header);
+    color: var(--aui-table-fg-header);
+    box-sizing: border-box;
+    box-shadow: inset 0 -1px 0 var(--aui-table-border-primary);
+    transition: background-color var(--aui-table-duration-fast) var(--aui-table-ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .root {
+        transition: none;
+    }
+}
+
+.root[data-sortable] {
+    padding: 0;
+}
+
+.root[data-sortable]:hover {
+    background: var(--aui-table-bg-hover);
+}
+
+.numeric {
+    text-align: end;
+    font-variant-numeric: tabular-nums;
+}
+
+.alignStart {
+    text-align: start;
+}
+
+.alignEnd {
+    text-align: end;
+}
+
+.alignCenter {
+    text-align: center;
+}
+
+.noWrap {
+    white-space: nowrap;
+}
+
+.utility {
+    width: 1%;
+    white-space: nowrap;
+    padding-left: var(--aui-table-pad-x-utility);
+    padding-right: var(--aui-table-pad-x-utility);
+}
+
+.utility[data-sortable] {
+    padding: 0;
+}
+
+.content {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--aui-table-sort-gap);
+    max-width: 100%;
+}
+
+.root[data-sortable] .content {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.root[data-sortable] .content > * {
+    width: 100%;
+    box-sizing: border-box;
+    padding: var(--aui-table-pad-y) var(--aui-table-pad-x);
+}
+
+.utility[data-sortable] .content > * {
+    padding-left: var(--aui-table-pad-x-utility);
+    padding-right: var(--aui-table-pad-x-utility);
+}
+
+.numeric[data-sortable] .content > *,
+.alignEnd[data-sortable] .content > * {
+    justify-content: end;
+}
+
+.alignCenter[data-sortable] .content > * {
+    justify-content: center;
+}
+
+.alignStart[data-sortable] .content > * {
+    justify-content: start;
+}

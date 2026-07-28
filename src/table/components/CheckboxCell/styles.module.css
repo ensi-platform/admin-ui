@@ -1,0 +1,65 @@
+/* Keep table-cell display — do not set display:grid on th/td.
+   Opacity on the cell would hide borders; hide only the control.
+   Default: no bottom divider in checkbox column (gap); prolong selectively. */
+.root {
+    box-sizing: border-box;
+    width: var(--aui-table-checkbox-w);
+    min-width: var(--aui-table-checkbox-w);
+    max-width: var(--aui-table-checkbox-w);
+    text-align: center;
+    vertical-align: middle;
+    line-height: 0;
+}
+
+/* Override Cell continuous divider — gap by default. */
+:global(tbody) .root {
+    box-shadow: none;
+}
+
+.root > * {
+    opacity: 0;
+    transition: opacity var(--aui-table-duration-fast) var(--aui-table-ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .root > * {
+        transition: none;
+    }
+}
+
+:global(tr:hover) .root > *,
+:global(tr[data-checked]) .root > *,
+:global(tr[data-active]) .root > *,
+:global([data-has-selected]) .root > *,
+.root:focus-within > * {
+    opacity: 1;
+}
+
+/* When checkbox is visible — restore divider. */
+:global(tr:hover) .root,
+:global([data-has-selected]) .root,
+.root:focus-within {
+    box-shadow: inset 0 -1px 0 var(--aui-table-border-primary);
+}
+
+:global(tr[data-checked]) .root,
+:global(tr[data-active]) .root {
+    box-shadow: inset 0 -1px 0 var(--aui-table-border-on-fill);
+}
+
+/* Prolong above active when no selection (control stays hidden via > *). */
+:global(tbody:not(:has([data-checked])) tr:has(+ tr[data-active])) .root {
+    box-shadow: inset 0 -1px 0 var(--aui-table-border-on-fill);
+}
+
+/* Prolong above hover only if previous row itself is not hover/checked/active. */
+:global(
+    tbody tr:has(+ tr:hover:not([data-checked]):not([data-active])):not(:hover):not([data-checked]):not([data-active])
+) .root {
+    box-shadow: inset 0 -1px 0 var(--aui-table-border-primary);
+}
+
+:global(tbody tr:last-child) .root,
+:global(tr[data-bottom-border='false']) .root {
+    box-shadow: none;
+}

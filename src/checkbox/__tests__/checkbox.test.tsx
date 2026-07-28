@@ -94,4 +94,14 @@ describe('Checkbox', () => {
         expect(screen.getByRole('checkbox', { name: 'Agree' })).toBeInTheDocument();
         expect(screen.getByTestId('no-label').querySelector(`.${styles.label}`)).not.toBeInTheDocument();
     });
+
+    it('applies compact field class on CheckboxField without label', () => {
+        const { container } = render(<Checkbox aria-label="Agree" dataTestId="compact" />);
+
+        const field = container.querySelector(`.${styles.field}`);
+
+        expect(field).toBeTruthy();
+        expect(field).toHaveClass(styles.field);
+        expect(screen.getByTestId('compact').querySelector(`.${styles.box}`)).toBeTruthy();
+    });
 });

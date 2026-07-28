@@ -1,0 +1,16 @@
+.root {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--aui-table-page-size-gap);
+    flex-shrink: 0;
+}
+
+.label {
+    color: var(--aui-table-fg-muted);
+    white-space: nowrap;
+}
+
+.select {
+    width: auto;
+    min-width: var(--aui-space-64);
+}

@@ -532,6 +532,63 @@
     --aui-drawer-duration-normal: var(--aui-control-duration-normal);
     --aui-drawer-ease-out: var(--aui-control-ease-out);
 
+    /* table — data list chrome */
+    --aui-table-bg-primary: var(--aui-surface-bg-primary);
+    --aui-table-bg-hover: var(--aui-surface-bg-muted-active);
+    --aui-table-bg-selected: var(--aui-surface-bg-muted);
+    --aui-table-bg-active: var(--aui-surface-bg-muted);
+    --aui-table-bg-zebra: color-mix(in srgb, var(--aui-surface-bg-muted) 18%, var(--aui-surface-bg-primary));
+    --aui-table-bg-header: var(--aui-surface-bg-primary);
+    --aui-table-bg-footer: var(--aui-surface-bg-primary);
+    --aui-table-accent-active: var(--aui-control-border-focus);
+    --aui-table-fg-primary: var(--aui-page-fg-primary);
+    --aui-table-fg-header: var(--aui-page-fg-muted);
+    --aui-table-fg-muted: var(--aui-page-fg-muted);
+    --aui-table-fg-disabled: var(--aui-page-fg-muted);
+    --aui-table-border-primary: var(--aui-surface-border-primary);
+    --aui-table-border-on-fill: var(--aui-page-fg-muted);
+    --aui-table-border-focus: var(--aui-control-border-focus);
+    --aui-table-radius-md: var(--aui-control-radius-sm);
+    --aui-table-pad-x-sm: var(--aui-space-8);
+    --aui-table-pad-y-sm: var(--aui-space-8);
+    --aui-table-pad-x-md: var(--aui-space-12);
+    --aui-table-pad-y-md: var(--aui-space-12);
+    --aui-table-pad-x-lg: var(--aui-space-16);
+    --aui-table-pad-y-lg: var(--aui-space-16);
+    --aui-table-pad-x-utility: var(--aui-space-8);
+    --aui-table-pad-y-utility: var(--aui-space-4);
+    --aui-table-font-weight-header: var(--aui-font-weight-medium);
+    --aui-table-font-weight-sorted: var(--aui-font-weight-semibold);
+    --aui-table-checkbox-w: var(--aui-space-40);
+    --aui-table-action-gap: var(--aui-space-4);
+    --aui-table-sort-gap: var(--aui-space-4);
+    --aui-table-footer-gap: var(--aui-space-12);
+    --aui-table-footer-pad-x: var(--aui-space-12);
+    --aui-table-footer-pad-y: var(--aui-space-12);
+    --aui-table-pagination-gap: var(--aui-space-4);
+    --aui-table-pagination-item-size: var(--aui-space-32);
+    --aui-table-pagination-item-pad-x: var(--aui-space-8);
+    --aui-table-pagination-next-pad-x: var(--aui-space-8);
+    --aui-table-pagination-chevron-size: var(--aui-space-16);
+    --aui-table-pagination-current-bg: var(--aui-surface-bg-muted);
+    --aui-table-page-size-gap: var(--aui-space-8);
+    --aui-table-z-sticky: 2;
+    --aui-table-shadow-sticky: 0 1px 0 var(--aui-table-border-primary);
+    --aui-table-duration-fast: var(--aui-control-duration-fast);
+    --aui-table-ease-out: var(--aui-control-ease-out);
+
+    /* loader — local veil + spinner over content */
+    --aui-loader-overlay-bg: color-mix(in srgb, var(--aui-surface-bg-primary) 75%, transparent);
+    --aui-loader-spinner-fg: var(--aui-page-fg-primary);
+    --aui-loader-spinner-track: var(--aui-surface-border-primary);
+    --aui-loader-size-sm: var(--aui-space-16);
+    --aui-loader-size-md: var(--aui-space-24);
+    --aui-loader-size-lg: var(--aui-space-32);
+    --aui-loader-border-w: 2px;
+    --aui-loader-z: 5;
+    --aui-loader-duration: 0.8s;
+    --aui-loader-ease: linear;
+
     /* bottom-sheet — mobile tray from bottom */
     --aui-bottom-sheet-overlay-bg-primary: var(--aui-overlay-bg-primary);
     --aui-bottom-sheet-bg-primary: var(--aui-surface-bg-elevated);

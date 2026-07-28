@@ -83,6 +83,10 @@
             "types": "./dist/input/index.d.ts",
             "import": "./dist/input/index.js"
         },
+        "./loader": {
+            "types": "./dist/loader/index.d.ts",
+            "import": "./dist/loader/index.js"
+        },
         "./modal": {
             "types": "./dist/modal/index.d.ts",
             "import": "./dist/modal/index.js"
@@ -122,6 +126,10 @@
         "./switch": {
             "types": "./dist/switch/index.d.ts",
             "import": "./dist/switch/index.js"
+        },
+        "./table": {
+            "types": "./dist/table/index.d.ts",
+            "import": "./dist/table/index.js"
         },
         "./tag": {
             "types": "./dist/tag/index.d.ts",

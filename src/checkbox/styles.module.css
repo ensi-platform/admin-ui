@@ -1,8 +1,20 @@
+.field {
+    display: inline-flex;
+    width: max-content;
+    height: fit-content;
+    line-height: 0;
+}
+
 .root {
     display: inline-flex;
-    align-items: flex-start;
+    align-items: center;
     gap: var(--aui-checkbox-gap-md);
     cursor: pointer;
+    line-height: 0;
+}
+
+.label {
+    line-height: var(--aui-line-height-normal);
 }
 
 .root:disabled,
@@ -13,6 +25,7 @@
 
 .box {
     box-sizing: border-box;
+    position: relative;
     display: inline-flex;
     flex-shrink: 0;
     align-items: center;
@@ -31,32 +44,37 @@
 }
 
 .icon {
-    display: none;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    visibility: hidden;
 }
 
 .root[data-selected]:not([data-indeterminate]) .icon {
-    display: block;
+    visibility: visible;
 }
 
 .indeterminate {
-    display: none;
-    width: 60%;
+    position: absolute;
+    left: 20%;
+    right: 20%;
+    top: 50%;
     height: 2px;
+    margin-top: -1px;
     border-radius: 1px;
     background: currentColor;
+    visibility: hidden;
 }
 
 .root[data-indeterminate] .indeterminate {
-    display: block;
-}
-
-.label {
-    min-width: 0;
+    visibility: visible;
 }
 
 .sm .box {
     width: var(--aui-checkbox-box-sm);
     height: var(--aui-checkbox-box-sm);
+    min-width: var(--aui-checkbox-box-sm);
+    min-height: var(--aui-checkbox-box-sm);
 }
 
 .sm .icon {
@@ -67,6 +85,8 @@
 .md .box {
     width: var(--aui-checkbox-box-md);
     height: var(--aui-checkbox-box-md);
+    min-width: var(--aui-checkbox-box-md);
+    min-height: var(--aui-checkbox-box-md);
 }
 
 .md .icon {
@@ -77,6 +97,8 @@
 .lg .box {
     width: var(--aui-checkbox-box-lg);
     height: var(--aui-checkbox-box-lg);
+    min-width: var(--aui-checkbox-box-lg);
+    min-height: var(--aui-checkbox-box-lg);
 }
 
 .lg .icon {
@@ -100,8 +122,8 @@
 
 .primary[data-focus-visible]:not(:disabled):not([data-disabled]) .box {
     border-color: var(--aui-checkbox-border-focus);
-    outline: 2px solid var(--aui-checkbox-border-focus);
-    outline-offset: 0;
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--aui-checkbox-border-focus);
 }
 
 .primary[data-selected] .box,
@@ -125,6 +147,6 @@
 
 .primary[data-invalid][data-focus-visible]:not(:disabled):not([data-disabled]) .box,
 .primary[aria-invalid='true'][data-focus-visible]:not(:disabled):not([data-disabled]) .box {
-    outline: 2px solid var(--aui-checkbox-border-danger);
-    outline-offset: 0;
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--aui-checkbox-border-danger);
 }

@@ -1,0 +1,9 @@
+.root {
+    background: var(--aui-table-bg-header);
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+    z-index: var(--aui-table-z-sticky);
+}

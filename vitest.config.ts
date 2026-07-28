@@ -34,6 +34,7 @@ export default defineConfig({
                 '**/*.module.css',
                 '**/*.d.ts',
                 'src/ds/typography/**',
+                'src/icons/**',
                 'src/index.ts',
                 'src/*/index.ts',
                 'src/ds/*/index.ts',

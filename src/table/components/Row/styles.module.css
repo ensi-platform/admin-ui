@@ -1,0 +1,72 @@
+.root {
+    transition:
+        background-color var(--aui-table-duration-fast) var(--aui-table-ease-out),
+        box-shadow var(--aui-table-duration-fast) var(--aui-table-ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .root {
+        transition: none;
+    }
+}
+
+.root[data-clickable] {
+    cursor: pointer;
+}
+
+.root[data-clickable]:hover {
+    background: var(--aui-table-bg-hover);
+}
+
+.root[data-checked] {
+    background: var(--aui-table-bg-selected);
+}
+
+.root[data-checked][data-clickable]:hover {
+    background: var(--aui-table-bg-selected);
+}
+
+.root[data-active] {
+    background: var(--aui-table-bg-active);
+    box-shadow: inset 3px 0 0 var(--aui-table-accent-active);
+}
+
+.root[data-active][data-clickable]:hover {
+    background: var(--aui-table-bg-active);
+}
+
+.root[data-checked][data-active] {
+    background: var(--aui-table-bg-selected);
+    box-shadow: inset 3px 0 0 var(--aui-table-accent-active);
+}
+
+.root[data-disabled] {
+    color: var(--aui-table-fg-disabled);
+    opacity: 0.56;
+    pointer-events: none;
+    cursor: default;
+}
+
+.root[data-disabled]:hover {
+    background: transparent;
+}
+
+.root[data-disabled][data-checked] {
+    background: var(--aui-table-bg-selected);
+}
+
+.root[data-disabled][data-active] {
+    background: var(--aui-table-bg-active);
+    box-shadow: inset 3px 0 0 var(--aui-table-accent-active);
+}
+
+.root[data-disabled][data-checked][data-active] {
+    background: var(--aui-table-bg-selected);
+    box-shadow: inset 3px 0 0 var(--aui-table-accent-active);
+}
+
+.root:focus-visible {
+    outline: 2px solid var(--aui-table-border-focus);
+    outline-offset: -2px;
+    border-radius: var(--aui-table-radius-md);
+}

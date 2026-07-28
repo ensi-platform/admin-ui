@@ -33,6 +33,7 @@ export const Checkbox = ({
         isIndeterminate={indeterminate}
         isDisabled={disabled}
         isInvalid={invalid}
+        className={styles.field}
     >
         <CheckboxButton
             ref={ref}

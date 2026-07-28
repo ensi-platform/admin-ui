@@ -1,0 +1,54 @@
+.root {
+    padding: var(--aui-table-pad-y) var(--aui-table-pad-x);
+    vertical-align: middle;
+    text-align: start;
+    box-sizing: border-box;
+}
+
+/* Continuous bottom divider across all columns including utility. */
+:global(tbody) .root {
+    box-shadow: inset 0 -1px 0 var(--aui-table-border-primary);
+}
+
+:global(tbody tr[data-checked]) .root,
+:global(tbody tr[data-active]) .root {
+    box-shadow: inset 0 -1px 0 var(--aui-table-border-on-fill);
+}
+
+/* Line above checked/active = previous row's bottom (same tone). */
+:global(tbody tr:has(+ tr[data-checked])) .root,
+:global(tbody tr:has(+ tr[data-active])) .root {
+    box-shadow: inset 0 -1px 0 var(--aui-table-border-on-fill);
+}
+
+:global(tbody tr:last-child) .root,
+:global(tr[data-bottom-border='false']) .root {
+    box-shadow: none;
+}
+
+.numeric {
+    text-align: end;
+    font-variant-numeric: tabular-nums;
+}
+
+.alignStart {
+    text-align: start;
+}
+
+.alignEnd {
+    text-align: end;
+}
+
+.alignCenter {
+    text-align: center;
+}
+
+.noWrap {
+    white-space: nowrap;
+}
+
+.utility {
+    width: 1%;
+    white-space: nowrap;
+    padding: var(--aui-table-pad-y-utility) var(--aui-table-pad-x-utility);
+}
