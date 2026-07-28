@@ -11,7 +11,7 @@ import { MonthView } from '../MonthView';
 
 /** Vertical scroll calendar for DatePicker popover. */
 export const ScrollCalendar = ({ scrollToDate, className, autoFocusDay = false }: IScrollCalendarProps) => {
-    const { months, viewportRef, setMonthEl, scrollToMonth, ensureMonthVisible } = useFakeScrollCalendar(scrollToDate);
+    const { months, viewportRef, setMonthEl, scrollToMonth } = useFakeScrollCalendar(scrollToDate);
     const pickerState = useContext(DatePickerStateContext);
     const calendarProps = useSlottedContext(CalendarContext);
 
@@ -32,16 +32,17 @@ export const ScrollCalendar = ({ scrollToDate, className, autoFocusDay = false }
         pickerState?.close();
     };
 
-    const { focusedDate, onDayFocus, onDayKeyDown, setFocusedDateFromParts, isGridEngaged } = useCalendarGridKeyboard({
-        viewportRef,
-        ensureMonthVisible,
-        preferredDate: selectedDate ?? toCal(scrollToDate),
-        minValue,
-        maxValue,
-        isDateUnavailable,
-        onSelect: handleSelect,
-        autoFocusDay,
-    });
+    const { focusedDate, onDayFocus, onDayBlur, onDayKeyDown, setFocusedDateFromParts, isGridEngaged } =
+        useCalendarGridKeyboard({
+            viewportRef,
+            ensureMonthVisible: scrollToMonth,
+            preferredDate: selectedDate ?? toCal(scrollToDate),
+            minValue,
+            maxValue,
+            isDateUnavailable,
+            onSelect: handleSelect,
+            autoFocusDay,
+        });
 
     const handleMonthYearChange = (date: CalendarDate) => {
         scrollToMonth(date);
@@ -65,6 +66,7 @@ export const ScrollCalendar = ({ scrollToDate, className, autoFocusDay = false }
                     focusedDate={focusedDate}
                     isGridEngaged={isGridEngaged}
                     onFocusDate={onDayFocus}
+                    onBlurDate={onDayBlur}
                     onDayKeyDown={onDayKeyDown}
                 />
             )}

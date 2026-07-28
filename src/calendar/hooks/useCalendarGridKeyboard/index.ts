@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useRef, useState, type KeyboardEvent, type RefObject } from 'react';
+import { useCallback, useEffect, useRef, useState, type FocusEvent, type KeyboardEvent, type RefObject } from 'react';
 
 import { type CalendarDate, getLocalTimeZone, today } from '@internationalized/date';
 
-import { isDateOutOfBounds, isSameMonth, toMonthKey } from '../../utils/date';
+import { isDateOutOfBounds, toMonthKey } from '../../utils/date';
 
 /** Week starts Monday (aligned with MonthView). */
 export const CALENDAR_GRID_FIRST_DAY_OF_WEEK = 1;
@@ -189,9 +189,12 @@ export const focusedDateInMonth = (
 };
 
 const focusDateButton = (viewport: HTMLElement | null, date: CalendarDate) => {
-    const button = viewport?.querySelector(`[data-date="${date.toString()}"]`);
+    const iso = date.toString();
+    const button =
+        viewport?.querySelector(`[data-date="${iso}"]:not([data-outside-month])`) ??
+        viewport?.querySelector(`[data-date="${iso}"]`);
     if (button instanceof HTMLElement) {
-        button.focus();
+        button.focus({ preventScroll: true });
 
         return true;
     }
@@ -209,7 +212,7 @@ const focusDateButtonWhenReady = (viewport: HTMLElement | null, date: CalendarDa
 /** Options for calendar grid keyboard hook. */
 export interface IUseCalendarGridKeyboardOptions {
     viewportRef: RefObject<HTMLElement | null>;
-    /** Soft scroll: only when month is outside the current window. */
+    /** Sync scroll/center month to the focused date (wired to scrollToMonth in calendars). */
     ensureMonthVisible: (date: CalendarDate) => void;
     preferredDate?: CalendarDate | null;
     minValue?: CalendarDate | null;
@@ -256,13 +259,11 @@ export const useCalendarGridKeyboard = ({
 
     const moveFocusTo = useCallback(
         (next: CalendarDate) => {
-            const prev = focusedDateRef.current;
             setGridEngaged(true);
             setFocusedDate(next);
             focusedDateRef.current = next;
-            if (!isSameMonth(next, prev)) {
-                ensureMonthVisible(next);
-            }
+            // Sync active/center month even when focusedDate already moved (desync with outside cells).
+            ensureMonthVisible(next);
             focusDateButtonWhenReady(viewportRef.current, next);
         },
         [ensureMonthVisible, viewportRef]
@@ -273,6 +274,17 @@ export const useCalendarGridKeyboard = ({
         setFocusedDate(date);
         focusedDateRef.current = date;
     }, []);
+
+    const onDayBlur = useCallback(
+        (event: FocusEvent<HTMLButtonElement>) => {
+            const next = event.relatedTarget;
+            if (next instanceof Element && next.closest('[data-date]')) {
+                return;
+            }
+            setGridEngaged(false);
+        },
+        []
+    );
 
     const setFocusedDateFromParts = useCallback(
         (year: number, month: number) => {
@@ -310,5 +322,5 @@ export const useCalendarGridKeyboard = ({
         [isDateUnavailable, maxValue, minValue, moveFocusTo, onSelect]
     );
 
-    return { focusedDate, onDayFocus, onDayKeyDown, setFocusedDateFromParts, isGridEngaged };
+    return { focusedDate, onDayFocus, onDayBlur, onDayKeyDown, setFocusedDateFromParts, isGridEngaged };
 };

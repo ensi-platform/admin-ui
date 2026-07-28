@@ -1,4 +1,4 @@
-import { useMemo, useState, type KeyboardEventHandler } from 'react';
+import { useMemo, useState, type FocusEventHandler, type KeyboardEventHandler } from 'react';
 
 import { CalendarDate, getLocalTimeZone, today } from '@internationalized/date';
 import cn from 'classnames';
@@ -48,9 +48,10 @@ export interface IMonthViewSelection {
     onMonthYearChange?: (date: CalendarDate) => void;
     /** Roving keyboard focus date. */
     focusedDate?: CalendarDate | null;
-    /** When false, all day cells stay tabIndex=-1 (pointer open). */
+    /** When false, day has no focus ring / arrow keys until focused (tab stop still present). */
     isGridEngaged?: boolean;
     onFocusDate?: (date: CalendarDate) => void;
+    onBlurDate?: FocusEventHandler<HTMLButtonElement>;
     onDayKeyDown?: KeyboardEventHandler<HTMLButtonElement>;
 }
 
@@ -82,6 +83,7 @@ export const MonthView = ({
     focusedDate = null,
     isGridEngaged = true,
     onFocusDate,
+    onBlurDate,
     onDayKeyDown,
 }: IMonthViewProps) => {
     const { locale } = useLocale();
@@ -111,7 +113,7 @@ export const MonthView = ({
         return null;
     }
 
-    const previewEnd = hoveredDate ?? rangeEnd;
+    const previewEnd = hoveredDate ?? rangeEnd ?? rangeAnchor;
     const hasCompleteRange = rangeStart != null && rangeEnd != null;
     const hasPreviewRange = rangeAnchor != null && previewEnd != null;
 
@@ -177,8 +179,8 @@ export const MonthView = ({
                                 const unavailable = Boolean(isDateUnavailable?.(date));
                                 const disabled = isDisabled || outOfBounds;
                                 const isToday = isSameDay(date, todayDate);
-                                const isFocused = focusedDate != null && isSameDay(date, focusedDate);
-                                const isRovingTarget = isFocused && isGridEngaged;
+                                const isFocusDate = focusedDate != null && isSameDay(date, focusedDate) && !outside;
+                                const isRovingTarget = isFocusDate && isGridEngaged;
 
                                 let isSelected = false;
                                 let isSelectionStart = false;
@@ -218,9 +220,11 @@ export const MonthView = ({
                                             isInRange={isInRange}
                                             isHovered={hoveredDate != null && isSameDay(date, hoveredDate)}
                                             isFocused={isRovingTarget}
+                                            tabIndex={isFocusDate ? 0 : -1}
                                             onSelect={onSelect}
                                             onHoverChange={onHoverChange}
                                             onFocusDate={onFocusDate}
+                                            onBlurDate={onBlurDate}
                                             onKeyDown={onDayKeyDown}
                                         />
                                     </td>

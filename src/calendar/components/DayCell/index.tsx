@@ -20,11 +20,14 @@ export interface IDayCellProps {
     isSelectionEnd?: boolean;
     isInRange?: boolean;
     isHovered?: boolean;
-    /** Roving tabindex focus target. */
+    /** Keyboard-engaged focus ring + arrow keys. */
     isFocused?: boolean;
+    /** Tab stop override; defaults to `0` when `isFocused`, else `-1`. */
+    tabIndex?: number;
     onSelect?: (date: CalendarDate) => void;
     onHoverChange?: (date: CalendarDate | null) => void;
     onFocusDate?: (date: CalendarDate) => void;
+    onBlurDate?: FocusEventHandler<HTMLButtonElement>;
     onKeyDown?: KeyboardEventHandler<HTMLButtonElement>;
 }
 
@@ -42,9 +45,11 @@ export const DayCell = ({
     isInRange = false,
     isHovered = false,
     isFocused = false,
+    tabIndex,
     onSelect,
     onHoverChange,
     onFocusDate,
+    onBlurDate,
     onKeyDown,
 }: IDayCellProps) => {
     const blocked = isDisabled || isUnavailable;
@@ -60,7 +65,7 @@ export const DayCell = ({
             aria-label={label}
             aria-pressed={isSelected || undefined}
             disabled={blocked}
-            tabIndex={isFocused ? 0 : -1}
+            tabIndex={tabIndex ?? (isFocused ? 0 : -1)}
             data-date={date.toString()}
             data-outside-month={isOutsideMonth || undefined}
             data-today={isToday || undefined}
@@ -76,6 +81,7 @@ export const DayCell = ({
             onMouseEnter={() => onHoverChange?.(date)}
             onMouseLeave={() => onHoverChange?.(null)}
             onFocus={handleFocus}
+            onBlur={onBlurDate}
             onKeyDown={isFocused ? onKeyDown : undefined}
         >
             {date.day}

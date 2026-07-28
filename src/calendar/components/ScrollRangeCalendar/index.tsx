@@ -11,7 +11,7 @@ import { MonthView } from '../MonthView';
 
 /** Vertical scroll range calendar for DateRangePicker popover. */
 export const ScrollRangeCalendar = ({ scrollToDate, className, autoFocusDay = false }: IScrollCalendarProps) => {
-    const { months, viewportRef, setMonthEl, scrollToMonth, ensureMonthVisible } = useFakeScrollCalendar(scrollToDate);
+    const { months, viewportRef, setMonthEl, scrollToMonth } = useFakeScrollCalendar(scrollToDate);
     const rangeState = useContext(DateRangePickerStateContext);
     const calendarProps = useSlottedContext(RangeCalendarContext);
     const [rangeAnchor, setRangeAnchor] = useState<CalendarDate | null>(null);
@@ -48,16 +48,17 @@ export const ScrollRangeCalendar = ({ scrollToDate, className, autoFocusDay = fa
         rangeState?.close();
     };
 
-    const { focusedDate, onDayFocus, onDayKeyDown, setFocusedDateFromParts, isGridEngaged } = useCalendarGridKeyboard({
-        viewportRef,
-        ensureMonthVisible,
-        preferredDate: rangeEnd ?? rangeStart ?? toCal(scrollToDate),
-        minValue,
-        maxValue,
-        isDateUnavailable,
-        onSelect: handleSelect,
-        autoFocusDay,
-    });
+    const { focusedDate, onDayFocus, onDayBlur, onDayKeyDown, setFocusedDateFromParts, isGridEngaged } =
+        useCalendarGridKeyboard({
+            viewportRef,
+            ensureMonthVisible: scrollToMonth,
+            preferredDate: rangeEnd ?? rangeStart ?? toCal(scrollToDate),
+            minValue,
+            maxValue,
+            isDateUnavailable,
+            onSelect: handleSelect,
+            autoFocusDay,
+        });
 
     const handleMonthYearChange = (date: CalendarDate) => {
         scrollToMonth(date);
@@ -85,6 +86,7 @@ export const ScrollRangeCalendar = ({ scrollToDate, className, autoFocusDay = fa
                     focusedDate={focusedDate}
                     isGridEngaged={isGridEngaged}
                     onFocusDate={onDayFocus}
+                    onBlurDate={onDayBlur}
                     onDayKeyDown={onDayKeyDown}
                 />
             )}

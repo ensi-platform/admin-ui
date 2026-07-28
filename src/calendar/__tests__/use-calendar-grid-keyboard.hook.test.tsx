@@ -1,4 +1,4 @@
-import { useRef, useState, type KeyboardEvent } from 'react';
+import { useRef, useState, type FocusEvent, type KeyboardEvent } from 'react';
 
 import { CalendarDate } from '@internationalized/date';
 import { act, render, renderHook } from '@testing-library/react';
@@ -248,6 +248,16 @@ describe('useCalendarGridKeyboard', () => {
         expect(result.current.focusedDate.toString()).toBe('2024-08-20');
         expect(ensureMonthVisible).toHaveBeenCalled();
 
+        ensureMonthVisible.mockClear();
+        act(() => {
+            result.current.onDayFocus(new CalendarDate(2024, 8, 20));
+            result.current.onDayKeyDown(key('ArrowDown'));
+            frames.splice(0).forEach(cb => cb(0));
+        });
+        // Same-month move still syncs center (desync recovery).
+        expect(result.current.focusedDate.toString()).toBe('2024-08-27');
+        expect(ensureMonthVisible).toHaveBeenCalledWith(expect.objectContaining({ month: 8, day: 27 }));
+
         const { result: bounded } = renderHook(() => {
             const viewportRef = useRef<HTMLElement | null>(viewport);
             return useCalendarGridKeyboard({
@@ -265,5 +275,98 @@ describe('useCalendarGridKeyboard', () => {
 
         document.body.removeChild(viewport);
         vi.unstubAllGlobals();
+    });
+
+    it('focuses in-month day when outside-month duplicate exists', () => {
+        const ensureMonthVisible = vi.fn();
+        const viewport = document.createElement('div');
+        const outside = document.createElement('button');
+        outside.setAttribute('data-date', '2024-07-01');
+        outside.setAttribute('data-outside-month', 'true');
+        const inMonth = document.createElement('button');
+        inMonth.setAttribute('data-date', '2024-07-01');
+        viewport.append(outside, inMonth);
+        // Also need June 30 for ArrowRight from preferred
+        const june30 = document.createElement('button');
+        june30.setAttribute('data-date', '2024-06-30');
+        viewport.prepend(june30);
+        document.body.appendChild(viewport);
+
+        const frames: FrameRequestCallback[] = [];
+        vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => {
+            frames.push(cb);
+            return frames.length;
+        });
+
+        const { result } = renderHook(() => {
+            const viewportRef = useRef<HTMLElement | null>(viewport);
+            return useCalendarGridKeyboard({
+                viewportRef,
+                ensureMonthVisible,
+                preferredDate: new CalendarDate(2024, 6, 30),
+            });
+        });
+
+        const key = (name: string) =>
+            ({ key: name, preventDefault: vi.fn() }) as unknown as KeyboardEvent<HTMLButtonElement>;
+
+        const focusSpy = vi.spyOn(HTMLElement.prototype, 'focus');
+        act(() => {
+            result.current.onDayKeyDown(key('ArrowRight'));
+            frames.splice(0).forEach(cb => cb(0));
+        });
+
+        expect(result.current.focusedDate.toString()).toBe('2024-07-01');
+        expect(ensureMonthVisible).toHaveBeenCalled();
+        expect(focusSpy).toHaveBeenCalled();
+        expect(focusSpy.mock.instances[0]).toBe(inMonth);
+        expect(focusSpy.mock.calls[0]?.[0]).toEqual({ preventScroll: true });
+
+        focusSpy.mockRestore();
+        document.body.removeChild(viewport);
+        vi.unstubAllGlobals();
+    });
+
+    it('disengages grid on blur when focus leaves day cells', () => {
+        const ensureMonthVisible = vi.fn();
+        const viewport = document.createElement('div');
+        const day = document.createElement('button');
+        day.setAttribute('data-date', '2024-06-15');
+        const other = document.createElement('button');
+        viewport.append(day, other);
+        document.body.appendChild(viewport);
+
+        const { result } = renderHook(() => {
+            const viewportRef = useRef<HTMLElement | null>(viewport);
+            return useCalendarGridKeyboard({
+                viewportRef,
+                ensureMonthVisible,
+                preferredDate: new CalendarDate(2024, 6, 15),
+                autoFocusDay: true,
+            });
+        });
+
+        expect(result.current.isGridEngaged).toBe(true);
+
+        act(() => {
+            result.current.onDayBlur({
+                relatedTarget: other,
+            } as FocusEvent<HTMLButtonElement>);
+        });
+        expect(result.current.isGridEngaged).toBe(false);
+
+        act(() => {
+            result.current.onDayFocus(new CalendarDate(2024, 6, 15));
+        });
+        expect(result.current.isGridEngaged).toBe(true);
+
+        act(() => {
+            result.current.onDayBlur({
+                relatedTarget: day,
+            } as FocusEvent<HTMLButtonElement>);
+        });
+        expect(result.current.isGridEngaged).toBe(true);
+
+        document.body.removeChild(viewport);
     });
 });

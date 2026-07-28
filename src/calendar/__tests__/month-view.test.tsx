@@ -61,4 +61,75 @@ describe('MonthView', () => {
         expect(screen.queryByTestId('calendar-month-select-trigger')).not.toBeInTheDocument();
         expect(screen.getByText('2024')).toBeInTheDocument();
     });
+
+    it('keeps outside-month day out of roving tabindex when focusedDate matches', () => {
+        // June 2024 ends on Sunday — July 1 is outside in the following month grid only;
+        // use a month whose grid includes next-month trailing days: May 2024 ends Friday.
+        renderView(
+            <MonthView
+                monthKey="2024-05"
+                monthTop={0}
+                monthHeight={280}
+                focusedDate={new CalendarDate(2024, 6, 1)}
+                isGridEngaged
+            />
+        );
+
+        const outside = document.querySelector(
+            '[data-date="2024-06-01"][data-outside-month]'
+        ) as HTMLButtonElement | null;
+        expect(outside).toBeTruthy();
+        expect(outside).toHaveAttribute('tabindex', '-1');
+    });
+
+    it('keeps focusedDate day in tab order when grid is not engaged', () => {
+        renderView(
+            <MonthView
+                monthKey="2024-06"
+                monthTop={0}
+                monthHeight={280}
+                focusedDate={new CalendarDate(2024, 6, 15)}
+                isGridEngaged={false}
+            />
+        );
+
+        const day = document.querySelector('[data-date="2024-06-15"]') as HTMLButtonElement | null;
+        expect(day).toBeTruthy();
+        expect(day).toHaveAttribute('tabindex', '0');
+        expect(day).not.toHaveAttribute('data-focused');
+    });
+
+    it('marks focusedDate day as data-focused when grid is engaged', () => {
+        renderView(
+            <MonthView
+                monthKey="2024-06"
+                monthTop={0}
+                monthHeight={280}
+                focusedDate={new CalendarDate(2024, 6, 15)}
+                isGridEngaged
+            />
+        );
+
+        const day = document.querySelector('[data-date="2024-06-15"]') as HTMLButtonElement | null;
+        expect(day).toBeTruthy();
+        expect(day).toHaveAttribute('tabindex', '0');
+        expect(day).toHaveAttribute('data-focused');
+    });
+
+    it('paints range anchor without hover as selected start', () => {
+        renderView(
+            <MonthView
+                monthKey="2024-06"
+                monthTop={0}
+                monthHeight={280}
+                rangeAnchor={new CalendarDate(2024, 6, 10)}
+            />
+        );
+
+        const day = document.querySelector('[data-date="2024-06-10"]') as HTMLButtonElement | null;
+        expect(day).toBeTruthy();
+        expect(day).toHaveAttribute('data-selected');
+        expect(day).toHaveAttribute('data-selection-start');
+        expect(day).toHaveAttribute('data-selection-end');
+    });
 });
