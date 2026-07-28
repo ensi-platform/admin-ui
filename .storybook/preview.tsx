@@ -20,6 +20,7 @@ const RU_LABELS: IAuiLabels = {
     noSuggestions: 'Ничего не найдено',
     suggestionsError: 'Не удалось загрузить подсказки',
     moreSelected: 'ещё выбрано',
+    openCalendar: 'Открыть календарь',
 };
 
 const withProvider: Decorator = (Story, context) => {

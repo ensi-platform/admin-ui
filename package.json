@@ -47,6 +47,14 @@
             "types": "./dist/combobox/index.d.ts",
             "import": "./dist/combobox/index.js"
         },
+        "./date-picker": {
+            "types": "./dist/date-picker/index.d.ts",
+            "import": "./dist/date-picker/index.js"
+        },
+        "./date-range-picker": {
+            "types": "./dist/date-range-picker/index.d.ts",
+            "import": "./dist/date-range-picker/index.js"
+        },
         "./drawer": {
             "types": "./dist/drawer/index.d.ts",
             "import": "./dist/drawer/index.js"
@@ -122,6 +130,10 @@
         "./textarea": {
             "types": "./dist/textarea/index.d.ts",
             "import": "./dist/textarea/index.js"
+        },
+        "./time-field": {
+            "types": "./dist/time-field/index.d.ts",
+            "import": "./dist/time-field/index.js"
         },
         "./tooltip": {
             "types": "./dist/tooltip/index.d.ts",
@@ -208,6 +220,7 @@
         "url": "git@git.greensight.ru:ensi/opensource/packages/admin-ui/admin-ui-base.git"
     },
     "dependencies": {
+        "@internationalized/date": "^3.10.0",
         "class-variance-authority": "0.7.1",
         "classnames": "2.5.1",
         "react-aria-components": "^1.19.0",

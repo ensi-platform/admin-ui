@@ -6,7 +6,7 @@ import {
     type IAutocompleteSuggestInput,
     type IAutocompleteSuggestResult,
     type TUseAutocompleteSuggest,
-} from '../suggest';
+} from '../types';
 
 /**
  * Calls the injected AP suggest hook.

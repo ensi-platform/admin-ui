@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { type Meta, type StoryObj } from '@storybook/react';
 import { z } from 'zod';
 
-import { type TUseAutocompleteSuggest } from '@/autocomplete-async/suggest';
+import { type TUseAutocompleteSuggest } from '@/autocomplete-async/types';
 import { Button } from '@/button';
 import { Form } from '@/form';
 

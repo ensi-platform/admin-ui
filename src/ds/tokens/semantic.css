@@ -198,6 +198,108 @@
     --aui-number-input-duration-fast: var(--aui-control-duration-fast);
     --aui-number-input-ease-out: var(--aui-control-ease-out);
 
+    /* date-picker — field chrome (aliases input) */
+    --aui-date-picker-bg-primary: var(--aui-input-bg-primary);
+    --aui-date-picker-fg-primary: var(--aui-input-fg-primary);
+    --aui-date-picker-fg-muted: var(--aui-input-fg-muted);
+    --aui-date-picker-border-primary: var(--aui-input-border-primary);
+    --aui-date-picker-border-focus: var(--aui-input-border-focus);
+    --aui-date-picker-border-danger: var(--aui-input-border-danger);
+    --aui-date-picker-radius-md: var(--aui-input-radius-md);
+    --aui-date-picker-h-sm: var(--aui-input-h-sm);
+    --aui-date-picker-h-md: var(--aui-input-h-md);
+    --aui-date-picker-h-lg: var(--aui-input-h-lg);
+    --aui-date-picker-pad-x-sm: var(--aui-input-pad-x-sm);
+    --aui-date-picker-pad-x-md: var(--aui-input-pad-x-md);
+    --aui-date-picker-pad-x-lg: var(--aui-input-pad-x-lg);
+    --aui-date-picker-gap-md: var(--aui-space-8);
+    --aui-date-picker-icon-size-md: var(--aui-space-16);
+    --aui-date-picker-icon-hit-md: var(--aui-space-24);
+    --aui-date-picker-clear-radius-md: var(--aui-control-radius-sm);
+    --aui-date-picker-popover-bg-primary: var(--aui-surface-bg-elevated);
+    --aui-date-picker-popover-border-primary: var(--aui-surface-border-primary);
+    --aui-date-picker-popover-radius-md: var(--aui-control-radius-md);
+    --aui-date-picker-popover-pad-md: var(--aui-space-12);
+    --aui-date-picker-popover-w: var(--aui-calendar-popover-w);
+    --aui-date-picker-popover-shadow: var(--aui-shadow-sm);
+    --aui-date-picker-popover-z: var(--aui-z-dropdown);
+    --aui-date-picker-duration-fast: var(--aui-control-duration-fast);
+    --aui-date-picker-ease-out: var(--aui-control-ease-out);
+
+    /* date-range-picker — aliases date-picker */
+    --aui-date-range-picker-bg-primary: var(--aui-date-picker-bg-primary);
+    --aui-date-range-picker-fg-primary: var(--aui-date-picker-fg-primary);
+    --aui-date-range-picker-fg-muted: var(--aui-date-picker-fg-muted);
+    --aui-date-range-picker-border-primary: var(--aui-date-picker-border-primary);
+    --aui-date-range-picker-border-focus: var(--aui-date-picker-border-focus);
+    --aui-date-range-picker-border-danger: var(--aui-date-picker-border-danger);
+    --aui-date-range-picker-radius-md: var(--aui-date-picker-radius-md);
+    --aui-date-range-picker-h-sm: var(--aui-date-picker-h-sm);
+    --aui-date-range-picker-h-md: var(--aui-date-picker-h-md);
+    --aui-date-range-picker-h-lg: var(--aui-date-picker-h-lg);
+    --aui-date-range-picker-pad-x-sm: var(--aui-date-picker-pad-x-sm);
+    --aui-date-range-picker-pad-x-md: var(--aui-date-picker-pad-x-md);
+    --aui-date-range-picker-pad-x-lg: var(--aui-date-picker-pad-x-lg);
+    --aui-date-range-picker-gap-md: var(--aui-date-picker-gap-md);
+    --aui-date-range-picker-icon-size-md: var(--aui-date-picker-icon-size-md);
+    --aui-date-range-picker-icon-hit-md: var(--aui-date-picker-icon-hit-md);
+    --aui-date-range-picker-clear-radius-md: var(--aui-date-picker-clear-radius-md);
+    --aui-date-range-picker-popover-bg-primary: var(--aui-date-picker-popover-bg-primary);
+    --aui-date-range-picker-popover-border-primary: var(--aui-date-picker-popover-border-primary);
+    --aui-date-range-picker-popover-radius-md: var(--aui-date-picker-popover-radius-md);
+    --aui-date-range-picker-popover-pad-md: var(--aui-date-picker-popover-pad-md);
+    --aui-date-range-picker-popover-w: var(--aui-date-picker-popover-w);
+    --aui-date-range-picker-popover-shadow: var(--aui-date-picker-popover-shadow);
+    --aui-date-range-picker-popover-z: var(--aui-date-picker-popover-z);
+    --aui-date-range-picker-duration-fast: var(--aui-date-picker-duration-fast);
+    --aui-date-range-picker-ease-out: var(--aui-date-picker-ease-out);
+
+    /* time-field — field chrome (aliases input) */
+    --aui-time-field-bg-primary: var(--aui-input-bg-primary);
+    --aui-time-field-fg-primary: var(--aui-input-fg-primary);
+    --aui-time-field-fg-muted: var(--aui-input-fg-muted);
+    --aui-time-field-border-primary: var(--aui-input-border-primary);
+    --aui-time-field-border-focus: var(--aui-input-border-focus);
+    --aui-time-field-border-danger: var(--aui-input-border-danger);
+    --aui-time-field-radius-md: var(--aui-input-radius-md);
+    --aui-time-field-h-sm: var(--aui-input-h-sm);
+    --aui-time-field-h-md: var(--aui-input-h-md);
+    --aui-time-field-h-lg: var(--aui-input-h-lg);
+    --aui-time-field-pad-x-sm: var(--aui-input-pad-x-sm);
+    --aui-time-field-pad-x-md: var(--aui-input-pad-x-md);
+    --aui-time-field-pad-x-lg: var(--aui-input-pad-x-lg);
+    --aui-time-field-gap-md: var(--aui-space-8);
+    --aui-time-field-icon-size-md: var(--aui-space-16);
+    --aui-time-field-icon-hit-md: var(--aui-space-24);
+    --aui-time-field-clear-radius-md: var(--aui-control-radius-sm);
+    --aui-time-field-duration-fast: var(--aui-control-duration-fast);
+    --aui-time-field-ease-out: var(--aui-control-ease-out);
+
+    /* calendar — vertical scroll month grid (shared) */
+    --aui-calendar-bg-primary: var(--aui-surface-bg-elevated);
+    --aui-calendar-fg-primary: var(--aui-page-fg-primary);
+    --aui-calendar-fg-muted: var(--aui-page-fg-muted);
+    --aui-calendar-fg-selected: var(--aui-control-fg-brand);
+    --aui-calendar-bg-selected: var(--aui-control-bg-brand);
+    --aui-calendar-bg-selected-hover: var(--aui-control-bg-brand-hover);
+    --aui-calendar-bg-hover: var(--aui-surface-bg-muted);
+    --aui-calendar-bg-range: var(--aui-surface-bg-muted);
+    --aui-calendar-bg-today: var(--aui-transparent);
+    --aui-calendar-border-today: var(--aui-control-border-focus);
+    --aui-calendar-border-focus: var(--aui-control-border-focus);
+    --aui-calendar-max-h: 320px;
+    --aui-calendar-pad-md: var(--aui-space-8);
+    --aui-calendar-gap-md: var(--aui-space-16);
+    --aui-calendar-month-gap-md: var(--aui-space-4);
+    --aui-calendar-cell-size-md: var(--aui-space-32);
+    --aui-calendar-cell-radius-md: var(--aui-control-radius-sm);
+    --aui-calendar-heading-pad-y-md: var(--aui-space-4);
+    --aui-calendar-popover-w: calc(
+        7 * var(--aui-calendar-cell-size-md) + 2 * var(--aui-date-picker-popover-pad-md) + 2px
+    );
+    --aui-calendar-duration-fast: var(--aui-control-duration-fast);
+    --aui-calendar-ease-out: var(--aui-control-ease-out);
+
     /* combobox — shared select/combobox trigger + list chrome */
     --aui-combobox-bg-primary: var(--aui-input-bg-primary);
     --aui-combobox-fg-primary: var(--aui-input-fg-primary);

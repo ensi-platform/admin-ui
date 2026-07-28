@@ -1,0 +1,35 @@
+.heading {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--aui-calendar-month-gap-md);
+    margin: 0;
+    padding: var(--aui-calendar-heading-pad-y-md) 0;
+    /* Align with left edge of centered weekday / day text in first column. */
+    padding-inline-start: calc((var(--aui-calendar-cell-size-md) - 2ch) / 2);
+    background: var(--aui-calendar-bg-primary);
+    color: var(--aui-calendar-fg-primary);
+}
+
+.grid {
+    width: calc(7 * var(--aui-calendar-cell-size-md));
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.grid th,
+.grid td {
+    width: var(--aui-calendar-cell-size-md);
+    height: var(--aui-calendar-cell-size-md);
+    padding: 0;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.grid th {
+    color: var(--aui-calendar-fg-muted);
+    font-weight: 400;
+}

@@ -18,6 +18,8 @@ export interface IAuiLabels {
     suggestionsError: string;
     /** MultiAutocomplete overflow chip (+N) accessible name prefix. */
     moreSelected: string;
+    /** DatePicker / DateRangePicker: open calendar button. */
+    openCalendar: string;
 }
 
 export type TAuiLabels = IAuiLabels;

@@ -6,6 +6,8 @@ export type {
     IAutocompleteAsyncOwnProps,
     IAutocompleteAsyncProps,
     IAutocompleteAsyncThemeProps,
+    IAutocompleteSuggestInput,
+    IAutocompleteSuggestResult,
     IFormAutocompleteAsyncProps,
     TAutocompleteSize,
     TAutocompleteVariant,

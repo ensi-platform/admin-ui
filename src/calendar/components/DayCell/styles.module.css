@@ -1,0 +1,82 @@
+.cell {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--aui-calendar-cell-size-md);
+    height: var(--aui-calendar-cell-size-md);
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: var(--aui-calendar-cell-radius-md);
+    background: transparent;
+    color: var(--aui-calendar-fg-primary);
+    font: inherit;
+    cursor: pointer;
+    transition:
+        background-color var(--aui-calendar-duration-fast) var(--aui-calendar-ease-out),
+        color var(--aui-calendar-duration-fast) var(--aui-calendar-ease-out),
+        border-color var(--aui-calendar-duration-fast) var(--aui-calendar-ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cell {
+        transition: none;
+    }
+}
+
+.cell[data-outside-month] {
+    color: var(--aui-calendar-fg-muted);
+    opacity: 0.45;
+}
+
+.cell[data-disabled],
+.cell[data-unavailable] {
+    color: var(--aui-calendar-fg-muted);
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.cell[data-hovered]:not([data-disabled]):not([data-selected]),
+.cell:hover:not(:disabled):not([data-selected]) {
+    background: var(--aui-calendar-bg-hover);
+}
+
+.cell[data-today]:not([data-selected]) {
+    border-color: var(--aui-calendar-border-today);
+}
+
+.cell[data-selected] {
+    background: var(--aui-calendar-bg-selected);
+    color: var(--aui-calendar-fg-selected);
+}
+
+.cell[data-selected][data-hovered],
+.cell:hover:not(:disabled)[data-selected],
+.cell:hover:not(:disabled)[data-selection-start],
+.cell:hover:not(:disabled)[data-selection-end] {
+    background: var(--aui-calendar-bg-selected-hover);
+}
+
+.cell[data-selection-start],
+.cell[data-selection-end] {
+    background: var(--aui-calendar-bg-selected);
+    color: var(--aui-calendar-fg-selected);
+}
+
+.cell[data-in-range]:not([data-selection-start]):not([data-selection-end]) {
+    background: var(--aui-calendar-bg-range);
+    border-radius: 0;
+}
+
+.cell[data-focused] {
+    outline: 2px solid var(--aui-calendar-border-focus);
+    /* Inset so overflow:hidden on the viewport does not clip the ring. */
+    outline-offset: -2px;
+}
+
+.cell[data-focus-visible] {
+    outline: 2px solid var(--aui-calendar-border-focus);
+    outline-offset: -2px;
+}

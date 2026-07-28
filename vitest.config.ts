@@ -30,11 +30,14 @@ export default defineConfig({
                 '**/node_modules/**',
                 '**/docs/**',
                 '**/__tests__/**',
-                '**/{index,types}.ts',
+                '**/types.ts',
                 '**/*.module.css',
+                '**/*.d.ts',
                 'src/ds/typography/**',
+                'src/index.ts',
+                'src/*/index.ts',
+                'src/ds/*/index.ts',
             ],
         },
     },
 });
-

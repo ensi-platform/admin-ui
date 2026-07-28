@@ -1,0 +1,23 @@
+.viewport {
+    position: relative;
+    box-sizing: border-box;
+    height: var(--aui-calendar-max-h);
+    overflow: hidden;
+    background: var(--aui-calendar-bg-primary);
+    color: var(--aui-calendar-fg-primary);
+    overscroll-behavior: contain;
+    touch-action: none;
+}
+
+.month {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(7 * var(--aui-calendar-cell-size-md));
+    display: flex;
+    flex-direction: column;
+    gap: var(--aui-calendar-month-gap-md);
+    box-sizing: border-box;
+    padding-inline: 0;
+    padding-bottom: var(--aui-calendar-gap-md);
+}

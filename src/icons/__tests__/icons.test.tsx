@@ -1,10 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import { Check, ChevronDown, Clear } from '..';
+import { Calendar, Check, ChevronDown, Clear } from '..';
 
 describe('icons', () => {
     it.each([
+        ['Calendar', Calendar],
         ['Check', Check],
         ['ChevronDown', ChevronDown],
         ['Clear', Clear],

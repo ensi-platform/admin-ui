@@ -68,7 +68,10 @@ Headless по умолчанию — [`react-aria-components`](https://react-ari
 | Popover               | `planned` | `lib: react-aria-components`                                               | `no`  |
 | Modal                 | `planned` | `lib: react-aria-components` (`Dialog`)                                    | `no`  |
 | Drawer                | `planned` | `TBD` (Dialog / custom)                                                    | `no`  |
-| Calendar / DatePicker | `planned` | `lib: react-aria-components`                                               | `no`  |
+| DatePicker            | `ready`   | `lib: react-aria-components` (+ vertical calendar / FormDatePicker)        | `no`  |
+| DateRangePicker       | `ready`   | `lib: react-aria-components` (+ shared calendar / FormDateRangePicker)     | `no`  |
+| TimeField             | `ready`   | `lib: react-aria-components` (+ FormTimeField)                             | `no`  |
+| Calendar (internal)   | `ready`   | `custom` month grids + fake scroll (Kontur UX); RAC DatePicker state — not exported | `no`  |
 | ColorPicker           | `planned` | `lib: react-aria-components`                                               | `no`  |
 | Pagination            | `planned` | `custom`                                                                   | `no`  |
 | Breadcrumbs           | `planned` | `custom`                                                                   | `no`  |

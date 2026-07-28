@@ -97,6 +97,46 @@
     --aui-number-input-border-focus: var(--aui-input-border-focus);
     --aui-number-input-border-danger: var(--aui-input-border-danger);
 
+    /* date-picker — aliases input/surface (same as light) */
+    --aui-date-picker-bg-primary: var(--aui-input-bg-primary);
+    --aui-date-picker-fg-primary: var(--aui-input-fg-primary);
+    --aui-date-picker-fg-muted: var(--aui-input-fg-muted);
+    --aui-date-picker-border-primary: var(--aui-input-border-primary);
+    --aui-date-picker-border-focus: var(--aui-input-border-focus);
+    --aui-date-picker-border-danger: var(--aui-input-border-danger);
+    --aui-date-picker-popover-bg-primary: var(--aui-surface-bg-elevated);
+    --aui-date-picker-popover-border-primary: var(--aui-surface-border-primary);
+
+    /* date-range-picker — aliases date-picker (same as light) */
+    --aui-date-range-picker-bg-primary: var(--aui-date-picker-bg-primary);
+    --aui-date-range-picker-fg-primary: var(--aui-date-picker-fg-primary);
+    --aui-date-range-picker-fg-muted: var(--aui-date-picker-fg-muted);
+    --aui-date-range-picker-border-primary: var(--aui-date-picker-border-primary);
+    --aui-date-range-picker-border-focus: var(--aui-date-picker-border-focus);
+    --aui-date-range-picker-border-danger: var(--aui-date-picker-border-danger);
+    --aui-date-range-picker-popover-bg-primary: var(--aui-date-picker-popover-bg-primary);
+    --aui-date-range-picker-popover-border-primary: var(--aui-date-picker-popover-border-primary);
+
+    /* time-field — aliases input (same as light) */
+    --aui-time-field-bg-primary: var(--aui-input-bg-primary);
+    --aui-time-field-fg-primary: var(--aui-input-fg-primary);
+    --aui-time-field-fg-muted: var(--aui-input-fg-muted);
+    --aui-time-field-border-primary: var(--aui-input-border-primary);
+    --aui-time-field-border-focus: var(--aui-input-border-focus);
+    --aui-time-field-border-danger: var(--aui-input-border-danger);
+
+    /* calendar — aliases surface/control/page (same as light) */
+    --aui-calendar-bg-primary: var(--aui-surface-bg-elevated);
+    --aui-calendar-fg-primary: var(--aui-page-fg-primary);
+    --aui-calendar-fg-muted: var(--aui-page-fg-muted);
+    --aui-calendar-fg-selected: var(--aui-control-fg-brand);
+    --aui-calendar-bg-selected: var(--aui-control-bg-brand);
+    --aui-calendar-bg-selected-hover: var(--aui-control-bg-brand-hover);
+    --aui-calendar-bg-hover: var(--aui-surface-bg-muted);
+    --aui-calendar-bg-range: var(--aui-surface-bg-muted);
+    --aui-calendar-border-today: var(--aui-control-border-focus);
+    --aui-calendar-border-focus: var(--aui-control-border-focus);
+
     /* combobox — aliases input/surface/page/tag (same as light) */
     --aui-combobox-bg-primary: var(--aui-input-bg-primary);
     --aui-combobox-fg-primary: var(--aui-input-fg-primary);

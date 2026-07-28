@@ -13,6 +13,7 @@ export const defaultLabels: IAuiLabels = {
     noSuggestions: 'No suggestions',
     suggestionsError: 'Failed to load suggestions',
     moreSelected: 'more selected',
+    openCalendar: 'Open calendar',
 };
 
 export const AuiContext = createContext<IAuiContextValue | null>(null);

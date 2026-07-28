@@ -2,7 +2,7 @@ import { type Ref } from 'react';
 
 import { type IDataTestIdProps } from '@ds/common';
 
-import { type TUseAutocompleteSuggest } from '@/autocomplete-async/suggest';
+import { type TUseAutocompleteSuggest } from '@/autocomplete-async/types';
 import { type IFieldStateProps } from '@/field/types';
 import { type IFormFieldLayoutProps } from '@/form/types';
 import {
