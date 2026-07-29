@@ -275,16 +275,13 @@ export const useCalendarGridKeyboard = ({
         focusedDateRef.current = date;
     }, []);
 
-    const onDayBlur = useCallback(
-        (event: FocusEvent<HTMLButtonElement>) => {
-            const next = event.relatedTarget;
-            if (next instanceof Element && next.closest('[data-date]')) {
-                return;
-            }
-            setGridEngaged(false);
-        },
-        []
-    );
+    const onDayBlur = useCallback((event: FocusEvent<HTMLButtonElement>) => {
+        const next = event.relatedTarget;
+        if (next instanceof Element && next.closest('[data-date]')) {
+            return;
+        }
+        setGridEngaged(false);
+    }, []);
 
     const setFocusedDateFromParts = useCallback(
         (year: number, month: number) => {

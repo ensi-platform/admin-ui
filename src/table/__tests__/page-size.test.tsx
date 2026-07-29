@@ -96,8 +96,6 @@ describe('Table.PageSize', () => {
     it('includes 5 in default options', () => {
         renderWithProvider(<Table.PageSize value={5} onChange={() => undefined} />);
 
-        expect(screen.getByText('5')).toBeInTheDocument();
-        expect(screen.getByText('10')).toBeInTheDocument();
-        expect(screen.getByText('100')).toBeInTheDocument();
+        expect(screen.getAllByRole('listitem').map(item => item.textContent)).toEqual(['5', '10', '25', '50', '100']);
     });
 });

@@ -348,10 +348,11 @@ describe('useCalendarGridKeyboard', () => {
 
         expect(result.current.isGridEngaged).toBe(true);
 
+        const blur = (relatedTarget: EventTarget | null) =>
+            ({ relatedTarget }) as unknown as FocusEvent<HTMLButtonElement>;
+
         act(() => {
-            result.current.onDayBlur({
-                relatedTarget: other,
-            } as FocusEvent<HTMLButtonElement>);
+            result.current.onDayBlur(blur(other));
         });
         expect(result.current.isGridEngaged).toBe(false);
 
@@ -361,9 +362,7 @@ describe('useCalendarGridKeyboard', () => {
         expect(result.current.isGridEngaged).toBe(true);
 
         act(() => {
-            result.current.onDayBlur({
-                relatedTarget: day,
-            } as FocusEvent<HTMLButtonElement>);
+            result.current.onDayBlur(blur(day));
         });
         expect(result.current.isGridEngaged).toBe(true);
 

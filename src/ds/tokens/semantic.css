@@ -576,6 +576,30 @@
     --aui-table-duration-fast: var(--aui-control-duration-fast);
     --aui-table-ease-out: var(--aui-control-ease-out);
 
+    /* tabs — underline + sliding indicator */
+    --aui-tabs-fg-primary: var(--aui-page-fg-primary);
+    --aui-tabs-fg-muted: var(--aui-page-fg-muted);
+    --aui-tabs-indicator-primary: var(--aui-control-bg-brand);
+    --aui-tabs-indicator-hover: var(--aui-surface-border-primary);
+    --aui-tabs-border-focus: var(--aui-control-border-focus);
+    --aui-tabs-indicator-h: 2px;
+    --aui-tabs-indicator-radius: var(--aui-radius-0);
+    --aui-tabs-gap-sm: var(--aui-space-8);
+    --aui-tabs-gap-md: var(--aui-space-12);
+    --aui-tabs-gap-lg: var(--aui-space-16);
+    --aui-tabs-h-sm: var(--aui-control-h-sm);
+    --aui-tabs-h-md: var(--aui-control-h-md);
+    --aui-tabs-h-lg: var(--aui-control-h-lg);
+    --aui-tabs-pad-y-sm: var(--aui-space-4);
+    --aui-tabs-pad-x-sm: var(--aui-space-8);
+    --aui-tabs-pad-y-md: var(--aui-space-8);
+    --aui-tabs-pad-x-md: var(--aui-space-12);
+    --aui-tabs-pad-y-lg: var(--aui-space-12);
+    --aui-tabs-pad-x-lg: var(--aui-space-16);
+    --aui-tabs-panel-pad-t: var(--aui-space-16);
+    --aui-tabs-duration-normal: var(--aui-control-duration-normal);
+    --aui-tabs-ease-out: var(--aui-control-ease-out);
+
     /* loader — local veil + spinner over content */
     --aui-loader-overlay-bg: color-mix(in srgb, var(--aui-surface-bg-primary) 75%, transparent);
     --aui-loader-spinner-fg: var(--aui-page-fg-primary);

@@ -3,12 +3,11 @@ import { useEffect, useState } from 'react';
 import { type ArgTypes, type Meta, type StoryObj } from '@storybook/react';
 import { z } from 'zod';
 
-import { type TUseAutocompleteSuggest } from '@/autocomplete-async/types';
+import { type TUseAutocompleteSuggest, type IAutocompleteAsyncProps } from '@/autocomplete-async/types';
 import { Button } from '@/button';
 import { Form } from '@/form';
 
 import { FormAutocompleteAsync } from '../FormAutocompleteAsync';
-import { type IAutocompleteAsyncProps } from '../types';
 
 import Description from './Description.md';
 

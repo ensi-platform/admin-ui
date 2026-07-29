@@ -118,12 +118,7 @@ describe('MonthView', () => {
 
     it('paints range anchor without hover as selected start', () => {
         renderView(
-            <MonthView
-                monthKey="2024-06"
-                monthTop={0}
-                monthHeight={280}
-                rangeAnchor={new CalendarDate(2024, 6, 10)}
-            />
+            <MonthView monthKey="2024-06" monthTop={0} monthHeight={280} rangeAnchor={new CalendarDate(2024, 6, 10)} />
         );
 
         const day = document.querySelector('[data-date="2024-06-10"]') as HTMLButtonElement | null;

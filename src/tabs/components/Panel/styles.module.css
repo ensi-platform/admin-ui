@@ -1,0 +1,10 @@
+.root {
+    margin: 0;
+    padding-top: var(--aui-tabs-panel-pad-t);
+    outline: none;
+}
+
+.root[data-focus-visible] {
+    outline: 2px solid var(--aui-tabs-border-focus);
+    outline-offset: 2px;
+}

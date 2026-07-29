@@ -9,10 +9,13 @@ import { AdminUiProvider } from '@/provider';
 
 import { FormDateRangePicker } from '..';
 
-type TRange = { start: DateValue; end: DateValue } | null;
+interface IRange {
+    start: DateValue;
+    end: DateValue;
+}
 
 const schema = z.object({
-    period: z.custom<TRange>(v => v != null && v.start != null && v.end != null, 'Укажите период'),
+    period: z.custom<IRange>(v => v != null, 'Укажите период'),
 });
 
 const renderForm = (ui: React.ReactElement) => render(<AdminUiProvider>{ui}</AdminUiProvider>);
@@ -21,7 +24,7 @@ describe('FormDateRangePicker', () => {
     it('submits selected range', async () => {
         const user = userEvent.setup();
         const onSubmit = vi.fn();
-        const initial: TRange = {
+        const initial: IRange = {
             start: new CalendarDate(2024, 6, 1),
             end: new CalendarDate(2024, 6, 15),
         };
@@ -56,7 +59,7 @@ describe('FormDateRangePicker', () => {
         const onSubmit = vi.fn();
 
         renderForm(
-            <Form initialValues={{ period: null as TRange }} validationSchema={schema} onSubmit={onSubmit}>
+            <Form initialValues={{ period: null as IRange | null }} validationSchema={schema} onSubmit={onSubmit}>
                 <FormDateRangePicker name="period" label="Период" />
                 <button type="submit">Save</button>
             </Form>
@@ -70,7 +73,7 @@ describe('FormDateRangePicker', () => {
 
     it('disables picker when Form is disabled', () => {
         renderForm(
-            <Form initialValues={{ period: null as TRange }} disabled onSubmit={vi.fn()}>
+            <Form initialValues={{ period: null as IRange | null }} disabled onSubmit={vi.fn()}>
                 <FormDateRangePicker name="period" label="Период" />
             </Form>
         );
@@ -80,7 +83,7 @@ describe('FormDateRangePicker', () => {
 
     it('sets data-test-id on Field root', () => {
         renderForm(
-            <Form initialValues={{ period: null as TRange }} onSubmit={vi.fn()}>
+            <Form initialValues={{ period: null as IRange | null }} onSubmit={vi.fn()}>
                 <FormDateRangePicker name="period" label="Период" dataTestId="range-field" />
             </Form>
         );
@@ -90,7 +93,7 @@ describe('FormDateRangePicker', () => {
 
     it('renders hint', () => {
         renderForm(
-            <Form initialValues={{ period: null as TRange }} onSubmit={vi.fn()}>
+            <Form initialValues={{ period: null as IRange | null }} onSubmit={vi.fn()}>
                 <FormDateRangePicker name="period" label="Период" hint="Выберите интервал" />
             </Form>
         );
@@ -120,7 +123,7 @@ describe('FormDateRangePicker', () => {
                         period: {
                             start: new CalendarDate(2024, 6, 1),
                             end: new CalendarDate(2024, 6, 15),
-                        } as TRange,
+                        } as IRange | null,
                     }}
                     onSubmit={onSubmit}
                 >

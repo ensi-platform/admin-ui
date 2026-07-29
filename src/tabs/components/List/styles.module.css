@@ -1,0 +1,26 @@
+.root {
+    display: inline-flex;
+    align-items: stretch;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    gap: var(--aui-tabs-gap-md);
+    border: none;
+    background: transparent;
+}
+
+.sm {
+    gap: var(--aui-tabs-gap-sm);
+}
+
+.md {
+    gap: var(--aui-tabs-gap-md);
+}
+
+.lg {
+    gap: var(--aui-tabs-gap-lg);
+}
+
+.primary {
+    color: var(--aui-tabs-fg-muted);
+}

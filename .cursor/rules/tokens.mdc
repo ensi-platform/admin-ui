@@ -125,6 +125,7 @@ Brand = charcoal (`charcoal-500` = `#3D3D3D`). Semantic `control-*-brand` → ch
 | modal        | `modal-overlay-bg-primary`, `modal-bg/fg-primary`, `modal-fg-muted`, `modal-border-primary`, `modal-shadow`, `modal-radius-md/fullscreen`, `modal-w-sm\|md\|lg/fullscreen`, `modal-h/max-h-fullscreen`, `modal-max-h`, `modal-pad-*`, `modal-gap-*`, `modal-close-*`, `modal-z`, `modal-duration-normal`, `modal-ease-out`                                                                          |
 | drawer       | `drawer-overlay-bg-primary`, `drawer-bg/fg-primary`, `drawer-fg-muted`, `drawer-border-primary`, `drawer-shadow`, `drawer-radius-md`, `drawer-w-sm\|md\|lg/fullscreen`, `drawer-pad-*`, `drawer-gap-*`, `drawer-close-*`, `drawer-z`, `drawer-duration-normal`, `drawer-ease-out`                                                                                                                   |
 | bottom-sheet | `bottom-sheet-overlay-bg-primary`, `bottom-sheet-bg/fg-primary`, `bottom-sheet-fg-muted`, `bottom-sheet-border-primary`, `bottom-sheet-shadow`, `bottom-sheet-radius-md/fullscreen`, `bottom-sheet-max-h`, `bottom-sheet-h-fullscreen`, `bottom-sheet-pad-*`, `bottom-sheet-gap-*`, `bottom-sheet-handle-*`, `bottom-sheet-close-*`, `bottom-sheet-z`, `bottom-sheet-duration-normal`, `bottom-sheet-ease-out` |
+| tabs         | `tabs-fg-primary/muted`, `tabs-indicator-primary/hover`, `tabs-border-focus`, `tabs-indicator-h/radius`, `tabs-gap-sm\|md\|lg`, `tabs-h-sm\|md\|lg`, `tabs-pad-y/x-sm\|md\|lg`, `tabs-panel-pad-t`, `tabs-duration-normal`, `tabs-ease-out`                                                                                                                                                                  |
 
 ### Space (primitive, n = px)
 
@@ -259,7 +260,7 @@ Place-алиасы (CSS Module читает только свой place):
 {place}-duration-fast | {place}-ease-out
 ```
 
-Places с motion: `button`, `input`, `textarea`, `number-input`, `date-picker`, `date-range-picker`, `time-field`, `calendar`, `checkbox`, `switch`, `combobox`, `field-clear`, `tooltip`, `popover`, `modal`, `drawer`, `bottom-sheet`.
+Places с motion: `button`, `input`, `textarea`, `number-input`, `date-picker`, `date-range-picker`, `time-field`, `calendar`, `checkbox`, `switch`, `combobox`, `field-clear`, `tooltip`, `popover`, `modal`, `drawer`, `bottom-sheet`, `tabs`, `table`.
 
 В CSS Module — только `var(--aui-{place}-duration-*)` / `var(--aui-{place}-ease-*)`, не primitive и не `--aui-control-*` напрямую. Всегда `prefers-reduced-motion: reduce` → `transition: none`.
 

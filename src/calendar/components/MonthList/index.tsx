@@ -19,20 +19,8 @@ interface IMonthListProps extends Omit<ComponentPropsWithoutRef<'div'>, 'childre
 }
 
 /** Absolute-positioned month stack inside the fake-scroll viewport. */
-export const MonthList = ({
-    months,
-    viewportRef,
-    setMonthEl,
-    className,
-    children,
-    ...props
-}: IMonthListProps) => (
-    <div
-        {...props}
-        ref={viewportRef}
-        className={cn(styles.viewport, className)}
-        data-test-id="calendar-viewport"
-    >
+export const MonthList = ({ months, viewportRef, setMonthEl, className, children, ...props }: IMonthListProps) => (
+    <div {...props} ref={viewportRef} className={cn(styles.viewport, className)} data-test-id="calendar-viewport">
         {months.map(item => (
             <div
                 key={item.monthKey}

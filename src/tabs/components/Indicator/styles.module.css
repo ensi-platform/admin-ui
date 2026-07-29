@@ -1,0 +1,18 @@
+.root {
+    position: absolute;
+    inset-inline-start: 0;
+    bottom: 0;
+    width: 100%;
+    height: var(--aui-tabs-indicator-h);
+    border-radius: var(--aui-tabs-indicator-radius);
+    background: var(--aui-tabs-indicator-primary);
+    transition-property: translate, width, height;
+    transition-duration: var(--aui-tabs-duration-normal);
+    transition-timing-function: var(--aui-tabs-ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .root {
+        transition: none;
+    }
+}

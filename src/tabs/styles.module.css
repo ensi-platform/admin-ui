@@ -1,0 +1,23 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: fit-content;
+    max-width: 100%;
+}
+
+.sm {
+    --_tabs-size: sm;
+}
+
+.md {
+    --_tabs-size: md;
+}
+
+.lg {
+    --_tabs-size: lg;
+}
+
+.primary {
+    color: var(--aui-tabs-fg-primary);
+}

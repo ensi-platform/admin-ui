@@ -30,6 +30,7 @@ export * from './provider';
 export * from './select';
 export * from './switch';
 export * from './table';
+export * from './tabs';
 export * from './tag';
 export * from './textarea';
 export * from './time-field';

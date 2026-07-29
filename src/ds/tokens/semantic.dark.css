@@ -228,6 +228,13 @@
     --aui-table-border-focus: var(--aui-control-border-focus);
     --aui-table-pagination-current-bg: var(--aui-surface-bg-muted);
 
+    /* tabs */
+    --aui-tabs-fg-primary: var(--aui-page-fg-primary);
+    --aui-tabs-fg-muted: var(--aui-page-fg-muted);
+    --aui-tabs-indicator-primary: var(--aui-control-bg-brand);
+    --aui-tabs-indicator-hover: var(--aui-surface-border-primary);
+    --aui-tabs-border-focus: var(--aui-control-border-focus);
+
     /* loader */
     --aui-loader-overlay-bg: color-mix(in srgb, var(--aui-surface-bg-primary) 75%, transparent);
     --aui-loader-spinner-fg: var(--aui-page-fg-primary);

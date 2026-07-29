@@ -131,6 +131,10 @@
             "types": "./dist/table/index.d.ts",
             "import": "./dist/table/index.js"
         },
+        "./tabs": {
+            "types": "./dist/tabs/index.d.ts",
+            "import": "./dist/tabs/index.js"
+        },
         "./tag": {
             "types": "./dist/tag/index.d.ts",
             "import": "./dist/tag/index.js"
