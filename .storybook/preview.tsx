@@ -85,6 +85,11 @@ const preview: Preview = {
         themes: {
             disable: true,
         },
+        options: {
+            storySort: {
+                order: ['Main', 'Getting started', 'Design System', 'Base', 'Form', 'Overlays'],
+            },
+        },
         controls: {
             expanded: true,
             matchers: {

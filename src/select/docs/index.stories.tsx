@@ -10,32 +10,37 @@ import { Form } from '@/form';
 import { FormSelect } from '../FormSelect';
 import { type ISelectProps, type TComboboxValue } from '../types';
 
-import Description from './Description.md';
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
+
+import { docsCssVariables } from './cssVariables';
 
 import { SelectStoryComponent } from '.';
 
 const OPTIONS = [
-    { value: 'draft', label: 'Черновик' },
-    { value: 'published', label: 'Опубликован' },
-    { value: 'archived', label: 'Архив', disabled: true },
+    { value: 'draft', label: 'Draft' },
+    { value: 'published', label: 'Published' },
+    { value: 'archived', label: 'Archived', disabled: true },
 ];
 
 const STATUS_OPTIONS = [
-    { value: 'draft', label: 'Черновик' },
-    { value: 'published', label: 'Опубликован' },
-    { value: 'archived', label: 'Архив' },
+    { value: 'draft', label: 'Draft' },
+    { value: 'published', label: 'Published' },
+    { value: 'archived', label: 'Archived' },
 ];
 
 const ROLE_OPTIONS = [
-    { value: 'admin', label: 'Админ' },
-    { value: 'editor', label: 'Редактор' },
-    { value: 'viewer', label: 'Читатель' },
+    { value: 'admin', label: 'Admin' },
+    { value: 'editor', label: 'Editor' },
+    { value: 'viewer', label: 'Viewer' },
 ];
 
 const DEFAULT_ARGS: ISelectProps = {
     options: OPTIONS,
     size: 'md',
-    placeholder: 'Выберите статус',
+    placeholder: 'Select status',
     disabled: false,
     invalid: false,
     clear: false,
@@ -73,11 +78,15 @@ export default {
     title: 'Form/Combobox/Select',
     component: SelectStoryComponent,
     parameters: {
-        docs: {
-            description: {
-                component: Description,
-            },
+        docsDescriptionByLocale: {
+            ru: DescriptionRu,
+            en: DescriptionEn,
         },
+        docsExampleByLocale: {
+            ru: ExampleRu,
+            en: ExampleEn,
+        },
+        docsCssVariables,
         controls: {
             expanded: true,
         },
@@ -89,7 +98,7 @@ export default {
 export const Default: StoryObj<ISelectProps> = {
     render: args => (
         <div style={{ maxWidth: 320 }}>
-            <SelectStoryComponent aria-label="Статус" {...args} />
+            <SelectStoryComponent aria-label="Status" {...args} />
         </div>
     ),
 };
@@ -99,15 +108,15 @@ export const WithForm: StoryObj = {
         <Form
             initialValues={{ status: '', role: '' }}
             validationSchema={z.object({
-                status: z.string().min(1, 'Выберите статус'),
-                role: z.string().min(1, 'Выберите роль'),
+                status: z.string().min(1, 'Select status'),
+                role: z.string().min(1, 'Select role'),
             })}
             onSubmit={() => undefined}
         >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 320 }}>
-                <FormSelect name="status" label="Статус" options={STATUS_OPTIONS} clear placeholder="Выберите…" />
-                <FormSelect name="role" label="Роль" options={ROLE_OPTIONS} hint="Права доступа" />
-                <Button type="submit">Отправить</Button>
+                <FormSelect name="status" label="Status" options={STATUS_OPTIONS} clear placeholder="Select…" />
+                <FormSelect name="role" label="Role" options={ROLE_OPTIONS} hint="Access rights" />
+                <Button type="submit">Submit</Button>
             </div>
         </Form>
     ),
@@ -126,7 +135,7 @@ export const Sizes: StoryObj<ISelectProps> = {
 export const Clear: StoryObj<ISelectProps> = {
     render: args => (
         <div style={{ maxWidth: 320 }}>
-            <ControlledSelect aria-label="Статус" {...args} clear value="draft" />
+            <ControlledSelect aria-label="Status" {...args} clear value="draft" />
         </div>
     ),
 };
@@ -151,10 +160,10 @@ export const WithField: StoryObj<ISelectProps> = {
     render: () => (
         <div style={{ maxWidth: 320 }}>
             <Field invalid>
-                <Field.Label>Статус</Field.Label>
-                <FieldBoundSelect placeholder="Выберите…" />
-                <Field.Hint>Отображается в списке сущностей</Field.Hint>
-                <Field.Error>Обязательное поле</Field.Error>
+                <Field.Label>Status</Field.Label>
+                <FieldBoundSelect placeholder="Select…" />
+                <Field.Hint>Shown in the entity list</Field.Hint>
+                <Field.Error>Required field</Field.Error>
             </Field>
         </div>
     ),

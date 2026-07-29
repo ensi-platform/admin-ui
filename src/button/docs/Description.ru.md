@@ -22,15 +22,3 @@ import { Button } from '@ensi-platform/admin-ui';
 | `as` | тег или компонент | `button` | корень; для ссылки обычно `as="a"` |
 
 Обычные атрибуты кнопки/ссылки (`type`, `disabled`, `onClick`, `href`, …) принимаются как у выбранного корневого элемента.
-
-## Пример
-
-```tsx
-<Button variant="primary" size="md" dataTestId="save">
-    Сохранить
-</Button>
-
-<Button as="a" href="/orders">
-    К заказам
-</Button>
-```

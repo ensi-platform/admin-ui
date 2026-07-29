@@ -15,7 +15,6 @@ export * from './drawer';
 export * from './field';
 export * from './form';
 export * from './hooks';
-export * from './icon';
 export * from './icons';
 export * from './input';
 export * from './loader';

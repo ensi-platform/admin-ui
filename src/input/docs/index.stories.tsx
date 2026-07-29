@@ -8,7 +8,12 @@ import { Form } from '@/form';
 import { FormInput } from '../FormInput';
 import { type IInputProps } from '../types';
 
-import Description from './Description.md';
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
+
+import { docsCssVariables } from './cssVariables';
 
 import { InputStoryComponent } from '.';
 
@@ -37,11 +42,15 @@ export default {
     title: 'Form/Input',
     component: InputStoryComponent,
     parameters: {
-        docs: {
-            description: {
-                component: Description,
-            },
+        docsDescriptionByLocale: {
+            ru: DescriptionRu,
+            en: DescriptionEn,
         },
+        docsExampleByLocale: {
+            ru: ExampleRu,
+            en: ExampleEn,
+        },
+        docsCssVariables,
         controls: {
             expanded: true,
         },
@@ -63,15 +72,15 @@ export const WithForm: StoryObj = {
         <Form
             initialValues={{ firstName: '', email: '' }}
             validationSchema={z.object({
-                firstName: z.string().min(1, 'Обязательное поле'),
-                email: z.string().email('Некорректный email'),
+                firstName: z.string().min(1, 'Required field'),
+                email: z.string().email('Invalid email'),
             })}
             onSubmit={() => undefined}
         >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 320 }}>
-                <FormInput name="firstName" label="Имя" clear />
-                <FormInput name="email" label="Email" hint="Рабочий email" placeholder="name@example.com" />
-                <Button type="submit">Отправить</Button>
+                <FormInput name="firstName" label="Name" clear />
+                <FormInput name="email" label="Email" hint="Work email" placeholder="name@example.com" />
+                <Button type="submit">Submit</Button>
             </div>
         </Form>
     ),
@@ -117,8 +126,8 @@ export const WithField: StoryObj<IInputProps> = {
             <Field invalid>
                 <Field.Label>Email</Field.Label>
                 <FieldBoundInput placeholder="name@example.com" />
-                <Field.Hint>Мы не передаём email третьим лицам</Field.Hint>
-                <Field.Error>Некорректный email</Field.Error>
+                <Field.Hint>We do not share your email with third parties</Field.Hint>
+                <Field.Error>Invalid email</Field.Error>
             </Field>
         </div>
     ),

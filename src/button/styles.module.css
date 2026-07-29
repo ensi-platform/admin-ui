@@ -7,6 +7,7 @@
     border-radius: var(--aui-button-radius-md);
     font: inherit;
     line-height: var(--aui-button-line-height);
+    text-decoration: none;
     cursor: pointer;
     width: fit-content;
     height: fit-content;
@@ -56,6 +57,10 @@
     color: var(--aui-button-fg-primary);
 }
 
+.primary:visited {
+    color: var(--aui-button-fg-primary);
+}
+
 .primary:hover:not(:disabled) {
     background: var(--aui-button-bg-primary-hover);
 }
@@ -66,6 +71,10 @@
 
 .secondary {
     background: var(--aui-button-bg-secondary);
+    color: var(--aui-button-fg-secondary);
+}
+
+.secondary:visited {
     color: var(--aui-button-fg-secondary);
 }
 
@@ -82,10 +91,21 @@
     color: var(--aui-button-fg-danger);
 }
 
+.danger:visited {
+    color: var(--aui-button-fg-danger);
+}
+
 .danger:hover:not(:disabled) {
     background: var(--aui-button-bg-danger-hover);
 }
 
 .danger:active:not(:disabled) {
     background: var(--aui-button-bg-danger-active);
+}
+
+.icon {
+    flex-shrink: 0;
+    width: var(--icon-size, 1.25rem);
+    height: var(--icon-size, 1.25rem);
+    fill: var(--icon-fill, currentcolor);
 }

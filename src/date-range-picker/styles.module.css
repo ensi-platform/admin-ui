@@ -98,8 +98,8 @@
 }
 
 .segment[data-focused] {
-    background: var(--aui-date-range-picker-border-focus);
-    color: var(--aui-date-range-picker-bg-primary);
+    background: var(--aui-date-range-picker-segment-bg-focused);
+    color: var(--aui-date-range-picker-segment-fg-focused);
     border-radius: 2px;
 }
 

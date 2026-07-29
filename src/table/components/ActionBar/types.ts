@@ -2,7 +2,7 @@ import { type ReactNode } from 'react';
 
 import { type IDataTestIdProps } from '@ds/common';
 
-import { type IIconButtonProps } from '@/icon';
+import { type IButtonIconProps } from '@/button';
 
 /** Single row / toolbar action. */
 export interface ITableActionItem {
@@ -11,7 +11,7 @@ export interface ITableActionItem {
     /** Label. */
     text: ReactNode;
     /** Optional icon. */
-    icon?: IIconButtonProps;
+    icon?: IButtonIconProps;
     /** Click handler. */
     onClick?: () => void;
     /** Disabled state. */

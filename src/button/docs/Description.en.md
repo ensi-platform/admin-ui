@@ -22,15 +22,3 @@ import { Button } from '@ensi-platform/admin-ui';
 | `as` | tag or component | `button` | root; for a link usually `as="a"` |
 
 Native button/link attributes (`type`, `disabled`, `onClick`, `href`, …) are accepted for the chosen root element.
-
-## Example
-
-```tsx
-<Button variant="primary" size="md" dataTestId="save">
-    Save
-</Button>
-
-<Button as="a" href="/orders">
-    To orders
-</Button>
-```

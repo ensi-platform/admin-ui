@@ -38,18 +38,3 @@ Same as the presets, plus:
 | `tone` | `primary` \| `danger` | `primary` | confirm button tone |
 | `confirmLabel` | `string` | — | confirm button label |
 | `cancelLabel` | `string` | — | cancel button label |
-
-## Example
-
-```tsx
-<DeleteModal
-    open={open}
-    onOpenChange={setOpen}
-    title="Delete role?"
-    onConfirm={async () => {
-        await deleteRole(id);
-    }}
->
-    This action cannot be undone.
-</DeleteModal>
-```

@@ -92,8 +92,8 @@
 }
 
 .segment[data-focused] {
-    background: var(--aui-time-field-border-focus);
-    color: var(--aui-time-field-bg-primary);
+    background: var(--aui-time-field-segment-bg-focused);
+    color: var(--aui-time-field-segment-fg-focused);
     border-radius: 2px;
 }
 

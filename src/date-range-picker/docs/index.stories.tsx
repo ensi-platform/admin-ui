@@ -11,7 +11,12 @@ import { Form } from '@/form';
 import { FormDateRangePicker } from '../FormDateRangePicker';
 import { type IDateRangePickerProps } from '../types';
 
-import Description from './Description.md';
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
+
+import { docsCssVariables } from './cssVariables';
 
 import { DateRangePickerStoryComponent } from '.';
 
@@ -37,7 +42,7 @@ const DefaultDemo = (args: IDateRangePickerProps) => {
 
     return (
         <div style={{ maxWidth: 420 }}>
-            <DateRangePickerStoryComponent aria-label="Период" {...args} value={value} onChange={setValue} />
+            <DateRangePickerStoryComponent aria-label="Period" {...args} value={value} onChange={setValue} />
         </div>
     );
 };
@@ -46,11 +51,15 @@ export default {
     title: 'Form/DateField/DateRangePicker',
     component: DateRangePickerStoryComponent,
     parameters: {
-        docs: {
-            description: {
-                component: Description,
-            },
+        docsDescriptionByLocale: {
+            ru: DescriptionRu,
+            en: DescriptionEn,
         },
+        docsExampleByLocale: {
+            ru: ExampleRu,
+            en: ExampleEn,
+        },
+        docsCssVariables,
         controls: {
             expanded: true,
         },
@@ -73,13 +82,13 @@ export const WithForm: StoryObj = {
                 },
             }}
             validationSchema={z.object({
-                period: z.any().refine(v => v?.start && v?.end, 'Обязательное поле'),
+                period: z.any().refine(v => v?.start && v?.end, 'Required field'),
             })}
             onSubmit={() => undefined}
         >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 420 }}>
-                <FormDateRangePicker name="period" label="Период" clear />
-                <Button type="submit">Отправить</Button>
+                <FormDateRangePicker name="period" label="Period" clear />
+                <Button type="submit">Submit</Button>
             </div>
         </Form>
     ),

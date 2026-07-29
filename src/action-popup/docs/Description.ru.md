@@ -38,18 +38,3 @@ import { ActionPopup, ConfirmModal, DeleteModal } from '@ensi-platform/admin-ui'
 | `tone` | `primary` \| `danger` | `primary` | тон кнопки подтверждения |
 | `confirmLabel` | `string` | — | текст кнопки подтверждения |
 | `cancelLabel` | `string` | — | текст кнопки отмены |
-
-## Пример
-
-```tsx
-<DeleteModal
-    open={open}
-    onOpenChange={setOpen}
-    title="Удалить роль?"
-    onConfirm={async () => {
-        await deleteRole(id);
-    }}
->
-    Действие необратимо.
-</DeleteModal>
-```

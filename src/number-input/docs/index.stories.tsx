@@ -9,7 +9,12 @@ import { Form } from '@/form';
 import { FormNumberInput } from '../FormNumberInput';
 import { type INumberInputProps } from '../types';
 
-import Description from './Description.md';
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
+
+import { docsCssVariables } from './cssVariables';
 
 import { NumberInputStoryComponent } from '.';
 
@@ -33,7 +38,7 @@ const DefaultDemo = (args: INumberInputProps) => {
 
     return (
         <div style={{ maxWidth: 320 }}>
-            <NumberInputStoryComponent aria-label="Количество" {...args} value={value} onChange={setValue} />
+            <NumberInputStoryComponent aria-label="Quantity" {...args} value={value} onChange={setValue} />
         </div>
     );
 };
@@ -44,7 +49,7 @@ const SuffixDemo = () => {
     return (
         <div style={{ maxWidth: 320 }}>
             <NumberInputStoryComponent
-                aria-label="Цена"
+                aria-label="Price"
                 value={value}
                 onChange={setValue}
                 step={0.01}
@@ -59,11 +64,15 @@ export default {
     title: 'Form/NumberInput',
     component: NumberInputStoryComponent,
     parameters: {
-        docs: {
-            description: {
-                component: Description,
-            },
+        docsDescriptionByLocale: {
+            ru: DescriptionRu,
+            en: DescriptionEn,
         },
+        docsExampleByLocale: {
+            ru: ExampleRu,
+            en: ExampleEn,
+        },
+        docsCssVariables,
         controls: {
             expanded: true,
         },
@@ -81,22 +90,22 @@ export const WithForm: StoryObj = {
         <Form
             initialValues={{ qty: null as number | null, price: 10.5 }}
             validationSchema={z.object({
-                qty: z.number().min(1, 'Минимум 1'),
-                price: z.number().min(0, 'Неотрицательная цена'),
+                qty: z.number().min(1, 'Minimum 1'),
+                price: z.number().min(0, 'Non-negative price'),
             })}
             onSubmit={() => undefined}
         >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 320 }}>
-                <FormNumberInput name="qty" label="Количество" clear />
+                <FormNumberInput name="qty" label="Quantity" clear />
                 <FormNumberInput
                     name="price"
-                    label="Цена"
-                    hint="В форме хранятся рубли"
+                    label="Price"
+                    hint="Stored as rubles in the form"
                     step={0.01}
                     min={0}
                     formatOptions={{ style: 'currency', currency: 'RUB' }}
                 />
-                <Button type="submit">Отправить</Button>
+                <Button type="submit">Submit</Button>
             </div>
         </Form>
     ),
@@ -107,7 +116,7 @@ const ClearDemo = (args: INumberInputProps) => {
 
     return (
         <div style={{ maxWidth: 320 }}>
-            <NumberInputStoryComponent aria-label="Количество" {...args} clear value={value} onChange={setValue} />
+            <NumberInputStoryComponent aria-label="Quantity" {...args} clear value={value} onChange={setValue} />
         </div>
     );
 };

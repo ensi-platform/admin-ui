@@ -125,4 +125,29 @@ describe('Button', () => {
 
         expect(screen.getByTestId('indent-btn')).toHaveStyle({ '--button-icon-indent': '8px' });
     });
+
+    it('renders icon with icon class and a11y attrs', () => {
+        render(<Button icon={{ Component: TestIcon }}>Save</Button>);
+
+        const icon = screen.getByTestId('test-icon');
+
+        expect(icon).toHaveClass(styles.icon);
+        expect(icon).toHaveAttribute('aria-hidden', 'true');
+        expect(icon).toHaveAttribute('focusable', 'false');
+    });
+
+    it('applies icon size and fill as CSS variables', () => {
+        render(<Button icon={{ Component: TestIcon, size: 20, fill: '#3d3d3d' }}>Save</Button>);
+
+        expect(screen.getByTestId('test-icon')).toHaveStyle({
+            '--icon-size': '20px',
+            '--icon-fill': '#3d3d3d',
+        });
+    });
+
+    it('merges icon className', () => {
+        render(<Button icon={{ Component: TestIcon, className: 'extra' }}>Save</Button>);
+
+        expect(screen.getByTestId('test-icon')).toHaveClass(styles.icon, 'extra');
+    });
 });

@@ -1,6 +1,0 @@
-.root {
-    flex-shrink: 0;
-    width: var(--icon-size, 1.25rem);
-    height: var(--icon-size, 1.25rem);
-    fill: var(--icon-fill, currentcolor);
-}

@@ -99,6 +99,10 @@
     background: var(--aui-switch-thumb-bg-primary);
 }
 
+.primary[data-selected] .thumb {
+    background: var(--aui-switch-thumb-bg-selected);
+}
+
 .primary:hover:not(:disabled):not([data-disabled]):not(.invalid) .track {
     outline: 1px solid var(--aui-switch-border-focus);
     outline-offset: 0;

@@ -4,10 +4,19 @@ import cn from 'classnames';
 
 import { toCssSize } from '@ds/common/utils';
 
-import { Icon } from '@/icon';
-
 import { buttonVariants } from './theme';
-import { type TButtonProps } from './types';
+import { type IButtonIconProps, type TButtonProps } from './types';
+
+import styles from './styles.module.css';
+
+const ButtonIcon = ({ Component, size, fill, className }: IButtonIconProps) => {
+    const style = {
+        ...(size !== undefined && { '--icon-size': toCssSize(size) }),
+        ...(fill !== undefined && { '--icon-fill': fill }),
+    } as CSSProperties;
+
+    return <Component className={cn(styles.icon, className)} style={style} aria-hidden focusable={false} />;
+};
 
 export const Button = <P extends ElementType = 'button'>({
     as,
@@ -37,9 +46,9 @@ export const Button = <P extends ElementType = 'button'>({
             style={rootStyle}
             {...props}
         >
-            {icon && !icon.after ? <Icon {...icon} /> : null}
+            {icon && !icon.after ? <ButtonIcon {...icon} /> : null}
             {children}
-            {icon && icon.after ? <Icon {...icon} /> : null}
+            {icon && icon.after ? <ButtonIcon {...icon} /> : null}
         </Component>
     );
 };

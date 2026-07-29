@@ -8,25 +8,28 @@ alwaysApply: false
 
 ```
 src/<name>/docs/
-  Description.ru.md    # контракт (RU) — Docs по умолчанию
+  Description.ru.md    # контракт до API (RU)
   Description.en.md    # тот же контракт (EN)
+  Example.ru.md        # ## Пример + JSX
+  Example.en.md        # ## Example + JSX
+  cssVariables.ts      # docsCssVariables (если есть --aui-*)
   index.stories.tsx    # визуальные кейсы — см. component-stories
   index.tsx            # StoryComponent wrapper (если нужен)
 ```
 
-`Description.ru.md`, `Description.en.md` и `index.stories.tsx` обязательны для публичного примитива.
+`Description.ru.md`, `Description.en.md`, `Example.ru.md`, `Example.en.md` и `index.stories.tsx` обязательны для публичного UI-примитива.
 
 Эталон: `src/button/docs/`.
 
 ## Языки
 
-- два файла с **одинаковыми разделами и фактами**; отличается перевод и UI-строки в примерах (`Сохранить` / `Save`);
+- Description / Example — два файла с **одинаковыми разделами и фактами**; отличается перевод и UI-строки в примерах (`Сохранить` / `Save`);
 - имена пропсов, компонентов и `import` — как в коде;
-- в Storybook Docs текст выбирается по тулбару Locale через `docsDescriptionByLocale` (см. `.storybook/DocsPage.tsx`).
+- в Storybook Docs текст выбирается по тулбару Locale через `docsDescriptionByLocale` / `docsExampleByLocale` (см. `.storybook/DocsPage.tsx`).
 
 ### RU-проза
 
-В `Description.ru.md` и RU UI-копирайте сторей — нормальный русский, без гибридных англицизмов.
+В `Description.ru.md` / `Example.ru.md` — нормальный русский, без гибридных англицизмов. UI-копирайт в сторях — английский (см. `component-stories`).
 
 **Запрещено** склеивать латинское слово с русским через дефис или в одном составном слове:
 
@@ -39,7 +42,7 @@ src/<name>/docs/
 
 **Без** `# Заголовок` в md — имя компонента уже показывает Storybook.
 
-Порядок секций:
+Порядок секций в **Description** (только до API):
 
 1. Одна фраза: что это за компонент.
 2. Блок импорта:
@@ -50,7 +53,11 @@ import { Name } from '@ensi-platform/admin-ui';
 ```
 ````
 
-3. `## Когда использовать` / `## When to use` — 2–4 буллета; при путанице с соседом: «не для … — см. Other».
+3. `## Когда использовать` / `## When to use` — 2–4 буллета **про сценарии продукта** (что выбрать и зачем), не про реализацию:
+   - хорошо: «свободный однострочный текст», «несколько значений из справочника», «не для статуса — см. `Badge`»
+   - плохо: «с `Field` — a11y-пропы…», «`FormX` — поле формы (`Field` + RHF)», «через `useFieldHook`», «Без `as` / …»
+   - ограничения API (`as`, a11y wiring, `useField`) — в секции API или Example, не здесь
+   - при путанице с соседом: «не для … — см. Other»
 4. `## API (кратко)` / `## API (short)` — **таблица**:
 
 | Prop   | Значения             | По умолчанию | Описание |
@@ -61,21 +68,52 @@ import { Name } from '@ensi-platform/admin-ui';
 
 Если есть пара поле + Form-версия — подразделы `### Name` и `### FormName` (отдельные таблицы или блоки).
 
-5. `## Пример` / `## Example` — рабочий JSX (solo; + Form, если есть Form-версия).
+Секцию `## Пример` / `## Example` в Description **не писать** — она в `Example.*.md`.
 
 Секции «Не делать» / «Частые ошибки» / «Don't» **не писать**.
+
+## CSS-переменные (DocsPage)
+
+Не дублировать в Description. Слот рендерит DocsPage **после API, до Example**:
+
+- `parameters.docsCssVariables` — сырая строка CSS из `docs/cssVariables.ts`
+- у **каждой** `--aui-…` обязателен end-of-line комментарий (EN), зачем переменная
+- source of truth: блок в `src/ds/tokens/semantic.css`
+- без своих `--aui-*` (Form, Provider, Typography) — параметр не задавать
+
+````ts
+export const docsCssVariables = `/* CSS variables — Button (--aui-button-*) */
+--aui-button-bg-primary: var(--aui-control-bg-brand); /* primary fill */
+`;
+````
+
+## Example
+
+Файлы `Example.ru.md` / `Example.en.md` — только:
+
+````md
+## Пример
+
+```tsx
+<Button>Сохранить</Button>
+```
+````
+
+(EN: `## Example` + английские UI-строки в JSX.)
 
 ## Подключение в stories
 
 ```ts
+import { docsCssVariables } from './cssVariables';
 import DescriptionEn from './Description.en.md';
 import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
 
 parameters: {
-  docsDescriptionByLocale: {
-    ru: DescriptionRu,
-    en: DescriptionEn,
-  },
+  docsDescriptionByLocale: { ru: DescriptionRu, en: DescriptionEn },
+  docsExampleByLocale: { ru: ExampleRu, en: ExampleEn },
+  docsCssVariables, // если есть токены
 }
 ```
 

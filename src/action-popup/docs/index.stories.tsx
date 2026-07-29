@@ -8,6 +8,10 @@ import { type IActionPopupProps, type TConfirmModalProps } from '../types';
 
 import DescriptionEn from './Description.en.md';
 import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
+
+import { docsCssVariables } from './cssVariables';
 
 import { ActionPopupStoryComponent, ConfirmModalStoryComponent, DeleteModalStoryComponent } from '.';
 
@@ -21,15 +25,15 @@ const ConfirmDemo = (
 
     return (
         <>
-            <Button onClick={() => setOpen(true)}>{props.triggerLabel ?? 'Открыть ConfirmModal'}</Button>
+            <Button onClick={() => setOpen(true)}>{props.triggerLabel ?? 'Open ConfirmModal'}</Button>
             <ConfirmModalStoryComponent
                 {...props}
                 open={open}
                 onOpenChange={setOpen}
-                title={props.title ?? 'Подтвердить действие?'}
+                title={props.title ?? 'Confirm action?'}
                 onConfirm={() => undefined}
             >
-                {props.children ?? 'Вы уверены, что хотите продолжить?'}
+                {props.children ?? 'Are you sure you want to continue?'}
             </ConfirmModalStoryComponent>
         </>
     );
@@ -46,16 +50,16 @@ const DeleteDemo = (
     return (
         <>
             <Button variant="danger" onClick={() => setOpen(true)}>
-                {props.triggerLabel ?? 'Открыть DeleteModal'}
+                {props.triggerLabel ?? 'Open DeleteModal'}
             </Button>
             <DeleteModalStoryComponent
                 {...props}
                 open={open}
                 onOpenChange={setOpen}
-                title={props.title ?? 'Удалить запись?'}
+                title={props.title ?? 'Delete this record?'}
                 onConfirm={() => undefined}
             >
-                {props.children ?? 'Действие необратимо.'}
+                {props.children ?? 'This action cannot be undone.'}
             </DeleteModalStoryComponent>
         </>
     );
@@ -68,20 +72,25 @@ const ActionPopupDemo = (
 
     return (
         <>
-            <Button onClick={() => setOpen(true)}>{props.triggerLabel ?? 'Открыть ActionPopup'}</Button>
+            <Button onClick={() => setOpen(true)}>{props.triggerLabel ?? 'Open ActionPopup'}</Button>
             <ActionPopupStoryComponent {...props} open={open} onOpenChange={setOpen} onConfirm={() => undefined} />
         </>
     );
 };
 
 export default {
-    title: 'ActionPopup',
+    title: 'Overlays/ActionPopup',
     component: ConfirmModalStoryComponent,
     parameters: {
         docsDescriptionByLocale: {
             ru: DescriptionRu,
             en: DescriptionEn,
         },
+        docsExampleByLocale: {
+            ru: ExampleRu,
+            en: ExampleEn,
+        },
+        docsCssVariables,
         controls: {
             expanded: true,
         },
@@ -98,8 +107,8 @@ export const Delete: StoryObj = {
 
 export const Custom: StoryObj = {
     render: () => (
-        <ActionPopupDemo title="Отвязать товары?" tone="danger" confirmLabel="Отвязать" cancelLabel="Не отвязывать">
-            Товары будут отвязаны от скидки.
+        <ActionPopupDemo title="Unlink products?" tone="danger" confirmLabel="Unlink" cancelLabel="Keep linked">
+            Items will be unlinked from the discount.
         </ActionPopupDemo>
     ),
 };

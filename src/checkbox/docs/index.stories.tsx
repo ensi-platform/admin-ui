@@ -8,7 +8,12 @@ import { Form } from '@/form';
 import { FormCheckbox } from '../FormCheckbox';
 import { type ICheckboxProps } from '../types';
 
-import Description from './Description.md';
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
+
+import { docsCssVariables } from './cssVariables';
 
 import { CheckboxStoryComponent } from '.';
 
@@ -17,7 +22,7 @@ const DEFAULT_ARGS: ICheckboxProps = {
     disabled: false,
     invalid: false,
     indeterminate: false,
-    children: 'Согласен с условиями',
+    children: 'I agree to the terms',
 };
 
 const DEFAULT_ARG_TYPES: ArgTypes<Partial<ICheckboxProps>> = {
@@ -28,14 +33,18 @@ const DEFAULT_ARG_TYPES: ArgTypes<Partial<ICheckboxProps>> = {
 };
 
 export default {
-    title: 'Checkbox',
+    title: 'Form/Checkbox',
     component: CheckboxStoryComponent,
     parameters: {
-        docs: {
-            description: {
-                component: Description,
-            },
+        docsDescriptionByLocale: {
+            ru: DescriptionRu,
+            en: DescriptionEn,
         },
+        docsExampleByLocale: {
+            ru: ExampleRu,
+            en: ExampleEn,
+        },
+        docsCssVariables,
         controls: {
             expanded: true,
         },
@@ -44,9 +53,7 @@ export default {
     argTypes: DEFAULT_ARG_TYPES,
 } satisfies Meta<typeof CheckboxStoryComponent>;
 
-export const Default: StoryObj<ICheckboxProps> = {
-    render: args => <CheckboxStoryComponent {...args} />,
-};
+export const Default: StoryObj<ICheckboxProps> = {};
 
 export const Sizes: StoryObj<ICheckboxProps> = {
     render: () => (
@@ -60,25 +67,22 @@ export const Sizes: StoryObj<ICheckboxProps> = {
 
 export const Disabled: StoryObj<ICheckboxProps> = {
     args: { disabled: true },
-    render: Default.render,
 };
 
 export const Invalid: StoryObj<ICheckboxProps> = {
     args: { invalid: true, defaultChecked: true },
-    render: Default.render,
 };
 
 export const Indeterminate: StoryObj<ICheckboxProps> = {
-    args: { indeterminate: true, defaultChecked: true, children: 'Выбрать все' },
-    render: Default.render,
+    args: { indeterminate: true, defaultChecked: true, children: 'Select all' },
 };
 
 export const WithField: StoryObj<ICheckboxProps> = {
     render: () => (
         <Field invalid>
-            <CheckboxStoryComponent>Согласен</CheckboxStoryComponent>
-            <Field.Hint>Нужно согласие</Field.Hint>
-            <Field.Error>Обязательное поле</Field.Error>
+            <CheckboxStoryComponent>I agree</CheckboxStoryComponent>
+            <Field.Hint>Consent required</Field.Hint>
+            <Field.Error>Required field</Field.Error>
         </Field>
     ),
 };
@@ -88,15 +92,15 @@ export const WithForm: StoryObj = {
         <Form
             initialValues={{ agree: false }}
             validationSchema={z.object({
-                agree: z.literal(true, { error: 'Нужно согласие' }),
+                agree: z.literal(true, { error: 'Consent required' }),
             })}
             onSubmit={() => undefined}
         >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 320 }}>
-                <FormCheckbox name="agree" hint="Обязательно">
-                    Согласен с условиями
+                <FormCheckbox name="agree" hint="Required">
+                    I agree to the terms
                 </FormCheckbox>
-                <Button type="submit">Отправить</Button>
+                <Button type="submit">Submit</Button>
             </div>
         </Form>
     ),

@@ -11,7 +11,12 @@ import { Form } from '@/form';
 import { FormTimeField } from '../FormTimeField';
 import { type ITimeFieldProps } from '../types';
 
-import Description from './Description.md';
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
+
+import { docsCssVariables } from './cssVariables';
 
 import { TimeFieldStoryComponent } from '.';
 
@@ -34,7 +39,7 @@ const DefaultDemo = (args: ITimeFieldProps) => {
 
     return (
         <div style={{ maxWidth: 240 }}>
-            <TimeFieldStoryComponent aria-label="Время" {...args} value={value} onChange={setValue} />
+            <TimeFieldStoryComponent aria-label="Time" {...args} value={value} onChange={setValue} />
         </div>
     );
 };
@@ -43,11 +48,15 @@ export default {
     title: 'Form/DateField/TimeField',
     component: TimeFieldStoryComponent,
     parameters: {
-        docs: {
-            description: {
-                component: Description,
-            },
+        docsDescriptionByLocale: {
+            ru: DescriptionRu,
+            en: DescriptionEn,
         },
+        docsExampleByLocale: {
+            ru: ExampleRu,
+            en: ExampleEn,
+        },
+        docsCssVariables,
         controls: {
             expanded: true,
         },
@@ -65,13 +74,13 @@ export const WithForm: StoryObj = {
         <Form
             initialValues={{ time: new Time(9, 0) }}
             validationSchema={z.object({
-                time: z.any().refine(v => v != null, 'Обязательное поле'),
+                time: z.any().refine(v => v != null, 'Required field'),
             })}
             onSubmit={() => undefined}
         >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 240 }}>
-                <FormTimeField name="time" label="Время" clear />
-                <Button type="submit">Отправить</Button>
+                <FormTimeField name="time" label="Time" clear />
+                <Button type="submit">Submit</Button>
             </div>
         </Form>
     ),

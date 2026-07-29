@@ -6,12 +6,16 @@ import { Button } from '@/button';
 
 import { type ILoaderBaseProps } from '../types';
 
-import Description from './Description.md';
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
+
+import { docsCssVariables } from './cssVariables';
 
 import { LoaderStoryComponent } from '.';
 
 const DEFAULT_ARGS: ILoaderBaseProps = {
-    children: null,
     size: 'md',
     active: true,
 };
@@ -21,15 +25,27 @@ const DEFAULT_ARG_TYPES: ArgTypes<Partial<ILoaderBaseProps>> = {
     active: { control: { type: 'boolean' } },
 };
 
+const demoPanelStyle = {
+    minHeight: 160,
+    padding: 16,
+    border: '1px solid var(--aui-surface-border-primary)',
+    borderRadius: 8,
+    background: 'var(--aui-surface-bg-primary)',
+} as const;
+
 export default {
-    title: 'Loader',
+    title: 'Base/Loader',
     component: LoaderStoryComponent,
     parameters: {
-        docs: {
-            description: {
-                component: Description,
-            },
+        docsDescriptionByLocale: {
+            ru: DescriptionRu,
+            en: DescriptionEn,
         },
+        docsExampleByLocale: {
+            ru: ExampleRu,
+            en: ExampleEn,
+        },
+        docsCssVariables,
         controls: {
             expanded: true,
         },
@@ -45,25 +61,29 @@ export const Default: StoryObj<ILoaderBaseProps> = {
         return (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 <Button size="sm" variant="secondary" onClick={() => setActive(v => !v)}>
-                    {active ? 'Hide loader' : 'Show loader'}
+                    {active ? 'Hide' : 'Show'}
                 </Button>
                 <LoaderStoryComponent {...args} active={active}>
-                    <div
-                        style={{
-                            minHeight: 160,
-                            padding: 16,
-                            border: '1px solid var(--aui-surface-border-primary)',
-                            borderRadius: 8,
-                            background: 'var(--aui-surface-bg-primary)',
-                        }}
-                    >
-                        <p style={{ margin: 0 }}>List content stays mounted under the veil.</p>
+                    <div style={demoPanelStyle}>
+                        <p style={{ margin: 0 }}>List content stays under the veil.</p>
                         <button type="button" style={{ marginTop: 12 }}>
-                            Try click (blocked while active)
+                            Click (blocked when active)
                         </button>
                     </div>
                 </LoaderStoryComponent>
             </div>
         );
     },
+};
+
+export const Sizes: StoryObj<ILoaderBaseProps> = {
+    render: () => (
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16 }}>
+            {(['sm', 'md', 'lg'] as const).map(size => (
+                <LoaderStoryComponent key={size} size={size} active>
+                    <div style={{ ...demoPanelStyle, minHeight: 120, minWidth: 120 }}>{size}</div>
+                </LoaderStoryComponent>
+            ))}
+        </div>
+    ),
 };

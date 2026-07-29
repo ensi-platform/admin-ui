@@ -160,6 +160,7 @@
     --aui-switch-track-bg-primary: var(--aui-surface-bg-muted);
     --aui-switch-track-bg-selected: var(--aui-control-bg-brand);
     --aui-switch-thumb-bg-primary: var(--aui-white);
+    --aui-switch-thumb-bg-selected: var(--aui-white);
     --aui-switch-fg-primary: var(--aui-page-fg-primary);
     --aui-switch-border-focus: var(--aui-control-border-focus);
     --aui-switch-border-danger: var(--aui-control-border-danger);
@@ -205,6 +206,8 @@
     --aui-date-picker-border-primary: var(--aui-input-border-primary);
     --aui-date-picker-border-focus: var(--aui-input-border-focus);
     --aui-date-picker-border-danger: var(--aui-input-border-danger);
+    --aui-date-picker-segment-bg-focused: var(--aui-control-bg-brand);
+    --aui-date-picker-segment-fg-focused: var(--aui-control-fg-brand);
     --aui-date-picker-radius-md: var(--aui-input-radius-md);
     --aui-date-picker-h-sm: var(--aui-input-h-sm);
     --aui-date-picker-h-md: var(--aui-input-h-md);
@@ -233,6 +236,8 @@
     --aui-date-range-picker-border-primary: var(--aui-date-picker-border-primary);
     --aui-date-range-picker-border-focus: var(--aui-date-picker-border-focus);
     --aui-date-range-picker-border-danger: var(--aui-date-picker-border-danger);
+    --aui-date-range-picker-segment-bg-focused: var(--aui-date-picker-segment-bg-focused);
+    --aui-date-range-picker-segment-fg-focused: var(--aui-date-picker-segment-fg-focused);
     --aui-date-range-picker-radius-md: var(--aui-date-picker-radius-md);
     --aui-date-range-picker-h-sm: var(--aui-date-picker-h-sm);
     --aui-date-range-picker-h-md: var(--aui-date-picker-h-md);
@@ -261,6 +266,8 @@
     --aui-time-field-border-primary: var(--aui-input-border-primary);
     --aui-time-field-border-focus: var(--aui-input-border-focus);
     --aui-time-field-border-danger: var(--aui-input-border-danger);
+    --aui-time-field-segment-bg-focused: var(--aui-control-bg-brand);
+    --aui-time-field-segment-fg-focused: var(--aui-control-fg-brand);
     --aui-time-field-radius-md: var(--aui-input-radius-md);
     --aui-time-field-h-sm: var(--aui-input-h-sm);
     --aui-time-field-h-md: var(--aui-input-h-md);

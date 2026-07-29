@@ -10,6 +10,9 @@ alwaysApply: false
 src/<name>/docs/
   Description.ru.md
   Description.en.md
+  Example.ru.md
+  Example.en.md
+  cssVariables.ts      # если есть --aui-*
   index.stories.tsx    # один файл на примитив
   index.tsx            # StoryComponent wrapper (если нужен)
 ```
@@ -33,19 +36,26 @@ ButtonStoryComponent.displayName = 'Button';
 ## Meta
 
 - CSF3: `Meta` / `StoryObj`, `satisfies Meta<typeof …>`
-- `docsDescriptionByLocale: { ru, en }` — см. `component-docs` (не `docs.description.component` для нового формата)
+- `docsDescriptionByLocale: { ru, en }` — Description до API
+- `docsExampleByLocale: { ru, en }` — `Example.*.md`
+- `docsCssVariables` — строка из `./cssVariables` (UI с токенами; иначе не задавать)
 - `controls: { expanded: true }`
 - `DEFAULT_ARGS` + `DEFAULT_ARG_TYPES` (select/boolean для основных пропов)
 - `component:` = StoryComponent / Demo
+
+Порядок на DocsPage: Description → CSS variables → Example → Primary → Controls → Stories.
 
 ## Title в сайдбаре
 
 | Тип | title |
 | --- | --- |
-| Обычный | `'Button'`, `'Modal'`, `'Tabs'` |
-| Form / Field / контрол | `'Form/Input'`, `'Form/Field'`, `'Form/Form'` |
+| Корневые docs-only | `'Main'`, `'Getting started'` |
+| Base | `'Base/Button'`, `'Base/Badge'`, `'Base/Tag'`, `'Base/Tabs'`, `'Base/Table'`, `'Base/Loader'` |
+| Overlays | `'Overlays/BottomSheet'`, `'Overlays/Drawer'`, `'Overlays/Modal'`, `'Overlays/Popover'`, `'Overlays/Tooltip'`, `'Overlays/ActionPopup'`, `'Overlays/ModalHub'` |
+| Form / Field / контрол | `'Form/Input'`, `'Form/Field'`, `'Form/Form'`, `'Form/Checkbox'`, `'Form/CheckboxGroup'`, `'Form/Switch'` |
 | Select и похожие | `'Form/Combobox/Select'`, … |
 | Дата / время | `'Form/DateField/DatePicker'`, … |
+| Design system | `'Design System/Typography'`, `'Design System/Provider'` |
 
 ## Какие примеры делать
 
@@ -60,10 +70,11 @@ ButtonStoryComponent.displayName = 'Button';
 - `Controlled` — только если управление значением снаружи неочевидно
 
 Имена экспортов сторей — английские (`Default`, `WithIcon`).  
-Тексты на кнопках/в полях — как в продукте (русский нормален).
+Тексты в примерах (кнопки, лейблы, плейсхолдеры, ошибки) — **английские**.
 
 ## Импорты
 
 - StoryComponent: `from '.'`
 - свой Form* / типы: relative `../`
 - чужие примитивы пакета: `@/button`, `@/form`, …
+- docs: `./Description.*.md`, `./Example.*.md`, `./cssVariables`

@@ -10,7 +10,12 @@ import { Form } from '@/form';
 import { FormMultiAutocompleteAsync } from '../FormMultiAutocompleteAsync';
 import { type IMultiAutocompleteAsyncProps } from '../types';
 
-import Description from './Description.md';
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
+
+import { docsCssVariables } from './cssVariables';
 
 import { MultiAutocompleteAsyncStoryComponent } from '.';
 
@@ -49,16 +54,20 @@ export default {
     title: 'Form/Combobox/MultiAutocompleteAsync',
     component: MultiAutocompleteAsyncStoryComponent,
     parameters: {
-        docs: {
-            description: {
-                component: Description,
-            },
+        docsDescriptionByLocale: {
+            ru: DescriptionRu,
+            en: DescriptionEn,
         },
+        docsExampleByLocale: {
+            ru: ExampleRu,
+            en: ExampleEn,
+        },
+        docsCssVariables,
     },
     args: {
         useSuggest: useMockBrandSuggest,
         debounceMs: 0,
-        placeholder: 'Бренды…',
+        placeholder: 'Brands…',
         clear: true,
     },
 } satisfies Meta<typeof MultiAutocompleteAsyncStoryComponent>;
@@ -66,7 +75,7 @@ export default {
 export const Default: StoryObj<IMultiAutocompleteAsyncProps> = {
     render: args => (
         <div style={{ maxWidth: 320 }}>
-            <MultiAutocompleteAsyncStoryComponent aria-label="Бренды" {...args} useSuggest={useMockBrandSuggest} />
+            <MultiAutocompleteAsyncStoryComponent aria-label="Brands" {...args} useSuggest={useMockBrandSuggest} />
         </div>
     ),
 };
@@ -76,19 +85,19 @@ export const WithForm: StoryObj = {
         <Form
             initialValues={{ brands: [] as string[] }}
             validationSchema={z.object({
-                brands: z.array(z.string()).min(1, 'Выберите бренды'),
+                brands: z.array(z.string()).min(1, 'Select brands'),
             })}
             onSubmit={() => undefined}
         >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 320 }}>
                 <FormMultiAutocompleteAsync
                     name="brands"
-                    label="Бренды"
+                    label="Brands"
                     useSuggest={useMockBrandSuggest}
                     debounceMs={0}
                     clear
                 />
-                <Button type="submit">Отправить</Button>
+                <Button type="submit">Submit</Button>
             </div>
         </Form>
     ),

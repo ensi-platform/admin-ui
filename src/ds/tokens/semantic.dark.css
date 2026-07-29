@@ -7,11 +7,11 @@
     --aui-page-fg-muted: var(--aui-grey-400);
     --aui-page-fg-link: var(--aui-blue-500);
 
-    /* surface */
+    /* surface — muted one step above elevated so fills (secondary, hover) stay visible on modal/popover */
     --aui-surface-bg-primary: var(--aui-grey-800);
-    --aui-surface-bg-muted: var(--aui-grey-700);
-    --aui-surface-bg-muted-hover: var(--aui-grey-600);
-    --aui-surface-bg-muted-active: var(--aui-grey-500);
+    --aui-surface-bg-muted: var(--aui-grey-600);
+    --aui-surface-bg-muted-hover: var(--aui-grey-500);
+    --aui-surface-bg-muted-active: var(--aui-grey-400);
     --aui-surface-bg-elevated: var(--aui-grey-700);
     --aui-surface-border-primary: var(--aui-grey-600);
     --aui-surface-border-muted: var(--aui-grey-700);
@@ -81,10 +81,11 @@
     --aui-checkbox-border-danger: var(--aui-control-border-danger);
     --aui-checkbox-border-selected: var(--aui-control-bg-brand);
 
-    /* switch — aliases surface/control (same as light) */
+    /* switch — selected uses accent so white thumb stays visible on brand-light fills */
     --aui-switch-track-bg-primary: var(--aui-surface-bg-muted);
-    --aui-switch-track-bg-selected: var(--aui-control-bg-brand);
+    --aui-switch-track-bg-selected: var(--aui-blue-500);
     --aui-switch-thumb-bg-primary: var(--aui-white);
+    --aui-switch-thumb-bg-selected: var(--aui-white);
     --aui-switch-fg-primary: var(--aui-page-fg-primary);
     --aui-switch-border-focus: var(--aui-control-border-focus);
     --aui-switch-border-danger: var(--aui-control-border-danger);
@@ -104,6 +105,8 @@
     --aui-date-picker-border-primary: var(--aui-input-border-primary);
     --aui-date-picker-border-focus: var(--aui-input-border-focus);
     --aui-date-picker-border-danger: var(--aui-input-border-danger);
+    --aui-date-picker-segment-bg-focused: var(--aui-control-bg-brand);
+    --aui-date-picker-segment-fg-focused: var(--aui-control-fg-brand);
     --aui-date-picker-popover-bg-primary: var(--aui-surface-bg-elevated);
     --aui-date-picker-popover-border-primary: var(--aui-surface-border-primary);
 
@@ -114,6 +117,8 @@
     --aui-date-range-picker-border-primary: var(--aui-date-picker-border-primary);
     --aui-date-range-picker-border-focus: var(--aui-date-picker-border-focus);
     --aui-date-range-picker-border-danger: var(--aui-date-picker-border-danger);
+    --aui-date-range-picker-segment-bg-focused: var(--aui-date-picker-segment-bg-focused);
+    --aui-date-range-picker-segment-fg-focused: var(--aui-date-picker-segment-fg-focused);
     --aui-date-range-picker-popover-bg-primary: var(--aui-date-picker-popover-bg-primary);
     --aui-date-range-picker-popover-border-primary: var(--aui-date-picker-popover-border-primary);
 
@@ -124,6 +129,8 @@
     --aui-time-field-border-primary: var(--aui-input-border-primary);
     --aui-time-field-border-focus: var(--aui-input-border-focus);
     --aui-time-field-border-danger: var(--aui-input-border-danger);
+    --aui-time-field-segment-bg-focused: var(--aui-control-bg-brand);
+    --aui-time-field-segment-fg-focused: var(--aui-control-fg-brand);
 
     /* calendar — aliases surface/control/page (same as light) */
     --aui-calendar-bg-primary: var(--aui-surface-bg-elevated);

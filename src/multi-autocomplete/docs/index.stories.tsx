@@ -9,22 +9,27 @@ import { Form } from '@/form';
 import { FormMultiAutocomplete } from '../FormMultiAutocomplete';
 import { type IMultiAutocompleteProps, type TComboboxValue } from '../types';
 
-import Description from './Description.md';
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
+
+import { docsCssVariables } from './cssVariables';
 
 import { MultiAutocompleteStoryComponent } from '.';
 
 const OPTIONS = [
     { value: 'vip', label: 'vip' },
-    { value: 'regular', label: 'постоянный клиент' },
-    { value: 'wholesale', label: 'опт' },
-    { value: 'new', label: 'новый' },
-    { value: 'blocked', label: 'заблокирован' },
+    { value: 'regular', label: 'regular customer' },
+    { value: 'wholesale', label: 'wholesale' },
+    { value: 'new', label: 'new' },
+    { value: 'blocked', label: 'blocked' },
 ];
 
 const DEFAULT_ARGS: IMultiAutocompleteProps = {
     options: OPTIONS,
     size: 'md',
-    placeholder: 'Метки…',
+    placeholder: 'Tags…',
     disabled: false,
     invalid: false,
     clear: false,
@@ -47,11 +52,15 @@ export default {
     title: 'Form/Combobox/MultiAutocomplete',
     component: MultiAutocompleteStoryComponent,
     parameters: {
-        docs: {
-            description: {
-                component: Description,
-            },
+        docsDescriptionByLocale: {
+            ru: DescriptionRu,
+            en: DescriptionEn,
         },
+        docsExampleByLocale: {
+            ru: ExampleRu,
+            en: ExampleEn,
+        },
+        docsCssVariables,
         controls: {
             expanded: true,
         },
@@ -63,7 +72,7 @@ export default {
 export const Default: StoryObj<IMultiAutocompleteProps> = {
     render: args => (
         <div style={{ maxWidth: 320 }}>
-            <MultiAutocompleteStoryComponent aria-label="Метки" {...args} />
+            <MultiAutocompleteStoryComponent aria-label="Tags" {...args} />
         </div>
     ),
 };
@@ -71,7 +80,7 @@ export const Default: StoryObj<IMultiAutocompleteProps> = {
 export const WithOverflow: StoryObj<IMultiAutocompleteProps> = {
     render: args => (
         <div style={{ maxWidth: 240 }}>
-            <Controlled aria-label="Метки" {...args} clear value={['vip', 'regular', 'wholesale', 'new', 'blocked']} />
+            <Controlled aria-label="Tags" {...args} clear value={['vip', 'regular', 'wholesale', 'new', 'blocked']} />
         </div>
     ),
 };
@@ -81,19 +90,19 @@ export const WithForm: StoryObj = {
         <Form
             initialValues={{ tags: [] as string[] }}
             validationSchema={z.object({
-                tags: z.array(z.string()).min(1, 'Выберите метки'),
+                tags: z.array(z.string()).min(1, 'Select tags'),
             })}
             onSubmit={() => undefined}
         >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 320 }}>
                 <FormMultiAutocomplete
                     name="tags"
-                    label="Метки"
+                    label="Tags"
                     options={OPTIONS}
                     clear
-                    placeholder="Начните вводить…"
+                    placeholder="Start typing…"
                 />
-                <Button type="submit">Отправить</Button>
+                <Button type="submit">Submit</Button>
             </div>
         </Form>
     ),

@@ -1,8 +1,22 @@
 import { type ElementType, type ReactNode } from 'react';
 
-import { type IDataTestIdProps, type TMergeElementProps } from '@ds/common';
+import { type IDataTestIdProps, type TMergeElementProps, type TSVGRIcon } from '@ds/common';
 
-import { type IIconButtonProps } from '@/icon';
+/** Icon props for `Button.icon`. */
+export interface IButtonIconProps {
+    /** SVG icon component (SVGR). */
+    Component: TSVGRIcon;
+    /** Place the icon after the text. */
+    after?: boolean;
+    /** Gap between the icon and the text. */
+    indent?: number | string;
+    /** Icon size. */
+    size?: number | string;
+    /** Extra className for the icon. */
+    className?: string;
+    /** Icon fill color. */
+    fill?: string;
+}
 
 export type TButtonSize = 'sm' | 'md' | 'lg';
 
@@ -20,8 +34,8 @@ export interface IButtonThemeProps {
 export interface IButtonOwnProps extends IDataTestIdProps {
     /** Content. */
     children: ReactNode;
-    /** Leading or trailing icon. See `IIconButtonProps`. */
-    icon?: IIconButtonProps;
+    /** Leading or trailing icon. See `IButtonIconProps`. */
+    icon?: IButtonIconProps;
     /** Stretch to 100% of the parent width. */
     block?: boolean;
 }

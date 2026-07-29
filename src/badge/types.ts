@@ -14,8 +14,13 @@ export interface IBadgeThemeProps {
     variant?: TBadgeVariant;
 }
 
-export interface IBadgeProps
-    extends Omit<ComponentPropsWithRef<'span'>, 'children'>, IDataTestIdProps, IBadgeThemeProps {
+/** Own / chrome props (not from DOM). */
+export interface IBadgeOwnProps extends IDataTestIdProps {
     /** Content. */
     children: ReactNode;
 }
+
+export interface IBadgeBaseProps extends IBadgeThemeProps, IBadgeOwnProps {}
+
+export interface IBadgeProps
+    extends IBadgeBaseProps, Omit<ComponentPropsWithRef<'span'>, keyof IBadgeBaseProps | 'children'> {}

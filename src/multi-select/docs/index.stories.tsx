@@ -10,26 +10,31 @@ import { Form } from '@/form';
 import { FormMultiSelect } from '../FormMultiSelect';
 import { type IMultiSelectProps, type TComboboxValue } from '../types';
 
-import Description from './Description.md';
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
+
+import { docsCssVariables } from './cssVariables';
 
 import { MultiSelectStoryComponent } from '.';
 
 const OPTIONS = [
     { value: 'vip', label: 'vip' },
-    { value: 'regular', label: 'постоянный клиент' },
-    { value: 'wholesale', label: 'опт', disabled: true },
+    { value: 'regular', label: 'regular customer' },
+    { value: 'wholesale', label: 'wholesale', disabled: true },
 ];
 
 const TAG_OPTIONS = [
     { value: 'vip', label: 'vip' },
-    { value: 'regular', label: 'постоянный клиент' },
-    { value: 'new', label: 'новый' },
+    { value: 'regular', label: 'regular customer' },
+    { value: 'new', label: 'new' },
 ];
 
 const DEFAULT_ARGS: IMultiSelectProps = {
     options: OPTIONS,
     size: 'md',
-    placeholder: 'Выберите метки',
+    placeholder: 'Select tags',
     disabled: false,
     invalid: false,
     clear: false,
@@ -67,11 +72,15 @@ export default {
     title: 'Form/Combobox/MultiSelect',
     component: MultiSelectStoryComponent,
     parameters: {
-        docs: {
-            description: {
-                component: Description,
-            },
+        docsDescriptionByLocale: {
+            ru: DescriptionRu,
+            en: DescriptionEn,
         },
+        docsExampleByLocale: {
+            ru: ExampleRu,
+            en: ExampleEn,
+        },
+        docsCssVariables,
         controls: {
             expanded: true,
         },
@@ -83,7 +92,7 @@ export default {
 export const Default: StoryObj<IMultiSelectProps> = {
     render: args => (
         <div style={{ maxWidth: 320 }}>
-            <MultiSelectStoryComponent aria-label="Метки" {...args} />
+            <MultiSelectStoryComponent aria-label="Tags" {...args} />
         </div>
     ),
 };
@@ -93,13 +102,13 @@ export const WithForm: StoryObj = {
         <Form
             initialValues={{ tags: [] as string[] }}
             validationSchema={z.object({
-                tags: z.array(z.string()).min(1, 'Выберите хотя бы одну метку'),
+                tags: z.array(z.string()).min(1, 'Select at least one tag'),
             })}
             onSubmit={() => undefined}
         >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 320 }}>
-                <FormMultiSelect name="tags" label="Метки" options={TAG_OPTIONS} clear placeholder="Выберите…" />
-                <Button type="submit">Отправить</Button>
+                <FormMultiSelect name="tags" label="Tags" options={TAG_OPTIONS} clear placeholder="Select…" />
+                <Button type="submit">Submit</Button>
             </div>
         </Form>
     ),
@@ -118,7 +127,7 @@ export const Sizes: StoryObj<IMultiSelectProps> = {
 export const Clear: StoryObj<IMultiSelectProps> = {
     render: args => (
         <div style={{ maxWidth: 320 }}>
-            <ControlledMultiSelect aria-label="Метки" {...args} clear value={['vip', 'regular']} />
+            <ControlledMultiSelect aria-label="Tags" {...args} clear value={['vip', 'regular']} />
         </div>
     ),
 };
@@ -143,10 +152,10 @@ export const WithField: StoryObj<IMultiSelectProps> = {
     render: () => (
         <div style={{ maxWidth: 320 }}>
             <Field invalid>
-                <Field.Label>Метки</Field.Label>
-                <FieldBoundMultiSelect placeholder="Выберите…" />
-                <Field.Hint>Можно выбрать несколько</Field.Hint>
-                <Field.Error>Обязательное поле</Field.Error>
+                <Field.Label>Tags</Field.Label>
+                <FieldBoundMultiSelect placeholder="Select…" />
+                <Field.Hint>Multiple selection allowed</Field.Hint>
+                <Field.Error>Required field</Field.Error>
             </Field>
         </div>
     ),

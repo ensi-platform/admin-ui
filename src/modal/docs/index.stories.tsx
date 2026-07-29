@@ -5,10 +5,14 @@ import { type ArgTypes, type Meta, type StoryObj } from '@storybook/react';
 import { Button } from '@/button';
 
 import { Modal } from '../Component';
-import { type TModalCloseButtonSize } from '../components/CloseButton/types';
 import { type IModalProps } from '../types';
 
-import Description from './Description.md';
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
+
+import { docsCssVariables } from './cssVariables';
 
 import { ModalStoryComponent } from '.';
 
@@ -30,26 +34,24 @@ const DEFAULT_ARG_TYPES: ArgTypes<Partial<IModalProps>> = {
 
 const ModalDemo = ({
     triggerLabel,
-    closeButtonSize,
     ...props
 }: Omit<IModalProps, 'open' | 'onOpenChange' | 'children'> & {
     triggerLabel?: string;
-    closeButtonSize?: TModalCloseButtonSize;
 }) => {
     const [open, setOpen] = useState(false);
 
     return (
         <>
-            <Button onClick={() => setOpen(true)}>{triggerLabel ?? 'Открыть Modal'}</Button>
+            <Button onClick={() => setOpen(true)}>{triggerLabel ?? 'Open Modal'}</Button>
             <Modal {...props} open={open} onOpenChange={setOpen}>
                 <Modal.Header>
-                    <Modal.Title>Заголовок</Modal.Title>
-                    <Modal.CloseButton size={closeButtonSize} />
+                    <Modal.Title>Title</Modal.Title>
+                    <Modal.CloseButton />
                 </Modal.Header>
-                <Modal.Body>Контент модального окна.</Modal.Body>
+                <Modal.Body>Modal content.</Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={() => setOpen(false)}>Отмена</Button>
-                    <Button onClick={() => setOpen(false)}>Сохранить</Button>
+                    <Button onClick={() => setOpen(false)}>Cancel</Button>
+                    <Button onClick={() => setOpen(false)}>Save</Button>
                 </Modal.Footer>
             </Modal>
         </>
@@ -57,14 +59,18 @@ const ModalDemo = ({
 };
 
 export default {
-    title: 'Modal',
+    title: 'Overlays/Modal',
     component: ModalStoryComponent,
     parameters: {
-        docs: {
-            description: {
-                component: Description,
-            },
+        docsDescriptionByLocale: {
+            ru: DescriptionRu,
+            en: DescriptionEn,
         },
+        docsExampleByLocale: {
+            ru: ExampleRu,
+            en: ExampleEn,
+        },
+        docsCssVariables,
         controls: {
             expanded: true,
         },
@@ -80,19 +86,9 @@ export const Default: StoryObj<IModalProps> = {
 export const Sizes: StoryObj<IModalProps> = {
     render: () => (
         <div style={{ display: 'flex', gap: 8 }}>
-            <ModalDemo size="sm" triggerLabel="Открыть Modal sm" />
-            <ModalDemo size="md" triggerLabel="Открыть Modal md" />
-            <ModalDemo size="lg" triggerLabel="Открыть Modal lg" />
-        </div>
-    ),
-};
-
-export const CloseButtonSizes: StoryObj<IModalProps> = {
-    render: () => (
-        <div style={{ display: 'flex', gap: 8 }}>
-            <ModalDemo closeButtonSize="sm" triggerLabel="CloseButton sm" />
-            <ModalDemo closeButtonSize="md" triggerLabel="CloseButton md" />
-            <ModalDemo closeButtonSize="lg" triggerLabel="CloseButton lg" />
+            <ModalDemo size="sm" triggerLabel="Open Modal sm" />
+            <ModalDemo size="md" triggerLabel="Open Modal md" />
+            <ModalDemo size="lg" triggerLabel="Open Modal lg" />
         </div>
     ),
 };

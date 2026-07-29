@@ -9,7 +9,12 @@ import { Table } from '../Component';
 import { useTableRowSelection } from '../hooks/useTableRowSelection';
 import { type ITableBaseProps, type TTableSortDirection } from '../types';
 
-import Description from './Description.md';
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
+
+import { docsCssVariables } from './cssVariables';
 
 import { TableStoryComponent } from '.';
 
@@ -87,14 +92,18 @@ const DEFAULT_ARG_TYPES: ArgTypes<Partial<ITableBaseProps>> = {
 };
 
 export default {
-    title: 'Table',
+    title: 'Base/Table',
     component: TableStoryComponent,
     parameters: {
-        docs: {
-            description: {
-                component: Description,
-            },
+        docsDescriptionByLocale: {
+            ru: DescriptionRu,
+            en: DescriptionEn,
         },
+        docsExampleByLocale: {
+            ru: ExampleRu,
+            en: ExampleEn,
+        },
+        docsCssVariables,
         controls: {
             expanded: true,
         },
@@ -370,9 +379,9 @@ export const Empty: StoryObj<ITableBaseProps> = {
                             <Table.Body>
                                 <Table.Row>
                                     <Table.Cell colSpan={2} align="center" style={{ padding: 48 }}>
-                                        <p style={{ margin: 0, fontWeight: 600 }}>Ничего не найдено</p>
+                                        <p style={{ margin: 0, fontWeight: 600 }}>Nothing found</p>
                                         <p style={{ margin: '8px 0 0', color: 'var(--aui-page-fg-muted)' }}>
-                                            Измените фильтры или добавьте записи
+                                            Change filters or add records
                                         </p>
                                     </Table.Cell>
                                 </Table.Row>

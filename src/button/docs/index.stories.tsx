@@ -4,13 +4,16 @@ import { Check } from '@/icons';
 
 import { type IButtonBaseProps, type TButtonProps } from '../types';
 
+import { docsCssVariables } from './cssVariables';
 import DescriptionEn from './Description.en.md';
 import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
 
 import { ButtonStoryComponent } from '.';
 
 const DEFAULT_ARGS: IButtonBaseProps = {
-    children: 'Сохранить',
+    children: 'Save',
     size: 'md',
     variant: 'primary',
     block: false,
@@ -23,13 +26,18 @@ const DEFAULT_ARG_TYPES: ArgTypes<Partial<IButtonBaseProps>> = {
 };
 
 export default {
-    title: 'Button',
+    title: 'Base/Button',
     component: ButtonStoryComponent,
     parameters: {
         docsDescriptionByLocale: {
             ru: DescriptionRu,
             en: DescriptionEn,
         },
+        docsExampleByLocale: {
+            ru: ExampleRu,
+            en: ExampleEn,
+        },
+        docsCssVariables,
         controls: {
             expanded: true,
         },
@@ -53,7 +61,7 @@ export const AsLink: StoryObj<TButtonProps<'a'>> = {
     args: {
         as: 'a',
         href: '#',
-        children: 'К заказам',
+        children: 'Orders',
     },
 };
 
@@ -76,16 +84,16 @@ export const Sizes: StoryObj<TButtonProps> = {
 export const Variants: StoryObj<TButtonProps> = {
     render: () => (
         <div style={{ display: 'flex', gap: 8 }}>
-            <ButtonStoryComponent variant="primary">Основная</ButtonStoryComponent>
-            <ButtonStoryComponent variant="secondary">Второстепенная</ButtonStoryComponent>
-            <ButtonStoryComponent variant="danger">Опасная</ButtonStoryComponent>
+            <ButtonStoryComponent variant="primary">Primary</ButtonStoryComponent>
+            <ButtonStoryComponent variant="secondary">Secondary</ButtonStoryComponent>
+            <ButtonStoryComponent variant="danger">Danger</ButtonStoryComponent>
         </div>
     ),
 };
 
 export const WithIcon: StoryObj<TButtonProps> = {
     args: {
-        children: 'Сохранить',
+        children: 'Save',
         icon: { Component: Check },
     },
 };

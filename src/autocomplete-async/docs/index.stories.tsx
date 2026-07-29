@@ -9,7 +9,12 @@ import { Form } from '@/form';
 
 import { FormAutocompleteAsync } from '../FormAutocompleteAsync';
 
-import Description from './Description.md';
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
+
+import { docsCssVariables } from './cssVariables';
 
 import { AutocompleteAsyncStoryComponent } from '.';
 
@@ -46,7 +51,7 @@ const useMockBrandSuggest: TUseAutocompleteSuggest = ({ query, enabled }) => {
 const DEFAULT_ARGS: IAutocompleteAsyncProps = {
     useSuggest: useMockBrandSuggest,
     size: 'md',
-    placeholder: 'Бренд…',
+    placeholder: 'Brand…',
     disabled: false,
     invalid: false,
     clear: false,
@@ -65,11 +70,15 @@ export default {
     title: 'Form/Combobox/AutocompleteAsync',
     component: AutocompleteAsyncStoryComponent,
     parameters: {
-        docs: {
-            description: {
-                component: Description,
-            },
+        docsDescriptionByLocale: {
+            ru: DescriptionRu,
+            en: DescriptionEn,
         },
+        docsExampleByLocale: {
+            ru: ExampleRu,
+            en: ExampleEn,
+        },
+        docsCssVariables,
         controls: {
             expanded: true,
         },
@@ -81,7 +90,7 @@ export default {
 export const Default: StoryObj<IAutocompleteAsyncProps> = {
     render: args => (
         <div style={{ maxWidth: 320 }}>
-            <AutocompleteAsyncStoryComponent aria-label="Бренд" {...args} useSuggest={useMockBrandSuggest} />
+            <AutocompleteAsyncStoryComponent aria-label="Brand" {...args} useSuggest={useMockBrandSuggest} />
         </div>
     ),
 };
@@ -91,20 +100,20 @@ export const WithForm: StoryObj = {
         <Form
             initialValues={{ brand: '' }}
             validationSchema={z.object({
-                brand: z.string().min(1, 'Выберите бренд'),
+                brand: z.string().min(1, 'Select a brand'),
             })}
             onSubmit={() => undefined}
         >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 320 }}>
                 <FormAutocompleteAsync
                     name="brand"
-                    label="Бренд"
+                    label="Brand"
                     useSuggest={useMockBrandSuggest}
                     debounceMs={0}
                     clear
-                    placeholder="Начните вводить…"
+                    placeholder="Start typing…"
                 />
-                <Button type="submit">Отправить</Button>
+                <Button type="submit">Submit</Button>
             </div>
         </Form>
     ),

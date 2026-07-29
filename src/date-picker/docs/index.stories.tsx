@@ -10,7 +10,12 @@ import { Form } from '@/form';
 import { FormDatePicker } from '../FormDatePicker';
 import { type IDatePickerProps } from '../types';
 
-import Description from './Description.md';
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
+
+import { docsCssVariables } from './cssVariables';
 
 import { DatePickerStoryComponent } from '.';
 
@@ -33,7 +38,7 @@ const DefaultDemo = (args: IDatePickerProps) => {
 
     return (
         <div style={{ maxWidth: 320 }}>
-            <DatePickerStoryComponent aria-label="Дата" {...args} value={value} onChange={setValue} />
+            <DatePickerStoryComponent aria-label="Date" {...args} value={value} onChange={setValue} />
         </div>
     );
 };
@@ -42,11 +47,15 @@ export default {
     title: 'Form/DateField/DatePicker',
     component: DatePickerStoryComponent,
     parameters: {
-        docs: {
-            description: {
-                component: Description,
-            },
+        docsDescriptionByLocale: {
+            ru: DescriptionRu,
+            en: DescriptionEn,
         },
+        docsExampleByLocale: {
+            ru: ExampleRu,
+            en: ExampleEn,
+        },
+        docsCssVariables,
         controls: {
             expanded: true,
         },
@@ -64,13 +73,13 @@ export const WithForm: StoryObj = {
         <Form
             initialValues={{ date: parseDate('2024-06-15') }}
             validationSchema={z.object({
-                date: z.any().refine(v => v != null, 'Обязательное поле'),
+                date: z.any().refine(v => v != null, 'Required field'),
             })}
             onSubmit={() => undefined}
         >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 320 }}>
-                <FormDatePicker name="date" label="Дата" clear />
-                <Button type="submit">Отправить</Button>
+                <FormDatePicker name="date" label="Date" clear />
+                <Button type="submit">Submit</Button>
             </div>
         </Form>
     ),
@@ -82,7 +91,7 @@ const WithTimeDemo = (args: IDatePickerProps) => {
     return (
         <div style={{ maxWidth: 360 }}>
             <DatePickerStoryComponent
-                aria-label="Дата и время"
+                aria-label="Date and time"
                 granularity="minute"
                 {...args}
                 value={value}

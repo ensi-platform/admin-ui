@@ -5,10 +5,10 @@ import { typographyStyles } from '..';
 import DescriptionEn from './Description.en.md';
 import DescriptionRu from './Description.ru.md';
 
-const SAMPLE = 'Съешь ещё этих мягких французских булок, да выпей же чаю. 0123456789 — Inter.';
+const SAMPLE = 'The quick brown fox jumps over the lazy dog. 0123456789 — Inter.';
 
 export default {
-    title: 'Typography',
+    title: 'Design System/Typography',
     parameters: {
         docsDescriptionByLocale: {
             ru: DescriptionRu,

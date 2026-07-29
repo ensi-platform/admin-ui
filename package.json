@@ -1,7 +1,7 @@
 {
     "name": "@ensi-platform/admin-ui",
     "version": "0.0.0",
-    "description": "Admin UI primitives for Ensi admin panel",
+    "description": "Admin UI for Ensi admin panel",
     "type": "module",
     "sideEffects": [
         "**/*.css"
@@ -70,10 +70,6 @@
         "./hooks": {
             "types": "./dist/hooks/index.d.ts",
             "import": "./dist/hooks/index.js"
-        },
-        "./icon": {
-            "types": "./dist/icon/index.d.ts",
-            "import": "./dist/icon/index.js"
         },
         "./icons": {
             "types": "./dist/icons/index.d.ts",

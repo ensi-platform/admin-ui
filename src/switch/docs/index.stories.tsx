@@ -8,7 +8,12 @@ import { Form } from '@/form';
 import { FormSwitch } from '../FormSwitch';
 import { type ISwitchProps } from '../types';
 
-import Description from './Description.md';
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
+
+import { docsCssVariables } from './cssVariables';
 
 import { SwitchStoryComponent } from '.';
 
@@ -16,7 +21,7 @@ const DEFAULT_ARGS: ISwitchProps = {
     size: 'md',
     disabled: false,
     invalid: false,
-    children: 'Уведомления',
+    children: 'Notifications',
 };
 
 const DEFAULT_ARG_TYPES: ArgTypes<Partial<ISwitchProps>> = {
@@ -26,14 +31,18 @@ const DEFAULT_ARG_TYPES: ArgTypes<Partial<ISwitchProps>> = {
 };
 
 export default {
-    title: 'Switch',
+    title: 'Form/Switch',
     component: SwitchStoryComponent,
     parameters: {
-        docs: {
-            description: {
-                component: Description,
-            },
+        docsDescriptionByLocale: {
+            ru: DescriptionRu,
+            en: DescriptionEn,
         },
+        docsExampleByLocale: {
+            ru: ExampleRu,
+            en: ExampleEn,
+        },
+        docsCssVariables,
         controls: {
             expanded: true,
         },
@@ -69,9 +78,9 @@ export const Invalid: StoryObj<ISwitchProps> = {
 export const WithField: StoryObj<ISwitchProps> = {
     render: () => (
         <Field invalid>
-            <SwitchStoryComponent>Уведомления</SwitchStoryComponent>
-            <Field.Hint>Рекомендуем включить</Field.Hint>
-            <Field.Error>Обязательно</Field.Error>
+            <SwitchStoryComponent>Notifications</SwitchStoryComponent>
+            <Field.Hint>Recommended</Field.Hint>
+            <Field.Error>Required</Field.Error>
         </Field>
     ),
 };
@@ -81,15 +90,15 @@ export const WithForm: StoryObj = {
         <Form
             initialValues={{ enabled: false }}
             validationSchema={z.object({
-                enabled: z.literal(true, { error: 'Включите' }),
+                enabled: z.literal(true, { error: 'Turn on' }),
             })}
             onSubmit={() => undefined}
         >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 320 }}>
-                <FormSwitch name="enabled" hint="Можно изменить позже">
-                    Включено
+                <FormSwitch name="enabled" hint="Can be changed later">
+                    Enabled
                 </FormSwitch>
-                <Button type="submit">Отправить</Button>
+                <Button type="submit">Submit</Button>
             </div>
         </Form>
     ),

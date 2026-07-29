@@ -5,12 +5,17 @@ import { Button } from '@/button';
 import { Popover } from '../Component';
 import { type IPopoverContentProps } from '../types';
 
-import Description from './Description.md';
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
+
+import { docsCssVariables } from './cssVariables';
 
 import { PopoverStoryComponent, type TPopoverStoryProps } from '.';
 
 const DEFAULT_ARGS: TPopoverStoryProps = {
-    children: 'Контент поповера',
+    children: 'Popover content',
     size: 'md',
     variant: 'primary',
     arrow: false,
@@ -25,14 +30,18 @@ const DEFAULT_ARG_TYPES: ArgTypes<Partial<TPopoverStoryProps>> = {
 };
 
 export default {
-    title: 'Popover',
+    title: 'Overlays/Popover',
     component: PopoverStoryComponent,
     parameters: {
-        docs: {
-            description: {
-                component: Description,
-            },
+        docsDescriptionByLocale: {
+            ru: DescriptionRu,
+            en: DescriptionEn,
         },
+        docsExampleByLocale: {
+            ru: ExampleRu,
+            en: ExampleEn,
+        },
+        docsCssVariables,
         controls: {
             expanded: true,
         },
@@ -54,11 +63,11 @@ export const WithActions: StoryObj<IPopoverContentProps> = {
         <div style={{ padding: 48 }}>
             <Popover>
                 <Popover.Trigger>
-                    <Button>Фильтры</Button>
+                    <Button>Filters</Button>
                 </Popover.Trigger>
                 <Popover.Content arrow>
-                    <p style={{ margin: '0 0 12px' }}>Выберите статус заказа</p>
-                    <Button size="sm">Применить</Button>
+                    <p style={{ margin: '0 0 12px' }}>Select order status</p>
+                    <Button size="sm">Apply</Button>
                 </Popover.Content>
             </Popover>
         </div>

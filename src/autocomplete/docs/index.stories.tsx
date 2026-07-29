@@ -10,26 +10,31 @@ import { Form } from '@/form';
 import { FormAutocomplete } from '../FormAutocomplete';
 import { type IAutocompleteProps, type TComboboxValue } from '../types';
 
-import Description from './Description.md';
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
+
+import { docsCssVariables } from './cssVariables';
 
 import { AutocompleteStoryComponent } from '.';
 
 const OPTIONS = [
-    { value: 'msk', label: 'Москва' },
-    { value: 'spb', label: 'Санкт-Петербург' },
-    { value: 'kzn', label: 'Казань', disabled: true },
+    { value: 'msk', label: 'Moscow' },
+    { value: 'spb', label: 'Saint Petersburg' },
+    { value: 'kzn', label: 'Kazan', disabled: true },
 ];
 
 const CITY_OPTIONS = [
-    { value: 'msk', label: 'Москва' },
-    { value: 'spb', label: 'Санкт-Петербург' },
-    { value: 'kzn', label: 'Казань' },
+    { value: 'msk', label: 'Moscow' },
+    { value: 'spb', label: 'Saint Petersburg' },
+    { value: 'kzn', label: 'Kazan' },
 ];
 
 const DEFAULT_ARGS: IAutocompleteProps = {
     options: OPTIONS,
     size: 'md',
-    placeholder: 'Начните вводить…',
+    placeholder: 'Start typing…',
     disabled: false,
     invalid: false,
     clear: false,
@@ -67,11 +72,15 @@ export default {
     title: 'Form/Combobox/Autocomplete',
     component: AutocompleteStoryComponent,
     parameters: {
-        docs: {
-            description: {
-                component: Description,
-            },
+        docsDescriptionByLocale: {
+            ru: DescriptionRu,
+            en: DescriptionEn,
         },
+        docsExampleByLocale: {
+            ru: ExampleRu,
+            en: ExampleEn,
+        },
+        docsCssVariables,
         controls: {
             expanded: true,
         },
@@ -83,7 +92,7 @@ export default {
 export const Default: StoryObj<IAutocompleteProps> = {
     render: args => (
         <div style={{ maxWidth: 320 }}>
-            <AutocompleteStoryComponent aria-label="Город" {...args} />
+            <AutocompleteStoryComponent aria-label="City" {...args} />
         </div>
     ),
 };
@@ -93,19 +102,19 @@ export const WithForm: StoryObj = {
         <Form
             initialValues={{ city: '' }}
             validationSchema={z.object({
-                city: z.string().min(1, 'Выберите город'),
+                city: z.string().min(1, 'Select a city'),
             })}
             onSubmit={() => undefined}
         >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 320 }}>
                 <FormAutocomplete
                     name="city"
-                    label="Город"
+                    label="City"
                     options={CITY_OPTIONS}
                     clear
-                    placeholder="Начните вводить…"
+                    placeholder="Start typing…"
                 />
-                <Button type="submit">Отправить</Button>
+                <Button type="submit">Submit</Button>
             </div>
         </Form>
     ),
@@ -123,7 +132,7 @@ export const Loading: StoryObj<IAutocompleteProps> = {
 export const Clear: StoryObj<IAutocompleteProps> = {
     render: args => (
         <div style={{ maxWidth: 320 }}>
-            <ControlledAutocomplete aria-label="Город" {...args} clear value="msk" />
+            <ControlledAutocomplete aria-label="City" {...args} clear value="msk" />
         </div>
     ),
 };
@@ -132,9 +141,9 @@ export const WithField: StoryObj<IAutocompleteProps> = {
     render: () => (
         <div style={{ maxWidth: 320 }}>
             <Field invalid>
-                <Field.Label>Город</Field.Label>
-                <FieldBoundAutocomplete placeholder="Начните вводить…" />
-                <Field.Error>Обязательное поле</Field.Error>
+                <Field.Label>City</Field.Label>
+                <FieldBoundAutocomplete placeholder="Start typing…" />
+                <Field.Error>Required field</Field.Error>
             </Field>
         </div>
     ),

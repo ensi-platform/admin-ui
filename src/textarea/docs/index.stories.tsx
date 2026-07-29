@@ -8,13 +8,18 @@ import { Form } from '@/form';
 import { FormTextArea } from '../FormTextArea';
 import { type ITextAreaProps } from '../types';
 
-import Description from './Description.md';
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
+
+import { docsCssVariables } from './cssVariables';
 
 import { TextAreaStoryComponent } from '.';
 
 const DEFAULT_ARGS: ITextAreaProps = {
     size: 'md',
-    placeholder: 'Комментарий',
+    placeholder: 'Comment',
     disabled: false,
     invalid: false,
     clear: false,
@@ -37,11 +42,15 @@ export default {
     title: 'Form/TextArea',
     component: TextAreaStoryComponent,
     parameters: {
-        docs: {
-            description: {
-                component: Description,
-            },
+        docsDescriptionByLocale: {
+            ru: DescriptionRu,
+            en: DescriptionEn,
         },
+        docsExampleByLocale: {
+            ru: ExampleRu,
+            en: ExampleEn,
+        },
+        docsCssVariables,
         controls: {
             expanded: true,
         },
@@ -53,7 +62,7 @@ export default {
 export const Default: StoryObj<ITextAreaProps> = {
     render: args => (
         <div style={{ maxWidth: 320 }}>
-            <TextAreaStoryComponent aria-label="Комментарий" {...args} />
+            <TextAreaStoryComponent aria-label="Comment" {...args} />
         </div>
     ),
 };
@@ -63,15 +72,15 @@ export const WithForm: StoryObj = {
         <Form
             initialValues={{ comment: '', notes: '' }}
             validationSchema={z.object({
-                comment: z.string().min(1, 'Обязательное поле'),
+                comment: z.string().min(1, 'Required field'),
                 notes: z.string().optional(),
             })}
             onSubmit={() => undefined}
         >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 320 }}>
-                <FormTextArea name="comment" label="Комментарий" clear />
-                <FormTextArea name="notes" label="Заметки" hint="Необязательно" placeholder="…" />
-                <Button type="submit">Отправить</Button>
+                <FormTextArea name="comment" label="Comment" clear />
+                <FormTextArea name="notes" label="Notes" hint="Optional" placeholder="…" />
+                <Button type="submit">Submit</Button>
             </div>
         </Form>
     ),
@@ -90,7 +99,7 @@ export const Sizes: StoryObj<ITextAreaProps> = {
 export const Clear: StoryObj<ITextAreaProps> = {
     args: {
         clear: true,
-        defaultValue: 'Черновик комментария',
+        defaultValue: 'Comment draft',
     },
     render: Default.render,
 };
@@ -115,10 +124,10 @@ export const WithField: StoryObj<ITextAreaProps> = {
     render: () => (
         <div style={{ maxWidth: 320 }}>
             <Field invalid>
-                <Field.Label>Комментарий</Field.Label>
-                <FieldBoundTextArea placeholder="Опишите проблему" />
-                <Field.Hint>Максимум 500 символов</Field.Hint>
-                <Field.Error>Слишком коротко</Field.Error>
+                <Field.Label>Comment</Field.Label>
+                <FieldBoundTextArea placeholder="Describe the issue" />
+                <Field.Hint>Maximum 500 characters</Field.Hint>
+                <Field.Error>Too short</Field.Error>
             </Field>
         </div>
     ),
