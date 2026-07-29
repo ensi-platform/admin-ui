@@ -1,5 +1,5 @@
 ---
-description: Структура папки UI-примитива в admin-ui-base
+description: Структура папки UI-примитива в admin-ui
 globs: src/**/*.{ts,tsx,css}
 alwaysApply: false
 ---
@@ -72,9 +72,9 @@ src/<name>/
 
 Источник: `tsconfig.json` `paths` + `vite.config.ts` `resolve.alias`.
 
-| Алиас | Цель | Когда |
-| ----- | ---- | ----- |
-| `@/*` | `src/*` | кросс-примитив внутри `src` (`from '@/icon'`, `from '@/field'`) |
+| Алиас   | Цель       | Когда                                                                                                                |
+| ------- | ---------- | -------------------------------------------------------------------------------------------------------------------- |
+| `@/*`   | `src/*`    | кросс-примитив внутри `src` (`from '@/icon'`, `from '@/field'`)                                                      |
 | `@ds/*` | `src/ds/*` | DS-слой: `@ds/common`, `@ds/common/utils`, `@ds/typography`, `@ds/tokens` (CSS — через public `tokens`, не в module) |
 
 - между пакетами в `src/` — **только** `@/` или `@ds/`; relative `../…` через границу пакета запрещён ESLint (`local/no-cross-package-relative-imports`)

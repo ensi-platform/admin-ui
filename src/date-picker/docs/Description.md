@@ -1,6 +1,6 @@
 # DatePicker
 
-Поле выбора даты на React Aria `DatePicker` + вертикальный календарь. Импорт: `import { DatePicker, FormDatePicker } from '@ensi-platform/admin-ui-base'`.
+Поле выбора даты на React Aria `DatePicker` + вертикальный календарь. Импорт: `import { DatePicker, FormDatePicker } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

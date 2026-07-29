@@ -1,6 +1,6 @@
 # Badge
 
-Статусный pill для таблиц / page header. Импорт: `import { Badge } from '@ensi-platform/admin-ui-base'`.
+Статусный pill для таблиц / page header. Импорт: `import { Badge } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

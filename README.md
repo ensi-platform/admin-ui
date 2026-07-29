@@ -1,22 +1,22 @@
-# `@ensi-platform/admin-ui-base`
+# `@ensi-platform/admin-ui`
 
 Admin UI primitives for Ensi admin panel (АП). Part of the `admin-ui` group.
 
 ## Install
 
 ```bash
-pnpm add @ensi-platform/admin-ui-base react react-dom
+pnpm add @ensi-platform/admin-ui react react-dom
 ```
 
 ## Usage
 
 ```tsx
-import '@ensi-platform/admin-ui-base/tokens';
-import { AdminUiProvider, Button, typographyStyles } from '@ensi-platform/admin-ui-base';
+import '@ensi-platform/admin-ui/tokens';
+import { AdminUiProvider, Button, typographyStyles } from '@ensi-platform/admin-ui';
 // или subpath:
-// import { Button } from '@ensi-platform/admin-ui-base/button';
-// import { AdminUiProvider } from '@ensi-platform/admin-ui-base/provider';
-// import { typographyStyles } from '@ensi-platform/admin-ui-base/typography';
+// import { Button } from '@ensi-platform/admin-ui/button';
+// import { AdminUiProvider } from '@ensi-platform/admin-ui/provider';
+// import { typographyStyles } from '@ensi-platform/admin-ui/typography';
 
 export const Example = () => (
     <AdminUiProvider
@@ -64,11 +64,11 @@ pnpm storybook
 ```
 admin-ui-kit (later)
   → admin-ui-layout (later)
-  → admin-ui-base (this package — primitives + interim tokens)
+  → admin-ui (this package — primitives + interim tokens)
     → admin-ui-icons (later)
     → admin-ui-tokens (later) — вынос src/ds/tokens/
 ```
 
-Сейчас: `import '@ensi-platform/admin-ui-base/tokens'`. Компоненты пишут только `var(--aui-…)` в CSS Modules. Контракт: `.cursor/rules/tokens.mdc`.
+Сейчас: `import '@ensi-platform/admin-ui/tokens'`. Компоненты пишут только `var(--aui-…)` в CSS Modules. Контракт: `.cursor/rules/tokens.mdc`.
 
 Storefront uses a separate `storefront-ui-*` group.

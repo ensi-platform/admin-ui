@@ -229,7 +229,7 @@
     "homepage": "https://ensi.tech",
     "repository": {
         "type": "git",
-        "url": "git@git.greensight.ru:ensi/opensource/packages/admin-ui/admin-ui-base.git"
+        "url": "git@git.greensight.ru:ensi/opensource/packages/admin-ui/admin-ui.git"
     },
     "dependencies": {
         "@internationalized/date": "^3.10.0",

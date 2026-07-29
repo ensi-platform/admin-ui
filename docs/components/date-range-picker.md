@@ -2,7 +2,7 @@
 
 > Статус: `ready`  
 > База: `lib: react-aria-components` (`DateRangePicker`) + internal calendar  
-> Пакет: `admin-ui-base`
+> Пакет: `admin-ui`
 
 ## Зачем
 

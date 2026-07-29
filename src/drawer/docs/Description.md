@@ -1,6 +1,6 @@
 # Drawer
 
-Примитив боковой панели на React Aria `ModalOverlay` + `Dialog`. Импорт: `import { Drawer } from '@ensi-platform/admin-ui-base'`.
+Примитив боковой панели на React Aria `ModalOverlay` + `Dialog`. Импорт: `import { Drawer } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

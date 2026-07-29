@@ -1,5 +1,5 @@
 ---
-description: Конвенции интеграции react-aria-components в admin-ui-base
+description: Конвенции интеграции react-aria-components в admin-ui
 globs: src/**/*.{ts,tsx}
 alwaysApply: false
 ---
@@ -19,11 +19,11 @@ Headless behavior — [`react-aria-components`](https://react-aria.adobe.com). �
 `AdminUiProvider` оборачивает `I18nProvider` (locale) + root с `isolation: isolate` / `dir`. Storybook уже оборачивает.
 
 ```tsx
-import { AdminUiProvider, useAuiLabels } from '@ensi-platform/admin-ui-base';
+import { AdminUiProvider, useAuiLabels } from '@ensi-platform/admin-ui';
 
 <AdminUiProvider locale="ru-RU" labels={{ close: t('aui.close') }}>
-  …
-</AdminUiProvider>
+    …
+</AdminUiProvider>;
 ```
 
 ## Строки

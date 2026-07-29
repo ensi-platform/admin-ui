@@ -31,7 +31,7 @@ Headless по умолчанию — [`react-aria-components`](https://react-ari
 
 `FormControl` не заводим: роль закрывает `Field` / `TextField` (React Aria).
 
-`Form` (RHF + zod) — state/submit/validation в `admin-ui-base`. FormX (`FormInput` / …) — рядом с контролом, не FormFieldWrapper.
+`Form` (RHF + zod) — state/submit/validation в `admin-ui`. FormX (`FormInput` / …) — рядом с контролом, не FormFieldWrapper.
 
 ## Карточки
 
@@ -41,7 +41,7 @@ Headless по умолчанию — [`react-aria-components`](https://react-ari
 
 ---
 
-## `admin-ui-base`
+## `admin-ui`
 
 | Компонент             | Стадия    | База                                                                       | Апрув |
 | --------------------- | --------- | -------------------------------------------------------------------------- | ----- |

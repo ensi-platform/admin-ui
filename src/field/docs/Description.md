@@ -1,6 +1,6 @@
 # Field
 
-Compound-обёртка label / hint / error вокруг любого контрола. Импорт: `import { Field, useField } from '@ensi-platform/admin-ui-base'`.
+Compound-обёртка label / hint / error вокруг любого контрола. Импорт: `import { Field, useField } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

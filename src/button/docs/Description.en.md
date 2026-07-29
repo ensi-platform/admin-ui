@@ -1,7 +1,7 @@
 Button for UI actions.
 
 ```tsx
-import { Button } from '@ensi-platform/admin-ui-base';
+import { Button } from '@ensi-platform/admin-ui';
 ```
 
 ## When to use

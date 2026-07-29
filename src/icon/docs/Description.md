@@ -1,6 +1,6 @@
 # Icon
 
-Примитив SVGR-иконки. Импорт: `import { Icon } from '@ensi-platform/admin-ui-base'`.
+Примитив SVGR-иконки. Импорт: `import { Icon } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

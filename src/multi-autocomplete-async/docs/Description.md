@@ -1,6 +1,6 @@
 # MultiAutocompleteAsync
 
-Мульти autocomplete с injected suggest hook. Импорт: `import { MultiAutocompleteAsync, FormMultiAutocompleteAsync } from '@ensi-platform/admin-ui-base'`.
+Мульти autocomplete с injected suggest hook. Импорт: `import { MultiAutocompleteAsync, FormMultiAutocompleteAsync } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

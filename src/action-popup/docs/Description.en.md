@@ -1,7 +1,7 @@
 Confirm dialogs on top of `Modal`.
 
 ```tsx
-import { ActionPopup, ConfirmModal, DeleteModal } from '@ensi-platform/admin-ui-base';
+import { ActionPopup, ConfirmModal, DeleteModal } from '@ensi-platform/admin-ui';
 ```
 
 ## When to use

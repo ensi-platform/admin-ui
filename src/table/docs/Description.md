@@ -1,6 +1,6 @@
 # Table
 
-Compound data-table chrome for admin lists. Import: `import { Table, useTableRowSelection } from '@ensi-platform/admin-ui-base'`.
+Compound data-table chrome for admin lists. Import: `import { Table, useTableRowSelection } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

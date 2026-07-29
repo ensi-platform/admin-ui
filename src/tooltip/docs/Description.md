@@ -1,6 +1,6 @@
 # Tooltip
 
-Подсказка на hover/focus. Импорт: `import { Tooltip } from '@ensi-platform/admin-ui-base'`.
+Подсказка на hover/focus. Импорт: `import { Tooltip } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

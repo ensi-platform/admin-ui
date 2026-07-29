@@ -1,7 +1,7 @@
 Диалоги подтверждения поверх `Modal`.
 
 ```tsx
-import { ActionPopup, ConfirmModal, DeleteModal } from '@ensi-platform/admin-ui-base';
+import { ActionPopup, ConfirmModal, DeleteModal } from '@ensi-platform/admin-ui';
 ```
 
 ## Когда использовать

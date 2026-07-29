@@ -1,6 +1,6 @@
 # TextArea
 
-Многострочный текстовый контрол на React Aria `TextArea`. Импорт: `import { TextArea, FormTextArea } from '@ensi-platform/admin-ui-base'`.
+Многострочный текстовый контрол на React Aria `TextArea`. Импорт: `import { TextArea, FormTextArea } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

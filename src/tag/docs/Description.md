@@ -1,6 +1,6 @@
 # Tag
 
-Метка / фильтр-чип с optional remove. Импорт: `import { Tag } from '@ensi-platform/admin-ui-base'`.
+Метка / фильтр-чип с optional remove. Импорт: `import { Tag } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

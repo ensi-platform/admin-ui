@@ -1,6 +1,6 @@
 # MultiSelect
 
-Мультивыбор на React Aria `Select` (`selectionMode="multiple"`). Импорт: `import { MultiSelect, FormMultiSelect } from '@ensi-platform/admin-ui-base'`.
+Мультивыбор на React Aria `Select` (`selectionMode="multiple"`). Импорт: `import { MultiSelect, FormMultiSelect } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

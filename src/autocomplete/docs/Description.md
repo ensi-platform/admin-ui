@@ -1,6 +1,6 @@
 # Autocomplete
 
-Single-select autocomplete на React Aria `ComboBox`. Импорт: `import { Autocomplete, FormAutocomplete } from '@ensi-platform/admin-ui-base'`.
+Single-select autocomplete на React Aria `ComboBox`. Импорт: `import { Autocomplete, FormAutocomplete } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

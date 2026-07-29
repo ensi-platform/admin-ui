@@ -2,7 +2,7 @@
 
 > Статус: `ready`
 > База: `custom` + `lib: react-aria-components` (`Label` / `Text`)
-> Пакет: `admin-ui-base`
+> Пакет: `admin-ui`
 
 ## Зачем
 

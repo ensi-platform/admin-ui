@@ -2,7 +2,7 @@
 
 > Статус: `ready`  
 > База: `custom`  
-> Пакет: `admin-ui-base`
+> Пакет: `admin-ui`
 
 ## Зачем
 

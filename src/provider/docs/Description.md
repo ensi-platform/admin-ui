@@ -1,6 +1,6 @@
 # AdminUiProvider
 
-Корневой провайдер пакета: portal isolation, RTL и словарь встроенных строк. Импорт: `import { AdminUiProvider, useAuiLabels } from '@ensi-platform/admin-ui-base'`.
+Корневой провайдер пакета: portal isolation, RTL и словарь встроенных строк. Импорт: `import { AdminUiProvider, useAuiLabels } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 
@@ -24,8 +24,8 @@
 ## Пример
 
 ```tsx
-import '@ensi-platform/admin-ui-base/tokens';
-import { AdminUiProvider, useAuiLabels } from '@ensi-platform/admin-ui-base';
+import '@ensi-platform/admin-ui/tokens';
+import { AdminUiProvider, useAuiLabels } from '@ensi-platform/admin-ui';
 
 <AdminUiProvider locale="ru-RU" labels={{ close: t('aui.close'), clear: t('aui.clear') }}>
     <App />

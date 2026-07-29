@@ -46,16 +46,16 @@ src/<name>/docs/
 
 ````md
 ```tsx
-import { Name } from '@ensi-platform/admin-ui-base';
+import { Name } from '@ensi-platform/admin-ui';
 ```
 ````
 
 3. `## Когда использовать` / `## When to use` — 2–4 буллета; при путанице с соседом: «не для … — см. Other».
 4. `## API (кратко)` / `## API (short)` — **таблица**:
 
-| Prop | Значения | По умолчанию | Описание |
-| --- | --- | --- | --- |
-| `size` | `sm` \| `md` \| `lg` | `md` | … |
+| Prop   | Значения             | По умолчанию | Описание |
+| ------ | -------------------- | ------------ | -------- |
+| `size` | `sm` \| `md` \| `lg` | `md`         | …        |
 
 Только смысловые пропы (размер, вариант, состояние, value/onChange если неочевидно, слоты, `dataTestId`, `as`). Не каталог всего HTML/ARIA passthrough.
 

@@ -1,6 +1,6 @@
 # TimeField
 
-Поле времени на React Aria `TimeField`. Импорт: `import { TimeField, FormTimeField } from '@ensi-platform/admin-ui-base'`.
+Поле времени на React Aria `TimeField`. Импорт: `import { TimeField, FormTimeField } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

@@ -1,6 +1,6 @@
 # Select
 
-Single-select на React Aria `Select`. Импорт: `import { Select, FormSelect } from '@ensi-platform/admin-ui-base'`.
+Single-select на React Aria `Select`. Импорт: `import { Select, FormSelect } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

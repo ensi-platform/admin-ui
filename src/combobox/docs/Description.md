@@ -1,6 +1,6 @@
 # Combobox
 
-Shared list + trigger chrome for Select / MultiSelect / Autocomplete. Import: `import { ComboboxList, ComboboxTrigger, … } from '@ensi-platform/admin-ui-base'`.
+Shared list + trigger chrome for Select / MultiSelect / Autocomplete. Import: `import { ComboboxList, ComboboxTrigger, … } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

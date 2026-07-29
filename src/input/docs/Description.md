@@ -1,6 +1,6 @@
 # Input
 
-Текстовый контрол на React Aria `Input`. Импорт: `import { Input, FormInput } from '@ensi-platform/admin-ui-base'`.
+Текстовый контрол на React Aria `Input`. Импорт: `import { Input, FormInput } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

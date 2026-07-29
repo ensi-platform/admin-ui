@@ -1,6 +1,6 @@
 # Modal
 
-Примитив модального окна на React Aria `ModalOverlay` + `Dialog`. Импорт: `import { Modal } from '@ensi-platform/admin-ui-base'`.
+Примитив модального окна на React Aria `ModalOverlay` + `Dialog`. Импорт: `import { Modal } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

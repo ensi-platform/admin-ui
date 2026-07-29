@@ -1,6 +1,6 @@
 # Switch
 
-On/off тумблер на React Aria `Switch`. Импорт: `import { Switch, FormSwitch } from '@ensi-platform/admin-ui-base'`.
+On/off тумблер на React Aria `Switch`. Импорт: `import { Switch, FormSwitch } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

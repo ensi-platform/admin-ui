@@ -1,6 +1,6 @@
 # Tabs
 
-Underline-табы с sliding indicator. Импорт: `import { Tabs } from '@ensi-platform/admin-ui-base'`.
+Underline-табы с sliding indicator. Импорт: `import { Tabs } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

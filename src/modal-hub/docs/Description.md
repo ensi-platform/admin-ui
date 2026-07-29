@@ -1,6 +1,6 @@
 # ModalHub
 
-Imperative-слой поверх `Modal` / `Drawer`: стек в React Context. Импорт: `import { ModalProvider, ModalHub, useModal, useModalAsync } from '@ensi-platform/admin-ui-base'`.
+Imperative-слой поверх `Modal` / `Drawer`: стек в React Context. Импорт: `import { ModalProvider, ModalHub, useModal, useModalAsync } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

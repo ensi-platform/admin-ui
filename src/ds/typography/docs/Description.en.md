@@ -1,7 +1,7 @@
 Text role classes. Family: **Inter** via `--aui-font-sans` (loaded with tokens).
 
 ```tsx
-import { typographyStyles } from '@ensi-platform/admin-ui-base';
+import { typographyStyles } from '@ensi-platform/admin-ui';
 ```
 
 ## When to use

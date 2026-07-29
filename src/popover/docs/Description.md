@@ -1,6 +1,6 @@
 # Popover
 
-Оверлей у триггера с интерактивным контентом. Импорт: `import { Popover } from '@ensi-platform/admin-ui-base'`.
+Оверлей у триггера с интерактивным контентом. Импорт: `import { Popover } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

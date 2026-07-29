@@ -1,6 +1,6 @@
 # Checkbox
 
-Boolean-флаг на React Aria `Checkbox`. Импорт: `import { Checkbox, FormCheckbox } from '@ensi-platform/admin-ui-base'`.
+Boolean-флаг на React Aria `Checkbox`. Импорт: `import { Checkbox, FormCheckbox } from '@ensi-platform/admin-ui'`.
 
 Группа (`string[]`) — отдельный примитив `CheckboxGroup` / `FormCheckboxGroup`.
 

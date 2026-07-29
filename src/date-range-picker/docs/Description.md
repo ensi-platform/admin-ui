@@ -1,6 +1,6 @@
 # DateRangePicker
 
-Поле диапазона дат на React Aria `DateRangePicker` + вертикальный календарь. Импорт: `import { DateRangePicker, FormDateRangePicker } from '@ensi-platform/admin-ui-base'`.
+Поле диапазона дат на React Aria `DateRangePicker` + вертикальный календарь. Импорт: `import { DateRangePicker, FormDateRangePicker } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

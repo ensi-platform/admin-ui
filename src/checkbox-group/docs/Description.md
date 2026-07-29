@@ -1,6 +1,6 @@
 # CheckboxGroup
 
-Группа чекбоксов (`string[]`) на React Aria `CheckboxGroup`. Импорт: `import { Checkbox, CheckboxGroup, FormCheckboxGroup } from '@ensi-platform/admin-ui-base'`.
+Группа чекбоксов (`string[]`) на React Aria `CheckboxGroup`. Импорт: `import { Checkbox, CheckboxGroup, FormCheckboxGroup } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

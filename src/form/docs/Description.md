@@ -1,6 +1,6 @@
 # Form
 
-Обёртка над react-hook-form + zod. Импорт: `import { Form, useFieldHook, getError } from '@ensi-platform/admin-ui-base'`.
+Обёртка над react-hook-form + zod. Импорт: `import { Form, useFieldHook, getError } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

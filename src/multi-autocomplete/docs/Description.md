@@ -1,6 +1,6 @@
 # MultiAutocomplete
 
-Мультивыбор autocomplete на React Aria `ComboBox` (`selectionMode="multiple"`). Импорт: `import { MultiAutocomplete, FormMultiAutocomplete } from '@ensi-platform/admin-ui-base'`.
+Мультивыбор autocomplete на React Aria `ComboBox` (`selectionMode="multiple"`). Импорт: `import { MultiAutocomplete, FormMultiAutocomplete } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

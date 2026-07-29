@@ -1,7 +1,7 @@
 Кнопка для действий в интерфейсе.
 
 ```tsx
-import { Button } from '@ensi-platform/admin-ui-base';
+import { Button } from '@ensi-platform/admin-ui';
 ```
 
 ## Когда использовать

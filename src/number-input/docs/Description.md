@@ -1,6 +1,6 @@
 # NumberInput
 
-Числовой контрол на React Aria `NumberField`. Импорт: `import { NumberInput, FormNumberInput } from '@ensi-platform/admin-ui-base'`.
+Числовой контрол на React Aria `NumberField`. Импорт: `import { NumberInput, FormNumberInput } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

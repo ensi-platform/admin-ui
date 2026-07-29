@@ -1,6 +1,6 @@
 # BottomSheet
 
-Примитив мобильной шторки снизу на React Aria `ModalOverlay` + `Dialog`. Импорт: `import { BottomSheet } from '@ensi-platform/admin-ui-base'`.
+Примитив мобильной шторки снизу на React Aria `ModalOverlay` + `Dialog`. Импорт: `import { BottomSheet } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

@@ -1,6 +1,6 @@
 # Loader
 
-Локальная вуаль + спиннер поверх контента на время fetch. Импорт: `import { Loader } from '@ensi-platform/admin-ui-base'`.
+Локальная вуаль + спиннер поверх контента на время fetch. Импорт: `import { Loader } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 

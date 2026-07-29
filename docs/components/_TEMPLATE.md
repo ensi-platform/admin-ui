@@ -2,7 +2,7 @@
 
 > Статус: `planned` | `wip` | `partial` | `ready`  
 > База: `custom` | `lib: …` | `TBD`  
-> Пакет: `admin-ui-base` | `admin-ui-layout` | `admin-ui-kit`
+> Пакет: `admin-ui` | `admin-ui-layout` | `admin-ui-kit`
 
 ## Зачем
 

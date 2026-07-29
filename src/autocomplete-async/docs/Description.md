@@ -1,6 +1,6 @@
 # AutocompleteAsync
 
-Single autocomplete with injected suggest hook. Импорт: `import { AutocompleteAsync, FormAutocompleteAsync } from '@ensi-platform/admin-ui-base'`.
+Single autocomplete with injected suggest hook. Импорт: `import { AutocompleteAsync, FormAutocompleteAsync } from '@ensi-platform/admin-ui'`.
 
 ## Когда использовать
 
