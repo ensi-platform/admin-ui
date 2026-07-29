@@ -10,7 +10,7 @@ const config: StorybookConfig = {
     staticDirs: ['./static'],
     addons: ['@storybook/addon-docs', '@storybook/addon-themes'],
     managerHead: head => `${head}
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/svg+xml" href="./favicon.svg" />
 <style>
 html[data-aui-manager-theme='dark'] [role='listbox'] [role='option'] {
   color: #888888 !important;
