@@ -3,7 +3,8 @@ import { withThemeByDataAttribute } from '@storybook/addon-themes';
 import { ModalHub, ModalProvider } from '../src/modal-hub';
 import { AdminUiProvider, type IAuiLabels } from '../src/provider';
 
-import { auiDark, auiLight } from './themes';
+import { DocsContainer } from './DocsContainer';
+import { DocsPage } from './DocsPage';
 
 import type { Decorator, Preview } from '@storybook/react';
 
@@ -29,13 +30,7 @@ const RU_LABELS: IAuiLabels = {
 };
 
 const withProvider: Decorator = (Story, context) => {
-    const theme = (context.globals.theme as string) || 'light';
     const locale = (context.globals.locale as string) || 'ru-RU';
-
-    context.parameters.docs = {
-        ...context.parameters.docs,
-        theme: theme === 'dark' ? auiDark : auiLight,
-    };
 
     return (
         <AdminUiProvider locale={locale} labels={locale.startsWith('ru') ? RU_LABELS : undefined}>
@@ -62,11 +57,10 @@ const preview: Preview = {
         locale: {
             description: 'UI locale',
             toolbar: {
-                title: 'Locale',
                 icon: 'globe',
                 items: [
-                    { value: 'ru-RU', title: 'ru-RU' },
-                    { value: 'en-US', title: 'en-US' },
+                    { value: 'ru-RU', title: 'RU', right: 'Русский' },
+                    { value: 'en-US', title: 'EN', right: 'English' },
                 ],
                 dynamicTitle: true,
             },
@@ -88,6 +82,9 @@ const preview: Preview = {
         withProvider,
     ],
     parameters: {
+        themes: {
+            disable: true,
+        },
         controls: {
             expanded: true,
             matchers: {
@@ -100,7 +97,8 @@ const preview: Preview = {
             disable: true,
         },
         docs: {
-            theme: auiLight,
+            container: DocsContainer,
+            page: DocsPage,
         },
     },
 };

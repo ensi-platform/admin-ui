@@ -1,5 +1,6 @@
 .root {
     isolation: isolate;
+    font-family: var(--aui-font-sans);
 }
 
 .root,

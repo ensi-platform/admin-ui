@@ -1,0 +1,69 @@
+---
+description: Storybook stories UI-примитива — структура, title, кейсы
+globs: src/**/docs/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Stories
+
+```
+src/<name>/docs/
+  Description.ru.md
+  Description.en.md
+  index.stories.tsx    # один файл на примитив
+  index.tsx            # StoryComponent wrapper (если нужен)
+```
+
+Отдельный `form-*.stories.tsx` не заводить.
+
+Эталоны: `button/docs` (простой), `input/docs` / `select/docs` (поле + форма).
+
+## StoryComponent (`docs/index.tsx`)
+
+Тонкая обёртка для таблицы пропсов в Docs:
+
+```tsx
+/** Story wrapper for react-docgen-typescript. */
+export const ButtonStoryComponent = (props: TButtonProps) => <Button {...props} />;
+ButtonStoryComponent.displayName = 'Button';
+```
+
+Сложное демо (табы, модалка) можно собрать в стори и задать `displayName`, без `index.tsx`.
+
+## Meta
+
+- CSF3: `Meta` / `StoryObj`, `satisfies Meta<typeof …>`
+- `docsDescriptionByLocale: { ru, en }` — см. `component-docs` (не `docs.description.component` для нового формата)
+- `controls: { expanded: true }`
+- `DEFAULT_ARGS` + `DEFAULT_ARG_TYPES` (select/boolean для основных пропов)
+- `component:` = StoryComponent / Demo
+
+## Title в сайдбаре
+
+| Тип | title |
+| --- | --- |
+| Обычный | `'Button'`, `'Modal'`, `'Tabs'` |
+| Form / Field / контрол | `'Form/Input'`, `'Form/Field'`, `'Form/Form'` |
+| Select и похожие | `'Form/Combobox/Select'`, … |
+| Дата / время | `'Form/DateField/DatePicker'`, … |
+
+## Какие примеры делать
+
+Только то, что полезно увидеть. Полный API — в Description / `types.ts`.
+
+Типичный набор:
+
+- `Default` — обычный вид + controls
+- `Sizes` / `Variants` — ряды через `render`
+- `Disabled` / `Invalid` / `Clear` — через `args` (при общем layout: `render: Default.render`)
+- Form-версия: `WithForm` (`Form` + Form-компонент + submit); при необходимости `WithField`
+- `Controlled` — только если управление значением снаружи неочевидно
+
+Имена экспортов сторей — английские (`Default`, `WithIcon`).  
+Тексты на кнопках/в полях — как в продукте (русский нормален).
+
+## Импорты
+
+- StoryComponent: `from '.'`
+- свой Form* / типы: relative `../`
+- чужие примитивы пакета: `@/button`, `@/form`, …

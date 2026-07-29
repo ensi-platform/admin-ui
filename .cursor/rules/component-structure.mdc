@@ -23,7 +23,8 @@ src/<name>/
     form-<name>.test.tsx
     utils.test.ts       # если utils.ts покрывается отдельно
   docs/                 # обязательно для публичного примитива
-    Description.md
+    Description.ru.md
+    Description.en.md
     index.stories.tsx
 ```
 

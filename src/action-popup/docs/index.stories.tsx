@@ -6,7 +6,8 @@ import { Button } from '@/button';
 
 import { type IActionPopupProps, type TConfirmModalProps } from '../types';
 
-import Description from './Description.md';
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
 
 import { ActionPopupStoryComponent, ConfirmModalStoryComponent, DeleteModalStoryComponent } from '.';
 
@@ -77,10 +78,9 @@ export default {
     title: 'ActionPopup',
     component: ConfirmModalStoryComponent,
     parameters: {
-        docs: {
-            description: {
-                component: Description,
-            },
+        docsDescriptionByLocale: {
+            ru: DescriptionRu,
+            en: DescriptionEn,
         },
         controls: {
             expanded: true,
@@ -96,7 +96,7 @@ export const Delete: StoryObj = {
     render: () => <DeleteDemo />,
 };
 
-export const CustomActionPopup: StoryObj = {
+export const Custom: StoryObj = {
     render: () => (
         <ActionPopupDemo title="Отвязать товары?" tone="danger" confirmLabel="Отвязать" cancelLabel="Не отвязывать">
             Товары будут отвязаны от скидки.

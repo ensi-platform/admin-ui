@@ -61,7 +61,7 @@
     --aui-control-h-lg: 48px;
 
     /* typography */
-    --aui-font-sans: system-ui, sans-serif;
+    --aui-font-sans: 'Inter', system-ui, sans-serif;
     --aui-font-size-xs: 0.75rem;
     --aui-font-size-sm: 0.875rem;
     --aui-font-size-md: 1rem;

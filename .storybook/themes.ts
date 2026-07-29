@@ -1,10 +1,14 @@
 import { create } from 'storybook/theming';
 
+const fontBase = '"Inter", system-ui, sans-serif';
+
 export const auiLight = create({
     base: 'light',
-    brandTitle: 'admin-ui-base',
+    brandTitle: 'Ensi Admin-UI',
     brandUrl: 'https://ensi.tech',
+    brandImage: '/logo-light.svg',
     brandTarget: '_self',
+    fontBase,
     colorPrimary: '#3d3d3d',
     colorSecondary: '#3d3d3d',
     appBg: '#ffffff',
@@ -26,11 +30,13 @@ export const auiLight = create({
 
 export const auiDark = create({
     base: 'dark',
-    brandTitle: 'admin-ui-base',
+    brandTitle: 'Ensi Admin-UI',
     brandUrl: 'https://ensi.tech',
+    brandImage: '/logo-dark.svg',
     brandTarget: '_self',
+    fontBase,
     colorPrimary: '#f0f2f4',
-    colorSecondary: '#f0f2f4',
+    colorSecondary: '#888888',
     appBg: '#1b1d22',
     appContentBg: '#232526',
     appPreviewBg: '#1b1d22',
@@ -40,7 +46,7 @@ export const auiDark = create({
     textMutedColor: '#888888',
     barBg: '#232526',
     barTextColor: '#888888',
-    barSelectedColor: '#f0f2f4',
+    barSelectedColor: '#888888',
     barHoverColor: '#ffffff',
     inputBg: '#232526',
     inputBorder: '#3f4248',

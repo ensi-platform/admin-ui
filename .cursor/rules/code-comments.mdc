@@ -15,7 +15,7 @@ All code comments and JSDoc — **English only**.
 Allowed in product language (not comments):
 
 - UI copy in stories / tests / fixtures
-- `Description.md` and other human docs (see `component-docs`)
+- `Description.ru.md` / `Description.en.md` and other human docs (see `component-docs`)
 
 ## Style
 

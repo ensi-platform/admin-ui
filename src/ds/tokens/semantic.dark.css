@@ -146,7 +146,7 @@
     --aui-combobox-border-danger: var(--aui-input-border-danger);
     --aui-combobox-popover-bg-primary: var(--aui-surface-bg-elevated);
     --aui-combobox-popover-border-primary: var(--aui-surface-border-primary);
-    --aui-combobox-item-bg-hover: var(--aui-surface-bg-muted);
+    --aui-combobox-item-bg-hover: var(--aui-surface-bg-muted-hover);
     --aui-combobox-item-fg-primary: var(--aui-page-fg-primary);
     --aui-combobox-skeleton-bg-primary: var(--aui-surface-bg-muted);
     --aui-combobox-skeleton-bg-shine: var(--aui-surface-bg-elevated);

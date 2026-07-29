@@ -1,72 +1,96 @@
 ---
-description: Документация примитива — Description.md, stories, канал для АП
+description: Описание примитива — Description.ru.md / Description.en.md, канал для АП
 globs: src/**/docs/**
 alwaysApply: false
 ---
 
-# Документация компонента
+# Описание компонента
 
 ```
 src/<name>/docs/
-  Description.md       # контракт для людей и AI
-  index.stories.tsx    # визуальные кейсы
+  Description.ru.md    # контракт (RU) — Docs по умолчанию
+  Description.en.md    # тот же контракт (EN)
+  index.stories.tsx    # визуальные кейсы — см. component-stories
+  index.tsx            # StoryComponent wrapper (если нужен)
 ```
 
-Оба файла обязательны для публичного примитива.
+`Description.ru.md`, `Description.en.md` и `index.stories.tsx` обязательны для публичного примитива.
 
-## Description.md
+Эталон: `src/button/docs/`.
 
-Короткий контракт. Шаблон:
+## Языки
 
-```md
-# <Name>
+- два файла с **одинаковыми разделами и фактами**; отличается перевод и UI-строки в примерах (`Сохранить` / `Save`);
+- имена пропсов, компонентов и `import` — как в коде;
+- в Storybook Docs текст выбирается по тулбару Locale через `docsDescriptionByLocale` (см. `.storybook/DocsPage.tsx`).
 
-Примитив …. Импорт: `import { <Name> } from '@ensi-platform/admin-ui-base'`.
+### RU-проза
 
-## Когда использовать
+В `Description.ru.md` и RU UI-копирайте сторей — нормальный русский, без гибридных англицизмов.
 
-- …
+**Запрещено** склеивать латинское слово с русским через дефис или в одном составном слове:
 
-## API (кратко)
+- плохо: `Confirm-диалоги`, `Modal-окно`, `escape-выход`
+- хорошо: «диалоги подтверждения», «окно `Modal`», «через `useModal`»
 
-Chrome (`Button` / `Input` / …):
+Имена из кода (`ConfirmModal`, `tone`, `onConfirm`) — только в `` `backticks` ``, не вплетать в русское слово. В EN-файле это правило не действует.
 
-- `size`: sm | md | lg
-- `variant`: primary (пока)
+## Формат Description
 
-Layout (`Field`): только `size`. Status (`Badge`): semantic `variant`. Skip (`Form` / `Icon` / `CheckboxGroup` / `Form*` / …): size×variant N/A (см. `component-api`).
+**Без** `# Заголовок` в md — имя компонента уже показывает Storybook.
 
-- `icon`: `{ Component, after?, … }` (если есть)
-- `dataTestId`
-- `as` — полиморфизм (если есть)
+Порядок секций:
 
-## Пример
+1. Одна фраза: что это за компонент.
+2. Блок импорта:
 
-\`\`\`tsx
-<<Name> … />
-\`\`\`
+````md
+```tsx
+import { Name } from '@ensi-platform/admin-ui-base';
+```
+````
 
-## Не делать
+3. `## Когда использовать` / `## When to use` — 2–4 буллета; при путанице с соседом: «не для … — см. Other».
+4. `## API (кратко)` / `## API (short)` — **таблица**:
 
-- не копировать стили компонента в АП
-- не дублировать примитив обёрткой без нужды
+| Prop | Значения | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `size` | `sm` \| `md` \| `lg` | `md` | … |
+
+Только смысловые пропы (размер, вариант, состояние, value/onChange если неочевидно, слоты, `dataTestId`, `as`). Не каталог всего HTML/ARIA passthrough.
+
+Если есть пара поле + Form-версия — подразделы `### Name` и `### FormName` (отдельные таблицы или блоки).
+
+5. `## Пример` / `## Example` — рабочий JSX (solo; + Form, если есть Form-версия).
+
+Секции «Не делать» / «Частые ошибки» / «Don't» **не писать**.
+
+## Подключение в stories
+
+```ts
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
+
+parameters: {
+  docsDescriptionByLocale: {
+    ru: DescriptionRu,
+    en: DescriptionEn,
+  },
+}
 ```
 
-## Stories
+Не склеивать RU+EN в одну строку. Не дублировать полный API в стори — он в Description и `types.ts`.
 
-Только визуальные варианты (`Default`, `WithIcon`, …). Полный API не дублировать — он в `Description.md` и `types.ts`.
+## Legacy
 
-Для контролов с FormX (`FormInput` / …): один `index.stories.tsx`, title = `Form/<Name>`.
+Старый одиночный `Description.md` + `docs.description.component` ещё встречается. При правке docs компонента — мигрировать на `Description.ru.md` / `Description.en.md` и `docsDescriptionByLocale`.
 
-Form-related (`Form`, `Field`, контролы) — группа `Form/`; остальное — корень.
+## Стори
 
-- `Default` — примитив без Form
-- `WithForm` — `Form` + FormX + submit
-
-Отдельный `form-*.stories.tsx` / title `Form*` не заводить.
+Формат `index.stories.tsx` — правило `component-stories`.
 
 ## Канал для АП
 
 - source of truth — `docs/` в этом пакете
-- для АП позже: `@ensi-platform/skills` + `agents.skills` + sync (`skill-indexer`) → `.cursor/skills/`
-- skill `admin-ui` ссылается на Description / types / stories пакета, не копирует длинные тексты
+- для АП позже: `@ensi-platform/skills` + sync → `.cursor/skills/`
+- skill `admin-ui` ссылается на Description / types / stories, не копирует длинные тексты

@@ -1,13 +1,16 @@
 import { type ArgTypes, type Meta, type StoryObj } from '@storybook/react';
 
+import { Check } from '@/icons';
+
 import { type IButtonBaseProps, type TButtonProps } from '../types';
 
-import Description from './Description.md';
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
 
 import { ButtonStoryComponent } from '.';
 
 const DEFAULT_ARGS: IButtonBaseProps = {
-    children: 'Save',
+    children: 'Сохранить',
     size: 'md',
     variant: 'primary',
     block: false,
@@ -23,10 +26,9 @@ export default {
     title: 'Button',
     component: ButtonStoryComponent,
     parameters: {
-        docs: {
-            description: {
-                component: Description,
-            },
+        docsDescriptionByLocale: {
+            ru: DescriptionRu,
+            en: DescriptionEn,
         },
         controls: {
             expanded: true,
@@ -51,7 +53,7 @@ export const AsLink: StoryObj<TButtonProps<'a'>> = {
     args: {
         as: 'a',
         href: '#',
-        children: 'Link button',
+        children: 'К заказам',
     },
 };
 
@@ -61,12 +63,29 @@ export const Block: StoryObj<TButtonProps> = {
     },
 };
 
+export const Sizes: StoryObj<TButtonProps> = {
+    render: () => (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <ButtonStoryComponent size="sm">sm</ButtonStoryComponent>
+            <ButtonStoryComponent size="md">md</ButtonStoryComponent>
+            <ButtonStoryComponent size="lg">lg</ButtonStoryComponent>
+        </div>
+    ),
+};
+
 export const Variants: StoryObj<TButtonProps> = {
     render: () => (
         <div style={{ display: 'flex', gap: 8 }}>
-            <ButtonStoryComponent variant="primary">Primary</ButtonStoryComponent>
-            <ButtonStoryComponent variant="secondary">Secondary</ButtonStoryComponent>
-            <ButtonStoryComponent variant="danger">Danger</ButtonStoryComponent>
+            <ButtonStoryComponent variant="primary">Основная</ButtonStoryComponent>
+            <ButtonStoryComponent variant="secondary">Второстепенная</ButtonStoryComponent>
+            <ButtonStoryComponent variant="danger">Опасная</ButtonStoryComponent>
         </div>
     ),
+};
+
+export const WithIcon: StoryObj<TButtonProps> = {
+    args: {
+        children: 'Сохранить',
+        icon: { Component: Check },
+    },
 };
