@@ -7,7 +7,12 @@ import { Button } from '@/button';
 import { ToastRegion, ToastProvider, useToast } from '../index';
 import { type IToastAddOptions, type IToastContent, type TToastVariant } from '../types';
 
-import Description from './Description.md';
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
+
+import { docsCssVariables } from './cssVariables';
 
 const VARIANTS: TToastVariant[] = ['neutral', 'success', 'warning', 'danger', 'info'];
 
@@ -21,7 +26,7 @@ interface IToastStoryArgs {
 }
 
 const DEFAULT_ARGS: IToastStoryArgs = {
-    title: 'Сохранено',
+    title: 'Saved',
     description: '',
     timeout: 5000,
     variant: 'neutral',
@@ -88,13 +93,17 @@ const ToastDemoShell = ({
 );
 
 export default {
-    title: 'Toast',
+    title: 'Overlays/Toast',
     parameters: {
-        docs: {
-            description: {
-                component: Description,
-            },
+        docsDescriptionByLocale: {
+            ru: DescriptionRu,
+            en: DescriptionEn,
         },
+        docsExampleByLocale: {
+            ru: ExampleRu,
+            en: ExampleEn,
+        },
+        docsCssVariables,
         controls: {
             expanded: true,
         },
@@ -110,7 +119,7 @@ export const Default: StoryObj<IToastStoryArgs> = {
                 content={{ title, description: description || undefined, variant }}
                 options={{ timeout }}
             >
-                Показать toast
+                Show toast
             </AppendToastButton>
         </ToastDemoShell>
     ),
@@ -142,8 +151,8 @@ export const Variants: StoryObj<IToastStoryArgs> = {
 
 export const WithDescription: StoryObj<IToastStoryArgs> = {
     args: {
-        title: 'Не удалось сохранить',
-        description: 'Проверьте соединение и повторите попытку.',
+        title: 'Could not save',
+        description: 'Check your connection and try again.',
         variant: 'danger',
     },
     render: ({ title, description, timeout, variant, maxVisibleToasts, defaultTimeout }) => (
@@ -152,7 +161,7 @@ export const WithDescription: StoryObj<IToastStoryArgs> = {
                 content={{ title, description: description || undefined, variant }}
                 options={{ timeout }}
             >
-                Toast с description
+                Toast with description
             </AppendToastButton>
         </ToastDemoShell>
     ),
@@ -160,7 +169,7 @@ export const WithDescription: StoryObj<IToastStoryArgs> = {
 
 export const CustomTimeout: StoryObj<IToastStoryArgs> = {
     args: {
-        title: 'Исчезнет через 8 с',
+        title: 'Dismisses in 8s',
     },
     argTypes: {
         timeout: { control: false },
