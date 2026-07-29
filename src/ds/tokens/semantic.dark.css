@@ -201,6 +201,21 @@
     --aui-modal-close-fg-hover: var(--aui-page-fg-primary);
     --aui-modal-close-border-focus: var(--aui-control-border-focus);
 
+    /* toast */
+    --aui-toast-bg-neutral: var(--aui-surface-bg-muted);
+    --aui-toast-accent-neutral: var(--aui-grey-400);
+    --aui-toast-bg-success: color-mix(in srgb, var(--aui-green-500) 22%, var(--aui-surface-bg-primary));
+    --aui-toast-accent-success: var(--aui-green-500);
+    --aui-toast-bg-warning: color-mix(in srgb, var(--aui-yellow-500) 22%, var(--aui-surface-bg-primary));
+    --aui-toast-accent-warning: var(--aui-yellow-500);
+    --aui-toast-bg-danger: color-mix(in srgb, var(--aui-red-500) 22%, var(--aui-surface-bg-primary));
+    --aui-toast-accent-danger: var(--aui-red-500);
+    --aui-toast-bg-info: color-mix(in srgb, var(--aui-blue-500) 22%, var(--aui-surface-bg-primary));
+    --aui-toast-accent-info: var(--aui-blue-500);
+    --aui-toast-fg-title: var(--aui-page-fg-primary);
+    --aui-toast-fg-description: var(--aui-page-fg-muted);
+    --aui-toast-close-border-focus: var(--aui-control-border-focus);
+
     /* drawer */
     --aui-drawer-overlay-bg-primary: var(--aui-overlay-bg-primary);
     --aui-drawer-bg-primary: var(--aui-surface-bg-elevated);

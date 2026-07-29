@@ -34,5 +34,6 @@ export * from './tabs';
 export * from './tag';
 export * from './textarea';
 export * from './time-field';
+export * from './toast';
 export * from './tooltip';
 export * from './ds/typography';

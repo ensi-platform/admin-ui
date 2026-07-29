@@ -147,6 +147,10 @@
             "types": "./dist/time-field/index.d.ts",
             "import": "./dist/time-field/index.js"
         },
+        "./toast": {
+            "types": "./dist/toast/index.d.ts",
+            "import": "./dist/toast/index.js"
+        },
         "./tooltip": {
             "types": "./dist/tooltip/index.d.ts",
             "import": "./dist/tooltip/index.js"
