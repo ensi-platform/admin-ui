@@ -1,0 +1,107 @@
+.region {
+    position: fixed;
+    top: var(--aui-toast-inset-top);
+    inset-inline-end: var(--aui-toast-inset-end);
+    z-index: var(--aui-toast-z);
+    display: flex;
+    flex-direction: column;
+    gap: var(--aui-toast-gap);
+    width: var(--aui-toast-max-w);
+    overflow: visible;
+    pointer-events: none;
+}
+
+.root {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--aui-toast-gap);
+    box-sizing: border-box;
+    width: var(--aui-toast-max-w);
+    overflow: visible;
+    padding: var(--aui-toast-pad-y) var(--aui-toast-pad-x);
+    border-radius: var(--aui-toast-radius);
+    border-inline-start: var(--aui-toast-accent-w) solid var(--aui-toast-accent);
+    box-shadow: var(--aui-toast-shadow);
+    pointer-events: auto;
+    view-transition-class: aui-toast;
+}
+
+:global {
+    ::view-transition-new(.aui-toast):only-child {
+        animation: aui-toast-enter var(--aui-toast-duration-motion) var(--aui-toast-ease-out);
+    }
+
+    ::view-transition-old(.aui-toast):only-child {
+        animation: aui-toast-exit var(--aui-toast-duration-motion) var(--aui-toast-ease-out);
+    }
+
+    @keyframes aui-toast-enter {
+        from {
+            opacity: 0;
+            translate: 0 -8px;
+        }
+    }
+
+    @keyframes aui-toast-exit {
+        to {
+            opacity: 0;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        ::view-transition-new(.aui-toast):only-child,
+        ::view-transition-old(.aui-toast):only-child {
+            animation: none;
+        }
+    }
+}
+
+.neutral {
+    background: var(--aui-toast-bg-neutral);
+    --aui-toast-accent: var(--aui-toast-accent-neutral);
+}
+
+.success {
+    background: var(--aui-toast-bg-success);
+    --aui-toast-accent: var(--aui-toast-accent-success);
+}
+
+.warning {
+    background: var(--aui-toast-bg-warning);
+    --aui-toast-accent: var(--aui-toast-accent-warning);
+}
+
+.danger {
+    background: var(--aui-toast-bg-danger);
+    --aui-toast-accent: var(--aui-toast-accent-danger);
+}
+
+.info {
+    background: var(--aui-toast-bg-info);
+    --aui-toast-accent: var(--aui-toast-accent-info);
+}
+
+.content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--aui-toast-content-gap);
+    min-width: 0;
+}
+
+.title {
+    color: var(--aui-toast-fg-title);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.description {
+    color: var(--aui-toast-fg-description);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
