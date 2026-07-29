@@ -1,0 +1,24 @@
+---
+description: Test-first when the change is covered by automated tests
+alwaysApply: true
+---
+
+# Test-first (TDD)
+
+When the work is (or should be) covered by automated tests:
+
+1. Write / update the failing test first
+2. Run it and confirm it fails for the right reason
+3. Implement the minimal change to make it pass
+4. Re-run the test(s)
+
+## Applies when
+
+- Changing behavior of code that already has tests
+- Adding behavior that the project normally covers with unit/integration tests (UI primitives, utils, hooks, etc.)
+
+## Does not apply when
+
+- Pure docs, tokens/CSS-only visual tweaks without behavioral contract
+- Exploratory spikes where the user explicitly asked to skip tests
+- Changes outside the project's usual test surface

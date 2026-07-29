@@ -8,7 +8,6 @@ export const TableRow = ({
     ref,
     children,
     checked = false,
-    active = false,
     disabled = false,
     bottomBorder = true,
     onClick,
@@ -27,11 +26,9 @@ export const TableRow = ({
             tabIndex={clickable ? (tabIndex ?? 0) : tabIndex}
             className={cn(styles.root, className)}
             data-checked={checked || undefined}
-            data-active={active || undefined}
             data-disabled={disabled || undefined}
             data-bottom-border={bottomBorder ? undefined : 'false'}
             data-clickable={clickable || undefined}
-            aria-current={active || undefined}
             aria-disabled={disabled || undefined}
             data-test-id={dataTestId}
         >

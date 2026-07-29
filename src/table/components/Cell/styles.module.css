@@ -10,14 +10,12 @@
     box-shadow: inset 0 -1px 0 var(--aui-table-border-primary);
 }
 
-:global(tbody tr[data-checked]) .root,
-:global(tbody tr[data-active]) .root {
+:global(tbody tr[data-checked]) .root {
     box-shadow: inset 0 -1px 0 var(--aui-table-border-on-fill);
 }
 
-/* Line above checked/active = previous row's bottom (same tone). */
-:global(tbody tr:has(+ tr[data-checked])) .root,
-:global(tbody tr:has(+ tr[data-active])) .root {
+/* Line above checked = previous row's bottom (same tone). */
+:global(tbody tr:has(+ tr[data-checked])) .root {
     box-shadow: inset 0 -1px 0 var(--aui-table-border-on-fill);
 }
 

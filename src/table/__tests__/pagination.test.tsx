@@ -8,71 +8,103 @@ import { AdminUiProvider } from '@/provider';
 
 import { Table } from '..';
 
-const renderWithProvider = (ui: ReactElement) => render(<AdminUiProvider>{ui}</AdminUiProvider>);
+const renderWithProvider = (ui: ReactElement, labels?: { paginationRange?: string }) =>
+    render(<AdminUiProvider labels={labels}>{ui}</AdminUiProvider>);
+
+const baseProps = {
+    page: 1,
+    pageCount: 2,
+    from: 1,
+    to: 5,
+    total: 10,
+    onPageChange: () => undefined,
+};
 
 describe('Table.Pagination', () => {
-    it('renders page buttons and next control', () => {
-        renderWithProvider(
-            <Table.Pagination page={1} pageCount={5} onPageChange={() => undefined} dataTestId="pager" />
-        );
+    it('renders range text and prev/next controls', () => {
+        renderWithProvider(<Table.Pagination {...baseProps} dataTestId="pager" />);
 
         expect(screen.getByTestId('pager')).toBeInTheDocument();
         expect(screen.getByRole('navigation', { name: 'Pagination' })).toBeInTheDocument();
-        expect(screen.getByText('1')).toHaveAttribute('aria-current', 'page');
-        expect(screen.getByRole('button', { name: 'Page 2' })).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: /Next/ })).toBeEnabled();
+        expect(screen.getByText('1–5 of 10')).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Previous' })).toBeDisabled();
+        expect(screen.getByRole('button', { name: 'Next' })).toBeEnabled();
     });
 
-    it('calls onPageChange for page and next', async () => {
+    it('calls onPageChange for prev and next', async () => {
         const user = userEvent.setup();
         const onPageChange = vi.fn();
 
-        renderWithProvider(<Table.Pagination page={2} pageCount={5} onPageChange={onPageChange} />);
+        renderWithProvider(
+            <Table.Pagination
+                {...baseProps}
+                page={2}
+                pageCount={5}
+                from={6}
+                to={10}
+                total={25}
+                onPageChange={onPageChange}
+            />
+        );
 
-        await user.click(screen.getByRole('button', { name: 'Page 4' }));
-        expect(onPageChange).toHaveBeenCalledWith(4);
+        await user.click(screen.getByRole('button', { name: 'Previous' }));
+        expect(onPageChange).toHaveBeenCalledWith(1);
 
-        await user.click(screen.getByRole('button', { name: /Next/ }));
+        await user.click(screen.getByRole('button', { name: 'Next' }));
         expect(onPageChange).toHaveBeenCalledWith(3);
     });
 
     it('disables next on the last page', () => {
-        renderWithProvider(<Table.Pagination page={5} pageCount={5} onPageChange={() => undefined} />);
+        renderWithProvider(<Table.Pagination {...baseProps} page={2} pageCount={2} from={6} to={10} />);
 
-        expect(screen.getByRole('button', { name: /Next/ })).toBeDisabled();
+        expect(screen.getByRole('button', { name: 'Next' })).toBeDisabled();
+        expect(screen.getByRole('button', { name: 'Previous' })).toBeEnabled();
     });
 
-    it('returns null when pageCount is below 2', () => {
-        const { container } = renderWithProvider(
-            <Table.Pagination page={1} pageCount={1} onPageChange={() => undefined} />
-        );
+    it('still renders when pageCount is below 2', () => {
+        renderWithProvider(<Table.Pagination {...baseProps} page={1} pageCount={1} from={1} to={3} total={3} />);
 
-        expect(container.querySelector('nav')).toBeNull();
+        expect(screen.getByRole('navigation', { name: 'Pagination' })).toBeInTheDocument();
+        expect(screen.getByText('1–3 of 3')).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Previous' })).toBeDisabled();
+        expect(screen.getByRole('button', { name: 'Next' })).toBeDisabled();
     });
 
-    it('renders ellipsis for large page counts', () => {
-        renderWithProvider(<Table.Pagination page={1} pageCount={20} onPageChange={() => undefined} />);
+    it('uses paginationRange label template', () => {
+        renderWithProvider(<Table.Pagination {...baseProps} />, {
+            paginationRange: '{from}–{to} из {total}',
+        });
 
-        expect(screen.getByText('…')).toBeInTheDocument();
-        expect(screen.getByText('…')).toHaveAttribute('aria-hidden');
+        expect(screen.getByText('1–5 из 10')).toBeInTheDocument();
+    });
+
+    it('prefers rangeLabel over the template', () => {
+        renderWithProvider(<Table.Pagination {...baseProps} rangeLabel="custom range" />);
+
+        expect(screen.getByText('custom range')).toBeInTheDocument();
+        expect(screen.queryByText('1–5 of 10')).not.toBeInTheDocument();
     });
 
     it('renders inside Table.Footer without wrapping table cells', () => {
         renderWithProvider(
             <Table dataTestId="table">
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell>Name</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                    <Table.Row>
-                        <Table.Cell>A</Table.Cell>
-                    </Table.Row>
-                </Table.Body>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell>Name</Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                            <Table.Row>
+                                <Table.Cell>A</Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table.Table>
+                </Table.Scroll>
                 <Table.Footer dataTestId="footer">
-                    <span>Показано 1–10 из 20</span>
-                    <Table.Pagination page={1} pageCount={2} onPageChange={() => undefined} dataTestId="pager" />
+                    <Table.PageSize value={5} onChange={() => undefined} />
+                    <Table.Pagination {...baseProps} dataTestId="pager" />
                 </Table.Footer>
             </Table>
         );

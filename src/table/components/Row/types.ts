@@ -7,8 +7,6 @@ export interface ITableRowOwnProps extends IDataTestIdProps {
     children?: ReactNode;
     /** Selected / checked visual state. */
     checked?: boolean;
-    /** Current / focused entity (e.g. open in details). */
-    active?: boolean;
     /** Non-interactive muted row. */
     disabled?: boolean;
     /** Draw bottom divider (skipped on last body row via CSS). */

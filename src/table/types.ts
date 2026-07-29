@@ -19,15 +19,13 @@ export interface ITableThemeProps {
 
 /** Own / chrome props (not from DOM). */
 export interface ITableOwnProps extends IDataTestIdProps {
-    /** Table sections and rows. */
+    /** Scroll, table element, footer, and optional Loader composition. */
     children: ReactNode;
     /** Stretch to 100% of the parent width. */
     block?: boolean;
     /** Reserves layout for a leading checkbox column. */
     hasChecked?: boolean;
-    /** When true, all row checkboxes stay visible (selection mode). */
-    hasSelected?: boolean;
-    /** Subtle even-row background (overridden by checked / active / hover). */
+    /** Subtle even-row background (overridden by checked / hover). */
     zebra?: boolean;
     /** Ref to the scroll shell (React 19 prop). */
     ref?: Ref<HTMLDivElement>;
@@ -42,7 +40,6 @@ export interface ITableProps
 export interface ITableContextValue {
     size: TTableSize;
     hasChecked: boolean;
-    hasSelected: boolean;
 }
 
 /** Shared cell chrome. */
@@ -62,6 +59,8 @@ export interface ITableCellChromeProps {
 export type { ITableHeaderProps } from './components/Header/types';
 export type { ITableBodyProps } from './components/Body/types';
 export type { ITableFooterProps } from './components/Footer/types';
+export type { ITableScrollProps } from './components/Scroll/types';
+export type { ITableElementProps } from './components/TableElement/types';
 export type { ITableRowProps } from './components/Row/types';
 export type { ITableCellProps } from './components/Cell/types';
 export type { ITableHeaderCellProps } from './components/HeaderCell/types';
@@ -76,4 +75,3 @@ export type {
     IUseTableRowSelectionResult,
     TTableRowId,
 } from './hooks/useTableRowSelection';
-export type { TTablePageItem } from './utils';

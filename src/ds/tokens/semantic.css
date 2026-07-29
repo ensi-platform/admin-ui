@@ -536,7 +536,6 @@
     --aui-table-bg-primary: var(--aui-surface-bg-primary);
     --aui-table-bg-hover: var(--aui-surface-bg-muted-active);
     --aui-table-bg-selected: var(--aui-surface-bg-muted);
-    --aui-table-bg-active: var(--aui-surface-bg-muted);
     --aui-table-bg-zebra: color-mix(in srgb, var(--aui-surface-bg-muted) 18%, var(--aui-surface-bg-primary));
     --aui-table-bg-header: var(--aui-surface-bg-primary);
     --aui-table-bg-footer: var(--aui-surface-bg-primary);

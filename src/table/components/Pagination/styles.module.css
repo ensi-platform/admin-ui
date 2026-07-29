@@ -5,26 +5,23 @@
     margin-inline-start: auto;
 }
 
-.list {
-    display: flex;
-    align-items: center;
-    gap: var(--aui-table-pagination-gap);
-    margin: 0;
-    padding: 0;
-    list-style: none;
+.range {
+    color: var(--aui-table-fg-muted);
+    white-space: nowrap;
+    line-height: 1;
 }
 
-.item,
-.next {
+.control {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
     min-width: var(--aui-table-pagination-item-size);
     min-height: var(--aui-table-pagination-item-size);
-    padding: 0 var(--aui-table-pagination-item-pad-x);
+    padding: 0;
     margin: 0;
     border: none;
+    border-radius: 50%;
     background: transparent;
     color: var(--aui-table-fg-primary);
     font: inherit;
@@ -32,65 +29,22 @@
     cursor: pointer;
 }
 
-.item:hover:not(:disabled):not([aria-current='page']),
-.next:hover:not(:disabled) {
-    color: var(--aui-table-fg-primary);
+.control:hover:not(:disabled) {
     background: var(--aui-table-bg-hover);
-    border-radius: 50%;
 }
 
-.item:focus-visible,
-.next:focus-visible {
+.control:focus-visible {
     outline: 2px solid var(--aui-table-border-focus);
     outline-offset: 2px;
-    border-radius: 50%;
 }
 
-.item[aria-current='page'] {
-    background: var(--aui-table-pagination-current-bg);
-    color: var(--aui-table-fg-primary);
-    border-radius: 50%;
-    cursor: default;
-}
-
-.item:disabled,
-.next:disabled {
+.control:disabled {
     color: var(--aui-table-fg-disabled);
     cursor: not-allowed;
-}
-
-.ellipsis {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: var(--aui-table-pagination-item-size);
-    min-height: var(--aui-table-pagination-item-size);
-    color: var(--aui-table-fg-muted);
-    user-select: none;
-}
-
-.next {
-    gap: var(--aui-table-pagination-gap);
-    min-width: unset;
-    padding-inline: var(--aui-table-pagination-next-pad-x);
-    border-radius: var(--aui-table-radius-md);
-    white-space: nowrap;
-}
-
-.nextLabel {
-    line-height: 1;
 }
 
 .chevron {
     flex-shrink: 0;
     width: var(--aui-table-pagination-chevron-size);
     height: var(--aui-table-pagination-chevron-size);
-}
-
-.next:hover:not(:disabled) {
-    border-radius: var(--aui-table-radius-md);
-}
-
-.next:focus-visible {
-    border-radius: var(--aui-table-radius-md);
 }

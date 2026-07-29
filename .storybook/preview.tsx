@@ -16,11 +16,16 @@ const RU_LABELS: IAuiLabels = {
     cancel: 'Отмена',
     delete: 'Удалить',
     notDelete: 'Не удалять',
+    loading: 'Загрузка',
     loadingSuggestions: 'Загрузка подсказок',
     noSuggestions: 'Ничего не найдено',
     suggestionsError: 'Не удалось загрузить подсказки',
     moreSelected: 'ещё выбрано',
     openCalendar: 'Открыть календарь',
+    pageSize: 'Строк на странице',
+    paginationPrev: 'Назад',
+    paginationNext: 'Далее',
+    paginationRange: '{from}–{to} из {total}',
 };
 
 const withProvider: Decorator = (Story, context) => {

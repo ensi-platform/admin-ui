@@ -11,7 +11,7 @@ import { type ITablePageSizeProps } from './types';
 
 import styles from './styles.module.css';
 
-const DEFAULT_OPTIONS = [10, 25, 50, 100];
+const DEFAULT_OPTIONS = [5, 10, 25, 50, 100];
 
 export const TablePageSize = ({
     ref,

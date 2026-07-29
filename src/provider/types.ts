@@ -24,8 +24,12 @@ export interface IAuiLabels {
     openCalendar: string;
     /** Table.PageSize: label before the select. */
     pageSize: string;
+    /** Table.Pagination: previous-page control label. */
+    paginationPrev: string;
     /** Table.Pagination: next-page control label. */
     paginationNext: string;
+    /** Table.Pagination: range template (`{from}`, `{to}`, `{total}`). */
+    paginationRange: string;
 }
 
 export type TAuiLabels = IAuiLabels;

@@ -10,8 +10,18 @@ export interface ITablePaginationOwnProps extends IDataTestIdProps {
     pageCount: number;
     /** Page change handler. */
     onPageChange: (page: number) => void;
-    /** Label for the next-page control (overrides `labels.paginationNext`). */
-    nextLabel?: ReactNode;
+    /** First row index on the current page (1-based). */
+    from: number;
+    /** Last row index on the current page (1-based). */
+    to: number;
+    /** Total number of rows. */
+    total: number;
+    /** Full range label override (skips `labels.paginationRange`). */
+    rangeLabel?: ReactNode;
+    /** Accessible name for the previous control (overrides `labels.paginationPrev`). */
+    prevLabel?: string;
+    /** Accessible name for the next control (overrides `labels.paginationNext`). */
+    nextLabel?: string;
     /** Disable all controls. */
     disabled?: boolean;
     /** Accessible name for the navigation landmark. */

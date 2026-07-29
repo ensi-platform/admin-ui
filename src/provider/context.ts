@@ -16,7 +16,9 @@ export const defaultLabels: IAuiLabels = {
     moreSelected: 'more selected',
     openCalendar: 'Open calendar',
     pageSize: 'Per page',
+    paginationPrev: 'Previous',
     paginationNext: 'Next',
+    paginationRange: '{from}–{to} of {total}',
 };
 
 export const AuiContext = createContext<IAuiContextValue | null>(null);

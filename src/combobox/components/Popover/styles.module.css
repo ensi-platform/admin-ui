@@ -1,6 +1,6 @@
 .root {
-    width: var(--trigger-width);
     min-width: var(--trigger-width);
+    width: max-content;
     max-height: var(--aui-combobox-popover-max-h);
     overflow: auto;
     border: 1px solid transparent;

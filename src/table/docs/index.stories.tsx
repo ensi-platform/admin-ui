@@ -76,7 +76,6 @@ const DEFAULT_ARGS: ITableBaseProps = {
     size: 'md',
     block: true,
     hasChecked: true,
-    hasSelected: false,
     zebra: true,
 };
 
@@ -84,7 +83,6 @@ const DEFAULT_ARG_TYPES: ArgTypes<Partial<ITableBaseProps>> = {
     size: { control: { type: 'select' } },
     block: { control: { type: 'boolean' } },
     hasChecked: { control: { type: 'boolean' } },
-    hasSelected: { control: { type: 'boolean' } },
     zebra: { control: { type: 'boolean' } },
 };
 
@@ -110,9 +108,8 @@ export const Default: StoryObj<ITableBaseProps> = {
     render: function DefaultStory(args) {
         const [sortKey, setSortKey] = useState<TSortKey | undefined>('updatedAt');
         const [sortDirection, setSortDirection] = useState<TTableSortDirection | undefined>('desc');
-        const [activeId, setActiveId] = useState<number | null>(null);
         const [page, setPage] = useState(1);
-        const [pageSize, setPageSize] = useState(10);
+        const [pageSize, setPageSize] = useState(5);
 
         const sortedRows = useMemo(() => {
             if (!sortKey || !sortDirection) return DEMO_ROWS;
@@ -134,7 +131,7 @@ export const Default: StoryObj<ITableBaseProps> = {
         const currentPage = Math.min(page, pageCount);
         const pageRows = sortedRows.slice((currentPage - 1) * pageSize, currentPage * pageSize);
         const pageIds = useMemo(() => pageRows.map(r => r.id), [pageRows]);
-        const { isSelected, toggle, isAllSelected, isIndeterminate, setAllOnPage, clearAll, selected, hasSelected } =
+        const { isSelected, toggle, isAllSelected, isIndeterminate, setAllOnPage, clearAll, selected } =
             useTableRowSelection(pageIds);
 
         const from = sortedRows.length === 0 ? 0 : (currentPage - 1) * pageSize + 1;
@@ -163,146 +160,146 @@ export const Default: StoryObj<ITableBaseProps> = {
         return (
             <div style={{ height: 520, display: 'flex', flexDirection: 'column', gap: 8 }}>
                 <p style={{ margin: 0, color: 'var(--aui-page-fg-muted)' }}>
-                    Selected: {selected.size} · Active row: {activeId ?? '—'} · Sort: {sortKey ?? 'none'}{' '}
-                    {sortDirection ?? ''}
+                    Selected: {selected.size} · Sort: {sortKey ?? 'none'} {sortDirection ?? ''}
                 </p>
-                <Table {...args} hasChecked={args.hasChecked ?? true} hasSelected={hasSelected}>
-                    <Table.Header sticky>
-                        <Table.Row>
-                            <Table.HeaderCheckboxCell
-                                checked={isAllSelected}
-                                indeterminate={isIndeterminate}
-                                onChange={setAllOnPage}
-                                aria-label="Select all"
-                            />
-                            <Table.HeaderCell
-                                noWrap
-                                sortable
-                                sortDirection={directionFor('order')}
-                                onSort={handleSort('order')}
-                            >
-                                Order
-                            </Table.HeaderCell>
-                            <Table.HeaderCell
-                                noWrap
-                                sortable
-                                sortDirection={directionFor('name')}
-                                onSort={handleSort('name')}
-                            >
-                                Customer
-                            </Table.HeaderCell>
-                            <Table.HeaderCell noWrap>Email</Table.HeaderCell>
-                            <Table.HeaderCell
-                                noWrap
-                                sortable
-                                sortDirection={directionFor('city')}
-                                onSort={handleSort('city')}
-                            >
-                                City
-                            </Table.HeaderCell>
-                            <Table.HeaderCell
-                                noWrap
-                                sortable
-                                sortDirection={directionFor('status')}
-                                onSort={handleSort('status')}
-                            >
-                                Status
-                            </Table.HeaderCell>
-                            <Table.HeaderCell
-                                numeric
-                                noWrap
-                                sortable
-                                sortDirection={directionFor('qty')}
-                                onSort={handleSort('qty')}
-                            >
-                                Qty
-                            </Table.HeaderCell>
-                            <Table.HeaderCell
-                                numeric
-                                noWrap
-                                sortable
-                                sortDirection={directionFor('amount')}
-                                onSort={handleSort('amount')}
-                            >
-                                Amount, ₽
-                            </Table.HeaderCell>
-                            <Table.HeaderCell
-                                noWrap
-                                sortable
-                                sortDirection={directionFor('updatedAt')}
-                                onSort={handleSort('updatedAt')}
-                            >
-                                Updated
-                            </Table.HeaderCell>
-                            <Table.HeaderCell noWrap>Manager</Table.HeaderCell>
-                            <Table.HeaderCell noWrap>Warehouse</Table.HeaderCell>
-                            <Table.HeaderCell noWrap>Channel</Table.HeaderCell>
-                            <Table.HeaderCell noWrap width={220}>
-                                Note
-                            </Table.HeaderCell>
-                            <Table.HeaderCell utility>Actions</Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
-                        {pageRows.map(row => {
-                            const isDisabled = row.id === 5;
-
-                            return (
-                                <Table.Row
-                                    key={row.id}
-                                    checked={isSelected(row.id)}
-                                    active={activeId === row.id}
-                                    disabled={isDisabled}
-                                    onClick={isDisabled ? undefined : () => setActiveId(row.id)}
-                                >
-                                    <Table.CheckboxCell
-                                        checked={isSelected(row.id)}
-                                        onChange={() => toggle(row.id)}
-                                        aria-label={`Select ${row.order}`}
+                <Table {...args} hasChecked={args.hasChecked ?? true}>
+                    <Table.Scroll>
+                        <Table.Table>
+                            <Table.Header sticky>
+                                <Table.Row>
+                                    <Table.HeaderCheckboxCell
+                                        checked={isAllSelected}
+                                        indeterminate={isIndeterminate}
+                                        onChange={setAllOnPage}
+                                        aria-label="Select all"
                                     />
-                                    <Table.Cell noWrap>{row.order}</Table.Cell>
-                                    <Table.Cell noWrap>{row.name}</Table.Cell>
-                                    <Table.Cell noWrap>{row.email}</Table.Cell>
-                                    <Table.Cell noWrap>{row.city}</Table.Cell>
-                                    <Table.Cell noWrap>{row.status}</Table.Cell>
-                                    <Table.Cell numeric noWrap>
-                                        {row.qty}
-                                    </Table.Cell>
-                                    <Table.Cell numeric noWrap>
-                                        {row.amount}
-                                    </Table.Cell>
-                                    <Table.Cell noWrap>{row.updatedAt}</Table.Cell>
-                                    <Table.Cell noWrap>{row.manager}</Table.Cell>
-                                    <Table.Cell noWrap>{row.warehouse}</Table.Cell>
-                                    <Table.Cell noWrap>{row.channel}</Table.Cell>
-                                    <Table.Cell noWrap>{row.note}</Table.Cell>
-                                    <Table.Cell utility>
-                                        <Table.ActionBar
-                                            visibleCount={1}
-                                            items={[
-                                                { text: 'Open', onClick: () => setActiveId(row.id) },
-                                                { text: 'Edit', onClick: () => undefined },
-                                                { text: 'Duplicate', onClick: () => undefined },
-                                                { text: 'Delete', onClick: () => undefined, danger: true },
-                                            ]}
-                                        />
-                                    </Table.Cell>
+                                    <Table.HeaderCell
+                                        noWrap
+                                        sortable
+                                        sortDirection={directionFor('order')}
+                                        onSort={handleSort('order')}
+                                    >
+                                        Order
+                                    </Table.HeaderCell>
+                                    <Table.HeaderCell
+                                        noWrap
+                                        sortable
+                                        sortDirection={directionFor('name')}
+                                        onSort={handleSort('name')}
+                                    >
+                                        Customer
+                                    </Table.HeaderCell>
+                                    <Table.HeaderCell noWrap>Email</Table.HeaderCell>
+                                    <Table.HeaderCell
+                                        noWrap
+                                        sortable
+                                        sortDirection={directionFor('city')}
+                                        onSort={handleSort('city')}
+                                    >
+                                        City
+                                    </Table.HeaderCell>
+                                    <Table.HeaderCell
+                                        noWrap
+                                        sortable
+                                        sortDirection={directionFor('status')}
+                                        onSort={handleSort('status')}
+                                    >
+                                        Status
+                                    </Table.HeaderCell>
+                                    <Table.HeaderCell
+                                        numeric
+                                        noWrap
+                                        sortable
+                                        sortDirection={directionFor('qty')}
+                                        onSort={handleSort('qty')}
+                                    >
+                                        Qty
+                                    </Table.HeaderCell>
+                                    <Table.HeaderCell
+                                        numeric
+                                        noWrap
+                                        sortable
+                                        sortDirection={directionFor('amount')}
+                                        onSort={handleSort('amount')}
+                                    >
+                                        Amount, ₽
+                                    </Table.HeaderCell>
+                                    <Table.HeaderCell
+                                        noWrap
+                                        sortable
+                                        sortDirection={directionFor('updatedAt')}
+                                        onSort={handleSort('updatedAt')}
+                                    >
+                                        Updated
+                                    </Table.HeaderCell>
+                                    <Table.HeaderCell noWrap>Manager</Table.HeaderCell>
+                                    <Table.HeaderCell noWrap>Warehouse</Table.HeaderCell>
+                                    <Table.HeaderCell noWrap>Channel</Table.HeaderCell>
+                                    <Table.HeaderCell noWrap width={220}>
+                                        Note
+                                    </Table.HeaderCell>
+                                    <Table.HeaderCell utility>Actions</Table.HeaderCell>
                                 </Table.Row>
-                            );
-                        })}
-                    </Table.Body>
+                            </Table.Header>
+                            <Table.Body>
+                                {pageRows.map(row => {
+                                    const isDisabled = row.id === 5;
+
+                                    return (
+                                        <Table.Row
+                                            key={row.id}
+                                            checked={isSelected(row.id)}
+                                            disabled={isDisabled}
+                                            onClick={isDisabled ? undefined : () => undefined}
+                                        >
+                                            <Table.CheckboxCell
+                                                checked={isSelected(row.id)}
+                                                onChange={() => toggle(row.id)}
+                                                aria-label={`Select ${row.order}`}
+                                            />
+                                            <Table.Cell noWrap>{row.order}</Table.Cell>
+                                            <Table.Cell noWrap>{row.name}</Table.Cell>
+                                            <Table.Cell noWrap>{row.email}</Table.Cell>
+                                            <Table.Cell noWrap>{row.city}</Table.Cell>
+                                            <Table.Cell noWrap>{row.status}</Table.Cell>
+                                            <Table.Cell numeric noWrap>
+                                                {row.qty}
+                                            </Table.Cell>
+                                            <Table.Cell numeric noWrap>
+                                                {row.amount}
+                                            </Table.Cell>
+                                            <Table.Cell noWrap>{row.updatedAt}</Table.Cell>
+                                            <Table.Cell noWrap>{row.manager}</Table.Cell>
+                                            <Table.Cell noWrap>{row.warehouse}</Table.Cell>
+                                            <Table.Cell noWrap>{row.channel}</Table.Cell>
+                                            <Table.Cell noWrap>{row.note}</Table.Cell>
+                                            <Table.Cell utility>
+                                                <Table.ActionBar
+                                                    visibleCount={1}
+                                                    items={[
+                                                        { text: 'Open', onClick: () => undefined },
+                                                        { text: 'Edit', onClick: () => undefined },
+                                                        { text: 'Duplicate', onClick: () => undefined },
+                                                        { text: 'Delete', onClick: () => undefined, danger: true },
+                                                    ]}
+                                                />
+                                            </Table.Cell>
+                                        </Table.Row>
+                                    );
+                                })}
+                            </Table.Body>
+                        </Table.Table>
+                    </Table.Scroll>
                     <Table.Footer>
-                        <span>
-                            Показано {from}–{to} из {sortedRows.length}. Выбрано {selected.size} из {sortedRows.length}
-                        </span>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                            <Table.PageSize value={pageSize} onChange={handlePageSizeChange} />
-                            <Table.Pagination
-                                page={currentPage}
-                                pageCount={pageCount}
-                                onPageChange={handlePageChange}
-                            />
-                        </div>
+                        <Table.PageSize value={pageSize} onChange={handlePageSizeChange} />
+                        <Table.Pagination
+                            page={currentPage}
+                            pageCount={pageCount}
+                            onPageChange={handlePageChange}
+                            from={from}
+                            to={to}
+                            total={sortedRows.length}
+                        />
                     </Table.Footer>
                 </Table>
             </div>
@@ -316,7 +313,7 @@ const SIMPLE_ROWS = [
     { id: 3, name: 'Clara', amount: '890' },
 ];
 
-/** Loader as Table child — veil over scroll (`<table>`), Footer stays outside. */
+/** Loader wraps table inside Scroll; Footer stays outside the veil. */
 export const WithLoader: StoryObj<ITableBaseProps> = {
     render: function WithLoaderStory(args) {
         const [active, setActive] = useState(true);
@@ -327,21 +324,26 @@ export const WithLoader: StoryObj<ITableBaseProps> = {
                     {active ? 'Stop fetching' : 'Start fetching'}
                 </Button>
                 <Table {...args} hasChecked={false}>
-                    <Table.Header sticky>
-                        <Table.Row>
-                            <Table.HeaderCell>Name</Table.HeaderCell>
-                            <Table.HeaderCell numeric>Amount</Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
-                        {SIMPLE_ROWS.map(row => (
-                            <Table.Row key={row.id}>
-                                <Table.Cell>{row.name}</Table.Cell>
-                                <Table.Cell numeric>{row.amount}</Table.Cell>
-                            </Table.Row>
-                        ))}
-                    </Table.Body>
-                    <Loader active={active} />
+                    <Table.Scroll>
+                        <Loader active={active}>
+                            <Table.Table>
+                                <Table.Header sticky>
+                                    <Table.Row>
+                                        <Table.HeaderCell>Name</Table.HeaderCell>
+                                        <Table.HeaderCell numeric>Amount</Table.HeaderCell>
+                                    </Table.Row>
+                                </Table.Header>
+                                <Table.Body>
+                                    {SIMPLE_ROWS.map(row => (
+                                        <Table.Row key={row.id}>
+                                            <Table.Cell>{row.name}</Table.Cell>
+                                            <Table.Cell numeric>{row.amount}</Table.Cell>
+                                        </Table.Row>
+                                    ))}
+                                </Table.Body>
+                            </Table.Table>
+                        </Loader>
+                    </Table.Scroll>
                     <Table.Footer>
                         <span>3 rows</span>
                     </Table.Footer>
@@ -357,22 +359,26 @@ export const Empty: StoryObj<ITableBaseProps> = {
         return (
             <div style={{ height: 280 }}>
                 <Table {...args} hasChecked={false}>
-                    <Table.Header sticky>
-                        <Table.Row>
-                            <Table.HeaderCell>Name</Table.HeaderCell>
-                            <Table.HeaderCell numeric>Amount</Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
-                        <Table.Row>
-                            <Table.Cell colSpan={2} align="center" style={{ padding: 48 }}>
-                                <p style={{ margin: 0, fontWeight: 600 }}>Ничего не найдено</p>
-                                <p style={{ margin: '8px 0 0', color: 'var(--aui-page-fg-muted)' }}>
-                                    Измените фильтры или добавьте записи
-                                </p>
-                            </Table.Cell>
-                        </Table.Row>
-                    </Table.Body>
+                    <Table.Scroll>
+                        <Table.Table>
+                            <Table.Header sticky>
+                                <Table.Row>
+                                    <Table.HeaderCell>Name</Table.HeaderCell>
+                                    <Table.HeaderCell numeric>Amount</Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+                            <Table.Body>
+                                <Table.Row>
+                                    <Table.Cell colSpan={2} align="center" style={{ padding: 48 }}>
+                                        <p style={{ margin: 0, fontWeight: 600 }}>Ничего не найдено</p>
+                                        <p style={{ margin: '8px 0 0', color: 'var(--aui-page-fg-muted)' }}>
+                                            Измените фильтры или добавьте записи
+                                        </p>
+                                    </Table.Cell>
+                                </Table.Row>
+                            </Table.Body>
+                        </Table.Table>
+                    </Table.Scroll>
                     <Table.Footer>
                         <span>No rows</span>
                     </Table.Footer>

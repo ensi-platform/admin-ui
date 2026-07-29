@@ -92,4 +92,12 @@ describe('Table.PageSize', () => {
         expect(screen.getByText('15')).toBeInTheDocument();
         expect(screen.queryByText('25')).not.toBeInTheDocument();
     });
+
+    it('includes 5 in default options', () => {
+        renderWithProvider(<Table.PageSize value={5} onChange={() => undefined} />);
+
+        expect(screen.getByText('5')).toBeInTheDocument();
+        expect(screen.getByText('10')).toBeInTheDocument();
+        expect(screen.getByText('100')).toBeInTheDocument();
+    });
 });

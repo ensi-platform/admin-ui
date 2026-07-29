@@ -26,20 +26,6 @@
     background: var(--aui-table-bg-selected);
 }
 
-.root[data-active] {
-    background: var(--aui-table-bg-active);
-    box-shadow: inset 3px 0 0 var(--aui-table-accent-active);
-}
-
-.root[data-active][data-clickable]:hover {
-    background: var(--aui-table-bg-active);
-}
-
-.root[data-checked][data-active] {
-    background: var(--aui-table-bg-selected);
-    box-shadow: inset 3px 0 0 var(--aui-table-accent-active);
-}
-
 .root[data-disabled] {
     color: var(--aui-table-fg-disabled);
     opacity: 0.56;
@@ -53,16 +39,6 @@
 
 .root[data-disabled][data-checked] {
     background: var(--aui-table-bg-selected);
-}
-
-.root[data-disabled][data-active] {
-    background: var(--aui-table-bg-active);
-    box-shadow: inset 3px 0 0 var(--aui-table-accent-active);
-}
-
-.root[data-disabled][data-checked][data-active] {
-    background: var(--aui-table-bg-selected);
-    box-shadow: inset 3px 0 0 var(--aui-table-accent-active);
 }
 
 .root:focus-visible {

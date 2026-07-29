@@ -28,7 +28,7 @@
     --aui-table-checkbox-slot: var(--aui-table-checkbox-w);
 }
 
-.zebra :global(tbody tr:nth-child(even):not([data-checked]):not([data-active]):not(:hover)) {
+.zebra :global(tbody tr:nth-child(even):not([data-checked]):not(:hover)) {
     background: var(--aui-table-bg-zebra);
 }
 

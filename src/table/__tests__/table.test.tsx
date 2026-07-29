@@ -26,20 +26,24 @@ describe('Table', () => {
     it('renders header and body cells', () => {
         render(
             <Table dataTestId="table">
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell>Name</Table.HeaderCell>
-                        <Table.HeaderCell numeric>Amount</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                    <Table.Row>
-                        <Table.Cell>Alice</Table.Cell>
-                        <Table.Cell numeric dataTestId="amount-cell">
-                            1 200
-                        </Table.Cell>
-                    </Table.Row>
-                </Table.Body>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell>Name</Table.HeaderCell>
+                                <Table.HeaderCell numeric>Amount</Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                            <Table.Row>
+                                <Table.Cell>Alice</Table.Cell>
+                                <Table.Cell numeric dataTestId="amount-cell">
+                                    1 200
+                                </Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table.Table>
+                </Table.Scroll>
             </Table>
         );
 
@@ -52,16 +56,20 @@ describe('Table', () => {
     it('marks sticky header', () => {
         render(
             <Table>
-                <Table.Header sticky dataTestId="thead">
-                    <Table.Row>
-                        <Table.HeaderCell>Name</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                    <Table.Row>
-                        <Table.Cell>A</Table.Cell>
-                    </Table.Row>
-                </Table.Body>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Header sticky dataTestId="thead">
+                            <Table.Row>
+                                <Table.HeaderCell>Name</Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                            <Table.Row>
+                                <Table.Cell>A</Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table.Table>
+                </Table.Scroll>
             </Table>
         );
 
@@ -72,11 +80,15 @@ describe('Table', () => {
     it('applies checked state on row', () => {
         render(
             <Table>
-                <Table.Body>
-                    <Table.Row checked dataTestId="row">
-                        <Table.Cell>A</Table.Cell>
-                    </Table.Row>
-                </Table.Body>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Body>
+                            <Table.Row checked dataTestId="row">
+                                <Table.Cell>A</Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table.Table>
+                </Table.Scroll>
             </Table>
         );
 
@@ -86,11 +98,15 @@ describe('Table', () => {
     it('marks zebra on shell', () => {
         render(
             <Table zebra dataTestId="zebra-table">
-                <Table.Body>
-                    <Table.Row>
-                        <Table.Cell>A</Table.Cell>
-                    </Table.Row>
-                </Table.Body>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Body>
+                            <Table.Row>
+                                <Table.Cell>A</Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table.Table>
+                </Table.Scroll>
             </Table>
         );
 
@@ -98,23 +114,20 @@ describe('Table', () => {
         expect(screen.getByTestId('zebra-table')).toHaveClass(shellStyles.zebra);
     });
 
-    it('applies active and disabled states on row', () => {
+    it('applies disabled state on row', () => {
         render(
             <Table>
-                <Table.Body>
-                    <Table.Row active dataTestId="active-row">
-                        <Table.Cell>A</Table.Cell>
-                    </Table.Row>
-                    <Table.Row disabled onClick={() => undefined} dataTestId="disabled-row">
-                        <Table.Cell>B</Table.Cell>
-                    </Table.Row>
-                </Table.Body>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Body>
+                            <Table.Row disabled onClick={() => undefined} dataTestId="disabled-row">
+                                <Table.Cell>B</Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table.Table>
+                </Table.Scroll>
             </Table>
         );
-
-        const activeRow = screen.getByTestId('active-row');
-        expect(activeRow).toHaveAttribute('data-active');
-        expect(activeRow).toHaveAttribute('aria-current');
 
         const disabledRow = screen.getByTestId('disabled-row');
         expect(disabledRow).toHaveAttribute('data-disabled');
@@ -131,20 +144,24 @@ describe('Table', () => {
 
             return (
                 <Table>
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell
-                                sortable
-                                sortDirection={direction}
-                                onSort={next => {
-                                    onSort(next);
-                                    setDirection(next);
-                                }}
-                            >
-                                Name
-                            </Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
+                    <Table.Scroll>
+                        <Table.Table>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell
+                                        sortable
+                                        sortDirection={direction}
+                                        onSort={next => {
+                                            onSort(next);
+                                            setDirection(next);
+                                        }}
+                                    >
+                                        Name
+                                    </Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+                        </Table.Table>
+                    </Table.Scroll>
                 </Table>
             );
         };
@@ -167,20 +184,24 @@ describe('Table', () => {
 
         render(
             <Table>
-                <Table.Body>
-                    <Table.Row>
-                        <Table.Cell utility>
-                            <Table.ActionBar
-                                dataTestId="actions"
-                                visibleCount={1}
-                                items={[
-                                    { text: 'Edit', onClick: onEdit },
-                                    { text: 'Delete', onClick: onDelete, danger: true },
-                                ]}
-                            />
-                        </Table.Cell>
-                    </Table.Row>
-                </Table.Body>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Body>
+                            <Table.Row>
+                                <Table.Cell utility>
+                                    <Table.ActionBar
+                                        dataTestId="actions"
+                                        visibleCount={1}
+                                        items={[
+                                            { text: 'Edit', onClick: onEdit },
+                                            { text: 'Delete', onClick: onDelete, danger: true },
+                                        ]}
+                                    />
+                                </Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table.Table>
+                </Table.Scroll>
             </Table>
         );
 
@@ -197,68 +218,74 @@ describe('Table', () => {
 
         const SelectionDemo = () => {
             const ids = rows.map(r => r.id);
-            const { isSelected, toggle, isAllSelected, isIndeterminate, setAllOnPage, hasSelected } =
-                useTableRowSelection(ids);
+            const { isSelected, toggle, isAllSelected, isIndeterminate, setAllOnPage } = useTableRowSelection(ids);
 
             return (
-                <Table hasChecked hasSelected={hasSelected} dataTestId="selection-table">
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCheckboxCell
-                                checked={isAllSelected}
-                                indeterminate={isIndeterminate}
-                                onChange={setAllOnPage}
-                                aria-label="Select all"
-                            />
-                            <Table.HeaderCell>Name</Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
-                        {rows.map(row => (
-                            <Table.Row key={row.id} checked={isSelected(row.id)}>
-                                <Table.CheckboxCell
-                                    checked={isSelected(row.id)}
-                                    onChange={() => toggle(row.id)}
-                                    aria-label={`Select ${row.name}`}
-                                    dataTestId={`select-${row.name}`}
-                                />
-                                <Table.Cell>{row.name}</Table.Cell>
-                            </Table.Row>
-                        ))}
-                    </Table.Body>
+                <Table hasChecked dataTestId="selection-table">
+                    <Table.Scroll>
+                        <Table.Table>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCheckboxCell
+                                        checked={isAllSelected}
+                                        indeterminate={isIndeterminate}
+                                        onChange={setAllOnPage}
+                                        aria-label="Select all"
+                                    />
+                                    <Table.HeaderCell>Name</Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+                            <Table.Body>
+                                {rows.map(row => (
+                                    <Table.Row key={row.id} checked={isSelected(row.id)}>
+                                        <Table.CheckboxCell
+                                            checked={isSelected(row.id)}
+                                            onChange={() => toggle(row.id)}
+                                            aria-label={`Select ${row.name}`}
+                                            dataTestId={`select-${row.name}`}
+                                        />
+                                        <Table.Cell>{row.name}</Table.Cell>
+                                    </Table.Row>
+                                ))}
+                            </Table.Body>
+                        </Table.Table>
+                    </Table.Scroll>
                 </Table>
             );
         };
 
         render(<SelectionDemo />);
 
-        expect(screen.getByTestId('selection-table')).not.toHaveAttribute('data-has-selected');
         expect(screen.getByTestId('select-Alice')).toHaveClass(checkboxCellStyles.root);
 
         await user.click(screen.getByRole('checkbox', { name: 'Select Alice' }));
         expect(screen.getByRole('checkbox', { name: 'Select Alice' })).toBeChecked();
         expect(screen.getByRole('checkbox', { name: 'Select all' })).toBePartiallyChecked();
-        expect(screen.getByTestId('selection-table')).toHaveAttribute('data-has-selected');
 
         await user.click(screen.getByRole('checkbox', { name: 'Select all' }));
         expect(screen.getByRole('checkbox', { name: 'Select Alice' })).toBeChecked();
         expect(screen.getByRole('checkbox', { name: 'Select Bob' })).toBeChecked();
     });
 
-    it('wraps table element with Loader child over scroll', () => {
+    it('keeps Footer outside Loader veil when composed by the app', () => {
         renderWithProvider(
             <Table>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell>Name</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                    <Table.Row>
-                        <Table.Cell>Alice</Table.Cell>
-                    </Table.Row>
-                </Table.Body>
-                <Loader active dataTestId="table-loader" />
+                <Table.Scroll>
+                    <Loader active dataTestId="table-loader">
+                        <Table.Table>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell>Name</Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+                            <Table.Body>
+                                <Table.Row>
+                                    <Table.Cell>Alice</Table.Cell>
+                                </Table.Row>
+                            </Table.Body>
+                        </Table.Table>
+                    </Loader>
+                </Table.Scroll>
                 <Table.Footer dataTestId="table-footer">status</Table.Footer>
             </Table>
         );
@@ -291,19 +318,23 @@ describe('Table', () => {
 
         render(
             <Table size="lg">
-                <Table.Body>
-                    <Table.Row>
-                        <Table.Cell utility>
-                            <Table.ActionBar
-                                visibleCount={1}
-                                items={[
-                                    { text: 'Edit', onClick: () => undefined },
-                                    { text: 'Delete', onClick: onDelete, danger: true },
-                                ]}
-                            />
-                        </Table.Cell>
-                    </Table.Row>
-                </Table.Body>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Body>
+                            <Table.Row>
+                                <Table.Cell utility>
+                                    <Table.ActionBar
+                                        visibleCount={1}
+                                        items={[
+                                            { text: 'Edit', onClick: () => undefined },
+                                            { text: 'Delete', onClick: onDelete, danger: true },
+                                        ]}
+                                    />
+                                </Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table.Table>
+                </Table.Scroll>
             </Table>
         );
 
@@ -316,19 +347,23 @@ describe('Table', () => {
     it('renders ActionBar without overflow when all items are visible', () => {
         render(
             <Table>
-                <Table.Body>
-                    <Table.Row>
-                        <Table.Cell utility>
-                            <Table.ActionBar
-                                visibleCount={2}
-                                items={[
-                                    { key: 'edit', text: 'Edit', onClick: () => undefined },
-                                    { key: 'copy', text: 'Copy', onClick: () => undefined },
-                                ]}
-                            />
-                        </Table.Cell>
-                    </Table.Row>
-                </Table.Body>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Body>
+                            <Table.Row>
+                                <Table.Cell utility>
+                                    <Table.ActionBar
+                                        visibleCount={2}
+                                        items={[
+                                            { key: 'edit', text: 'Edit', onClick: () => undefined },
+                                            { key: 'copy', text: 'Copy', onClick: () => undefined },
+                                        ]}
+                                    />
+                                </Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table.Table>
+                </Table.Scroll>
             </Table>
         );
 
@@ -345,30 +380,34 @@ describe('Table', () => {
 
         render(
             <Table>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCheckboxCell
-                            checked={false}
-                            onChange={() => undefined}
-                            aria-label="Select all"
-                            onClick={onHeaderCellClick}
-                            dataTestId="header-check"
-                        />
-                        <Table.HeaderCell>Name</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                    <Table.Row onClick={onRowClick} dataTestId="clickable-row">
-                        <Table.CheckboxCell
-                            checked={false}
-                            onChange={() => undefined}
-                            aria-label="Select Alice"
-                            onClick={onCellClick}
-                            dataTestId="row-check"
-                        />
-                        <Table.Cell>Alice</Table.Cell>
-                    </Table.Row>
-                </Table.Body>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCheckboxCell
+                                    checked={false}
+                                    onChange={() => undefined}
+                                    aria-label="Select all"
+                                    onClick={onHeaderCellClick}
+                                    dataTestId="header-check"
+                                />
+                                <Table.HeaderCell>Name</Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                            <Table.Row onClick={onRowClick} dataTestId="clickable-row">
+                                <Table.CheckboxCell
+                                    checked={false}
+                                    onChange={() => undefined}
+                                    aria-label="Select Alice"
+                                    onClick={onCellClick}
+                                    dataTestId="row-check"
+                                />
+                                <Table.Cell>Alice</Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table.Table>
+                </Table.Scroll>
             </Table>
         );
 
@@ -386,11 +425,15 @@ describe('Table', () => {
 
         render(
             <Table>
-                <Table.Body>
-                    <Table.Row onClick={onRowClick} bottomBorder={false} dataTestId="click-row">
-                        <Table.Cell>Alice</Table.Cell>
-                    </Table.Row>
-                </Table.Body>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Body>
+                            <Table.Row onClick={onRowClick} bottomBorder={false} dataTestId="click-row">
+                                <Table.Cell>Alice</Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table.Table>
+                </Table.Scroll>
                 <Table.Footer sticky={false} dataTestId="non-sticky-footer">
                     footer
                 </Table.Footer>
