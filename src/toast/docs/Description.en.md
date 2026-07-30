@@ -35,7 +35,7 @@ Status (`Toast`): semantic `variant`, no `size`.
 
 | Prop | Values | Default | Description |
 | --- | --- | --- | --- |
-| `timeout` | `number` | — | overrides `defaultTimeout`; `0` — no auto-dismiss; `undefined` — uses `defaultTimeout` |
+| `timeout` | `number` | `defaultTimeout` | overrides `defaultTimeout`; `0` — no auto-dismiss |
 | `onClose` | `() => void` | — | on dismiss immediately (not after animation) |
 
 ### useToast

@@ -35,7 +35,7 @@ Status (`Toast`): semantic `variant`, без `size`.
 
 | Prop | Значения | По умолчанию | Описание |
 | --- | --- | --- | --- |
-| `timeout` | `number` | — | перекрывает `defaultTimeout`; `0` — без автозакрытия; `undefined` — берётся `defaultTimeout` |
+| `timeout` | `number` | `defaultTimeout` | перекрывает `defaultTimeout`; `0` — без автозакрытия |
 | `onClose` | `() => void` | — | сразу при dismiss (не после анимации) |
 
 ### useToast
