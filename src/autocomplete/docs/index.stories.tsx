@@ -10,12 +10,11 @@ import { Form } from '@/form';
 import { FormAutocomplete } from '../FormAutocomplete';
 import { type IAutocompleteProps, type TComboboxValue } from '../types';
 
+import { docsCssVariables } from './cssVariables';
 import DescriptionEn from './Description.en.md';
 import DescriptionRu from './Description.ru.md';
 import ExampleEn from './Example.en.md';
 import ExampleRu from './Example.ru.md';
-
-import { docsCssVariables } from './cssVariables';
 
 import { AutocompleteStoryComponent } from '.';
 
@@ -107,13 +106,7 @@ export const WithForm: StoryObj = {
             onSubmit={() => undefined}
         >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 320 }}>
-                <FormAutocomplete
-                    name="city"
-                    label="City"
-                    options={CITY_OPTIONS}
-                    clear
-                    placeholder="Start typing…"
-                />
+                <FormAutocomplete name="city" label="City" options={CITY_OPTIONS} clear placeholder="Start typing…" />
                 <Button type="submit">Submit</Button>
             </div>
         </Form>

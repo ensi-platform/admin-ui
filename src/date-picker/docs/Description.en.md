@@ -1,7 +1,7 @@
 Date picker on React Aria `DatePicker` with a vertical calendar.
 
 ```tsx
-import { DatePicker, FormDatePicker } from '@ensi-platform/admin-ui';
+import { DatePicker, FormDatePicker } from '@ensi-platform/admin-ui/date-picker';
 ```
 
 ## When to use

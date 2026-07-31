@@ -1,7 +1,7 @@
 Status pill for tables and page headers.
 
 ```tsx
-import { Badge } from '@ensi-platform/admin-ui';
+import { Badge } from '@ensi-platform/admin-ui/badge';
 ```
 
 ## When to use

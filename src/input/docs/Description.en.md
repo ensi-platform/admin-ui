@@ -1,7 +1,7 @@
 Text control on React Aria `Input`.
 
 ```tsx
-import { Input, FormInput } from '@ensi-platform/admin-ui';
+import { Input, FormInput } from '@ensi-platform/admin-ui/input';
 ```
 
 ## When to use

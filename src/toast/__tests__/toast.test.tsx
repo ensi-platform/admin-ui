@@ -370,9 +370,7 @@ describe('Toast', () => {
             return null;
         };
 
-        expect(() => render(<Broken />)).toThrow(
-            'ToastProvider is required. Wrap the app with <ToastProvider>.'
-        );
+        expect(() => render(<Broken />)).toThrow('ToastProvider is required. Wrap the app with <ToastProvider>.');
     });
 
     describe('wrapUpdate / view transitions', () => {

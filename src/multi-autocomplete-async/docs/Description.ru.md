@@ -1,7 +1,7 @@
 Мульти autocomplete с injected suggest-хуком.
 
 ```tsx
-import { MultiAutocompleteAsync, FormMultiAutocompleteAsync } from '@ensi-platform/admin-ui';
+import { MultiAutocompleteAsync, FormMultiAutocompleteAsync } from '@ensi-platform/admin-ui/multi-autocomplete-async';
 ```
 
 ## Когда использовать

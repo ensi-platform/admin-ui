@@ -1,7 +1,7 @@
 Multi autocomplete with an injected suggest hook.
 
 ```tsx
-import { MultiAutocompleteAsync, FormMultiAutocompleteAsync } from '@ensi-platform/admin-ui';
+import { MultiAutocompleteAsync, FormMultiAutocompleteAsync } from '@ensi-platform/admin-ui/multi-autocomplete-async';
 ```
 
 ## When to use

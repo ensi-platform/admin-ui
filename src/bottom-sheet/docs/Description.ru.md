@@ -1,7 +1,7 @@
 Мобильная шторка снизу на React Aria `ModalOverlay` + `Dialog`.
 
 ```tsx
-import { BottomSheet } from '@ensi-platform/admin-ui';
+import { BottomSheet } from '@ensi-platform/admin-ui/bottom-sheet';
 ```
 
 ## Когда использовать

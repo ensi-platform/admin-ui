@@ -1,7 +1,7 @@
 Mobile bottom sheet on React Aria `ModalOverlay` + `Dialog`.
 
 ```tsx
-import { BottomSheet } from '@ensi-platform/admin-ui';
+import { BottomSheet } from '@ensi-platform/admin-ui/bottom-sheet';
 ```
 
 ## When to use

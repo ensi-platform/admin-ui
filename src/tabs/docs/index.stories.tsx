@@ -5,12 +5,11 @@ import { type ArgTypes, type Meta, type StoryObj } from '@storybook/react';
 import { Tabs } from '../Component';
 import { type ITabsProps } from '../types';
 
+import { docsCssVariables } from './cssVariables';
 import DescriptionEn from './Description.en.md';
 import DescriptionRu from './Description.ru.md';
 import ExampleEn from './Example.en.md';
 import ExampleRu from './Example.ru.md';
-
-import { docsCssVariables } from './cssVariables';
 
 type TTabsStoryProps = Omit<ITabsProps, 'children' | 'value' | 'onChange'>;
 

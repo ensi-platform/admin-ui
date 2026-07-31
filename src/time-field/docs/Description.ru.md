@@ -1,7 +1,7 @@
 Поле времени на React Aria `TimeField` (без календаря).
 
 ```tsx
-import { TimeField, FormTimeField } from '@ensi-platform/admin-ui';
+import { TimeField, FormTimeField } from '@ensi-platform/admin-ui/time-field';
 ```
 
 ## Когда использовать

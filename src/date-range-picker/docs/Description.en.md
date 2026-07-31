@@ -1,7 +1,7 @@
 Date range picker on React Aria `DateRangePicker` with a vertical calendar.
 
 ```tsx
-import { DateRangePicker, FormDateRangePicker } from '@ensi-platform/admin-ui';
+import { DateRangePicker, FormDateRangePicker } from '@ensi-platform/admin-ui/date-range-picker';
 ```
 
 ## When to use

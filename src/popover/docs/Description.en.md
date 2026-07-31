@@ -1,7 +1,7 @@
 Overlay next to a trigger with interactive content.
 
 ```tsx
-import { Popover } from '@ensi-platform/admin-ui';
+import { Popover } from '@ensi-platform/admin-ui/popover';
 ```
 
 ## When to use

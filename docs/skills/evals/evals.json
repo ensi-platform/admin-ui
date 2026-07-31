@@ -1,0 +1,23 @@
+{
+    "skill_name": "admin-ui",
+    "evals": [
+        {
+            "id": 1,
+            "prompt": "На экране заказа покажи статус «В сборке» и кнопку «Сохранить». Используй @ensi-platform/admin-ui.",
+            "expected_output": "Badge for status + Button for save; imports from @ensi-platform/admin-ui/badge and @ensi-platform/admin-ui/button; no Tag for status.",
+            "files": []
+        },
+        {
+            "id": 2,
+            "prompt": "Собери фильтры списка: несколько меток и диапазон дат. Используй @ensi-platform/admin-ui.",
+            "expected_output": "MultiSelect (and/or Tag chips) + DateRangePicker / Form*; subpath imports; not Badge for filter chips; not Select for multi labels.",
+            "files": []
+        },
+        {
+            "id": 3,
+            "prompt": "Нужна модалка подтверждения удаления заказа. Используй @ensi-platform/admin-ui.",
+            "expected_output": "DeleteModal or ActionPopup with danger tone via useModal; imports from @ensi-platform/admin-ui/action-popup (and/or modal-hub); not a plain custom Modal unless justified.",
+            "files": []
+        }
+    ]
+}

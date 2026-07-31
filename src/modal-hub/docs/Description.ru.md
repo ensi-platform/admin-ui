@@ -1,7 +1,7 @@
 Императивный стек поверх `Modal` / `Drawer` через React Context.
 
 ```tsx
-import { ModalProvider, ModalHub, useModal, useModalAsync } from '@ensi-platform/admin-ui';
+import { ModalProvider, ModalHub, useModal, useModalAsync } from '@ensi-platform/admin-ui/modal-hub';
 ```
 
 ## Когда использовать

@@ -20,7 +20,9 @@ pnpm add react-hook-form @hookform/resolvers zod
 
 ```tsx
 import '@ensi-platform/admin-ui/tokens';
-import { AdminUiProvider, Button, typographyStyles } from '@ensi-platform/admin-ui';
+import { AdminUiProvider } from '@ensi-platform/admin-ui/provider';
+import { Button } from '@ensi-platform/admin-ui/button';
+import { typographyStyles } from '@ensi-platform/admin-ui/typography';
 
 export const Example = () => (
     <AdminUiProvider
@@ -42,11 +44,9 @@ export const Example = () => (
 
 1. Import tokens **once** in the app entry.
 2. Mount `AdminUiProvider` at the UI root (locale, portals, built-in a11y labels).
-3. Import from the package root or a subpath:
+3. Import only via subpaths (no package root barrel):
 
 ```tsx
-import { Button } from '@ensi-platform/admin-ui';
-// or
 import { Button } from '@ensi-platform/admin-ui/button';
 ```
 
@@ -62,6 +62,8 @@ Components only read `--aui-*` CSS variables. Light defaults live in `semantic.c
 
 ## Docs
 
+Package docs (architecture, AI channel, concepts): [`docs/README.md`](docs/README.md)
+
 Storybook: [https://ensi-platform.github.io/admin-ui](https://ensi-platform.github.io/admin-ui)
 
 Locally:
@@ -70,20 +72,20 @@ Locally:
 pnpm storybook
 ```
 
-Start at **Getting started**, then Base / Form / Overlays / Design System.
+Start at **Getting started**, then **AI**, then Base / Form / Overlays / Design System.
 
 ## Develop
 
 ```bash
 pnpm install
 pnpm hooks:setup    # pre-commit: typecheck + test
-pnpm build          # runs sync-package, then Vite
+pnpm build          # required after clone: sync-package writes exports, then Vite
 pnpm dev
 pnpm storybook
 pnpm test
 ```
 
-`pnpm sync-package` regenerates `package.json` exports and `src/index.ts` from `src/*/index.ts` (plus nested `typography` and `tokens`). `pnpm build` runs it automatically.
+`exports` are not committed: `pnpm build` / `prepublishOnly` runs `sync-package`, which writes subpath `exports` (`./button`, `./tokens`, …) from `src/*/index.ts` (plus nested `tokens` / `typography`). There is no root `"."` export. Without a build, workspace subpath imports will not resolve.
 
 ## Related packages
 

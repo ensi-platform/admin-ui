@@ -5,12 +5,11 @@ import { Button } from '@/button';
 import { Popover } from '../Component';
 import { type IPopoverContentProps } from '../types';
 
+import { docsCssVariables } from './cssVariables';
 import DescriptionEn from './Description.en.md';
 import DescriptionRu from './Description.ru.md';
 import ExampleEn from './Example.en.md';
 import ExampleRu from './Example.ru.md';
-
-import { docsCssVariables } from './cssVariables';
 
 import { PopoverStoryComponent, type TPopoverStoryProps } from '.';
 

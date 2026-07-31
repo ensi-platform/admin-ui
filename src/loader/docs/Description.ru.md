@@ -1,7 +1,7 @@
 Локальная вуаль со спиннером поверх контента на время загрузки.
 
 ```tsx
-import { Loader } from '@ensi-platform/admin-ui';
+import { Loader } from '@ensi-platform/admin-ui/loader';
 ```
 
 ## Когда использовать

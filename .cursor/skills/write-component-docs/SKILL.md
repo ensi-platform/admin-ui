@@ -28,7 +28,7 @@ Exemplars:
     - When to use = product scenarios + neighbor redirects only (not Field/RHF/`as` wiring)
     - API table only (no Example section); API limits (`as`, a11y) live under API
     - same facts in both languages; no «Не делать» / «Common mistakes»
-    - RU prose: no hybrid anglicisms (`Confirm-диалоги` → «диалоги подтверждения»; code names only in backticks)
+    - RU prose: only code/API/package anglicisms, always in backticks; no рунглиш (`controlled` → «только управляемый»; `Confirm-диалоги` → «диалоги подтверждения»)
 3. Write `Example.ru.md` / `Example.en.md` (`## Пример` / `## Example` + working JSX).
 4. If the primitive has `--aui-*` in `src/ds/tokens/semantic.css`, add `docs/cssVariables.ts`:
     - header `/* CSS variables — Name (--aui-…-*) */`

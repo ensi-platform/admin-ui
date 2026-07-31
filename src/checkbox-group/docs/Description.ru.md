@@ -1,7 +1,8 @@
 Группа чекбоксов с общим значением `string[]`. Внутри — `Checkbox` с `value`; как их разложить, решаете сами в `children`.
 
 ```tsx
-import { Checkbox, CheckboxGroup, FormCheckboxGroup } from '@ensi-platform/admin-ui';
+import { Checkbox } from '@ensi-platform/admin-ui/checkbox';
+import { CheckboxGroup, FormCheckboxGroup } from '@ensi-platform/admin-ui/checkbox-group';
 ```
 
 ## Когда использовать

@@ -1,7 +1,7 @@
 Оверлей у триггера с интерактивным контентом.
 
 ```tsx
-import { Popover } from '@ensi-platform/admin-ui';
+import { Popover } from '@ensi-platform/admin-ui/popover';
 ```
 
 ## Когда использовать

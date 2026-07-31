@@ -1,7 +1,7 @@
 Imperative stack over `Modal` / `Drawer` via React Context.
 
 ```tsx
-import { ModalProvider, ModalHub, useModal, useModalAsync } from '@ensi-platform/admin-ui';
+import { ModalProvider, ModalHub, useModal, useModalAsync } from '@ensi-platform/admin-ui/modal-hub';
 ```
 
 ## When to use

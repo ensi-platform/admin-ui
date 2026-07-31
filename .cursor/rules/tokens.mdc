@@ -67,10 +67,11 @@ src/ds/tokens/              # сейчас в admin-ui (алиас @ds/tokens)
 ## Delivery
 
 ```
-app / storybook  →  import '@ensi-platform/admin-ui/tokens'  (один раз)
+app / storybook  →  import '@ensi-platform/admin-ui/tokens'  (один раз; side-effect entry)
 admin-ui    →  var(--aui-…) в CSS Modules
 ```
 
+- public entry: `src/ds/tokens/index.ts` → `@ensi-platform/admin-ui/tokens` (как nested `typography`, пока не вынесен отдельный пакет)
 - tokens **не** импортировать внутри каждого component module
 - Storybook: import в `.storybook/preview.ts`
 - later: `import '@ensi-platform/admin-ui-tokens'` в app entry; base — peerDependency
@@ -167,7 +168,7 @@ bodyL → sans + size-lg + weight-regular + line-height-normal
 ```
 
 ```tsx
-import { typographyStyles } from '@ensi-platform/admin-ui';
+import { typographyStyles } from '@ensi-platform/admin-ui/typography';
 
 <p className={typographyStyles.bodyM}>…</p>;
 ```

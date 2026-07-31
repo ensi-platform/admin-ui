@@ -5,7 +5,7 @@
 - словарь встроенных строк
 
 ```tsx
-import { AdminUiProvider, useAuiLabels } from '@ensi-platform/admin-ui';
+import { AdminUiProvider, useAuiLabels } from '@ensi-platform/admin-ui/provider';
 ```
 
 ## Когда использовать

@@ -1,7 +1,7 @@
 Поле диапазона дат на React Aria `DateRangePicker` и вертикальном календаре.
 
 ```tsx
-import { DateRangePicker, FormDateRangePicker } from '@ensi-platform/admin-ui';
+import { DateRangePicker, FormDateRangePicker } from '@ensi-platform/admin-ui/date-range-picker';
 ```
 
 ## Когда использовать

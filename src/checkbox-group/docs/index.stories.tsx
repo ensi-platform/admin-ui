@@ -7,12 +7,11 @@ import { Form } from '@/form';
 import { FormCheckboxGroup } from '../FormCheckboxGroup';
 import { type ICheckboxGroupProps } from '../types';
 
+import { docsCssVariables } from './cssVariables';
 import DescriptionEn from './Description.en.md';
 import DescriptionRu from './Description.ru.md';
 import ExampleEn from './Example.en.md';
 import ExampleRu from './Example.ru.md';
-
-import { docsCssVariables } from './cssVariables';
 
 import { CheckboxGroupStoryComponent } from '.';
 

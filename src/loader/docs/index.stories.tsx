@@ -6,12 +6,11 @@ import { Button } from '@/button';
 
 import { type ILoaderBaseProps } from '../types';
 
+import { docsCssVariables } from './cssVariables';
 import DescriptionEn from './Description.en.md';
 import DescriptionRu from './Description.ru.md';
 import ExampleEn from './Example.en.md';
 import ExampleRu from './Example.ru.md';
-
-import { docsCssVariables } from './cssVariables';
 
 import { LoaderStoryComponent } from '.';
 

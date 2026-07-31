@@ -1,7 +1,7 @@
 Числовой контрол на React Aria `NumberField`.
 
 ```tsx
-import { NumberInput, FormNumberInput } from '@ensi-platform/admin-ui';
+import { NumberInput, FormNumberInput } from '@ensi-platform/admin-ui/number-input';
 ```
 
 ## Когда использовать

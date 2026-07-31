@@ -1,7 +1,7 @@
 Мультивыбор на React Aria `Select` (`selectionMode="multiple"`).
 
 ```tsx
-import { MultiSelect, FormMultiSelect } from '@ensi-platform/admin-ui';
+import { MultiSelect, FormMultiSelect } from '@ensi-platform/admin-ui/multi-select';
 ```
 
 ## Когда использовать

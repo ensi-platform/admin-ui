@@ -1,7 +1,7 @@
 Local veil with a spinner over content while data is loading.
 
 ```tsx
-import { Loader } from '@ensi-platform/admin-ui';
+import { Loader } from '@ensi-platform/admin-ui/loader';
 ```
 
 ## When to use

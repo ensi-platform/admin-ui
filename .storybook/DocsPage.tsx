@@ -48,8 +48,7 @@ export const DocsPage = () => {
     const params = resolvedOf.preparedMeta.parameters;
     const docsByLocale = params.docsDescriptionByLocale as IDocsByLocale | undefined;
     const exampleByLocale = params.docsExampleByLocale as IDocsByLocale | undefined;
-    const docsCssVariables =
-        typeof params.docsCssVariables === 'string' ? params.docsCssVariables.trim() : '';
+    const docsCssVariables = typeof params.docsCssVariables === 'string' ? params.docsCssVariables.trim() : '';
     const docsOnly = params.docsOnly === true;
 
     const localeKey = locale.startsWith('ru') ? 'ru' : 'en';

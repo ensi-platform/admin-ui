@@ -1,7 +1,7 @@
 Time-only field on React Aria `TimeField` (no calendar).
 
 ```tsx
-import { TimeField, FormTimeField } from '@ensi-platform/admin-ui';
+import { TimeField, FormTimeField } from '@ensi-platform/admin-ui/time-field';
 ```
 
 ## When to use

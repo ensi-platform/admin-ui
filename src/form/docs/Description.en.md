@@ -1,7 +1,7 @@
 Wrapper over react-hook-form and zod for admin create/edit pages and filters.
 
 ```tsx
-import { Form, useFieldHook, getError } from '@ensi-platform/admin-ui';
+import { Form, useFieldHook, getError } from '@ensi-platform/admin-ui/form';
 ```
 
 ## When to use

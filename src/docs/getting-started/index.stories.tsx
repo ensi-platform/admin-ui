@@ -1,3 +1,5 @@
+import { Fragment } from 'react';
+
 import { type Meta, type StoryObj } from '@storybook/react';
 
 import DescriptionEn from './Description.en.md';
@@ -23,5 +25,6 @@ export default {
 } satisfies Meta;
 
 export const Docs: StoryObj = {
-    render: () => <></>,
+    // eslint-disable-next-line react/jsx-no-useless-fragment, react/jsx-fragments
+    render: () => <Fragment />,
 };

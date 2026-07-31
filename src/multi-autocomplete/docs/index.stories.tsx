@@ -9,12 +9,11 @@ import { Form } from '@/form';
 import { FormMultiAutocomplete } from '../FormMultiAutocomplete';
 import { type IMultiAutocompleteProps, type TComboboxValue } from '../types';
 
+import { docsCssVariables } from './cssVariables';
 import DescriptionEn from './Description.en.md';
 import DescriptionRu from './Description.ru.md';
 import ExampleEn from './Example.en.md';
 import ExampleRu from './Example.ru.md';
-
-import { docsCssVariables } from './cssVariables';
 
 import { MultiAutocompleteStoryComponent } from '.';
 
@@ -95,13 +94,7 @@ export const WithForm: StoryObj = {
             onSubmit={() => undefined}
         >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 320 }}>
-                <FormMultiAutocomplete
-                    name="tags"
-                    label="Tags"
-                    options={OPTIONS}
-                    clear
-                    placeholder="Start typing…"
-                />
+                <FormMultiAutocomplete name="tags" label="Tags" options={OPTIONS} clear placeholder="Start typing…" />
                 <Button type="submit">Submit</Button>
             </div>
         </Form>

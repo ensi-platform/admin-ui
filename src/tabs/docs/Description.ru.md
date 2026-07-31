@@ -1,7 +1,7 @@
 Табы с подчёркиванием и скользящим индикатором.
 
 ```tsx
-import { Tabs } from '@ensi-platform/admin-ui';
+import { Tabs } from '@ensi-platform/admin-ui/tabs';
 ```
 
 ## Когда использовать

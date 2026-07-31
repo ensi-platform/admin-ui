@@ -1,7 +1,7 @@
 Boolean flag. A set of options (`string[]`) is a separate `CheckboxGroup` / `FormCheckboxGroup`.
 
 ```tsx
-import { Checkbox, FormCheckbox } from '@ensi-platform/admin-ui';
+import { Checkbox, FormCheckbox } from '@ensi-platform/admin-ui/checkbox';
 ```
 
 ## When to use

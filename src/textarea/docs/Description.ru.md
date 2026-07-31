@@ -1,7 +1,7 @@
 Многострочный текстовый контрол на React Aria `TextArea`.
 
 ```tsx
-import { TextArea, FormTextArea } from '@ensi-platform/admin-ui';
+import { TextArea, FormTextArea } from '@ensi-platform/admin-ui/textarea';
 ```
 
 ## Когда использовать

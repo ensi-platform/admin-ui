@@ -1,7 +1,8 @@
 Checkbox group with a shared `string[]` value. Inside — `Checkbox` with `value`; how to arrange them is up to you in `children`.
 
 ```tsx
-import { Checkbox, CheckboxGroup, FormCheckboxGroup } from '@ensi-platform/admin-ui';
+import { Checkbox } from '@ensi-platform/admin-ui/checkbox';
+import { CheckboxGroup, FormCheckboxGroup } from '@ensi-platform/admin-ui/checkbox-group';
 ```
 
 ## When to use

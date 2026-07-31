@@ -1,7 +1,7 @@
 Классы ролей текста. Family: **Inter** через `--aui-font-sans` (подключается с токенами).
 
 ```tsx
-import { typographyStyles } from '@ensi-platform/admin-ui';
+import { typographyStyles } from '@ensi-platform/admin-ui/typography';
 ```
 
 ## Когда использовать

@@ -1,7 +1,7 @@
 Боковая панель на React Aria `ModalOverlay` + `Dialog`.
 
 ```tsx
-import { Drawer } from '@ensi-platform/admin-ui';
+import { Drawer } from '@ensi-platform/admin-ui/drawer';
 ```
 
 ## Когда использовать

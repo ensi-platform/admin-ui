@@ -1,7 +1,7 @@
 Compound-хром таблицы для списков в админке.
 
 ```tsx
-import { Table, useTableRowSelection } from '@ensi-platform/admin-ui';
+import { Table, useTableRowSelection } from '@ensi-platform/admin-ui/table';
 ```
 
 ## Когда использовать

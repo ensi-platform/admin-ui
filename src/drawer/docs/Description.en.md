@@ -1,7 +1,7 @@
 Side panel on React Aria `ModalOverlay` + `Dialog`.
 
 ```tsx
-import { Drawer } from '@ensi-platform/admin-ui';
+import { Drawer } from '@ensi-platform/admin-ui/drawer';
 ```
 
 ## When to use

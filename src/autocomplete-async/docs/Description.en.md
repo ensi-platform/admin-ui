@@ -1,7 +1,7 @@
 Single autocomplete with an injected suggest hook.
 
 ```tsx
-import { AutocompleteAsync, FormAutocompleteAsync } from '@ensi-platform/admin-ui';
+import { AutocompleteAsync, FormAutocompleteAsync } from '@ensi-platform/admin-ui/autocomplete-async';
 ```
 
 ## When to use

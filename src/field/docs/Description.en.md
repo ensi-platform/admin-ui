@@ -1,7 +1,7 @@
 Compound wrapper for label / hint / error around any control.
 
 ```tsx
-import { Field, useField } from '@ensi-platform/admin-ui';
+import { Field, useField } from '@ensi-platform/admin-ui/field';
 ```
 
 ## When to use

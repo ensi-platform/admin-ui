@@ -1,7 +1,7 @@
 Underline tabs with a sliding indicator.
 
 ```tsx
-import { Tabs } from '@ensi-platform/admin-ui';
+import { Tabs } from '@ensi-platform/admin-ui/tabs';
 ```
 
 ## When to use

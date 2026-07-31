@@ -10,12 +10,11 @@ import { Form } from '@/form';
 import { FormDatePicker } from '../FormDatePicker';
 import { type IDatePickerProps } from '../types';
 
+import { docsCssVariables } from './cssVariables';
 import DescriptionEn from './Description.en.md';
 import DescriptionRu from './Description.ru.md';
 import ExampleEn from './Example.en.md';
 import ExampleRu from './Example.ru.md';
-
-import { docsCssVariables } from './cssVariables';
 
 import { DatePickerStoryComponent } from '.';
 

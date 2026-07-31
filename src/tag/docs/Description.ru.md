@@ -1,7 +1,7 @@
 Метка и чип фильтра с опциональным снятием.
 
 ```tsx
-import { Tag } from '@ensi-platform/admin-ui';
+import { Tag } from '@ensi-platform/admin-ui/tag';
 ```
 
 ## Когда использовать

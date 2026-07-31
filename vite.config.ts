@@ -11,6 +11,10 @@ const packageRoot = import.meta.dirname;
 const srcRoot = resolve(packageRoot, 'src');
 const distRoot = resolve(packageRoot, 'dist');
 const entries = getViteEntries(packageRoot);
+const firstEntry = Object.values(entries)[0];
+if (!firstEntry) {
+    throw new Error('No public package entries found for Vite lib build');
+}
 
 const toDistRelative = (fromFile: string, targetAbs: string): string => {
     let rel = relative(dirname(fromFile), targetAbs).replaceAll('\\', '/');
@@ -23,6 +27,7 @@ const toDistRelative = (fromFile: string, targetAbs: string): string => {
 };
 
 export default defineConfig({
+    base: './',
     resolve: {
         alias: [
             { find: '@ds', replacement: resolve(srcRoot, 'ds') },
@@ -39,9 +44,10 @@ export default defineConfig({
             tsconfigPath: resolve(packageRoot, 'tsconfig.json'),
             pathsToAliases: false,
             beforeWriteFile: (filePath, content) => {
-                // Public typography entry types sit next to JS (`dist/typography`), not under `ds/`.
+                // Public nested entries sit next to JS (`dist/tokens`, `dist/typography`), not under `ds/`.
                 const outPath = filePath
                     .replace('/dist/src/', '/dist/')
+                    .replace('/dist/ds/tokens/', '/dist/tokens/')
                     .replace('/dist/ds/typography/', '/dist/typography/');
 
                 const outContent = content
@@ -65,7 +71,7 @@ export default defineConfig({
     build: {
         lib: {
             formats: ['es'],
-            entry: resolve(srcRoot, 'index.ts'),
+            entry: firstEntry,
         },
         cssCodeSplit: true,
         sourcemap: true,
@@ -78,6 +84,11 @@ export default defineConfig({
                 'class-variance-authority',
                 'classnames',
                 'react-aria-components',
+                'react-hook-form',
+                'react-fast-compare',
+                'usehooks-ts',
+                'zod',
+                /^@hookform\//,
                 /^@react-aria\//,
                 /^@react-stately\//,
                 /^@react-types\//,
@@ -86,7 +97,14 @@ export default defineConfig({
             input: entries,
             output: {
                 entryFileNames: '[name].js',
-                assetFileNames: 'assets/[name][extname]',
+                assetFileNames: assetInfo => {
+                    const name = assetInfo.names?.[0] ?? assetInfo.name ?? '';
+                    if (name.endsWith('.woff2')) {
+                        return 'tokens/files/[name][extname]';
+                    }
+
+                    return 'assets/[name][extname]';
+                },
             },
         },
     },

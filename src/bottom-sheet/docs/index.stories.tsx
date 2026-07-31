@@ -7,12 +7,11 @@ import { Button } from '@/button';
 import { BottomSheet } from '../Component';
 import { type IBottomSheetProps } from '../types';
 
+import { docsCssVariables } from './cssVariables';
 import DescriptionEn from './Description.en.md';
 import DescriptionRu from './Description.ru.md';
 import ExampleEn from './Example.en.md';
 import ExampleRu from './Example.ru.md';
-
-import { docsCssVariables } from './cssVariables';
 
 import { BottomSheetStoryComponent } from '.';
 
@@ -93,7 +92,8 @@ export const LongContent: StoryObj<IBottomSheetProps> = {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                     {Array.from({ length: 30 }, (_, index) => (
                         <p key={index} style={{ margin: 0 }}>
-                            Content row {index + 1}. Scroll inside Body; swipe down dismisses only at the top of the scroll.
+                            Content row {index + 1}. Scroll inside Body; swipe down dismisses only at the top of the
+                            scroll.
                         </p>
                     ))}
                 </div>

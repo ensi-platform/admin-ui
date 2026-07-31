@@ -29,14 +29,30 @@ src/<name>/docs/
 
 ### RU-проза
 
-В `Description.ru.md` / `Example.ru.md` — нормальный русский, без гибридных англицизмов. UI-копирайт в сторях — английский (см. `component-stories`).
+В `Description.ru.md` / `Example.ru.md` — нормальный русский. UI-копирайт в сторях — английский (см. `component-stories`). В EN-файле правило ниже не действует.
 
-**Запрещено** склеивать латинское слово с русским через дефис или в одном составном слове:
+**Англицизмы** — только то, что относится к коду / API / пакету, и только в `` `backticks` ``:
+
+- имена пропов и значений: `size`, `variant`, `onOpenChange`, `sm`
+- имена компонентов, хуков, слотов: `Modal`, `Button`, `useModal`, `Modal.Header` — уместно писать `Modal`, когда речь о компоненте `Modal` (не заменять на «модальное окно» ради «чистоты»)
+- пакеты и импорты: `@ensi-platform/admin-ui/button`, React Aria (`ModalOverlay`)
+- DOM/HTML/ARIA-атрибуты и события, если ссылаемся на API: `type`, `disabled`, `data-test-id`, Escape (как клавиша в контексте пропа)
+
+Всё остальное — по-русски, без транслита и «рунглиша»:
+
+| плохо | хорошо |
+| --- | --- |
+| рендер / хендлер / лейаут / клик / фокус-стейт | отрисовка / обработчик / вёрстка / нажатие / состояние фокуса |
+| controlled / uncontrolled | только управляемый / без внешнего состояния |
+| viewport / fullscreen-режим | область просмотра / на весь экран |
+| dismissable снаружи | закрытие снаружи (`dismissable`) |
+
+**Запрещено** склеивать латиницу с русским через дефис или в одном слове:
 
 - плохо: `Confirm-диалоги`, `Modal-окно`, `escape-выход`
 - хорошо: «диалоги подтверждения», «окно `Modal`», «через `useModal`»
 
-Имена из кода (`ConfirmModal`, `tone`, `onConfirm`) — только в `` `backticks` ``, не вплетать в русское слово. В EN-файле это правило не действует.
+Имена из кода не вплетать в русское слово — только отдельно в backticks.
 
 ## Формат Description
 
@@ -49,7 +65,7 @@ src/<name>/docs/
 
 ````md
 ```tsx
-import { Name } from '@ensi-platform/admin-ui';
+import { Name } from '@ensi-platform/admin-ui/<name>';
 ```
 ````
 
@@ -129,6 +145,7 @@ parameters: {
 
 ## Канал для АП
 
-- source of truth — `docs/` в этом пакете
-- для АП позже: `@ensi-platform/skills` + sync → `.cursor/skills/`
-- skill `admin-ui` ссылается на Description / types / stories, не копирует длинные тексты
+- source of truth — `src/<name>/docs/` (+ types / stories) в этом пакете
+- skill `admin-ui`: `docs/skills/` (публикуется с npm; в consumer — `node_modules/@ensi-platform/admin-ui/docs/skills/`)
+- skill ссылается на Description / types / stories, не копирует длинные тексты
+- `.cursor/skills/admin-ui` в репо не храним — см. `docs/ai.md`

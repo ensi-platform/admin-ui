@@ -19,7 +19,7 @@ import '@ensi-platform/admin-ui/tokens';
 Mount once at the UI root — portals, locale, and built-in strings:
 
 ```tsx
-import { AdminUiProvider, Button } from '@ensi-platform/admin-ui';
+import { AdminUiProvider } from '@ensi-platform/admin-ui/provider';
 
 <AdminUiProvider
     locale="en-US"
@@ -51,7 +51,7 @@ Components are theme-agnostic — they only use `--aui-*` CSS variables.
 ## First component
 
 ```tsx
-import { Button } from '@ensi-platform/admin-ui';
+import { Button } from '@ensi-platform/admin-ui/button';
 
 <Button variant="primary" size="md">
     Save
@@ -60,6 +60,7 @@ import { Button } from '@ensi-platform/admin-ui';
 
 ## Next
 
+- **AI** — agents / skill channel
 - `Base/Button` — base controls
 - `Form/Input` — fields and forms
 - `Overlays/Modal` — modals and overlays

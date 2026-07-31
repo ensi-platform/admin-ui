@@ -1,7 +1,7 @@
 Одиночный автокомплит с подсказками через переданный хук `useSuggest`.
 
 ```tsx
-import { AutocompleteAsync, FormAutocompleteAsync } from '@ensi-platform/admin-ui';
+import { AutocompleteAsync, FormAutocompleteAsync } from '@ensi-platform/admin-ui/autocomplete-async';
 ```
 
 ## Когда использовать

@@ -1,7 +1,7 @@
 Модальное окно на React Aria `ModalOverlay` + `Dialog`.
 
 ```tsx
-import { Modal } from '@ensi-platform/admin-ui';
+import { Modal } from '@ensi-platform/admin-ui/modal';
 ```
 
 ## Когда использовать

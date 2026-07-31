@@ -6,12 +6,11 @@ import { Button } from '@/button';
 
 import { type IActionPopupProps, type TConfirmModalProps } from '../types';
 
+import { docsCssVariables } from './cssVariables';
 import DescriptionEn from './Description.en.md';
 import DescriptionRu from './Description.ru.md';
 import ExampleEn from './Example.en.md';
 import ExampleRu from './Example.ru.md';
-
-import { docsCssVariables } from './cssVariables';
 
 import { ActionPopupStoryComponent, ConfirmModalStoryComponent, DeleteModalStoryComponent } from '.';
 

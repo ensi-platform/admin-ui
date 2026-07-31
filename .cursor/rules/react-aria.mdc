@@ -19,7 +19,7 @@ Headless behavior — [`react-aria-components`](https://react-aria.adobe.com). �
 `AdminUiProvider` оборачивает `I18nProvider` (locale) + root с `isolation: isolate` / `dir`. Storybook уже оборачивает.
 
 ```tsx
-import { AdminUiProvider, useAuiLabels } from '@ensi-platform/admin-ui';
+import { AdminUiProvider, useAuiLabels } from '@ensi-platform/admin-ui/provider';
 
 <AdminUiProvider locale="ru-RU" labels={{ close: t('aui.close') }}>
     …

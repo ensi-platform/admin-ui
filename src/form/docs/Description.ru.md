@@ -1,7 +1,7 @@
 Обёртка над react-hook-form и zod для страниц и фильтров в админке.
 
 ```tsx
-import { Form, useFieldHook, getError } from '@ensi-platform/admin-ui';
+import { Form, useFieldHook, getError } from '@ensi-platform/admin-ui/form';
 ```
 
 ## Когда использовать

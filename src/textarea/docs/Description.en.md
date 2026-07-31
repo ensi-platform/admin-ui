@@ -1,7 +1,7 @@
 Multiline text control on React Aria `TextArea`.
 
 ```tsx
-import { TextArea, FormTextArea } from '@ensi-platform/admin-ui';
+import { TextArea, FormTextArea } from '@ensi-platform/admin-ui/textarea';
 ```
 
 ## When to use

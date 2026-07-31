@@ -5,7 +5,7 @@ Root provider for the package:
 - built-in label strings
 
 ```tsx
-import { AdminUiProvider, useAuiLabels } from '@ensi-platform/admin-ui';
+import { AdminUiProvider, useAuiLabels } from '@ensi-platform/admin-ui/provider';
 ```
 
 ## When to use

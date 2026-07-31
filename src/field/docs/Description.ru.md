@@ -1,7 +1,7 @@
 Составная обёртка label / hint / error вокруг любого контрола.
 
 ```tsx
-import { Field, useField } from '@ensi-platform/admin-ui';
+import { Field, useField } from '@ensi-platform/admin-ui/field';
 ```
 
 ## Когда использовать

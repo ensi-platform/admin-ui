@@ -1,7 +1,7 @@
 Single-select на React Aria `Select`.
 
 ```tsx
-import { Select, FormSelect } from '@ensi-platform/admin-ui';
+import { Select, FormSelect } from '@ensi-platform/admin-ui/select';
 ```
 
 ## Когда использовать

@@ -1,7 +1,7 @@
 Single-select autocomplete on React Aria `ComboBox`.
 
 ```tsx
-import { Autocomplete, FormAutocomplete } from '@ensi-platform/admin-ui';
+import { Autocomplete, FormAutocomplete } from '@ensi-platform/admin-ui/autocomplete';
 ```
 
 ## When to use

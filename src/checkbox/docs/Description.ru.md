@@ -1,7 +1,7 @@
 Чекбокс для значения `boolean`. Группа опций (`string[]`) — отдельный `CheckboxGroup` / `FormCheckboxGroup`.
 
 ```tsx
-import { Checkbox, FormCheckbox } from '@ensi-platform/admin-ui';
+import { Checkbox, FormCheckbox } from '@ensi-platform/admin-ui/checkbox';
 ```
 
 ## Когда использовать

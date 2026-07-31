@@ -1,7 +1,7 @@
 Hint on hover and focus.
 
 ```tsx
-import { Tooltip } from '@ensi-platform/admin-ui';
+import { Tooltip } from '@ensi-platform/admin-ui/tooltip';
 ```
 
 ## When to use

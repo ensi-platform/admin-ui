@@ -1,7 +1,7 @@
 Мультивыбор autocomplete на React Aria `ComboBox` (`selectionMode="multiple"`).
 
 ```tsx
-import { MultiAutocomplete, FormMultiAutocomplete } from '@ensi-platform/admin-ui';
+import { MultiAutocomplete, FormMultiAutocomplete } from '@ensi-platform/admin-ui/multi-autocomplete';
 ```
 
 ## Когда использовать

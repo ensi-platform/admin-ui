@@ -1,7 +1,7 @@
 Тумблер вкл/выкл на React Aria `Switch`.
 
 ```tsx
-import { Switch, FormSwitch } from '@ensi-platform/admin-ui';
+import { Switch, FormSwitch } from '@ensi-platform/admin-ui/switch';
 ```
 
 ## Когда использовать

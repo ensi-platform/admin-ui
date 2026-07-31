@@ -1,7 +1,7 @@
 Поле выбора даты на React Aria `DatePicker` и вертикальном календаре.
 
 ```tsx
-import { DatePicker, FormDatePicker } from '@ensi-platform/admin-ui';
+import { DatePicker, FormDatePicker } from '@ensi-platform/admin-ui/date-picker';
 ```
 
 ## Когда использовать

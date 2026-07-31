@@ -1,7 +1,7 @@
 Label and filter chip with optional remove.
 
 ```tsx
-import { Tag } from '@ensi-platform/admin-ui';
+import { Tag } from '@ensi-platform/admin-ui/tag';
 ```
 
 ## When to use

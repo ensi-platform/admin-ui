@@ -1,7 +1,7 @@
 Статусный pill для таблиц и заголовка страницы.
 
 ```tsx
-import { Badge } from '@ensi-platform/admin-ui';
+import { Badge } from '@ensi-platform/admin-ui/badge';
 ```
 
 ## Когда использовать

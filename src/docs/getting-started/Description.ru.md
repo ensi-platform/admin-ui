@@ -19,7 +19,7 @@ import '@ensi-platform/admin-ui/tokens';
 Один раз у корня UI — порталы, locale и встроенные строки:
 
 ```tsx
-import { AdminUiProvider, Button } from '@ensi-platform/admin-ui';
+import { AdminUiProvider } from '@ensi-platform/admin-ui/provider';
 
 <AdminUiProvider
     locale="ru-RU"
@@ -51,7 +51,7 @@ document.documentElement.setAttribute('data-theme', 'light'); // или 'dark'
 ## Первый компонент
 
 ```tsx
-import { Button } from '@ensi-platform/admin-ui';
+import { Button } from '@ensi-platform/admin-ui/button';
 
 <Button variant="primary" size="md">
     Сохранить
@@ -60,6 +60,7 @@ import { Button } from '@ensi-platform/admin-ui';
 
 ## Дальше
 
+- **AI** — канал для агентов / skill
 - `Base/Button` — базовые контролы
 - `Form/Input` — поля и формы
 - `Overlays/Modal` — модалки и оверлеи

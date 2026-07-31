@@ -1,7 +1,7 @@
 Compound data-table chrome for admin lists.
 
 ```tsx
-import { Table, useTableRowSelection } from '@ensi-platform/admin-ui';
+import { Table, useTableRowSelection } from '@ensi-platform/admin-ui/table';
 ```
 
 ## When to use

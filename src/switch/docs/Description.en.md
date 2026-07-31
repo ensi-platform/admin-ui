@@ -1,7 +1,7 @@
 On/off toggle on React Aria `Switch`.
 
 ```tsx
-import { Switch, FormSwitch } from '@ensi-platform/admin-ui';
+import { Switch, FormSwitch } from '@ensi-platform/admin-ui/switch';
 ```
 
 ## When to use

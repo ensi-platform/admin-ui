@@ -9,12 +9,11 @@ import { Table } from '../Component';
 import { useTableRowSelection } from '../hooks/useTableRowSelection';
 import { type ITableBaseProps, type TTableSortDirection } from '../types';
 
+import { docsCssVariables } from './cssVariables';
 import DescriptionEn from './Description.en.md';
 import DescriptionRu from './Description.ru.md';
 import ExampleEn from './Example.en.md';
 import ExampleRu from './Example.ru.md';
-
-import { docsCssVariables } from './cssVariables';
 
 import { TableStoryComponent } from '.';
 

@@ -1,16 +1,113 @@
 {
     "name": "@ensi-platform/admin-ui",
-    "version": "0.0.0",
+    "version": "0.1.0",
     "description": "Admin UI for Ensi admin panel",
     "type": "module",
     "sideEffects": [
-        "**/*.css"
+        "**/*.css",
+        "./dist/tokens/index.js"
     ],
+    "files": [
+        "dist",
+        "docs/skills",
+        "docs/ai.md",
+        "docs/architecture.md",
+        "docs/README.md",
+        "src/*/docs/Description.*.md",
+        "src/*/docs/Example.*.md",
+        "src/*/docs/cssVariables.ts",
+        "src/*/types.ts",
+        "src/ds/typography/docs/Description.*.md",
+        "src/ds/typography/docs/Example.*.md",
+        "src/ds/typography/docs/cssVariables.ts"
+    ],
+    "engines": {
+        "node": ">=22.18.0"
+    },
+    "scripts": {
+        "sync-package": "node --experimental-strip-types scripts/sync-package.ts",
+        "build": "pnpm sync-package && vite build && cp src/ds/tokens/OFL.txt dist/tokens/",
+        "prepublishOnly": "pnpm build",
+        "dev": "vite build --watch",
+        "typecheck": "tsc --noEmit",
+        "lint": "eslint ./src ./.storybook ./scripts --fix",
+        "format": "prettier ./src --write --ignore-unknown --ignore-path .prettierignore",
+        "storybook": "storybook dev -p 6006",
+        "build-storybook": "storybook build",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "test:coverage": "vitest run --coverage",
+        "hooks:setup": "chmod +x .githooks/pre-commit && git config core.hooksPath .githooks"
+    },
+    "keywords": [
+        "ensi",
+        "admin",
+        "ui",
+        "react"
+    ],
+    "license": "SEE LICENSE IN LICENSE",
+    "packageManager": "pnpm@10.14.0",
+    "peerDependencies": {
+        "@hookform/resolvers": "^5",
+        "react": "^18 || ^19",
+        "react-dom": "^18 || ^19",
+        "react-hook-form": "^7",
+        "zod": "^4"
+    },
+    "devDependencies": {
+        "@ensi-platform/eslint-config-a11y": "^0.1.1",
+        "@ensi-platform/eslint-config-base": "^0.2.1",
+        "@ensi-platform/eslint-config-react": "^0.1.2",
+        "@ensi-platform/eslint-config-typescript": "^0.1.1",
+        "@ensi-platform/prettier-config": "^0.2.0",
+        "@fontsource/inter": "^5.3.0",
+        "@hookform/resolvers": "^5.4.0",
+        "@storybook/addon-docs": "10.5.3",
+        "@storybook/addon-themes": "10.5.3",
+        "@storybook/react": "10.5.3",
+        "@storybook/react-vite": "10.5.3",
+        "@testing-library/jest-dom": "^6.9.1",
+        "@testing-library/react": "^16.3.2",
+        "@testing-library/user-event": "^14.6.1",
+        "@types/react": "^19",
+        "@types/react-dom": "^19",
+        "@vitejs/plugin-react": "^4.7.0",
+        "@vitest/coverage-v8": "^4.1.10",
+        "eslint": "^9.39.5",
+        "glob": "^11.0.3",
+        "jsdom": "^29.1.1",
+        "prettier": "3.9.5",
+        "react": "^19",
+        "react-dom": "^19",
+        "react-hook-form": "^7.82.0",
+        "storybook": "10.5.3",
+        "typescript": "^6.0.3",
+        "vite": "^7.0.0",
+        "vite-plugin-dts": "^4.5.4",
+        "vite-plugin-lib-inject-css": "^2.2.2",
+        "vitest": "^4.1.10",
+        "zod": "^4.4.3"
+    },
+    "homepage": "https://ensi.tech",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ensi-platform/admin-ui.git"
+    },
+    "dependencies": {
+        "@internationalized/date": "^3.10.0",
+        "class-variance-authority": "0.7.1",
+        "classnames": "2.5.1",
+        "react-aria-components": "^1.19.0",
+        "react-fast-compare": "^3.2.2",
+        "usehooks-ts": "^3.1.1"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "bugs": {
+        "url": "https://github.com/ensi-platform/admin-ui/issues"
+    },
     "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "import": "./dist/index.js"
-        },
         "./action-popup": {
             "types": "./dist/action-popup/index.d.ts",
             "import": "./dist/action-popup/index.js"
@@ -147,6 +244,10 @@
             "types": "./dist/toast/index.d.ts",
             "import": "./dist/toast/index.js"
         },
+        "./tokens": {
+            "types": "./dist/tokens/index.d.ts",
+            "import": "./dist/tokens/index.js"
+        },
         "./tooltip": {
             "types": "./dist/tooltip/index.d.ts",
             "import": "./dist/tooltip/index.js"
@@ -154,89 +255,6 @@
         "./typography": {
             "types": "./dist/typography/index.d.ts",
             "import": "./dist/typography/index.js"
-        },
-        "./tokens": "./dist/tokens/index.css"
-    },
-    "files": [
-        "dist"
-    ],
-    "engines": {
-        "node": ">=22.18.0"
-    },
-    "scripts": {
-        "sync-package": "node --experimental-strip-types scripts/sync-package.ts",
-        "build": "pnpm sync-package && vite build && mkdir -p dist/tokens && cp src/ds/tokens/*.css dist/tokens/ && cp -R src/ds/tokens/files dist/tokens/files && cp src/ds/tokens/OFL.txt dist/tokens/",
-        "dev": "vite build --watch",
-        "typecheck": "tsc --noEmit",
-        "lint": "eslint ./src ./.storybook ./scripts --fix",
-        "format": "prettier ./src --write --ignore-unknown --ignore-path .prettierignore",
-        "storybook": "storybook dev -p 6006",
-        "build-storybook": "storybook build",
-        "test": "vitest run",
-        "test:watch": "vitest",
-        "test:coverage": "vitest run --coverage",
-        "hooks:setup": "chmod +x .githooks/pre-commit && git config core.hooksPath .githooks"
-    },
-    "keywords": [
-        "ensi",
-        "admin",
-        "ui",
-        "react"
-    ],
-    "license": "SEE LICENSE IN LICENSE",
-    "packageManager": "pnpm@10.14.0",
-    "peerDependencies": {
-        "@hookform/resolvers": "^5",
-        "react": "^18 || ^19",
-        "react-dom": "^18 || ^19",
-        "react-hook-form": "^7",
-        "zod": "^4"
-    },
-    "devDependencies": {
-        "@ensi-platform/eslint-config-a11y": "^0.1.1",
-        "@ensi-platform/eslint-config-base": "^0.2.1",
-        "@ensi-platform/eslint-config-react": "^0.1.2",
-        "@ensi-platform/eslint-config-typescript": "^0.1.1",
-        "@ensi-platform/prettier-config": "^0.2.0",
-        "@fontsource/inter": "^5.3.0",
-        "@hookform/resolvers": "^5.4.0",
-        "@storybook/addon-docs": "10.5.3",
-        "@storybook/addon-themes": "10.5.3",
-        "@storybook/react": "10.5.3",
-        "@storybook/react-vite": "10.5.3",
-        "@testing-library/jest-dom": "^6.9.1",
-        "@testing-library/react": "^16.3.2",
-        "@testing-library/user-event": "^14.6.1",
-        "@types/react": "^19",
-        "@types/react-dom": "^19",
-        "@vitejs/plugin-react": "^4.7.0",
-        "@vitest/coverage-v8": "^4.1.10",
-        "eslint": "^9.39.5",
-        "glob": "^11.0.3",
-        "jsdom": "^29.1.1",
-        "prettier": "3.9.5",
-        "react": "^19",
-        "react-dom": "^19",
-        "react-hook-form": "^7.82.0",
-        "storybook": "10.5.3",
-        "typescript": "^6.0.3",
-        "vite": "^7.0.0",
-        "vite-plugin-dts": "^4.5.4",
-        "vite-plugin-lib-inject-css": "^2.2.2",
-        "vitest": "^4.1.10",
-        "zod": "^4.4.3"
-    },
-    "homepage": "https://ensi.tech",
-    "repository": {
-        "type": "git",
-        "url": "git@git.greensight.ru:ensi/opensource/packages/admin-ui/admin-ui.git"
-    },
-    "dependencies": {
-        "@internationalized/date": "^3.10.0",
-        "class-variance-authority": "0.7.1",
-        "classnames": "2.5.1",
-        "react-aria-components": "^1.19.0",
-        "react-fast-compare": "^3.2.2",
-        "usehooks-ts": "^3.1.1"
+        }
     }
 }

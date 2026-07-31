@@ -11,12 +11,11 @@ import { Form } from '@/form';
 import { FormTimeField } from '../FormTimeField';
 import { type ITimeFieldProps } from '../types';
 
+import { docsCssVariables } from './cssVariables';
 import DescriptionEn from './Description.en.md';
 import DescriptionRu from './Description.ru.md';
 import ExampleEn from './Example.en.md';
 import ExampleRu from './Example.ru.md';
-
-import { docsCssVariables } from './cssVariables';
 
 import { TimeFieldStoryComponent } from '.';
 
