@@ -1,13 +1,19 @@
 import { type ReactNode } from 'react';
 
 import { type ArgTypes, type Meta, type StoryObj } from '@storybook/react';
+import { fn } from 'storybook/test';
 
 import { Button } from '@/button';
 
+import { DEFAULT_MAX_VISIBLE_TOASTS, DEFAULT_TIMEOUT } from '../constants';
 import { ToastRegion, ToastProvider, useToast } from '../index';
 import { type IToastAddOptions, type IToastContent, type TToastVariant } from '../types';
 
-import Description from './Description.md';
+import { docsCssVariables } from './cssVariables';
+import DescriptionEn from './Description.en.md';
+import DescriptionRu from './Description.ru.md';
+import ExampleEn from './Example.en.md';
+import ExampleRu from './Example.ru.md';
 
 const VARIANTS: TToastVariant[] = ['neutral', 'success', 'warning', 'danger', 'info'];
 
@@ -20,13 +26,17 @@ interface IToastStoryArgs {
     defaultTimeout: number;
 }
 
+interface IOnCloseStoryArgs extends IToastStoryArgs {
+    onClose: ReturnType<typeof fn>;
+}
+
 const DEFAULT_ARGS: IToastStoryArgs = {
-    title: 'Сохранено',
+    title: 'Saved',
     description: '',
-    timeout: 5000,
+    timeout: DEFAULT_TIMEOUT,
     variant: 'neutral',
-    maxVisibleToasts: 5,
-    defaultTimeout: 5000,
+    maxVisibleToasts: DEFAULT_MAX_VISIBLE_TOASTS,
+    defaultTimeout: DEFAULT_TIMEOUT,
 };
 
 const DEFAULT_ARG_TYPES: ArgTypes<Partial<IToastStoryArgs>> = {
@@ -42,19 +52,31 @@ const DEFAULT_ARG_TYPES: ArgTypes<Partial<IToastStoryArgs>> = {
     timeout: {
         control: { type: 'number' },
         description: 'Per-call auto-dismiss delay in ms. Overrides Provider `defaultTimeout`. Pass `0` to disable.',
+        table: {
+            defaultValue: { summary: String(DEFAULT_TIMEOUT) },
+        },
     },
     variant: {
         control: { type: 'select' },
         options: VARIANTS,
-        description: 'Semantic status variant. Defaults to `neutral`.',
+        description: 'Semantic status variant.',
+        table: {
+            defaultValue: { summary: 'neutral' },
+        },
     },
     maxVisibleToasts: {
-        control: { type: 'number', min: 1 },
-        description: 'Max simultaneously visible toasts on ToastProvider. Defaults to `5`. Fixed at mount.',
+        control: false,
+        description: 'Max simultaneously visible toasts on ToastProvider. Fixed at mount.',
+        table: {
+            defaultValue: { summary: String(DEFAULT_MAX_VISIBLE_TOASTS) },
+        },
     },
     defaultTimeout: {
         control: { type: 'number' },
-        description: 'Provider default auto-dismiss delay in ms. Defaults to `5000`. Pass `0` for sticky by default.',
+        description: 'Provider default auto-dismiss delay in ms. Pass `0` for sticky by default.',
+        table: {
+            defaultValue: { summary: String(DEFAULT_TIMEOUT) },
+        },
     },
 };
 
@@ -88,13 +110,17 @@ const ToastDemoShell = ({
 );
 
 export default {
-    title: 'Toast',
+    title: 'Overlays/Toast',
     parameters: {
-        docs: {
-            description: {
-                component: Description,
-            },
+        docsDescriptionByLocale: {
+            ru: DescriptionRu,
+            en: DescriptionEn,
         },
+        docsExampleByLocale: {
+            ru: ExampleRu,
+            en: ExampleEn,
+        },
+        docsCssVariables,
         controls: {
             expanded: true,
         },
@@ -110,7 +136,7 @@ export const Default: StoryObj<IToastStoryArgs> = {
                 content={{ title, description: description || undefined, variant }}
                 options={{ timeout }}
             >
-                Показать toast
+                Show toast
             </AppendToastButton>
         </ToastDemoShell>
     ),
@@ -142,8 +168,8 @@ export const Variants: StoryObj<IToastStoryArgs> = {
 
 export const WithDescription: StoryObj<IToastStoryArgs> = {
     args: {
-        title: 'Не удалось сохранить',
-        description: 'Проверьте соединение и повторите попытку.',
+        title: 'Could not save',
+        description: 'Check your connection and try again.',
         variant: 'danger',
     },
     render: ({ title, description, timeout, variant, maxVisibleToasts, defaultTimeout }) => (
@@ -152,29 +178,63 @@ export const WithDescription: StoryObj<IToastStoryArgs> = {
                 content={{ title, description: description || undefined, variant }}
                 options={{ timeout }}
             >
-                Toast с description
+                Toast with description
             </AppendToastButton>
         </ToastDemoShell>
     ),
 };
 
 export const CustomTimeout: StoryObj<IToastStoryArgs> = {
-    args: {
-        title: 'Исчезнет через 8 с',
-    },
     argTypes: {
+        title: { control: false },
         timeout: { control: false },
+        defaultTimeout: { control: false },
     },
-    render: ({ title, description, variant, maxVisibleToasts, defaultTimeout }) => (
+    render: ({ description, variant, maxVisibleToasts, defaultTimeout }) => (
         <ToastDemoShell maxVisibleToasts={maxVisibleToasts} defaultTimeout={defaultTimeout}>
             <AppendToastButton
-                content={{ title, description: description || undefined, variant }}
+                content={{
+                    title: 'Dismisses in 8s',
+                    description: description || undefined,
+                    variant,
+                }}
                 options={{ timeout: 8000 }}
             >
                 timeout: 8000
             </AppendToastButton>
-            <AppendToastButton content={{ title, description: description || undefined, variant }}>
+            <AppendToastButton
+                content={{
+                    title: 'Uses defaultTimeout (5s)',
+                    description: description || undefined,
+                    variant,
+                }}
+            >
                 defaultTimeout
+            </AppendToastButton>
+        </ToastDemoShell>
+    ),
+};
+
+export const OnClose: StoryObj<IOnCloseStoryArgs> = {
+    args: {
+        onClose: fn(),
+    },
+    argTypes: {
+        title: { control: false },
+        timeout: { control: false },
+        onClose: { control: false },
+    },
+    render: ({ onClose, maxVisibleToasts, defaultTimeout }) => (
+        <ToastDemoShell maxVisibleToasts={maxVisibleToasts} defaultTimeout={defaultTimeout}>
+            <AppendToastButton
+                content={{
+                    title: 'Close me',
+                    description: 'onClose is logged in Actions',
+                    variant: 'info',
+                }}
+                options={{ timeout: 0, onClose }}
+            >
+                Show toast
             </AppendToastButton>
         </ToastDemoShell>
     ),

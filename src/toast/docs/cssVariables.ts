@@ -1,0 +1,30 @@
+/** Toast CSS variables from semantic tokens (--aui-toast-*). */
+export const docsCssVariables = `/* CSS variables — Toast (--aui-toast-*) */
+--aui-toast-bg-neutral: var(--aui-surface-bg-muted); /* neutral fill */
+--aui-toast-accent-neutral: var(--aui-grey-500); /* neutral accent */
+--aui-toast-bg-success: var(--aui-green-50); /* success fill */
+--aui-toast-accent-success: var(--aui-green-700); /* success accent */
+--aui-toast-bg-warning: var(--aui-yellow-50); /* warning fill */
+--aui-toast-accent-warning: var(--aui-yellow-700); /* warning accent */
+--aui-toast-bg-danger: var(--aui-red-50); /* danger fill */
+--aui-toast-accent-danger: var(--aui-red-700); /* danger accent */
+--aui-toast-bg-info: var(--aui-blue-50); /* info fill */
+--aui-toast-accent-info: var(--aui-blue-700); /* info accent */
+--aui-toast-fg-title: var(--aui-page-fg-primary); /* title foreground */
+--aui-toast-fg-description: var(--aui-page-fg-muted); /* description foreground */
+--aui-toast-accent-w: var(--aui-space-4); /* accent border width */
+--aui-toast-radius: var(--aui-control-radius-md); /* border radius */
+--aui-toast-pad-y: var(--aui-space-12); /* padding-y */
+--aui-toast-pad-x: var(--aui-space-16); /* padding-x */
+--aui-toast-gap: var(--aui-space-12); /* stack gap */
+--aui-toast-content-gap: var(--aui-space-4); /* title/description gap */
+--aui-toast-max-w: 360px; /* max width */
+--aui-toast-shadow: var(--aui-shadow-sm); /* box shadow */
+--aui-toast-inset-top: var(--aui-space-16); /* inset top */
+--aui-toast-inset-end: var(--aui-space-16); /* inset inline-end */
+--aui-toast-close-size: var(--aui-space-16); /* close button icon size */
+--aui-toast-close-hit: var(--aui-space-24); /* close button hit area */
+--aui-toast-close-border-focus: var(--aui-control-border-focus); /* close button focus border */
+--aui-toast-z: 1050; /* z-index */
+--aui-toast-duration-motion: 200ms; /* motion duration */
+--aui-toast-ease-out: var(--aui-control-ease-out); /* motion easing */`;

@@ -51,7 +51,7 @@ ButtonStoryComponent.displayName = 'Button';
 | --- | --- |
 | Корневые docs-only | `'Main'`, `'Getting started'` |
 | Base | `'Base/Button'`, `'Base/Badge'`, `'Base/Tag'`, `'Base/Tabs'`, `'Base/Table'`, `'Base/Loader'` |
-| Overlays | `'Overlays/BottomSheet'`, `'Overlays/Drawer'`, `'Overlays/Modal'`, `'Overlays/Popover'`, `'Overlays/Tooltip'`, `'Overlays/ActionPopup'`, `'Overlays/ModalHub'` |
+| Overlays | `'Overlays/BottomSheet'`, `'Overlays/Drawer'`, `'Overlays/Modal'`, `'Overlays/Popover'`, `'Overlays/Tooltip'`, `'Overlays/ActionPopup'`, `'Overlays/ModalHub'`, `'Overlays/Toast'` |
 | Form / Field / контрол | `'Form/Input'`, `'Form/Field'`, `'Form/Form'`, `'Form/Checkbox'`, `'Form/CheckboxGroup'`, `'Form/Switch'` |
 | Select и похожие | `'Form/Combobox/Select'`, … |
 | Дата / время | `'Form/DateField/DatePicker'`, … |
