@@ -14,14 +14,14 @@ import { Field, useField } from '@ensi-platform/admin-ui/field';
 
 ## API (кратко)
 
-| Prop | Значения | По умолчанию | Описание |
-| --- | --- | --- | --- |
-| `size` | `sm` \| `md` \| `lg` | `md` | размер label / отступов |
-| `invalid` | `boolean` | `false` | ошибка |
-| `disabled` | `boolean` | `false` | недоступен |
-| `block` | `boolean` | — | на всю ширину родителя |
-| `dataTestId` | `string` | — | атрибут `data-test-id` для тестов |
-| `children` | `ReactNode` | — | слоты и контрол |
+| Prop         | Значения             | По умолчанию | Описание                          |
+| ------------ | -------------------- | ------------ | --------------------------------- |
+| `size`       | `sm` \| `md` \| `lg` | `md`         | размер label / отступов           |
+| `invalid`    | `boolean`            | `false`      | ошибка                            |
+| `disabled`   | `boolean`            | `false`      | недоступен                        |
+| `block`      | `boolean`            | —            | на всю ширину родителя            |
+| `dataTestId` | `string`             | —            | атрибут `data-test-id` для тестов |
+| `children`   | `ReactNode`          | —            | слоты и контрол                   |
 
 Слоты: `Field.Label`, `Field.Hint`, `Field.Error` (типографика зависит от `size`: sm/md — Label `bodyS`, Hint/Error `bodyXs`; lg — Label `bodyM`, Hint/Error `bodyS`).
 

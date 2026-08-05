@@ -12,13 +12,13 @@ import { Tag } from '@ensi-platform/admin-ui/tag';
 
 ## API (кратко)
 
-| Prop | Значения | По умолчанию | Описание |
-| --- | --- | --- | --- |
-| `size` | `sm` \| `md` | `md` | размер |
-| `variant` | `primary` | `primary` | визуальный вариант |
-| `onRemove` | `() => void` | — | крестик; `aria-label` из `useAuiLabels().clear` |
-| `disabled` | `boolean` | `false` | отключает чип и кнопку снятия |
-| `children` | `ReactNode` | — | текст |
-| `dataTestId` | `string` | — | атрибут `data-test-id` для тестов |
+| Prop         | Значения     | По умолчанию | Описание                                        |
+| ------------ | ------------ | ------------ | ----------------------------------------------- |
+| `size`       | `sm` \| `md` | `md`         | размер                                          |
+| `variant`    | `primary`    | `primary`    | визуальный вариант                              |
+| `onRemove`   | `() => void` | —            | крестик; `aria-label` из `useAuiLabels().clear` |
+| `disabled`   | `boolean`    | `false`      | отключает чип и кнопку снятия                   |
+| `children`   | `ReactNode`  | —            | текст                                           |
+| `dataTestId` | `string`     | —            | атрибут `data-test-id` для тестов               |
 
 Без `as` и без status-variants. Обычные атрибуты `span` (`className`, …) принимаются.

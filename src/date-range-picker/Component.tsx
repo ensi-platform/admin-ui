@@ -141,28 +141,30 @@ export const DateRangePicker = ({
                 <DateInput slot="end" className={styles.input}>
                     {segment => <DateSegment segment={segment} className={styles.segment} />}
                 </DateInput>
-                {showClear ? (
+                <span className={styles.actions}>
+                    {showClear ? (
+                        <RacButton
+                            slot={null}
+                            className={styles.clear}
+                            aria-label={clearLabel}
+                            data-test-id="date-range-picker-clear"
+                            excludeFromTabOrder
+                            onPress={() => setValue(null)}
+                        >
+                            <Clear className={styles.icon} />
+                        </RacButton>
+                    ) : null}
                     <RacButton
-                        slot={null}
-                        className={styles.clear}
-                        aria-label={clearLabel}
-                        data-test-id="date-range-picker-clear"
-                        excludeFromTabOrder
-                        onPress={() => setValue(null)}
+                        className={styles.iconButton}
+                        aria-label={openCalendar}
+                        data-test-id="date-range-picker-calendar"
+                        onPressStart={event => {
+                            openModalityRef.current = event.pointerType === 'keyboard' ? 'keyboard' : 'pointer';
+                        }}
                     >
-                        <Clear className={styles.icon} />
+                        <Calendar className={styles.icon} />
                     </RacButton>
-                ) : null}
-                <RacButton
-                    className={styles.iconButton}
-                    aria-label={openCalendar}
-                    data-test-id="date-range-picker-calendar"
-                    onPressStart={event => {
-                        openModalityRef.current = event.pointerType === 'keyboard' ? 'keyboard' : 'pointer';
-                    }}
-                >
-                    <Calendar className={styles.icon} />
-                </RacButton>
+                </span>
             </Group>
             <Popover className={styles.popover} placement="bottom start">
                 <Dialog>

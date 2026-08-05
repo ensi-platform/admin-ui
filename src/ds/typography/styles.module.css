@@ -2,26 +2,47 @@
     font-family: var(--aui-font-sans);
     font-size: var(--aui-font-size-xs);
     font-weight: var(--aui-font-weight-regular);
-    line-height: var(--aui-line-height-tight);
+    line-height: var(--aui-line-height-xs);
 }
 
 .bodyS {
     font-family: var(--aui-font-sans);
     font-size: var(--aui-font-size-sm);
     font-weight: var(--aui-font-weight-regular);
-    line-height: var(--aui-line-height-normal);
+    line-height: var(--aui-line-height-sm);
+}
+
+.bodySTight {
+    font-family: var(--aui-font-sans);
+    font-size: var(--aui-font-size-sm);
+    font-weight: var(--aui-font-weight-regular);
+    line-height: var(--aui-line-height-tight);
 }
 
 .bodyM {
     font-family: var(--aui-font-sans);
     font-size: var(--aui-font-size-md);
     font-weight: var(--aui-font-weight-regular);
-    line-height: var(--aui-line-height-normal);
+    line-height: var(--aui-line-height-md);
 }
 
 .bodyL {
     font-family: var(--aui-font-sans);
     font-size: var(--aui-font-size-lg);
     font-weight: var(--aui-font-weight-regular);
-    line-height: var(--aui-line-height-normal);
+    line-height: var(--aui-line-height-lg);
+}
+
+.headingM {
+    font-family: var(--aui-font-sans);
+    font-size: var(--aui-font-size-xl);
+    font-weight: var(--aui-font-weight-semibold);
+    line-height: var(--aui-line-height-xl);
+}
+
+.headingL {
+    font-family: var(--aui-font-sans);
+    font-size: var(--aui-font-size-2xl);
+    font-weight: var(--aui-font-weight-semibold);
+    line-height: var(--aui-line-height-2xl);
 }

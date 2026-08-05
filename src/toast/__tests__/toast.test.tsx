@@ -373,6 +373,10 @@ describe('Toast', () => {
         expect(() => render(<Broken />)).toThrow('ToastProvider is required. Wrap the app with <ToastProvider>.');
     });
 
+    it('throws when ToastRegion is used without ToastProvider', () => {
+        expect(() => render(<ToastRegion />)).toThrow('ToastProvider is required. Wrap the app with <ToastProvider>.');
+    });
+
     describe('wrapUpdate / view transitions', () => {
         const originalMatchMedia = window.matchMedia;
         const originalStartViewTransition = (document as Document & { startViewTransition?: unknown })

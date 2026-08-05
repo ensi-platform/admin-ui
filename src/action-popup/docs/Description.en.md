@@ -15,17 +15,17 @@ import { ActionPopup, ConfirmModal, DeleteModal } from '@ensi-platform/admin-ui/
 
 ### ConfirmModal / DeleteModal
 
-| Prop | Values | Default | Description |
-| --- | --- | --- | --- |
-| `open` | `boolean` | — | whether the dialog is open |
-| `onOpenChange` | `(open: boolean) => void` | — | open state change |
-| `onExitComplete` | `() => void` | — | after the exit animation |
-| `title` | `string` | — | title |
-| `children` | `ReactNode` | — | description body |
-| `onConfirm` | `() => void \| Promise<void>` | — | closes after resolve, stays open on reject |
-| `isConfirmDisabled` | `boolean` | `false` | extra disable for the confirm button |
-| `dismissable` | `boolean` | `true` | close on outside click |
-| `dataTestId` | `string` | — | `data-test-id` for tests |
+| Prop                | Values                        | Default | Description                                |
+| ------------------- | ----------------------------- | ------- | ------------------------------------------ |
+| `open`              | `boolean`                     | —       | whether the dialog is open                 |
+| `onOpenChange`      | `(open: boolean) => void`     | —       | open state change                          |
+| `onExitComplete`    | `() => void`                  | —       | after the exit animation                   |
+| `title`             | `string`                      | —       | title                                      |
+| `children`          | `ReactNode`                   | —       | description body                           |
+| `onConfirm`         | `() => void \| Promise<void>` | —       | closes after resolve, stays open on reject |
+| `isConfirmDisabled` | `boolean`                     | `false` | extra disable for the confirm button       |
+| `dismissable`       | `boolean`                     | `true`  | close on outside click                     |
+| `dataTestId`        | `string`                      | —       | `data-test-id` for tests                   |
 
 Button labels come from `IAuiLabels` (`confirm`/`cancel` or `delete`/`notDelete`). Size is fixed to `sm`, no `CloseButton`.
 
@@ -33,8 +33,8 @@ Button labels come from `IAuiLabels` (`confirm`/`cancel` or `delete`/`notDelete`
 
 Same as the presets, plus:
 
-| Prop | Values | Default | Description |
-| --- | --- | --- | --- |
-| `tone` | `primary` \| `danger` | `primary` | confirm button tone |
-| `confirmLabel` | `string` | — | confirm button label |
-| `cancelLabel` | `string` | — | cancel button label |
+| Prop           | Values                | Default   | Description          |
+| -------------- | --------------------- | --------- | -------------------- |
+| `tone`         | `primary` \| `danger` | `primary` | confirm button tone  |
+| `confirmLabel` | `string`              | —         | confirm button label |
+| `cancelLabel`  | `string`              | —         | cancel button label  |

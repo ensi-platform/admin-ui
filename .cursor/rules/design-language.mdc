@@ -1,0 +1,25 @@
+---
+description: Визуальный канон АП — бюджет слоёв, CascadeMenu chrome (не v3-сайдбар), list/detail
+globs: src/**/*.{ts,tsx,module.css,css},docs/concepts/**,docs/design-language.md
+alwaysApply: false
+---
+
+# Design language
+
+Полный гайд: [`docs/design-language.md`](../../docs/design-language.md).  
+Content-скрины: `docs/concepts/*-v3.png`. **Сайдбар на v3 — не канон**; nav = Storybook `App/CascadeMenu`.
+
+Не дублировать `tokens.mdc` / `component-styles.mdc` — здесь только слои и chrome.
+
+## Hard
+
+- контейнер зоны (card / bar / section shell): **bg XOR border**, не оба
+- исключения: control chrome, focus, semantic alert
+- вложенность surface-коробок от `page` ≤ **2**
+- `Tag` / `Badge` / chip: tint **XOR** outline
+- Nav: `CascadeMenu` (hover flyout, aim-delay, без Back); L0 light/dark = page family (`grey-50` / `black-900`+`grey-700`); flyout = bg как L0; `data-open` только пока flyout открыт; без подсветки текущей страницы (крошки); Pinned сверху L0 (leaf+folder, max 8, LS/`pinUserId`); brand: Mark + `ensi-opensource` / optional `title` + collapse top; лого `LogoEnsiMark` + `currentColor`; **не** сверять меню с `*-v3.png`
+- list: `Tag`-ряд без bordered bar; table flush; pagination без border-клетки на каждую цифру
+- detail: underline `Tabs`; секции без card-на-секцию; один alert ок
+- filters: поля на page, без muted-bar вокруг controls
+
+При сомнении по content — `*-v3.png`; по сайдбару — Storybook + design-language App chrome.

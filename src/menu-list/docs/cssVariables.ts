@@ -1,0 +1,28 @@
+export const docsCssVariables = `/* CSS variables — MenuList (--aui-menu-list-*) */
+--aui-menu-list-fg-primary: var(--aui-page-fg-primary); /* item text */
+--aui-menu-list-fg-muted: var(--aui-page-fg-muted); /* group label / chevron */
+--aui-menu-list-item-bg-hover: var(--aui-surface-bg-muted-hover); /* item hover fill */
+--aui-menu-list-item-bg-active: var(--aui-surface-bg-elevated); /* selected leaf fill */
+--aui-menu-list-item-bg-active-hover: var(--aui-menu-list-item-bg-active); /* selected leaf hover */
+--aui-menu-list-item-bg-open: var(--aui-surface-bg-muted); /* open folder / path fill */
+--aui-menu-list-item-bg-open-hover: var(--aui-surface-bg-muted-hover); /* open folder hover */
+--aui-menu-list-border-focus: var(--aui-control-border-focus); /* focus ring */
+--aui-menu-list-radius-md: var(--aui-control-radius-md); /* item radius */
+--aui-menu-list-gap-group-md: 0; /* gap between groups */
+--aui-menu-list-gap-items-md: 0; /* gap between items */
+--aui-menu-list-item-gap-md: var(--aui-spacing-8); /* icon / label gap */
+--aui-menu-list-item-pad-y-sm: var(--aui-spacing-4); /* item pad y sm */
+--aui-menu-list-item-pad-x-sm: var(--aui-spacing-8); /* item pad x sm */
+--aui-menu-list-item-pad-y-md: var(--aui-spacing-8); /* item pad y md */
+--aui-menu-list-item-pad-x-md: var(--aui-spacing-12); /* item pad x md */
+--aui-menu-list-item-pad-y-lg: var(--aui-spacing-12); /* item pad y lg */
+--aui-menu-list-item-pad-x-lg: var(--aui-spacing-16); /* item pad x lg */
+--aui-menu-list-item-h-sm: var(--aui-control-h-sm); /* item min-height sm */
+--aui-menu-list-item-h-md: var(--aui-control-h-md); /* item min-height md */
+--aui-menu-list-item-h-lg: var(--aui-control-h-lg); /* item min-height lg */
+--aui-menu-list-icon-size-sm: var(--aui-spacing-12); /* icon sm */
+--aui-menu-list-icon-size-md: var(--aui-spacing-16); /* icon md */
+--aui-menu-list-icon-size-lg: var(--aui-spacing-20); /* icon lg */
+--aui-menu-list-duration-fast: var(--aui-control-duration-fast); /* hover transition */
+--aui-menu-list-ease-out: var(--aui-control-ease-out); /* transition easing */
+`;

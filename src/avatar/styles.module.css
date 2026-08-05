@@ -1,0 +1,42 @@
+.root {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 50%;
+    background: var(--aui-avatar-bg-primary);
+    color: var(--aui-avatar-fg-primary);
+    font-weight: var(--aui-avatar-font-weight);
+    line-height: 1;
+    user-select: none;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sm {
+    width: var(--aui-avatar-size-sm);
+    height: var(--aui-avatar-size-sm);
+    font-size: var(--aui-avatar-font-sm);
+}
+
+.md {
+    width: var(--aui-avatar-size-md);
+    height: var(--aui-avatar-size-md);
+    font-size: var(--aui-avatar-font-md);
+}
+
+.lg {
+    width: var(--aui-avatar-size-lg);
+    height: var(--aui-avatar-size-lg);
+    font-size: var(--aui-avatar-font-lg);
+}
+
+.primary {
+    background: var(--aui-avatar-bg-primary);
+    color: var(--aui-avatar-fg-primary);
+}

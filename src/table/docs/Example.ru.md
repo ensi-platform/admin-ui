@@ -2,8 +2,7 @@
 
 ```tsx
 const ids = pageRows.map(r => r.id);
-const { isSelected, toggle, isAllSelected, isIndeterminate, setAllOnPage, clearAll } =
-    useTableRowSelection(ids);
+const { isSelected, toggle, isAllSelected, isIndeterminate, setAllOnPage, clearAll } = useTableRowSelection(ids);
 
 const onPageChange = (next: number) => {
     clearAll();
@@ -45,10 +44,7 @@ const onPageSizeChange = (size: number) => {
                             <Table.Cell>{row.name}</Table.Cell>
                             <Table.Cell numeric>{row.amount}</Table.Cell>
                             <Table.Cell utility>
-                                <Table.ActionBar
-                                    visibleCount={0}
-                                    items={[{ text: 'Изменить', onClick: () => {} }]}
-                                />
+                                <Table.ActionBar visibleCount={0} items={[{ text: 'Изменить', onClick: () => {} }]} />
                             </Table.Cell>
                         </Table.Row>
                     ))}
@@ -67,5 +63,5 @@ const onPageSizeChange = (size: number) => {
             total={total}
         />
     </Table.Footer>
-</Table>
+</Table>;
 ```

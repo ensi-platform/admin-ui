@@ -30,38 +30,38 @@ type TUseAutocompleteSuggest = (input: { query: string; enabled?: boolean }) => 
 
 ### AutocompleteAsync
 
-| Prop | Значения | По умолчанию | Описание |
-| --- | --- | --- | --- |
-| `useSuggest` | `TUseAutocompleteSuggest` | — | хук подсказок (обязателен) |
-| `minLength` | `number` | `0` | мин. длина запроса перед запросом |
-| `debounceMs` | `number` | `300` | задержка ввода |
-| `value` | `string \| number \| null` | — | управляемое значение |
-| `defaultValue` | `string \| number \| null` | — | начальное значение |
-| `onChange` | `(value: string \| number \| null) => void` | — | смена выбора; `null` при очистке |
-| `placeholder` | `string` | — | плейсхолдер |
-| `clear` | `boolean` | `false` | кнопка очистки |
-| `size` | `sm` \| `md` \| `lg` | `md` | размер |
-| `invalid` | `boolean` | `false` | ошибка |
-| `disabled` | `boolean` | `false` | недоступен |
-| `block` | `boolean` | — | на всю ширину |
-| `dataTestId` | `string` | — | атрибут `data-test-id` для тестов |
+| Prop           | Значения                                    | По умолчанию | Описание                          |
+| -------------- | ------------------------------------------- | ------------ | --------------------------------- |
+| `useSuggest`   | `TUseAutocompleteSuggest`                   | —            | хук подсказок (обязателен)        |
+| `minLength`    | `number`                                    | `0`          | мин. длина запроса перед запросом |
+| `debounceMs`   | `number`                                    | `300`        | задержка ввода                    |
+| `value`        | `string \| number \| null`                  | —            | управляемое значение              |
+| `defaultValue` | `string \| number \| null`                  | —            | начальное значение                |
+| `onChange`     | `(value: string \| number \| null) => void` | —            | смена выбора; `null` при очистке  |
+| `placeholder`  | `string`                                    | —            | плейсхолдер                       |
+| `clear`        | `boolean`                                   | `false`      | кнопка очистки                    |
+| `size`         | `sm` \| `md` \| `lg`                        | `md`         | размер                            |
+| `invalid`      | `boolean`                                   | `false`      | ошибка                            |
+| `disabled`     | `boolean`                                   | `false`      | недоступен                        |
+| `block`        | `boolean`                                   | —            | на всю ширину                     |
+| `dataTestId`   | `string`                                    | —            | атрибут `data-test-id` для тестов |
 
 Без внешних `options` / `isLoading`.
 
 ### FormAutocompleteAsync
 
-| Prop | Значения | По умолчанию | Описание |
-| --- | --- | --- | --- |
-| `name` | `string` | — | имя поля в `Form` |
-| `label` | `ReactNode` | — | подпись `Field.Label` |
-| `hint` | `ReactNode` | — | подсказка под контролом |
-| `useSuggest` | `TUseAutocompleteSuggest` | — | хук подсказок |
-| `minLength` | `number` | `0` | мин. длина запроса |
-| `debounceMs` | `number` | `300` | задержка ввода |
-| `placeholder` | `string` | — | плейсхолдер |
-| `clear` | `boolean` | `false` | кнопка очистки; в форму пишет `''` |
-| `size` | `sm` \| `md` \| `lg` | `md` | размер |
-| `disabled` | `boolean` | — | недоступен |
-| `dataTestId` | `string` | — | атрибут `data-test-id` для тестов |
+| Prop          | Значения                  | По умолчанию | Описание                           |
+| ------------- | ------------------------- | ------------ | ---------------------------------- |
+| `name`        | `string`                  | —            | имя поля в `Form`                  |
+| `label`       | `ReactNode`               | —            | подпись `Field.Label`              |
+| `hint`        | `ReactNode`               | —            | подсказка под контролом            |
+| `useSuggest`  | `TUseAutocompleteSuggest` | —            | хук подсказок                      |
+| `minLength`   | `number`                  | `0`          | мин. длина запроса                 |
+| `debounceMs`  | `number`                  | `300`        | задержка ввода                     |
+| `placeholder` | `string`                  | —            | плейсхолдер                        |
+| `clear`       | `boolean`                 | `false`      | кнопка очистки; в форму пишет `''` |
+| `size`        | `sm` \| `md` \| `lg`      | `md`         | размер                             |
+| `disabled`    | `boolean`                 | —            | недоступен                         |
+| `dataTestId`  | `string`                  | —            | атрибут `data-test-id` для тестов  |
 
 value / onChange / onBlur / валидность — из `Form`.

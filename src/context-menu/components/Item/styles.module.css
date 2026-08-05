@@ -1,0 +1,46 @@
+.root {
+    display: flex;
+    align-items: center;
+    gap: var(--aui-context-menu-item-gap);
+    width: 100%;
+    margin: 0;
+    border: none;
+    border-radius: var(--aui-context-menu-radius-md);
+    background: transparent;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.root:hover:not(:disabled) {
+    background: var(--aui-context-menu-item-bg-hover);
+}
+
+.root:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.root:focus-visible {
+    outline: 2px solid var(--aui-context-menu-border-focus);
+    outline-offset: 2px;
+}
+
+.sm {
+    padding: var(--aui-context-menu-item-pad-y-sm) var(--aui-context-menu-item-pad-x-sm);
+}
+
+.md {
+    padding: var(--aui-context-menu-item-pad-y-md) var(--aui-context-menu-item-pad-x-md);
+}
+
+.lg {
+    padding: var(--aui-context-menu-item-pad-y-lg) var(--aui-context-menu-item-pad-x-lg);
+}
+
+.icon {
+    flex-shrink: 0;
+    width: var(--aui-context-menu-icon-size);
+    height: var(--aui-context-menu-icon-size);
+    color: inherit;
+}

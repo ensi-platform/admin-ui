@@ -47,15 +47,15 @@ export const docsCssVariables = `/* CSS variables — DateRangePicker (--aui-dat
 --aui-calendar-border-focus: var(--aui-control-border-focus); /* focus border */
 
 --aui-calendar-max-h: 320px; /* max-height */
---aui-calendar-pad-md: var(--aui-space-8); /* padding md */
---aui-calendar-gap-md: var(--aui-space-16); /* md gap */
+--aui-calendar-pad-md: var(--aui-spacing-8); /* padding md */
+--aui-calendar-gap-md: var(--aui-spacing-16); /* md gap */
 
---aui-calendar-month-gap-md: var(--aui-space-4); /* month gap md */
+--aui-calendar-month-gap-md: var(--aui-spacing-4); /* month gap md */
 
---aui-calendar-cell-size-md: var(--aui-space-32); /* cell size md */
+--aui-calendar-cell-size-md: var(--aui-spacing-32); /* cell size md */
 --aui-calendar-cell-radius-md: var(--aui-control-radius-sm); /* cell radius md */
 
---aui-calendar-heading-pad-y-md: var(--aui-space-4); /* heading pad y md */
+--aui-calendar-heading-pad-y-md: var(--aui-spacing-4); /* heading pad y md */
 
 --aui-calendar-popover-w: calc(; /* popover w */
 

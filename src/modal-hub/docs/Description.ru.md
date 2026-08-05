@@ -12,24 +12,24 @@ import { ModalProvider, ModalHub, useModal, useModalAsync } from '@ensi-platform
 
 ### ModalProvider / ModalHub
 
-| API | Описание |
-| --- | --- |
+| API             | Описание                                                                  |
+| --------------- | ------------------------------------------------------------------------- |
 | `ModalProvider` | context-стор стека; mount один раз в root (отдельно от `AdminUiProvider`) |
-| `ModalHub` | рендер стека; один раз рядом с деревом приложения |
+| `ModalHub`      | рендер стека; один раз рядом с деревом приложения                         |
 
 ### useModal / useModalAsync
 
-| API | Аргументы | Возвращает |
-| --- | --- | --- |
-| `useModal` | `{ Component, props? }` | `{ onOpenHandler, onCloseHandler }` |
+| API             | Аргументы                   | Возвращает                                                            |
+| --------------- | --------------------------- | --------------------------------------------------------------------- |
+| `useModal`      | `{ Component, props? }`     | `{ onOpenHandler, onCloseHandler }`                                   |
 | `useModalAsync` | `{ loadComponent, props? }` | `{ onOpenHandler, onCloseHandler }` — lazy-загрузка и защита от гонок |
 
 ### IModalHubItemProps
 
 Контракт компонента в стеке:
 
-| Prop | Значения | Описание |
-| --- | --- | --- |
-| `open` | `boolean` | открыт ли |
-| `onOpenChange` | `(open: boolean) => void` | смена состояния |
-| `onExitComplete` | `() => void` | после анимации закрытия (нужен для снятия из стека) |
+| Prop             | Значения                  | Описание                                            |
+| ---------------- | ------------------------- | --------------------------------------------------- |
+| `open`           | `boolean`                 | открыт ли                                           |
+| `onOpenChange`   | `(open: boolean) => void` | смена состояния                                     |
+| `onExitComplete` | `() => void`              | после анимации закрытия (нужен для снятия из стека) |

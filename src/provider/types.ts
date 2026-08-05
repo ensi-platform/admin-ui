@@ -30,6 +30,22 @@ export interface IAuiLabels {
     paginationNext: string;
     /** Table.Pagination: range template (`{from}`, `{to}`, `{total}`). */
     paginationRange: string;
+    /** CascadeMenu: collapse rail control. */
+    collapseSidebar: string;
+    /** CascadeMenu: expand rail control. */
+    expandSidebar: string;
+    /** CascadeMenu: resize handle. */
+    resizeSidebar: string;
+    /** CascadeMenu: pin item. */
+    pinMenuItem: string;
+    /** CascadeMenu: unpin item. */
+    unpinMenuItem: string;
+    /** CascadeMenu: pinned section label. */
+    pinnedSection: string;
+    /** CascadeMenu: empty pinned list hint (how to pin). */
+    pinnedSectionHint: string;
+    /** CascadeMenu: open leaf in new tab. */
+    openInNewTab: string;
 }
 
 export type TAuiLabels = IAuiLabels;

@@ -5,10 +5,13 @@
     --aui-page-bg-primary: var(--aui-black-900);
     --aui-page-fg-primary: var(--aui-grey-100);
     --aui-page-fg-muted: var(--aui-grey-400);
-    --aui-page-fg-link: var(--aui-blue-500);
+    --aui-page-fg-link: var(--aui-page-fg-primary);
+
+    /* link */
+    --aui-link-fg-hover: var(--aui-white);
 
     /* surface — muted one step above elevated so fills (secondary, hover) stay visible on modal/popover */
-    --aui-surface-bg-primary: var(--aui-grey-800);
+    --aui-surface-bg-primary: var(--aui-black-800);
     --aui-surface-bg-muted: var(--aui-grey-600);
     --aui-surface-bg-muted-hover: var(--aui-grey-500);
     --aui-surface-bg-muted-active: var(--aui-grey-400);
@@ -28,7 +31,7 @@
     --aui-control-bg-danger-active: var(--aui-red-700);
     --aui-control-fg-brand: var(--aui-black-900);
     --aui-control-fg-danger: var(--aui-red-500);
-    --aui-control-border-focus: var(--aui-blue-500);
+    --aui-control-border-focus: var(--aui-grey-100);
     --aui-control-border-danger: var(--aui-red-500);
 
     /* button — aliases control/surface/page (same as light) */
@@ -83,7 +86,7 @@
 
     /* switch — selected uses accent so white thumb stays visible on brand-light fills */
     --aui-switch-track-bg-primary: var(--aui-surface-bg-muted);
-    --aui-switch-track-bg-selected: var(--aui-blue-500);
+    --aui-switch-track-bg-selected: var(--aui-control-bg-brand);
     --aui-switch-thumb-bg-primary: var(--aui-white);
     --aui-switch-thumb-bg-selected: var(--aui-white);
     --aui-switch-fg-primary: var(--aui-page-fg-primary);
@@ -179,8 +182,8 @@
     --aui-badge-fg-warning: var(--aui-yellow-500);
     --aui-badge-bg-danger: color-mix(in srgb, var(--aui-red-500) 22%, var(--aui-surface-bg-primary));
     --aui-badge-fg-danger: var(--aui-red-500);
-    --aui-badge-bg-info: color-mix(in srgb, var(--aui-blue-500) 22%, var(--aui-surface-bg-primary));
-    --aui-badge-fg-info: var(--aui-blue-500);
+    --aui-badge-bg-info: var(--aui-badge-bg-neutral);
+    --aui-badge-fg-info: var(--aui-badge-fg-neutral);
 
     /* tag */
     --aui-tag-bg-primary: var(--aui-surface-bg-muted);
@@ -217,8 +220,8 @@
     --aui-toast-accent-warning: var(--aui-yellow-500);
     --aui-toast-bg-danger: color-mix(in srgb, var(--aui-red-500) 22%, var(--aui-surface-bg-primary));
     --aui-toast-accent-danger: var(--aui-red-500);
-    --aui-toast-bg-info: color-mix(in srgb, var(--aui-blue-500) 22%, var(--aui-surface-bg-primary));
-    --aui-toast-accent-info: var(--aui-blue-500);
+    --aui-toast-bg-info: var(--aui-surface-bg-muted);
+    --aui-toast-accent-info: var(--aui-page-fg-muted);
     --aui-toast-fg-title: var(--aui-page-fg-primary);
     --aui-toast-fg-description: var(--aui-page-fg-muted);
     --aui-toast-close-border-focus: var(--aui-control-border-focus);
@@ -233,13 +236,13 @@
     --aui-drawer-close-fg-hover: var(--aui-page-fg-primary);
     --aui-drawer-close-border-focus: var(--aui-control-border-focus);
 
-    /* table — data list chrome (aliases surface/page; zebra via mix) */
-    --aui-table-bg-primary: var(--aui-surface-bg-primary);
-    --aui-table-bg-hover: var(--aui-surface-bg-muted-active);
+    /* table — data list chrome (flush with page) */
+    --aui-table-bg-primary: var(--aui-page-bg-primary);
+    --aui-table-bg-hover: var(--aui-grey-700);
     --aui-table-bg-selected: var(--aui-surface-bg-muted);
-    --aui-table-bg-zebra: color-mix(in srgb, var(--aui-surface-bg-muted) 18%, var(--aui-surface-bg-primary));
-    --aui-table-bg-header: var(--aui-surface-bg-primary);
-    --aui-table-bg-footer: var(--aui-surface-bg-primary);
+    --aui-table-bg-zebra: color-mix(in srgb, var(--aui-surface-bg-muted) 18%, var(--aui-table-bg-primary));
+    --aui-table-bg-header: var(--aui-table-bg-primary);
+    --aui-table-bg-footer: var(--aui-table-bg-primary);
     --aui-table-accent-active: var(--aui-control-border-focus);
     --aui-table-fg-primary: var(--aui-page-fg-primary);
     --aui-table-fg-header: var(--aui-page-fg-muted);
@@ -256,6 +259,40 @@
     --aui-tabs-indicator-primary: var(--aui-control-bg-brand);
     --aui-tabs-indicator-hover: var(--aui-surface-border-primary);
     --aui-tabs-border-focus: var(--aui-control-border-focus);
+
+    /* avatar */
+    --aui-avatar-bg-primary: var(--aui-surface-bg-elevated);
+    --aui-avatar-fg-primary: var(--aui-page-fg-primary);
+
+    /* menu-list */
+    --aui-menu-list-fg-primary: var(--aui-page-fg-primary);
+    --aui-menu-list-fg-muted: var(--aui-page-fg-muted);
+    --aui-menu-list-item-bg-hover: var(--aui-surface-bg-muted-hover);
+    --aui-menu-list-item-bg-active: var(--aui-surface-bg-elevated);
+    --aui-menu-list-item-bg-active-hover: var(--aui-menu-list-item-bg-active);
+    --aui-menu-list-item-bg-open: var(--aui-surface-bg-muted);
+    --aui-menu-list-item-bg-open-hover: var(--aui-surface-bg-muted-hover);
+    --aui-menu-list-border-focus: var(--aui-control-border-focus);
+
+    /* cascade-menu — L0 + flyout same family as page/table */
+    --aui-cascade-menu-bg-primary: var(--aui-page-bg-primary);
+    --aui-cascade-menu-fg-primary: var(--aui-white);
+    --aui-cascade-menu-fg-muted: color-mix(in srgb, var(--aui-white) 55%, transparent);
+    --aui-cascade-menu-border-divider: color-mix(in srgb, var(--aui-white) 12%, transparent);
+    --aui-cascade-menu-border-focus: var(--aui-control-border-focus);
+    --aui-cascade-menu-item-bg-hover: var(--aui-grey-700);
+    --aui-cascade-menu-item-bg-active: transparent;
+    --aui-cascade-menu-item-bg-active-hover: var(--aui-grey-700);
+    --aui-cascade-menu-item-bg-open: var(--aui-grey-700);
+    --aui-cascade-menu-item-bg-open-hover: var(--aui-cascade-menu-item-bg-hover);
+    --aui-cascade-menu-nested-bg: var(--aui-cascade-menu-bg-primary);
+    --aui-cascade-menu-nested-shadow: none;
+
+    /* context-menu */
+    --aui-context-menu-bg-primary: var(--aui-surface-bg-elevated);
+    --aui-context-menu-fg-primary: var(--aui-page-fg-primary);
+    --aui-context-menu-border-primary: var(--aui-surface-border-primary);
+    --aui-context-menu-item-bg-hover: var(--aui-surface-bg-muted-hover);
 
     /* loader */
     --aui-loader-overlay-bg: color-mix(in srgb, var(--aui-surface-bg-primary) 75%, transparent);

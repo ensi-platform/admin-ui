@@ -17,26 +17,26 @@ Status (`Toast`): semantic `variant`, no `size`.
 
 ### ToastProvider
 
-| Prop | Values | Default | Description |
-| --- | --- | --- | --- |
-| `maxVisibleToasts` | `number` | `5` | max simultaneously visible toasts; fixed at queue creation, changes after mount ignored |
-| `defaultTimeout` | `number` | `5000` | default auto-dismiss in ms; `0` — sticky by default; read on each `appendToast` |
-| `children` | `ReactNode` | — | app content |
+| Prop               | Values      | Default | Description                                                                             |
+| ------------------ | ----------- | ------- | --------------------------------------------------------------------------------------- |
+| `maxVisibleToasts` | `number`    | `5`     | max simultaneously visible toasts; fixed at queue creation, changes after mount ignored |
+| `defaultTimeout`   | `number`    | `5000`  | default auto-dismiss in ms; `0` — sticky by default; read on each `appendToast`         |
+| `children`         | `ReactNode` | —       | app content                                                                             |
 
 ### Content (`appendToast`)
 
-| Prop | Values | Default | Description |
-| --- | --- | --- | --- |
-| `title` | `string` | — | primary message |
-| `description` | `string` | — | secondary text under the title |
-| `variant` | `neutral` \| `success` \| `warning` \| `danger` \| `info` | `neutral` | semantic status |
+| Prop          | Values                                                    | Default   | Description                    |
+| ------------- | --------------------------------------------------------- | --------- | ------------------------------ |
+| `title`       | `string`                                                  | —         | primary message                |
+| `description` | `string`                                                  | —         | secondary text under the title |
+| `variant`     | `neutral` \| `success` \| `warning` \| `danger` \| `info` | `neutral` | semantic status                |
 
 ### Options
 
-| Prop | Values | Default | Description |
-| --- | --- | --- | --- |
-| `timeout` | `number` | `defaultTimeout` | overrides `defaultTimeout`; `0` — no auto-dismiss |
-| `onClose` | `() => void` | — | on dismiss immediately (not after animation) |
+| Prop      | Values       | Default          | Description                                       |
+| --------- | ------------ | ---------------- | ------------------------------------------------- |
+| `timeout` | `number`     | `defaultTimeout` | overrides `defaultTimeout`; `0` — no auto-dismiss |
+| `onClose` | `() => void` | —                | on dismiss immediately (not after animation)      |
 
 ### useToast
 

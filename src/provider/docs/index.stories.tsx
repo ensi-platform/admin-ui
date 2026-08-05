@@ -4,6 +4,7 @@ import { AdminUiProvider, useAuiLabels, useAuiLocale } from '@/provider';
 
 import { type IAdminUiProviderProps } from '../types';
 
+import { docsCssVariables } from './cssVariables';
 import DescriptionEn from './Description.en.md';
 import DescriptionRu from './Description.ru.md';
 import ExampleEn from './Example.en.md';
@@ -56,6 +57,7 @@ export default {
             ru: ExampleRu,
             en: ExampleEn,
         },
+        docsCssVariables,
         controls: {
             expanded: true,
         },

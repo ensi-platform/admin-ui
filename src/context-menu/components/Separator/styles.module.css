@@ -1,0 +1,7 @@
+.root {
+    flex-shrink: 0;
+    height: 0;
+    margin: var(--aui-context-menu-separator-my) 0;
+    border: none;
+    border-top: 1px solid var(--aui-context-menu-border-primary);
+}

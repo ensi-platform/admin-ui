@@ -125,29 +125,31 @@ export const DatePicker = ({
                 <DateInput className={styles.input}>
                     {segment => <DateSegment segment={segment} className={styles.segment} />}
                 </DateInput>
-                {showClear ? (
+                <span className={styles.actions}>
+                    {showClear ? (
+                        <RacButton
+                            // Keep clear out of the DatePicker trigger slot.
+                            slot={null}
+                            className={styles.clear}
+                            aria-label={clearLabel}
+                            data-test-id="date-picker-clear"
+                            excludeFromTabOrder
+                            onPress={() => setValue(null)}
+                        >
+                            <Clear className={styles.icon} />
+                        </RacButton>
+                    ) : null}
                     <RacButton
-                        // Keep clear out of the DatePicker trigger slot.
-                        slot={null}
-                        className={styles.clear}
-                        aria-label={clearLabel}
-                        data-test-id="date-picker-clear"
-                        excludeFromTabOrder
-                        onPress={() => setValue(null)}
+                        className={styles.iconButton}
+                        aria-label={openCalendar}
+                        data-test-id="date-picker-calendar"
+                        onPressStart={event => {
+                            openModalityRef.current = event.pointerType === 'keyboard' ? 'keyboard' : 'pointer';
+                        }}
                     >
-                        <Clear className={styles.icon} />
+                        <Calendar className={styles.icon} />
                     </RacButton>
-                ) : null}
-                <RacButton
-                    className={styles.iconButton}
-                    aria-label={openCalendar}
-                    data-test-id="date-picker-calendar"
-                    onPressStart={event => {
-                        openModalityRef.current = event.pointerType === 'keyboard' ? 'keyboard' : 'pointer';
-                    }}
-                >
-                    <Calendar className={styles.icon} />
-                </RacButton>
+                </span>
             </Group>
             <Popover className={styles.popover} placement="bottom start">
                 <Dialog>

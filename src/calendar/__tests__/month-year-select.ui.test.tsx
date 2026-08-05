@@ -8,10 +8,12 @@ import { AdminUiProvider } from '@/provider';
 
 import { MonthYearSelect } from '../components/MonthYearSelect';
 
+import type * as ReactAriaComponents from 'react-aria-components';
+
 const selectionHandlers: ((key: Key | null) => void)[] = [];
 
 vi.mock('react-aria-components', async importOriginal => {
-    const actual = (await importOriginal()) as typeof import('react-aria-components');
+    const actual = await importOriginal<typeof ReactAriaComponents>();
     type TSelectProps = ComponentProps<typeof actual.Select>;
     return {
         ...actual,

@@ -163,8 +163,8 @@ export const MonthView = ({
             <table className={styles.grid} role="grid">
                 <thead>
                     <tr>
-                        {weekdayLabels.map((label, index) => (
-                            <th key={index} scope="col">
+                        {weekdayLabels.map(label => (
+                            <th key={label} scope="col">
                                 {label}
                             </th>
                         ))}

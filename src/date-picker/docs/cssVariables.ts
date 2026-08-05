@@ -16,17 +16,17 @@ export const docsCssVariables = `/* CSS variables — DatePicker (--aui-date-pic
 --aui-date-picker-pad-x-sm: var(--aui-input-pad-x-sm); /* padding-x sm */
 --aui-date-picker-pad-x-md: var(--aui-input-pad-x-md); /* padding-x md */
 --aui-date-picker-pad-x-lg: var(--aui-input-pad-x-lg); /* padding-x lg */
---aui-date-picker-gap-md: var(--aui-space-8); /* md gap */
+--aui-date-picker-gap-md: var(--aui-spacing-8); /* md gap */
 
---aui-date-picker-icon-size-md: var(--aui-space-16); /* icon size md */
---aui-date-picker-icon-hit-md: var(--aui-space-24); /* icon hit md */
+--aui-date-picker-icon-size-md: var(--aui-spacing-16); /* icon size md */
+--aui-date-picker-icon-hit-md: var(--aui-spacing-24); /* icon hit md */
 
 --aui-date-picker-clear-radius-md: var(--aui-control-radius-sm); /* clear control radius md */
 
 --aui-date-picker-popover-bg-primary: var(--aui-surface-bg-elevated); /* popover bg primary */
 --aui-date-picker-popover-border-primary: var(--aui-surface-border-primary); /* popover border primary */
 --aui-date-picker-popover-radius-md: var(--aui-control-radius-md); /* popover radius md */
---aui-date-picker-popover-pad-md: var(--aui-space-12); /* popover pad md */
+--aui-date-picker-popover-pad-md: var(--aui-spacing-12); /* popover pad md */
 --aui-date-picker-popover-w: var(--aui-calendar-popover-w); /* popover w */
 --aui-date-picker-popover-shadow: var(--aui-shadow-sm); /* popover shadow */
 --aui-date-picker-popover-z: var(--aui-z-dropdown); /* popover z */
@@ -47,15 +47,15 @@ export const docsCssVariables = `/* CSS variables — DatePicker (--aui-date-pic
 --aui-calendar-border-focus: var(--aui-control-border-focus); /* focus border */
 
 --aui-calendar-max-h: 320px; /* max-height */
---aui-calendar-pad-md: var(--aui-space-8); /* padding md */
---aui-calendar-gap-md: var(--aui-space-16); /* md gap */
+--aui-calendar-pad-md: var(--aui-spacing-8); /* padding md */
+--aui-calendar-gap-md: var(--aui-spacing-16); /* md gap */
 
---aui-calendar-month-gap-md: var(--aui-space-4); /* month gap md */
+--aui-calendar-month-gap-md: var(--aui-spacing-4); /* month gap md */
 
---aui-calendar-cell-size-md: var(--aui-space-32); /* cell size md */
+--aui-calendar-cell-size-md: var(--aui-spacing-32); /* cell size md */
 --aui-calendar-cell-radius-md: var(--aui-control-radius-sm); /* cell radius md */
 
---aui-calendar-heading-pad-y-md: var(--aui-space-4); /* heading pad y md */
+--aui-calendar-heading-pad-y-md: var(--aui-spacing-4); /* heading pad y md */
 
 --aui-calendar-popover-w: calc(; /* popover w */
 

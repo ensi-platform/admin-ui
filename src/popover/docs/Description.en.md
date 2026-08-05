@@ -21,13 +21,13 @@ RAC `DialogTrigger`: `isOpen` / `defaultOpen` / `onOpenChange`, `children`.
 
 ### Popover.Content
 
-| Prop | Values | Default | Description |
-| --- | --- | --- | --- |
-| `size` | `sm` \| `md` \| `lg` | `md` | panel size |
-| `variant` | `primary` | `primary` | visual variant |
-| `arrow` | `boolean` | `false` | arrow toward the trigger |
-| `placement` | RAC placement | `bottom` | position relative to the trigger |
-| `offset` | `number` | `4` | gap from the trigger |
-| `dataTestId` | `string` | — | `data-test-id` for tests |
+| Prop         | Values               | Default   | Description                      |
+| ------------ | -------------------- | --------- | -------------------------------- |
+| `size`       | `sm` \| `md` \| `lg` | `md`      | panel size                       |
+| `variant`    | `primary`            | `primary` | visual variant                   |
+| `arrow`      | `boolean`            | `false`   | arrow toward the trigger         |
+| `placement`  | RAC placement        | `bottom`  | position relative to the trigger |
+| `offset`     | `number`             | `4`       | gap from the trigger             |
+| `dataTestId` | `string`             | —         | `data-test-id` for tests         |
 
 Always wraps RAC `Dialog` inside. Native panel attributes (`className`, …) are accepted.

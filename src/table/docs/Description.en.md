@@ -10,13 +10,13 @@ import { Table, useTableRowSelection } from '@ensi-platform/admin-ui/table';
 
 ## API (short)
 
-| Prop | Values | Default | Description |
-| --- | --- | --- | --- |
-| `size` | `sm` \| `md` \| `lg` | `md` | row density |
-| `block` | `boolean` | `true` | stretch to 100% of parent width |
-| `hasChecked` | `boolean` | `false` | reserve layout for a leading checkbox column |
-| `zebra` | `boolean` | `false` | subtle even-row background (overridden by checked / hover) |
-| `dataTestId` | `string` | — | `data-test-id` for tests |
+| Prop         | Values               | Default | Description                                                |
+| ------------ | -------------------- | ------- | ---------------------------------------------------------- |
+| `size`       | `sm` \| `md` \| `lg` | `md`    | row density                                                |
+| `block`      | `boolean`            | `true`  | stretch to 100% of parent width                            |
+| `hasChecked` | `boolean`            | `false` | reserve layout for a leading checkbox column               |
+| `zebra`      | `boolean`            | `false` | subtle even-row background (overridden by checked / hover) |
+| `dataTestId` | `string`             | —       | `data-test-id` for tests                                   |
 
 Slots: `Scroll` / `Table` / `Header` / `Body` / `Footer` / `Row` / `Cell` / `HeaderCell` / `CheckboxCell` / `HeaderCheckboxCell` / `ActionBar` / `SortIndicator` / `Pagination` / `PageSize`.
 

@@ -22,13 +22,13 @@ RAC `TooltipTrigger`: `delay` (по умолчанию `200`), `closeDelay` (п�
 
 ### Tooltip.Content
 
-| Prop | Значения | По умолчанию | Описание |
-| --- | --- | --- | --- |
-| `size` | `sm` \| `md` \| `lg` | `md` | размер |
-| `variant` | `primary` | `primary` | визуальный вариант |
-| `arrow` | `boolean` | `false` | стрелка к триггеру |
-| `placement` | placement RAC | — | позиция относительно триггера |
-| `offset` | `number` | `4` | отступ от триггера |
-| `dataTestId` | `string` | — | атрибут `data-test-id` для тестов |
+| Prop         | Значения             | По умолчанию | Описание                          |
+| ------------ | -------------------- | ------------ | --------------------------------- |
+| `size`       | `sm` \| `md` \| `lg` | `md`         | размер                            |
+| `variant`    | `primary`            | `primary`    | визуальный вариант                |
+| `arrow`      | `boolean`            | `false`      | стрелка к триггеру                |
+| `placement`  | placement RAC        | —            | позиция относительно триггера     |
+| `offset`     | `number`             | `4`          | отступ от триггера                |
+| `dataTestId` | `string`             | —            | атрибут `data-test-id` для тестов |
 
 Обычные атрибуты панели (`className`, …) принимаются.

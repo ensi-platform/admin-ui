@@ -21,13 +21,13 @@ RAC `DialogTrigger`: `isOpen` / `defaultOpen` / `onOpenChange`, `children`.
 
 ### Popover.Content
 
-| Prop | Значения | По умолчанию | Описание |
-| --- | --- | --- | --- |
-| `size` | `sm` \| `md` \| `lg` | `md` | размер панели |
-| `variant` | `primary` | `primary` | визуальный вариант |
-| `arrow` | `boolean` | `false` | стрелка к триггеру |
-| `placement` | placement RAC | `bottom` | позиция относительно триггера |
-| `offset` | `number` | `4` | отступ от триггера |
-| `dataTestId` | `string` | — | атрибут `data-test-id` для тестов |
+| Prop         | Значения             | По умолчанию | Описание                          |
+| ------------ | -------------------- | ------------ | --------------------------------- |
+| `size`       | `sm` \| `md` \| `lg` | `md`         | размер панели                     |
+| `variant`    | `primary`            | `primary`    | визуальный вариант                |
+| `arrow`      | `boolean`            | `false`      | стрелка к триггеру                |
+| `placement`  | placement RAC        | `bottom`     | позиция относительно триггера     |
+| `offset`     | `number`             | `4`          | отступ от триггера                |
+| `dataTestId` | `string`             | —            | атрибут `data-test-id` для тестов |
 
 Внутри всегда RAC `Dialog`. Обычные атрибуты панели (`className`, …) принимаются.

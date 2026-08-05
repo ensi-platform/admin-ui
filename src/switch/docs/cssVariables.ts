@@ -10,18 +10,18 @@ export const docsCssVariables = `/* CSS variables — Switch (--aui-switch-*) */
 --aui-switch-border-focus: var(--aui-control-border-focus); /* focus border */
 --aui-switch-border-danger: var(--aui-control-border-danger); /* danger border */
 
---aui-switch-gap-md: var(--aui-space-8); /* md gap */
+--aui-switch-gap-md: var(--aui-spacing-8); /* md gap */
 
---aui-switch-track-h-sm: var(--aui-space-16); /* track h sm */
---aui-switch-track-h-md: var(--aui-space-20); /* track h md */
---aui-switch-track-h-lg: var(--aui-space-24); /* track h lg */
+--aui-switch-track-h-sm: var(--aui-spacing-16); /* track h sm */
+--aui-switch-track-h-md: var(--aui-spacing-20); /* track h md */
+--aui-switch-track-h-lg: var(--aui-spacing-24); /* track h lg */
 --aui-switch-track-w-sm: 28px; /* track w sm */
 --aui-switch-track-w-md: 36px; /* track w md */
 --aui-switch-track-w-lg: 44px; /* track w lg */
 
---aui-switch-thumb-sm: var(--aui-space-12); /* thumb sm */
---aui-switch-thumb-md: var(--aui-space-16); /* thumb md */
---aui-switch-thumb-lg: var(--aui-space-20); /* thumb lg */
+--aui-switch-thumb-sm: var(--aui-spacing-12); /* thumb sm */
+--aui-switch-thumb-md: var(--aui-spacing-16); /* thumb md */
+--aui-switch-thumb-lg: var(--aui-spacing-20); /* thumb lg */
 
 --aui-switch-radius-md: 999px; /* md radius */
 

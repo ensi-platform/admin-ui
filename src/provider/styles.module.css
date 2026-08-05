@@ -1,6 +1,10 @@
 .root {
     isolation: isolate;
     font-family: var(--aui-font-sans);
+    font-size: 16px; /* lock rem base for space + type */
+    background: var(--aui-page-bg-primary);
+    color: var(--aui-page-fg-primary);
+    min-height: 100%;
 }
 
 .root,

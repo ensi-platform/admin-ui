@@ -1,14 +1,15 @@
 :root {
-    /* color — grey scale */
-    --aui-grey-50: #fafafa;
-    --aui-grey-100: #f0f2f4;
-    --aui-grey-200: #d1d1d1;
-    --aui-grey-300: #c4c9d1;
-    --aui-grey-400: #888888;
-    --aui-grey-500: #55585e;
-    --aui-grey-600: #3f4248;
-    --aui-grey-700: #2e3136;
-    --aui-grey-800: #232526;
+    /* color — grey scale (cool zinc/slate-lean) */
+    --aui-grey-50: #f8fafc;
+    --aui-grey-100: #f1f5f9;
+    --aui-grey-200: #e2e8f0;
+    --aui-grey-300: #cbd5e1;
+    --aui-grey-400: #8b929e;
+    --aui-grey-500: #5c6370;
+    --aui-grey-600: #3f4651;
+    --aui-grey-700: #2a3038;
+    --aui-grey-800: #1f242c;
+    --aui-black-800: #212328;
     --aui-black-900: #1b1d22;
     --aui-white: #ffffff;
     --aui-transparent: transparent;
@@ -31,34 +32,33 @@
     --aui-yellow-50: #fefce8;
     --aui-yellow-500: #eab308;
     --aui-yellow-700: #a16207;
-    --aui-blue-50: #eff6ff;
-    --aui-blue-500: #3b82f6;
-    --aui-blue-600: #0077cc;
-    --aui-blue-700: #1d4ed8;
 
-    /* space (n = px) */
-    --aui-space-0: 0;
-    --aui-space-4: 4px;
-    --aui-space-8: 8px;
-    --aui-space-12: 12px;
-    --aui-space-16: 16px;
-    --aui-space-20: 20px;
-    --aui-space-24: 24px;
-    --aui-space-32: 32px;
-    --aui-space-40: 40px;
-    --aui-space-48: 48px;
+    /* spacing — base step 4px; n in name = px @ root 16px */
+    --aui-spacing: 0.25rem;
+    --aui-spacing-0: 0;
+    --aui-spacing-4: var(--aui-spacing);
+    --aui-spacing-8: calc(var(--aui-spacing) * 2);
+    --aui-spacing-12: calc(var(--aui-spacing) * 3);
+    --aui-spacing-16: calc(var(--aui-spacing) * 4);
+    --aui-spacing-20: calc(var(--aui-spacing) * 5);
+    --aui-spacing-24: calc(var(--aui-spacing) * 6);
+    --aui-spacing-32: calc(var(--aui-spacing) * 8);
+    --aui-spacing-40: calc(var(--aui-spacing) * 10);
+    --aui-spacing-48: calc(var(--aui-spacing) * 12);
+    --aui-spacing-64: calc(var(--aui-spacing) * 16);
 
-    /* radius (n = px) */
+    /* radius — base step 4px; n = px @ root 16px */
+    --aui-radius: 0.25rem;
     --aui-radius-0: 0;
-    --aui-radius-4: 4px;
-    --aui-radius-8: 8px;
-    --aui-radius-12: 12px;
-    --aui-radius-16: 16px;
+    --aui-radius-4: var(--aui-radius);
+    --aui-radius-8: calc(var(--aui-radius) * 2);
+    --aui-radius-12: calc(var(--aui-radius) * 3);
+    --aui-radius-16: calc(var(--aui-radius) * 4);
 
-    /* control height (CVA sizes) */
-    --aui-control-h-sm: 32px;
-    --aui-control-h-md: 40px;
-    --aui-control-h-lg: 48px;
+    /* control height (CVA sizes) — from spacing */
+    --aui-control-h-sm: calc(var(--aui-spacing) * 8);
+    --aui-control-h-md: calc(var(--aui-spacing) * 10);
+    --aui-control-h-lg: calc(var(--aui-spacing) * 12);
 
     /* typography */
     --aui-font-sans: 'Inter', system-ui, sans-serif;
@@ -66,11 +66,19 @@
     --aui-font-size-sm: 0.875rem;
     --aui-font-size-md: 1rem;
     --aui-font-size-lg: 1.125rem;
+    --aui-font-size-xl: 1.25rem;
+    --aui-font-size-2xl: 1.5rem;
     --aui-font-weight-regular: 400;
     --aui-font-weight-medium: 500;
     --aui-font-weight-semibold: 600;
-    --aui-line-height-tight: 1.25;
-    --aui-line-height-normal: 1.5;
+    --aui-line-height-xs: calc(1 / 0.75);
+    --aui-line-height-sm: calc(1.25 / 0.875);
+    --aui-line-height-md: calc(1.5 / 1);
+    --aui-line-height-lg: calc(1.75 / 1.125);
+    --aui-line-height-xl: calc(1.75 / 1.25);
+    --aui-line-height-2xl: calc(2 / 1.5);
+    --aui-line-height-tight: 1.25; /* dense UI override (table/nav) */
+    --aui-line-height-normal: 1.5; /* alias ≈ md */
 
     /* motion */
     --aui-duration-fast: 120ms;
@@ -80,6 +88,7 @@
     /* misc */
     --aui-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
     --aui-shadow-md: 0 8px 24px rgb(0 0 0 / 0.12);
+    --aui-z-chrome: 100;
     --aui-z-dropdown: 1000;
     --aui-z-modal: 1100;
 }

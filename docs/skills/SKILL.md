@@ -25,13 +25,16 @@ Package channel overview: [`docs/ai.md`](../ai.md). Architecture: [`docs/archite
 ## Setup (host app)
 
 - tokens once: `import '@ensi-platform/admin-ui/tokens'`
-- `AdminUiProvider` from `@ensi-platform/admin-ui/provider` at the UI root (locale, portals, built-in labels)
+- `AdminUiProvider` from `@ensi-platform/admin-ui/provider` at the UI root (locale, portals, built-in labels, page substrate; content inset on host `main`)
 - theme: `data-theme` on `document.documentElement` (`light` | `dark`)
 
 ## Choose
 
 | Need | Use | Not |
 | --- | --- | --- |
+| app sidebar / main menu | `CascadeMenu` | invent a second cascade / card-nav |
+| menu column items only | `MenuList` | rebuild inside page chrome |
+| user avatar circle | `Avatar` | ad-hoc initials span |
 | action / submit / link-as-button | `Button` | — |
 | entity status (read-only) | `Badge` | `Tag` |
 | removable chip / filter value / MultiSelect chips | `Tag` | `Badge` |

@@ -2,6 +2,15 @@
 
 Пакет `@ensi-platform/admin-ui` — UI для админ-панели Ensi: контролы, формы, оверлеи, таблица, токены, типографика.
 
+## Слои компонентов
+
+| Слой | Storybook | Примеры | Роль |
+| --- | --- | --- | --- |
+| Base | `Base/*` | `Button`, `MenuList`, `Avatar`, `Table`, … | примитивы и составные части |
+| App | `App/*` | `CascadeMenu` | готовые сборки chrome АП |
+
+App собирается из Base; layout `sidebar \| page` остаётся у consumer (без `AppShell`).
+
 ## Стек
 
 - стили — CSS-переменные `--aui-*` (CSS Modules у примитивов)
@@ -11,7 +20,7 @@
 ## Подключение
 
 1. Токены **один раз** в entry приложения: `import '@ensi-platform/admin-ui/tokens'`
-2. `AdminUiProvider` у корня UI — locale, порталы, встроенные a11y-строки
+2. `AdminUiProvider` у корня UI — locale, порталы, встроенные a11y-строки, page-подложка (`--aui-page-bg-primary` / `--aui-page-fg-primary`; inset контента — у host)
 3. Тема на `document.documentElement`: `data-theme="light"` | `"dark"`
 
 Компоненты тему не знают — только читают `--aui-*`. Light — `semantic.css`, dark — remap в `semantic.dark.css`.

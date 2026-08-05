@@ -1,0 +1,22 @@
+export const docsCssVariables = `/* CSS variables — ContextMenu (--aui-context-menu-*) */
+--aui-context-menu-bg-primary: var(--aui-surface-bg-elevated); /* panel fill */
+--aui-context-menu-fg-primary: var(--aui-page-fg-primary); /* panel text / icons */
+--aui-context-menu-border-primary: var(--aui-surface-border-primary); /* panel / separator border */
+--aui-context-menu-border-focus: var(--aui-control-border-focus); /* item focus ring */
+--aui-context-menu-item-bg-hover: var(--aui-surface-bg-muted); /* item hover fill */
+--aui-context-menu-radius-md: var(--aui-radius-4); /* panel / item radius */
+--aui-context-menu-min-w: 140px; /* panel min width */
+--aui-context-menu-pad-sm: var(--aui-spacing-4); /* panel padding sm */
+--aui-context-menu-pad-md: var(--aui-spacing-4); /* panel padding md */
+--aui-context-menu-pad-lg: var(--aui-spacing-4); /* panel padding lg */
+--aui-context-menu-item-gap: var(--aui-spacing-8); /* icon-to-label gap */
+--aui-context-menu-item-pad-y-sm: var(--aui-spacing-4); /* item pad y sm */
+--aui-context-menu-item-pad-x-sm: var(--aui-spacing-8); /* item pad x sm */
+--aui-context-menu-item-pad-y-md: var(--aui-spacing-8); /* item pad y md */
+--aui-context-menu-item-pad-x-md: var(--aui-spacing-12); /* item pad x md */
+--aui-context-menu-item-pad-y-lg: var(--aui-spacing-12); /* item pad y lg */
+--aui-context-menu-item-pad-x-lg: var(--aui-spacing-16); /* item pad x lg */
+--aui-context-menu-icon-size: var(--aui-spacing-16); /* leading icon size */
+--aui-context-menu-separator-my: var(--aui-spacing-4); /* separator vertical margin */
+--aui-context-menu-z: var(--aui-z-dropdown); /* stacking above chrome */
+`;

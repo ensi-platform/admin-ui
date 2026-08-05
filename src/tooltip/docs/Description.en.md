@@ -22,13 +22,13 @@ RAC `TooltipTrigger`: `delay` (default `200`), `closeDelay` (default `100`), `ch
 
 ### Tooltip.Content
 
-| Prop | Values | Default | Description |
-| --- | --- | --- | --- |
-| `size` | `sm` \| `md` \| `lg` | `md` | size |
-| `variant` | `primary` | `primary` | visual variant |
-| `arrow` | `boolean` | `false` | arrow toward the trigger |
-| `placement` | RAC placement | — | position relative to the trigger |
-| `offset` | `number` | `4` | gap from the trigger |
-| `dataTestId` | `string` | — | `data-test-id` for tests |
+| Prop         | Values               | Default   | Description                      |
+| ------------ | -------------------- | --------- | -------------------------------- |
+| `size`       | `sm` \| `md` \| `lg` | `md`      | size                             |
+| `variant`    | `primary`            | `primary` | visual variant                   |
+| `arrow`      | `boolean`            | `false`   | arrow toward the trigger         |
+| `placement`  | RAC placement        | —         | position relative to the trigger |
+| `offset`     | `number`             | `4`       | gap from the trigger             |
+| `dataTestId` | `string`             | —         | `data-test-id` for tests         |
 
 Native panel attributes (`className`, …) are accepted.

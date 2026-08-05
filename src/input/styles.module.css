@@ -1,7 +1,7 @@
 .root {
     display: flex;
     align-items: center;
-    gap: var(--aui-space-8);
+    gap: var(--aui-spacing-8);
     border: 1px solid transparent;
     border-radius: var(--aui-input-radius-md);
     transition: border-color var(--aui-input-duration-fast) var(--aui-input-ease-out);

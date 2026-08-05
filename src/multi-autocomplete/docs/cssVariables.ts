@@ -14,24 +14,24 @@ export const docsCssVariables = `/* CSS variables — MultiAutocomplete (--aui-c
 --aui-combobox-pad-x-sm: var(--aui-input-pad-x-sm); /* padding-x sm */
 --aui-combobox-pad-x-md: var(--aui-input-pad-x-md); /* padding-x md */
 --aui-combobox-pad-x-lg: var(--aui-input-pad-x-lg); /* padding-x lg */
---aui-combobox-pad-y-sm: var(--aui-space-4); /* padding-y sm */
---aui-combobox-pad-y-md: var(--aui-space-4); /* padding-y md */
---aui-combobox-pad-y-lg: var(--aui-space-8); /* padding-y lg */
---aui-combobox-gap-sm: var(--aui-space-4); /* sm gap */
---aui-combobox-gap-md: var(--aui-space-8); /* md gap */
---aui-combobox-gap-lg: var(--aui-space-12); /* lg gap */
---aui-combobox-gap-tags-md: var(--aui-space-4); /* tags md gap */
+--aui-combobox-pad-y-sm: var(--aui-spacing-4); /* padding-y sm */
+--aui-combobox-pad-y-md: var(--aui-spacing-4); /* padding-y md */
+--aui-combobox-pad-y-lg: var(--aui-spacing-8); /* padding-y lg */
+--aui-combobox-gap-sm: var(--aui-spacing-4); /* sm gap */
+--aui-combobox-gap-md: var(--aui-spacing-8); /* md gap */
+--aui-combobox-gap-lg: var(--aui-spacing-12); /* lg gap */
+--aui-combobox-gap-tags-md: var(--aui-spacing-4); /* tags md gap */
 
---aui-combobox-icon-size-sm: var(--aui-space-12); /* icon size sm */
---aui-combobox-icon-size-md: var(--aui-space-16); /* icon size md */
---aui-combobox-icon-size-lg: var(--aui-space-20); /* icon size lg */
---aui-combobox-icon-hit-sm: var(--aui-space-16); /* icon hit sm */
---aui-combobox-icon-hit-md: var(--aui-space-24); /* icon hit md */
---aui-combobox-icon-hit-lg: var(--aui-space-32); /* icon hit lg */
+--aui-combobox-icon-size-sm: var(--aui-spacing-12); /* icon size sm */
+--aui-combobox-icon-size-md: var(--aui-spacing-16); /* icon size md */
+--aui-combobox-icon-size-lg: var(--aui-spacing-20); /* icon size lg */
+--aui-combobox-icon-hit-sm: var(--aui-spacing-16); /* icon hit sm */
+--aui-combobox-icon-hit-md: var(--aui-spacing-24); /* icon hit md */
+--aui-combobox-icon-hit-lg: var(--aui-spacing-32); /* icon hit lg */
 
---aui-combobox-list-pad-sm: var(--aui-space-4); /* list pad sm */
---aui-combobox-list-pad-md: var(--aui-space-4); /* list pad md */
---aui-combobox-list-pad-lg: var(--aui-space-8); /* list pad lg */
+--aui-combobox-list-pad-sm: var(--aui-spacing-4); /* list pad sm */
+--aui-combobox-list-pad-md: var(--aui-spacing-4); /* list pad md */
+--aui-combobox-list-pad-lg: var(--aui-spacing-8); /* list pad lg */
 
 --aui-combobox-popover-bg-primary: var(--aui-surface-bg-elevated); /* popover bg primary */
 --aui-combobox-popover-border-primary: var(--aui-surface-border-primary); /* popover border primary */
@@ -40,17 +40,17 @@ export const docsCssVariables = `/* CSS variables — MultiAutocomplete (--aui-c
 
 --aui-combobox-item-bg-hover: var(--aui-surface-bg-muted); /* list item bg hover */
 --aui-combobox-item-fg-primary: var(--aui-page-fg-primary); /* list item fg primary */
---aui-combobox-item-pad-x-sm: var(--aui-space-8); /* list item pad x sm */
---aui-combobox-item-pad-x-md: var(--aui-space-12); /* list item pad x md */
---aui-combobox-item-pad-x-lg: var(--aui-space-16); /* list item pad x lg */
---aui-combobox-item-pad-y-sm: var(--aui-space-4); /* list item pad y sm */
---aui-combobox-item-pad-y-md: var(--aui-space-4); /* list item pad y md */
---aui-combobox-item-pad-y-lg: var(--aui-space-8); /* list item pad y lg */
+--aui-combobox-item-pad-x-sm: var(--aui-spacing-8); /* list item pad x sm */
+--aui-combobox-item-pad-x-md: var(--aui-spacing-12); /* list item pad x md */
+--aui-combobox-item-pad-x-lg: var(--aui-spacing-16); /* list item pad x lg */
+--aui-combobox-item-pad-y-sm: var(--aui-spacing-4); /* list item pad y sm */
+--aui-combobox-item-pad-y-md: var(--aui-spacing-4); /* list item pad y md */
+--aui-combobox-item-pad-y-lg: var(--aui-spacing-8); /* list item pad y lg */
 --aui-combobox-item-radius-md: var(--aui-control-radius-sm); /* list item radius md */
 
---aui-combobox-list-status-gap-md: var(--aui-space-8); /* list status gap md */
+--aui-combobox-list-status-gap-md: var(--aui-spacing-8); /* list status gap md */
 
---aui-combobox-skeleton-h-md: var(--aui-space-32); /* skeleton h md */
+--aui-combobox-skeleton-h-md: var(--aui-spacing-32); /* skeleton h md */
 
 --aui-combobox-list-status-min-h-md: calc(; /* list status min h md */
 

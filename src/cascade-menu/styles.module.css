@@ -1,0 +1,80 @@
+.root {
+    --aui-menu-list-fg-primary: var(--aui-cascade-menu-fg-primary);
+    --aui-menu-list-fg-muted: var(--aui-cascade-menu-fg-muted);
+    --aui-menu-list-item-bg-hover: var(--aui-cascade-menu-item-bg-hover);
+    --aui-menu-list-item-bg-active: var(--aui-cascade-menu-item-bg-active);
+    --aui-menu-list-item-bg-active-hover: var(--aui-cascade-menu-item-bg-active-hover);
+    --aui-menu-list-item-bg-open: var(--aui-cascade-menu-item-bg-open);
+    --aui-menu-list-item-bg-open-hover: var(--aui-cascade-menu-item-bg-open-hover);
+    --aui-menu-list-radius-md: 0;
+
+    position: relative;
+    z-index: var(--aui-cascade-menu-z);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-height: 100%;
+    overflow: visible;
+    padding: var(--aui-cascade-menu-pad-y-md) 0;
+    background: var(--aui-cascade-menu-bg-primary);
+    color: var(--aui-cascade-menu-fg-primary);
+    border-right: 1px solid var(--aui-cascade-menu-border-divider);
+    transition: width var(--aui-cascade-menu-duration-normal) var(--aui-cascade-menu-ease-out);
+}
+
+.root[data-resizing] {
+    transition: none;
+}
+
+.root[data-animating] .body {
+    pointer-events: none;
+}
+
+.root[data-animating] .body,
+.root[data-resizing] .body {
+    overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .root {
+        transition: none;
+    }
+}
+
+.collapsed {
+    padding-inline: 0;
+    align-items: center;
+}
+
+.body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.resizeHandle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    width: var(--aui-cascade-menu-handle-w);
+    height: 100%;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: col-resize;
+    touch-action: none;
+}
+
+.resizeHandle:hover,
+.resizeHandle:focus-visible {
+    background: var(--aui-cascade-menu-border-focus);
+}
+
+.resizeHandle:focus-visible {
+    outline: none;
+}

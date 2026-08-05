@@ -30,38 +30,38 @@ Pass a stable module hook reference (not inline or conditional).
 
 ### AutocompleteAsync
 
-| Prop | Values | Default | Description |
-| --- | --- | --- | --- |
-| `useSuggest` | `TUseAutocompleteSuggest` | — | suggest hook (required) |
-| `minLength` | `number` | `0` | min query length before fetch |
-| `debounceMs` | `number` | `300` | input debounce |
-| `value` | `string \| number \| null` | — | controlled value |
-| `defaultValue` | `string \| number \| null` | — | uncontrolled initial |
-| `onChange` | `(value: string \| number \| null) => void` | — | selection change; `null` on clear |
-| `placeholder` | `string` | — | placeholder |
-| `clear` | `boolean` | `false` | clear button |
-| `size` | `sm` \| `md` \| `lg` | `md` | size |
-| `invalid` | `boolean` | `false` | invalid state |
-| `disabled` | `boolean` | `false` | disabled |
-| `block` | `boolean` | — | full width |
-| `dataTestId` | `string` | — | `data-test-id` for tests |
+| Prop           | Values                                      | Default | Description                       |
+| -------------- | ------------------------------------------- | ------- | --------------------------------- |
+| `useSuggest`   | `TUseAutocompleteSuggest`                   | —       | suggest hook (required)           |
+| `minLength`    | `number`                                    | `0`     | min query length before fetch     |
+| `debounceMs`   | `number`                                    | `300`   | input debounce                    |
+| `value`        | `string \| number \| null`                  | —       | controlled value                  |
+| `defaultValue` | `string \| number \| null`                  | —       | uncontrolled initial              |
+| `onChange`     | `(value: string \| number \| null) => void` | —       | selection change; `null` on clear |
+| `placeholder`  | `string`                                    | —       | placeholder                       |
+| `clear`        | `boolean`                                   | `false` | clear button                      |
+| `size`         | `sm` \| `md` \| `lg`                        | `md`    | size                              |
+| `invalid`      | `boolean`                                   | `false` | invalid state                     |
+| `disabled`     | `boolean`                                   | `false` | disabled                          |
+| `block`        | `boolean`                                   | —       | full width                        |
+| `dataTestId`   | `string`                                    | —       | `data-test-id` for tests          |
 
 No external `options` / `isLoading`.
 
 ### FormAutocompleteAsync
 
-| Prop | Values | Default | Description |
-| --- | --- | --- | --- |
-| `name` | `string` | — | field name in `Form` |
-| `label` | `ReactNode` | — | `Field.Label` |
-| `hint` | `ReactNode` | — | hint under the control |
-| `useSuggest` | `TUseAutocompleteSuggest` | — | suggest hook |
-| `minLength` | `number` | `0` | min query length |
-| `debounceMs` | `number` | `300` | input debounce |
-| `placeholder` | `string` | — | placeholder |
-| `clear` | `boolean` | `false` | clear button; writes `''` to RHF |
-| `size` | `sm` \| `md` \| `lg` | `md` | size |
-| `disabled` | `boolean` | — | disabled |
-| `dataTestId` | `string` | — | `data-test-id` for tests |
+| Prop          | Values                    | Default | Description                      |
+| ------------- | ------------------------- | ------- | -------------------------------- |
+| `name`        | `string`                  | —       | field name in `Form`             |
+| `label`       | `ReactNode`               | —       | `Field.Label`                    |
+| `hint`        | `ReactNode`               | —       | hint under the control           |
+| `useSuggest`  | `TUseAutocompleteSuggest` | —       | suggest hook                     |
+| `minLength`   | `number`                  | `0`     | min query length                 |
+| `debounceMs`  | `number`                  | `300`   | input debounce                   |
+| `placeholder` | `string`                  | —       | placeholder                      |
+| `clear`       | `boolean`                 | `false` | clear button; writes `''` to RHF |
+| `size`        | `sm` \| `md` \| `lg`      | `md`    | size                             |
+| `disabled`    | `boolean`                 | —       | disabled                         |
+| `dataTestId`  | `string`                  | —       | `data-test-id` for tests         |
 
 Value / onChange / onBlur / validity come from `Form`.

@@ -23,19 +23,19 @@ export const docsCssVariables = `/* CSS variables — Button (--aui-button-*) */
 
 --aui-button-border-focus: var(--aui-control-border-focus); /* focus ring */
 --aui-button-radius-md: var(--aui-control-radius-md); /* corner radius */
---aui-button-gap-md: var(--aui-space-8); /* label/icon gap */
+--aui-button-gap-md: var(--aui-spacing-8); /* label/icon gap */
 --aui-button-line-height: var(--aui-line-height-tight); /* text line-height */
 
 --aui-button-h-sm: var(--aui-control-h-sm); /* height sm */
 --aui-button-h-md: var(--aui-control-h-md); /* height md */
 --aui-button-h-lg: var(--aui-control-h-lg); /* height lg */
 
---aui-button-pad-y-sm: var(--aui-space-4); /* padding-y sm */
---aui-button-pad-x-sm: var(--aui-space-12); /* padding-x sm */
---aui-button-pad-y-md: var(--aui-space-8); /* padding-y md */
---aui-button-pad-x-md: var(--aui-space-16); /* padding-x md */
---aui-button-pad-y-lg: var(--aui-space-12); /* padding-y lg */
---aui-button-pad-x-lg: var(--aui-space-24); /* padding-x lg */
+--aui-button-pad-y-sm: var(--aui-spacing-4); /* padding-y sm */
+--aui-button-pad-x-sm: var(--aui-spacing-12); /* padding-x sm */
+--aui-button-pad-y-md: var(--aui-spacing-8); /* padding-y md */
+--aui-button-pad-x-md: var(--aui-spacing-16); /* padding-x md */
+--aui-button-pad-y-lg: var(--aui-spacing-12); /* padding-y lg */
+--aui-button-pad-x-lg: var(--aui-spacing-24); /* padding-x lg */
 
 --aui-button-duration-fast: var(--aui-control-duration-fast); /* transition duration */
 --aui-button-ease-out: var(--aui-control-ease-out); /* transition easing */`;

@@ -12,5 +12,5 @@
 
 .select {
     width: auto;
-    min-width: var(--aui-space-64);
+    min-width: var(--aui-spacing-64);
 }

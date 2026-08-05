@@ -1,0 +1,119 @@
+.brand {
+    flex-shrink: 0;
+    margin-bottom: var(--aui-cascade-menu-gap-brand-md);
+    padding-inline: var(--aui-cascade-menu-pad-x-md);
+    color: var(--aui-cascade-menu-fg-primary);
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.brandRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--aui-spacing-8);
+    min-height: 28px;
+}
+
+.brandLogo {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    min-width: 0;
+    height: 28px;
+    width: auto;
+    max-width: 100%;
+    color: inherit;
+}
+
+.brandLogoSpacer {
+    flex: 1 1 auto;
+}
+
+.brandLogo svg {
+    display: block;
+    height: 28px;
+    width: auto;
+    max-width: 100%;
+    flex-shrink: 0;
+}
+
+.brandLockup {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--aui-spacing-8);
+    min-width: 0;
+    max-width: 100%;
+}
+
+.brandWordmark {
+    overflow: hidden;
+    font-family: var(--aui-font-sans);
+    font-size: var(--aui-font-size-sm);
+    font-weight: var(--aui-font-weight-medium);
+    line-height: var(--aui-line-height-tight);
+    color: inherit;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.collapsed.brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: var(--aui-cascade-menu-gap-brand-md);
+    padding-inline: var(--aui-spacing-8);
+}
+
+.collapsed .brandRow {
+    justify-content: center;
+    width: 100%;
+}
+
+.collapsed .brandLogo {
+    flex: 0 0 auto;
+    justify-content: center;
+    width: 28px;
+}
+
+.collapsed .brandLogo svg {
+    width: 28px;
+    height: 28px;
+}
+
+.collapsed .collapseBtn {
+    margin-top: var(--aui-spacing-4);
+    margin-inline-end: 0;
+}
+
+.collapseBtn {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: var(--aui-control-h-md);
+    height: var(--aui-control-h-md);
+    margin: 0;
+    margin-inline-end: calc((var(--aui-control-h-md) - var(--aui-menu-list-icon-size-md)) / -2);
+    padding: 0;
+    border: none;
+    border-radius: var(--aui-cascade-menu-radius-md);
+    background: transparent;
+    color: var(--aui-cascade-menu-fg-muted);
+    cursor: pointer;
+}
+
+.collapseBtn:hover {
+    color: var(--aui-cascade-menu-fg-primary);
+}
+
+.collapseBtn:focus-visible {
+    outline: 2px solid var(--aui-cascade-menu-border-focus);
+    outline-offset: 2px;
+}
+
+.collapseIcon {
+    width: var(--aui-menu-list-icon-size-md);
+    height: var(--aui-menu-list-icon-size-md);
+}

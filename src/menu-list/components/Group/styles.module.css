@@ -1,0 +1,12 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    gap: var(--aui-menu-list-gap-items-md);
+}
+
+.label {
+    margin: 0;
+    color: var(--aui-menu-list-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}

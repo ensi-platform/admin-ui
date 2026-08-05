@@ -14,7 +14,7 @@ export const docsCssVariables = `/* CSS variables — NumberInput (--aui-number-
 --aui-number-input-pad-x-sm: var(--aui-input-pad-x-sm); /* padding-x sm */
 --aui-number-input-pad-x-md: var(--aui-input-pad-x-md); /* padding-x md */
 --aui-number-input-pad-x-lg: var(--aui-input-pad-x-lg); /* padding-x lg */
---aui-number-input-gap-md: var(--aui-space-8); /* md gap */
+--aui-number-input-gap-md: var(--aui-spacing-8); /* md gap */
 
 --aui-number-input-icon-size-md: var(--aui-input-icon-size-md); /* icon size md */
 --aui-number-input-icon-hit-md: var(--aui-input-icon-hit-md); /* icon hit md */

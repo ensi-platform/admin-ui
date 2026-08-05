@@ -28,17 +28,26 @@
 
 .sm {
     height: var(--aui-date-picker-h-sm);
-    padding: 0 var(--aui-date-picker-pad-x-sm);
+    padding-inline: var(--aui-date-picker-pad-x-sm);
+    padding-inline-end: calc(
+        var(--aui-date-picker-pad-x-sm) - (var(--aui-date-picker-icon-hit-md) - var(--aui-date-picker-icon-size-md)) / 2
+    );
 }
 
 .md {
     height: var(--aui-date-picker-h-md);
-    padding: 0 var(--aui-date-picker-pad-x-md);
+    padding-inline: var(--aui-date-picker-pad-x-md);
+    padding-inline-end: calc(
+        var(--aui-date-picker-pad-x-md) - (var(--aui-date-picker-icon-hit-md) - var(--aui-date-picker-icon-size-md)) / 2
+    );
 }
 
 .lg {
     height: var(--aui-date-picker-h-lg);
-    padding: 0 var(--aui-date-picker-pad-x-lg);
+    padding-inline: var(--aui-date-picker-pad-x-lg);
+    padding-inline-end: calc(
+        var(--aui-date-picker-pad-x-lg) - (var(--aui-date-picker-icon-hit-md) - var(--aui-date-picker-icon-size-md)) / 2
+    );
 }
 
 .primary {
@@ -84,6 +93,7 @@
 
 .segment {
     outline: none;
+    padding: 0 2px;
     color: var(--aui-date-picker-fg-primary);
 }
 
@@ -97,6 +107,16 @@
     border-radius: 2px;
 }
 
+.segment[data-type='literal'] {
+    padding: 0;
+}
+
+.actions {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
 .iconButton,
 .clear {
     display: inline-flex;
@@ -107,6 +127,7 @@
     width: var(--aui-date-picker-icon-hit-md);
     height: var(--aui-date-picker-icon-hit-md);
     margin: 0;
+    margin-block: calc((var(--aui-date-picker-icon-hit-md) - var(--aui-date-picker-icon-size-md)) / -2);
     padding: 0;
     border: none;
     background: transparent;

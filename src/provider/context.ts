@@ -19,6 +19,14 @@ export const defaultLabels: IAuiLabels = {
     paginationPrev: 'Previous',
     paginationNext: 'Next',
     paginationRange: '{from}–{to} of {total}',
+    collapseSidebar: 'Collapse sidebar',
+    expandSidebar: 'Expand sidebar',
+    resizeSidebar: 'Resize sidebar',
+    pinMenuItem: 'Pin',
+    unpinMenuItem: 'Unpin',
+    pinnedSection: 'Pinned',
+    pinnedSectionHint: 'Right-click a menu item to pin it',
+    openInNewTab: 'Open in new tab',
 };
 
 export const AuiContext = createContext<IAuiContextValue | null>(null);

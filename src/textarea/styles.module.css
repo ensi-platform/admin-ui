@@ -1,7 +1,7 @@
 .root {
     display: flex;
     align-items: flex-start;
-    gap: var(--aui-space-8);
+    gap: var(--aui-spacing-8);
     border: 1px solid transparent;
     border-radius: var(--aui-textarea-radius-md);
     transition: border-color var(--aui-textarea-duration-fast) var(--aui-textarea-ease-out);

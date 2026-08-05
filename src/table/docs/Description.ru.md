@@ -10,13 +10,13 @@ import { Table, useTableRowSelection } from '@ensi-platform/admin-ui/table';
 
 ## API (кратко)
 
-| Prop | Значения | По умолчанию | Описание |
-| --- | --- | --- | --- |
-| `size` | `sm` \| `md` \| `lg` | `md` | плотность строк |
-| `block` | `boolean` | `true` | ширина 100% родителя |
-| `hasChecked` | `boolean` | `false` | резерв под колонку чекбоксов |
-| `zebra` | `boolean` | `false` | слабый фон чётных строк (checked / hover перебивают) |
-| `dataTestId` | `string` | — | атрибут `data-test-id` для тестов |
+| Prop         | Значения             | По умолчанию | Описание                                             |
+| ------------ | -------------------- | ------------ | ---------------------------------------------------- |
+| `size`       | `sm` \| `md` \| `lg` | `md`         | плотность строк                                      |
+| `block`      | `boolean`            | `true`       | ширина 100% родителя                                 |
+| `hasChecked` | `boolean`            | `false`      | резерв под колонку чекбоксов                         |
+| `zebra`      | `boolean`            | `false`      | слабый фон чётных строк (checked / hover перебивают) |
+| `dataTestId` | `string`             | —            | атрибут `data-test-id` для тестов                    |
 
 Слоты: `Scroll` / `Table` / `Header` / `Body` / `Footer` / `Row` / `Cell` / `HeaderCell` / `CheckboxCell` / `HeaderCheckboxCell` / `ActionBar` / `SortIndicator` / `Pagination` / `PageSize`.
 

@@ -1,0 +1,37 @@
+.flyout {
+    /* Same L0 chrome (page family light/dark) */
+    --aui-menu-list-fg-primary: var(--aui-cascade-menu-fg-primary);
+    --aui-menu-list-fg-muted: var(--aui-cascade-menu-fg-muted);
+    --aui-menu-list-item-bg-hover: var(--aui-cascade-menu-item-bg-hover);
+    --aui-menu-list-item-bg-active: var(--aui-cascade-menu-item-bg-active);
+    --aui-menu-list-item-bg-active-hover: var(--aui-cascade-menu-item-bg-active-hover);
+    --aui-menu-list-item-bg-open: var(--aui-cascade-menu-item-bg-open);
+    --aui-menu-list-item-bg-open-hover: var(--aui-cascade-menu-item-bg-open-hover);
+    --aui-menu-list-radius-md: 0;
+    --aui-menu-list-gap-items-md: var(--aui-spacing-4);
+
+    position: fixed;
+    z-index: var(--aui-cascade-menu-flyout-z);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: var(--aui-cascade-menu-pad-y-md) 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: var(--aui-cascade-menu-bg-primary);
+    color: var(--aui-cascade-menu-fg-primary);
+    border: none;
+    border-right: 1px solid var(--aui-cascade-menu-border-divider);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.flyoutHeader {
+    flex-shrink: 0;
+    box-sizing: border-box;
+    margin: 0 var(--aui-cascade-menu-pad-x-md) var(--aui-cascade-menu-flyout-header-mb);
+    padding: var(--aui-spacing-4) 0 var(--aui-spacing-12);
+    border-bottom: 1px solid var(--aui-cascade-menu-border-divider);
+    color: var(--aui-cascade-menu-fg-primary);
+    font-weight: var(--aui-font-weight-semibold);
+}

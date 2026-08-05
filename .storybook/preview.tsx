@@ -27,6 +27,14 @@ const RU_LABELS: IAuiLabels = {
     paginationPrev: 'Назад',
     paginationNext: 'Далее',
     paginationRange: '{from}–{to} из {total}',
+    collapseSidebar: 'Свернуть меню',
+    expandSidebar: 'Развернуть меню',
+    resizeSidebar: 'Изменить ширину меню',
+    pinMenuItem: 'Закрепить',
+    unpinMenuItem: 'Открепить',
+    pinnedSection: 'Закреплённые',
+    pinnedSectionHint: 'ПКМ по пункту меню, чтобы закрепить',
+    openInNewTab: 'Открыть в новой вкладке',
 };
 
 const withProvider: Decorator = (Story, context) => {
@@ -35,16 +43,9 @@ const withProvider: Decorator = (Story, context) => {
     return (
         <AdminUiProvider locale={locale} labels={locale.startsWith('ru') ? RU_LABELS : undefined}>
             <ModalProvider>
-                <div
-                    style={{
-                        background: 'var(--aui-page-bg-primary)',
-                        color: 'var(--aui-page-fg-primary)',
-                        padding: 16,
-                        minHeight: '100%',
-                    }}
-                >
-                    <Story />
-                </div>
+                {/* <div style={{ padding: 16 }}> */}
+                <Story />
+                {/* </div> */}
                 <ModalHub />
             </ModalProvider>
         </AdminUiProvider>

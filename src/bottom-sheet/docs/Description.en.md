@@ -11,16 +11,16 @@ import { BottomSheet } from '@ensi-platform/admin-ui/bottom-sheet';
 
 ## API (short)
 
-| Prop | Values | Default | Description |
-| --- | --- | --- | --- |
-| `open` | `boolean` | — | whether open (controlled only) |
-| `onOpenChange` | `(open: boolean) => void` | — | open state change |
-| `onExitComplete` | `() => void` | — | after exit animation (for `ModalHub`) |
-| `variant` | `primary` | `primary` | visual variant |
-| `fullscreen` | `boolean` | `false` | full viewport height |
-| `dismissable` | `boolean` | `true` | dismiss on outside click and swipe down |
-| `keyboardDismissable` | `boolean` | `true` | dismiss on Escape |
-| `dataTestId` | `string` | — | `data-test-id` for tests |
+| Prop                  | Values                    | Default   | Description                             |
+| --------------------- | ------------------------- | --------- | --------------------------------------- |
+| `open`                | `boolean`                 | —         | whether open (controlled only)          |
+| `onOpenChange`        | `(open: boolean) => void` | —         | open state change                       |
+| `onExitComplete`      | `() => void`              | —         | after exit animation (for `ModalHub`)   |
+| `variant`             | `primary`                 | `primary` | visual variant                          |
+| `fullscreen`          | `boolean`                 | `false`   | full viewport height                    |
+| `dismissable`         | `boolean`                 | `true`    | dismiss on outside click and swipe down |
+| `keyboardDismissable` | `boolean`                 | `true`    | dismiss on Escape                       |
+| `dataTestId`          | `string`                  | —         | `data-test-id` for tests                |
 
 Slots: `BottomSheet.Header` / `Title` / `Body` / `Footer` / `CloseButton`. On `CloseButton` — `size`: `sm` \| `md` \| `lg` (default `md`).
 

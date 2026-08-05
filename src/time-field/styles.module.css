@@ -84,6 +84,7 @@
 
 .segment {
     outline: none;
+    padding: 0 2px;
     color: var(--aui-time-field-fg-primary);
 }
 
@@ -95,6 +96,10 @@
     background: var(--aui-time-field-segment-bg-focused);
     color: var(--aui-time-field-segment-fg-focused);
     border-radius: 2px;
+}
+
+.segment[data-type='literal'] {
+    padding: 0;
 }
 
 .clear {

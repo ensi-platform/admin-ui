@@ -1,0 +1,39 @@
+.pinnedSection {
+    flex-shrink: 0;
+    width: 100%;
+}
+
+.pinnedLabel {
+    display: flex;
+    align-items: center;
+    gap: var(--aui-spacing-8);
+    margin: 0;
+    padding: var(--aui-spacing-4) var(--aui-cascade-menu-pad-x-md);
+    color: var(--aui-cascade-menu-fg-muted);
+}
+
+.pinnedLabelIcon {
+    display: block;
+    flex-shrink: 0;
+    width: var(--aui-menu-list-icon-size-md);
+    height: var(--aui-menu-list-icon-size-md);
+    color: inherit;
+}
+
+.pinnedDivider {
+    margin: var(--aui-spacing-12) var(--aui-cascade-menu-pad-x-md);
+    border-top: 1px solid var(--aui-cascade-menu-border-divider);
+}
+
+.pinnedEmpty {
+    margin: 0;
+    padding: var(--aui-spacing-8) var(--aui-cascade-menu-pad-x-md);
+    color: var(--aui-cascade-menu-fg-muted);
+    cursor: default;
+}
+
+.pinnedColumn {
+    flex: 0 0 auto;
+    height: auto;
+    min-height: 0;
+}

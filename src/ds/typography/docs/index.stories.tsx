@@ -23,8 +23,11 @@ export default {
 export const Roles: StoryObj = {
     render: () => (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <p className={typographyStyles.headingL}>headingL — {SAMPLE}</p>
+            <p className={typographyStyles.headingM}>headingM — {SAMPLE}</p>
             <p className={typographyStyles.bodyXs}>bodyXs — {SAMPLE}</p>
             <p className={typographyStyles.bodyS}>bodyS — {SAMPLE}</p>
+            <p className={typographyStyles.bodySTight}>bodySTight — {SAMPLE}</p>
             <p className={typographyStyles.bodyM}>bodyM — {SAMPLE}</p>
             <p className={typographyStyles.bodyL}>bodyL — {SAMPLE}</p>
         </div>

@@ -1,0 +1,21 @@
+.footer {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    gap: var(--aui-spacing-8);
+    margin-top: auto;
+    padding: var(--aui-cascade-menu-user-pad-y-md) var(--aui-cascade-menu-pad-x-md) 0;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: var(--aui-cascade-menu-pad-x-md);
+    left: var(--aui-cascade-menu-pad-x-md);
+    border-top: 1px solid var(--aui-cascade-menu-border-divider);
+}

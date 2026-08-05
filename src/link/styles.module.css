@@ -1,0 +1,33 @@
+.root {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    outline: none;
+    cursor: pointer;
+    transition: color var(--aui-link-duration-fast) var(--aui-link-ease-out);
+}
+
+.root:disabled,
+.root[aria-disabled='true'] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.root:focus-visible {
+    outline: 2px solid var(--aui-link-border-focus);
+    outline-offset: 2px;
+}
+
+.primary {
+    color: var(--aui-link-fg);
+}
+
+.primary:hover {
+    color: var(--aui-link-fg-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .root {
+        transition: none;
+    }
+}

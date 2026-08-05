@@ -16,10 +16,10 @@ export const docsCssVariables = `/* CSS variables — TimeField (--aui-time-fiel
 --aui-time-field-pad-x-sm: var(--aui-input-pad-x-sm); /* padding-x sm */
 --aui-time-field-pad-x-md: var(--aui-input-pad-x-md); /* padding-x md */
 --aui-time-field-pad-x-lg: var(--aui-input-pad-x-lg); /* padding-x lg */
---aui-time-field-gap-md: var(--aui-space-8); /* md gap */
+--aui-time-field-gap-md: var(--aui-spacing-8); /* md gap */
 
---aui-time-field-icon-size-md: var(--aui-space-16); /* icon size md */
---aui-time-field-icon-hit-md: var(--aui-space-24); /* icon hit md */
+--aui-time-field-icon-size-md: var(--aui-spacing-16); /* icon size md */
+--aui-time-field-icon-hit-md: var(--aui-spacing-24); /* icon hit md */
 
 --aui-time-field-clear-radius-md: var(--aui-control-radius-sm); /* clear control radius md */
 

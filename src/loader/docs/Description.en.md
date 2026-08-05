@@ -11,11 +11,11 @@ import { Loader } from '@ensi-platform/admin-ui/loader';
 
 ## API (short)
 
-| Prop | Values | Default | Description |
-| --- | --- | --- | --- |
-| `size` | `sm` \| `md` \| `lg` | `md` | spinner size |
-| `active` | `boolean` | `false` | show veil and spinner |
-| `children` | `ReactNode` | — | content under the overlay |
-| `dataTestId` | `string` | — | `data-test-id` for tests |
+| Prop         | Values               | Default | Description               |
+| ------------ | -------------------- | ------- | ------------------------- |
+| `size`       | `sm` \| `md` \| `lg` | `md`    | spinner size              |
+| `active`     | `boolean`            | `false` | show veil and spinner     |
+| `children`   | `ReactNode`          | —       | content under the overlay |
+| `dataTestId` | `string`             | —       | `data-test-id` for tests  |
 
 Native `div` attributes (`className`, …) are accepted.

@@ -12,11 +12,11 @@ import { Badge } from '@ensi-platform/admin-ui/badge';
 
 ## API (кратко)
 
-| Prop | Значения | По умолчанию | Описание |
-| --- | --- | --- | --- |
-| `size` | `sm` \| `md` | `md` | размер |
-| `variant` | `neutral` \| `success` \| `warning` \| `danger` \| `info` | `neutral` | семантический статус |
-| `dataTestId` | `string` | — | атрибут `data-test-id` для тестов |
-| `children` | `ReactNode` | — | текст статуса |
+| Prop         | Значения                                                  | По умолчанию | Описание                          |
+| ------------ | --------------------------------------------------------- | ------------ | --------------------------------- |
+| `size`       | `sm` \| `md`                                              | `md`         | размер                            |
+| `variant`    | `neutral` \| `success` \| `warning` \| `danger` \| `info` | `neutral`    | семантический статус              |
+| `dataTestId` | `string`                                                  | —            | атрибут `data-test-id` для тестов |
+| `children`   | `ReactNode`                                               | —            | текст статуса                     |
 
 Без `as` и без `onRemove` — снимаемый чип это `Tag`. Обычные атрибуты `span` (`className`, …) принимаются.

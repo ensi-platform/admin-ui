@@ -1,0 +1,34 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    gap: var(--aui-menu-list-gap-group-md);
+    align-items: stretch;
+    width: 100%;
+    color: var(--aui-menu-list-fg-primary);
+}
+
+.sm {
+    --_menu-list-size: sm;
+    --_menu-list-pad-x: var(--aui-menu-list-item-pad-x-sm);
+    --_menu-list-icon-size: var(--aui-menu-list-icon-size-sm);
+}
+
+.md {
+    --_menu-list-size: md;
+    --_menu-list-pad-x: var(--aui-menu-list-item-pad-x-md);
+    --_menu-list-icon-size: var(--aui-menu-list-icon-size-md);
+}
+
+.lg {
+    --_menu-list-size: lg;
+    --_menu-list-pad-x: var(--aui-menu-list-item-pad-x-lg);
+    --_menu-list-icon-size: var(--aui-menu-list-icon-size-lg);
+}
+
+.primary {
+    color: var(--aui-menu-list-fg-primary);
+}
+
+.collapsed {
+    gap: var(--aui-menu-list-gap-items-md);
+}

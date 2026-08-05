@@ -7,15 +7,15 @@ export const docsCssVariables = `/* CSS variables — Tag (--aui-tag-*) */
 --aui-tag-border-focus: var(--aui-control-border-focus); /* focus border */
 
 --aui-tag-radius-md: var(--aui-control-radius-sm); /* md radius */
---aui-tag-gap-md: var(--aui-space-4); /* md gap */
---aui-tag-pad-y-sm: var(--aui-space-0); /* padding-y sm */
---aui-tag-pad-x-sm: var(--aui-space-8); /* padding-x sm */
---aui-tag-pad-y-md: var(--aui-space-4); /* padding-y md */
---aui-tag-pad-x-md: var(--aui-space-8); /* padding-x md */
---aui-tag-h-sm: var(--aui-space-20); /* height sm */
---aui-tag-h-md: var(--aui-space-24); /* height md */
+--aui-tag-gap-md: var(--aui-spacing-4); /* md gap */
+--aui-tag-pad-y-sm: var(--aui-spacing-0); /* padding-y sm */
+--aui-tag-pad-x-sm: var(--aui-spacing-8); /* padding-x sm */
+--aui-tag-pad-y-md: var(--aui-spacing-4); /* padding-y md */
+--aui-tag-pad-x-md: var(--aui-spacing-8); /* padding-x md */
+--aui-tag-h-sm: var(--aui-spacing-20); /* height sm */
+--aui-tag-h-md: var(--aui-spacing-24); /* height md */
 
---aui-tag-icon-size-md: var(--aui-space-12); /* icon size md */
---aui-tag-icon-hit-md: var(--aui-space-16); /* icon hit md */
+--aui-tag-icon-size-md: var(--aui-spacing-12); /* icon size md */
+--aui-tag-icon-hit-md: var(--aui-spacing-16); /* icon hit md */
 
 --aui-tag-line-height: var(--aui-line-height-tight); /* text line-height */`;
