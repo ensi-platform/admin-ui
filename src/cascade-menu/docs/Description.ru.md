@@ -1,4 +1,4 @@
-Готовое cascade-меню АП: слот `header` (бренд собирает приложение), колонки, слот `footer`, свернуть (в brand) и resize L0.
+Боковое меню админки с деревом разделов: слот шапки (`header`), корневая колонка, выезжающие панели по наведению, слот подвала (`footer`). Можно свернуть в узкую полоску и менять ширину корневой колонки.
 
 ```tsx
 import { CascadeMenu } from '@ensi-platform/admin-ui/cascade-menu';
@@ -6,37 +6,37 @@ import { CascadeMenu } from '@ensi-platform/admin-ui/cascade-menu';
 
 ## Когда использовать
 
-- постоянное меню АП с деревом разделов (как Ensi/Ашан Sidebar)
-- данные `items` + filter `allowedCodes` + `activePath`
-- низкоуровневый список одной колонки — см. `MenuList`
+- постоянная навигация админки с деревом разделов
+- дерево в `items`, при необходимости фильтр по правам (`allowedCodes`) и активный путь (`activePath`)
+- один столбец без каскада — см. `MenuList`
 
 ## Поведение
 
-- L0 в layout; folder → **hover-flyout** (full-height = высота L0, flush к колонке, border-right; сверху — заголовок открытого раздела)
-- aim-delay как DesktopMenu (диагональный уход к панели не мигает)
-- без кнопки Back; leave / клик снаружи / leaf → схлоп
-- leaf (`link`) → `onChange` и закрытие flyout
-- collapse → icon-rail (кнопка в brand); при сворачивании открытые flyout закрываются; в rail folder → тот же hover-flyout, leaf → Tooltip
-- пины: leaf и folder **не L0**; RMB → Pin/Unpin и «Open in new tab» (только leaf); один пункт Pinned в L0 → hover-flyout со списком; пустой hint про ПКМ; лимит `maxPinned` (по умолчанию 8); `localStorage` по `pinUserId`
-- chrome: expanded `width` и `collapsed` тоже в `localStorage` по `pinUserId` (collapse не перезаписывает сохранённую ширину)
+- корневая колонка остаётся в вёрстке; наведение на папку открывает выезжающую панель на всю высоту колонки, вплотную к ней; сверху — название открытого раздела
+- при движении мыши по диагонали к панели меню не мигает (короткая задержка «прицеливания»)
+- отдельной кнопки «Назад» нет: панель закрывается при уходе мыши, клике снаружи или выборе пункта со ссылкой
+- пункт со ссылкой (`link`) вызывает `onChange` и закрывает панели
+- свёрнутый вид — узкая полоска с иконками (кнопка сворачивания в шапке); открытые панели при сворачивании закрываются; в полоске папки снова открываются наведением, пункты со ссылкой показывают `Tooltip`
+- закрепление: правый клик по пунктам **не из корневой колонки** — «Закрепить» / «Открепить» и «Открыть в новой вкладке» (только у пунктов со ссылкой); в корне один пункт «Закреплённые» с выезжающим списком; если закреплений нет — подсказка про правый клик; лимит `maxPinned` (по умолчанию 8); список хранится в `localStorage` по `pinUserId`
+- ширина колонки и признак свёрнутости тоже пишутся в `localStorage` по `pinUserId` (сворачивание не затирает сохранённую ширину)
 
 ## API (кратко)
 
-| Prop                                                    | Значения             | По умолчанию  | Описание                                                       |
-| ------------------------------------------------------- | -------------------- | ------------- | -------------------------------------------------------------- |
-| `header`                                                | `ReactNode`          | —             | слот шапки (бренд собирает приложение)                         |
-| `items`                                                 | `ICascadeMenuItem[]` | —             | дерево меню                                                    |
-| `allowedCodes`                                          | `string[]`           | все           | filter по `code`                                               |
-| `activePath`                                            | `string`             | —             | pathname → leaf id для `onChange`/value (без подсветки в меню) |
-| `value` / `defaultValue` / `onChange`                   |                      |               | leaf id (навигация; без pill у leaf)                           |
-| `pinUserId`                                             | `string`             | —             | ключ LS для pins / width / collapsed                           |
-| `pinnedCodes` / `defaultPinnedCodes` / `onPinnedChange` | `string[]`           |               | controlled / uncontrolled пины                                 |
-| `maxPinned`                                             | `number`             | `8`           | лимит пинов                                                    |
-| `collapsed` / `defaultCollapsed` / `onCollapsedChange`  |                      | `false`       | icon-rail                                                      |
-| `width` / `defaultWidth` / `onWidthChange`              | px                   | `280`         | ширина L0                                                      |
-| `minWidth` / `maxWidth`                                 | number               | `200` / `400` | пределы resize L0                                              |
-| `footer`                                                | `ReactNode`          | —             | слот футера (блок пользователя собирает приложение)            |
-| `size`                                                  | `sm` \| `md` \| `lg` | `md`          | размер пунктов                                                 |
-| `dataTestId`                                            | `string`             | —             | атрибут `data-test-id`                                         |
+| Prop                                                    | Значения             | По умолчанию  | Описание                                                                               |
+| ------------------------------------------------------- | -------------------- | ------------- | -------------------------------------------------------------------------------------- |
+| `header`                                                | `ReactNode`          | —             | слот шапки (бренд собирает приложение)                                                 |
+| `items`                                                 | `ICascadeMenuItem[]` | —             | дерево меню                                                                            |
+| `allowedCodes`                                          | `string[]`           | все           | показать только пункты с этими `code`                                                  |
+| `activePath`                                            | `string`             | —             | путь URL → id активного листа для `value` / `onChange` (без подсветки предков в корне) |
+| `value` / `defaultValue` / `onChange`                   |                      |               | id активного листа (навигация)                                                         |
+| `pinUserId`                                             | `string`             | —             | ключ `localStorage` для закреплений, ширины и свёрнутости                              |
+| `pinnedCodes` / `defaultPinnedCodes` / `onPinnedChange` | `string[]`           |               | список закреплений: только управляемый / без внешнего состояния                        |
+| `maxPinned`                                             | `number`             | `8`           | максимум закреплений                                                                   |
+| `collapsed` / `defaultCollapsed` / `onCollapsedChange`  |                      | `false`       | свёрнутая полоска с иконками                                                           |
+| `width` / `defaultWidth` / `onWidthChange`              | px                   | `280`         | ширина корневой колонки                                                                |
+| `minWidth` / `maxWidth`                                 | number               | `200` / `400` | пределы изменения ширины                                                               |
+| `footer`                                                | `ReactNode`          | —             | слот подвала (блок пользователя собирает приложение)                                   |
+| `size`                                                  | `sm` \| `md` \| `lg` | `md`          | размер пунктов                                                                         |
+| `dataTestId`                                            | `string`             | —             | атрибут `data-test-id`                                                                 |
 
 `ICascadeMenuItem`: `text`, `code`, `link?`, `icon?`, `children?`.

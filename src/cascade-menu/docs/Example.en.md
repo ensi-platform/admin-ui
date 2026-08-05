@@ -1,3 +1,5 @@
+## Example
+
 ```tsx
 import { useState } from 'react';
 
@@ -71,8 +73,8 @@ const [width, setWidth] = useState(280);
         pinUserId="demo-user"
         activePath={activePath}
         onChange={code => {
-            const leaf = /* resolve link by code */;
-            setActivePath(leaf);
+            // Resolve the item link by code and store it in activePath
+            setActivePath(/* link */);
         }}
         collapsed={collapsed}
         onCollapsedChange={setCollapsed}
