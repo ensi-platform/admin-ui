@@ -1,3 +1,8 @@
+## 0.3.0 - 2026-08-05
+
+### Features
+- update theme + add new components
+
 ## 0.2.0 - 2026-07-31
 
 ### Features
