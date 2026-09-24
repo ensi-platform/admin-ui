@@ -3,6 +3,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { render, screen } from '@testing-library/react';
+import { render as renderBare } from '@testing-library/react/pure';
 import { describe, expect, it, vi } from 'vitest';
 
 import { typographyStyles } from '@ds/typography';
@@ -90,7 +91,7 @@ describe('AdminUiProvider', () => {
     });
 
     it('throws useAuiLabels outside provider', () => {
-        expect(() => render(<LabelsProbe />)).toThrow(
+        expect(() => renderBare(<LabelsProbe />)).toThrow(
             'AdminUiProvider is required. Wrap the app with <AdminUiProvider>.'
         );
     });

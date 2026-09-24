@@ -35,7 +35,7 @@ describe('ContextMenu', () => {
         expect(screen.getByTestId('aui-root')).toContainElement(screen.getByTestId('cm'));
     });
 
-    it('portals menu to document.body at x/y', () => {
+    it('portals menu into the provider root at x/y', () => {
         render(
             <ContextMenu open x={40} y={80} onClose={() => undefined} dataTestId="cm">
                 <ContextMenu.Item>Pin</ContextMenu.Item>
@@ -45,7 +45,7 @@ describe('ContextMenu', () => {
         const menu = screen.getByTestId('cm');
 
         expect(menu).toHaveAttribute('role', 'menu');
-        expect(menu.parentElement).toBe(document.body);
+        expect(menu.parentElement).toHaveAttribute('dir', 'ltr');
         expect(menu).toHaveStyle({ top: '80px', left: '40px' });
         expect(menu).toHaveClass(styles.root, styles.md, styles.primary);
     });

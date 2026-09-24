@@ -22,14 +22,13 @@ describe('Tag', () => {
     });
 
     it('applies size and variant classes', () => {
-        const { container } = render(
+        render(
             <Tag size="sm" variant="primary">
                 vip
             </Tag>
         );
 
-        expect(container.firstChild).toHaveClass(styles.sm);
-        expect(container.firstChild).toHaveClass(styles.primary);
+        expect(screen.getByText('vip').parentElement).toHaveClass(styles.sm, styles.primary);
     });
 
     it('calls onRemove when clear is clicked', async () => {

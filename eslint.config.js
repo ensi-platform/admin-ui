@@ -59,7 +59,13 @@ export default [
         },
     },
     {
-        files: ['vitest.setup.ts', 'vitest.config.ts', 'src/**/*.test.{ts,tsx}', '.storybook/**/*.{ts,tsx}'],
+        files: [
+            'vitest.setup.ts',
+            'vitest.config.ts',
+            'src/test/**/*.{ts,tsx}',
+            'src/**/*.test.{ts,tsx}',
+            '.storybook/**/*.{ts,tsx}',
+        ],
         rules: {
             'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
         },

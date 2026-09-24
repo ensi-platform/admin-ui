@@ -19,12 +19,12 @@ describe('Badge', () => {
     });
 
     it('applies size and variant classes', () => {
-        const { container } = render(
+        render(
             <Badge size="sm" variant="success">
                 Оплачен
             </Badge>
         );
 
-        expect(container.firstChild).toHaveClass(styles.sm, styles.success);
+        expect(screen.getByText('Оплачен')).toHaveClass(styles.sm, styles.success);
     });
 });

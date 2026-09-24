@@ -84,7 +84,7 @@ describe('DataTable', () => {
     });
 
     it('renders an empty filter marker', () => {
-        const { container } = render(
+        render(
             <>
                 <DataTable.Filter />
                 <DataTable.Filter active>
@@ -93,7 +93,7 @@ describe('DataTable', () => {
             </>
         );
 
-        expect(container).toBeEmptyDOMElement();
+        expect(screen.queryByText('Query')).not.toBeInTheDocument();
     });
 
     it('renders a plain header when the column has no filter', () => {

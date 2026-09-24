@@ -25,7 +25,7 @@ describe('FormNumberInput', () => {
             </Form>
         );
 
-        await user.type(screen.getByLabelText('Цена'), '10.5');
+        await user.type(screen.getByLabelText('Цена'), '10,5');
         await user.click(screen.getByRole('button', { name: 'Save' }));
 
         await waitFor(() => {
@@ -116,7 +116,7 @@ describe('FormNumberInput', () => {
         );
 
         const input = screen.getByLabelText('Цена');
-        await user.type(input, '10.5');
+        await user.type(input, '10,5');
         await user.tab();
 
         expect(input).toHaveDisplayValue(/10[,.]50/);

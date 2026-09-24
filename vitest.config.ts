@@ -11,6 +11,7 @@ export default defineConfig({
         alias: [
             { find: '@ds', replacement: resolve(packageRoot, 'src/ds') },
             { find: /^@\//, replacement: `${resolve(packageRoot, 'src')}/` },
+            { find: /^@testing-library\/react$/, replacement: resolve(packageRoot, 'src/test/render.tsx') },
         ],
     },
     css: {
@@ -37,6 +38,7 @@ export default defineConfig({
                 'src/icons/**',
                 'src/index.ts',
                 'src/*/index.ts',
+                'src/test/**',
                 'src/ds/*/index.ts',
             ],
         },
