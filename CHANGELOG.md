@@ -1,3 +1,8 @@
+## 0.4.1 - 2026-09-24
+
+### Bug Fixes
+- fix tests and packages
+
 ## 0.4.0 - 2026-09-24
 
 ### Features
