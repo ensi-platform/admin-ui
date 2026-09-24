@@ -1,14 +1,16 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { createPortal } from 'react-dom';
 
 import cn from 'classnames';
+import { useUNSAFE_PortalContext } from 'react-aria';
 
 import { ContextMenuItem } from './components/Item';
 import { ContextMenuSeparator } from './components/Separator';
 import { ContextMenuContext } from './context';
 import { contextMenuVariants } from './theme';
 import { type IContextMenuProps } from './types';
+import { placeContextMenu } from './utils';
 
 const ContextMenuRoot = ({
     ref,
@@ -26,6 +28,27 @@ const ContextMenuRoot = ({
     ...props
 }: IContextMenuProps) => {
     const rootRef = useRef<HTMLDivElement | null>(null);
+    const { getContainer } = useUNSAFE_PortalContext();
+    const [placed, setPlaced] = useState<{ x: number; y: number; left: number; top: number } | null>(null);
+    const position = placed?.x === x && placed.y === y ? placed : { left: x, top: y };
+
+    useLayoutEffect(() => {
+        const node = rootRef.current;
+
+        if (!open || !node) return;
+
+        const rect = node.getBoundingClientRect();
+        const next = placeContextMenu(x, y, rect.width, rect.height, {
+            width: window.innerWidth,
+            height: window.innerHeight,
+        });
+
+        setPlaced(current =>
+            current?.x === x && current.y === y && current.left === next.left && current.top === next.top
+                ? current
+                : { x, y, ...next }
+        );
+    }, [open, x, y, children]);
 
     useEffect(() => {
         if (!open) {
@@ -80,7 +103,7 @@ const ContextMenuRoot = ({
                 {...props}
                 ref={setRef}
                 className={cn(contextMenuVariants({ size, variant }), className)}
-                style={{ ...style, top: y, left: x }}
+                style={{ ...style, top: position.top, left: position.left }}
                 role="menu"
                 tabIndex={-1}
                 data-test-id={dataTestId}
@@ -89,7 +112,7 @@ const ContextMenuRoot = ({
                 {children}
             </div>
         </ContextMenuContext.Provider>,
-        document.body
+        getContainer?.() ?? document.body
     );
 };
 

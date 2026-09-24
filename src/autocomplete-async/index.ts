@@ -11,5 +11,5 @@ export type {
     IFormAutocompleteAsyncProps,
     TAutocompleteSize,
     TAutocompleteVariant,
-    TUseAutocompleteSuggest,
+    IUseAutocompleteSuggest,
 } from './types';

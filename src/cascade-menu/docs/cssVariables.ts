@@ -14,7 +14,7 @@ export const docsCssVariables = `/* CSS variables — CascadeMenu (--aui-cascade
 --aui-cascade-menu-flyout-header-mb: var(--aui-spacing-4); /* flyout section title margin below */
 --aui-cascade-menu-gap-brand-md: var(--aui-spacing-12); /* brand to body gap */
 --aui-cascade-menu-user-pad-y-md: var(--aui-spacing-12); /* footer top pad */
---aui-cascade-menu-handle-w: 4px; /* resize handle width */
+--aui-cascade-menu-handle-w: 4px; /* resize line width */
 --aui-cascade-menu-item-bg-hover: var(--aui-surface-bg-muted); /* L0 item / user / collapse hover; dark = grey-700 */
 --aui-cascade-menu-item-bg-active: transparent; /* current leaf — no fill (breadcrumbs own “where am I”) */
 --aui-cascade-menu-item-bg-active-hover: var(--aui-surface-bg-muted); /* current leaf hover = same as hover; dark = grey-700 */
@@ -27,4 +27,30 @@ export const docsCssVariables = `/* CSS variables — CascadeMenu (--aui-cascade
 --aui-cascade-menu-duration-fast: var(--aui-control-duration-fast); /* short chrome transitions */
 --aui-cascade-menu-duration-normal: var(--aui-control-duration-normal); /* L0 width collapse / expand */
 --aui-cascade-menu-ease-out: var(--aui-control-ease-out); /* easing */
+--aui-cascade-menu-search-bg: var(--aui-surface-bg-muted); /* field fill inside the window */
+--aui-cascade-menu-search-fg: var(--aui-cascade-menu-fg-primary); /* search text */
+--aui-cascade-menu-search-fg-muted: var(--aui-cascade-menu-fg-muted); /* placeholder, path, empty */
+--aui-cascade-menu-search-border-focus: var(--aui-cascade-menu-border-focus); /* field and hit focus */
+--aui-cascade-menu-search-radius-md: var(--aui-cascade-menu-radius-md); /* hit radius */
+--aui-cascade-menu-search-h-md: var(--aui-control-h-lg); /* field height */
+--aui-cascade-menu-search-pad-x-md: var(--aui-spacing-16); /* field inline pad */
+--aui-cascade-menu-search-gap-md: var(--aui-spacing-12); /* field contents */
+--aui-cascade-menu-search-icon-size-md: var(--aui-spacing-16); /* search and clear icons */
+--aui-cascade-menu-search-overlay-bg: var(--aui-overlay-bg-primary); /* dimmed backdrop */
+--aui-cascade-menu-search-overlay-pad: var(--aui-spacing-24); /* keeps the window off the viewport edge */
+--aui-cascade-menu-search-offset-y: 25vh; /* window top, 25% of the viewport */
+--aui-cascade-menu-search-w-md: 480px; /* centered search window */
+--aui-cascade-menu-search-max-h: 420px; /* window cap; results scroll inside */
+--aui-cascade-menu-search-results-min-h: 160px; /* blank results area when the query is empty */
+--aui-cascade-menu-search-panel-bg: var(--aui-surface-bg-elevated); /* window fill */
+--aui-cascade-menu-search-panel-shadow: var(--aui-shadow-md); /* window elevation */
+--aui-cascade-menu-search-panel-radius-md: var(--aui-control-radius-lg); /* window radius */
+--aui-cascade-menu-search-item-bg-hover: var(--aui-surface-bg-muted); /* result hover / keyboard */
+--aui-cascade-menu-search-item-pad-y-md: var(--aui-spacing-8); /* result block pad y */
+--aui-cascade-menu-search-item-pad-x-md: var(--aui-spacing-8); /* result block pad x */
+--aui-cascade-menu-search-z: var(--aui-z-modal); /* overlay above chrome */
+--aui-cascade-menu-search-shift: var(--aui-spacing-8); /* open/close and result offset */
+--aui-cascade-menu-search-duration-fast: var(--aui-cascade-menu-duration-fast); /* result motion */
+--aui-cascade-menu-search-duration-normal: var(--aui-cascade-menu-duration-normal); /* overlay open/close */
+--aui-cascade-menu-search-ease-out: var(--aui-cascade-menu-ease-out); /* search chrome easing */
 `;

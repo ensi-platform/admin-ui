@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
 import { AuiContext } from './context';
-import { type IAuiContextValue, type IAuiLabels, type TTextDirection } from './types';
+import { type IAuiContextValue, type IAuiLabels, type TAuiLinkComponent, type TTextDirection } from './types';
 
 const useAuiContext = (): IAuiContextValue => {
     const context = useContext(AuiContext);
@@ -18,3 +18,6 @@ export const useAuiLabels = (): IAuiLabels => useAuiContext().labels;
 export const useAuiLocale = (): string => useAuiContext().locale;
 
 export const useAuiDirection = (): TTextDirection => useAuiContext().direction;
+
+/** Host router link from AdminUiProvider. Defaults to `a`. */
+export const useAuiLink = (): TAuiLinkComponent => useAuiContext().linkComponent ?? 'a';

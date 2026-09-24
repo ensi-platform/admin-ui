@@ -10,6 +10,7 @@ import { Header } from './components/Header';
 import { ItemContextMenu } from './components/ItemContextMenu';
 import { NavList, type TNavListChrome } from './components/NavList';
 import { PinnedSection } from './components/PinnedSection';
+import { Search } from './components/Search';
 import { Submenus } from './components/Submenus';
 import { COLLAPSED_WIDTH, DEFAULT_MAX_WIDTH, DEFAULT_MIN_WIDTH, DEFAULT_WIDTH, PINNED_ROOT_CODE } from './constants';
 import { useCascadeDismiss } from './hooks/useCascadeDismiss';
@@ -76,7 +77,7 @@ export const CascadeMenu = ({
     // Refs
     const rootRef = useRef<HTMLElement | null>(null);
     const flyoutRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const onBeforeContextOpenRef = useRef<() => void>(() => undefined);
+    const onBeforeContextOpenRef = useRef(cancelLeave);
 
     const setRootRef = useCallback(
         (node: HTMLElement | null) => {
@@ -224,111 +225,121 @@ export const CascadeMenu = ({
     };
 
     return (
-        <aside
-            {...props}
-            ref={setRootRef}
-            className={cn(styles.root, layoutCollapsed && styles.collapsed, className)}
-            data-collapsed={collapsed || undefined}
-            data-resizing={resizing || undefined}
-            data-animating={widthAnimating || undefined}
-            data-test-id={dataTestId}
-            style={{ ...style, width: columnWidth }}
-            onMouseEnter={cancelLeave}
-            onMouseLeave={handleFolderLeave}
-            onTransitionEnd={handleWidthTransitionEnd}
+        <Search
+            items={roots}
+            dataTestId={dataTestId}
+            onActivate={code => {
+                setActiveId(code);
+                collapse();
+            }}
+            onEngage={collapse}
         >
-            <Header
-                layoutCollapsed={layoutCollapsed}
-                collapsed={collapsed}
-                expandSidebar={expandSidebar}
-                collapseSidebar={collapseSidebar}
-                dataTestId={dataTestId}
-                onToggleCollapsed={() => setCollapsed(!collapsed)}
-                onTrimChrome={trimL0Chrome}
+            <aside
+                {...props}
+                ref={setRootRef}
+                className={cn(styles.root, layoutCollapsed && styles.collapsed, className)}
+                data-collapsed={collapsed || undefined}
+                data-resizing={resizing || undefined}
+                data-animating={widthAnimating || undefined}
+                data-test-id={dataTestId}
+                style={{ ...style, width: columnWidth }}
+                onMouseEnter={cancelLeave}
+                onMouseLeave={handleFolderLeave}
+                onTransitionEnd={handleWidthTransitionEnd}
             >
-                {header}
-            </Header>
-
-            <div className={styles.body}>
-                <PinnedSection
-                    {...l0Chrome}
-                    pinsEnabled={pinsEnabled}
-                    pinnedRootItem={pinnedRootItem}
+                <Header
                     layoutCollapsed={layoutCollapsed}
-                    pinnedSection={pinnedSection}
-                    pinnedSectionHint={pinnedSectionHint}
-                    openCodes={pinnedOpenCodes}
+                    collapsed={collapsed}
+                    expandSidebar={expandSidebar}
+                    collapseSidebar={collapseSidebar}
                     dataTestId={dataTestId}
-                    onFolderEnter={enterFromPinnedFolder}
-                    onLeafEnter={enterFromPinnedLeaf}
+                    onToggleCollapsed={() => setCollapsed(!collapsed)}
                     onTrimChrome={trimL0Chrome}
-                />
-                <NavList
-                    {...l0Chrome}
-                    items={roots}
-                    level={0}
-                    openCodes={treeOpenCodes}
-                    collapsed={layoutCollapsed}
-                    onFolderEnter={enterFromTreeFolder}
-                    onLeafEnter={enterFromTreeLeaf}
-                    enablePins={pinsEnabled}
-                    allowPin={false}
-                    dataTestId={dataTestId ? `${dataTestId}-col-0` : undefined}
-                />
-            </div>
+                >
+                    {header}
+                </Header>
 
-            {footer ? <Footer onTrimChrome={trimL0Chrome}>{footer}</Footer> : null}
+                <div className={styles.body}>
+                    <PinnedSection
+                        {...l0Chrome}
+                        pinsEnabled={pinsEnabled}
+                        pinnedRootItem={pinnedRootItem}
+                        layoutCollapsed={layoutCollapsed}
+                        pinnedSection={pinnedSection}
+                        pinnedSectionHint={pinnedSectionHint}
+                        openCodes={pinnedOpenCodes}
+                        dataTestId={dataTestId}
+                        onFolderEnter={enterFromPinnedFolder}
+                        onLeafEnter={enterFromPinnedLeaf}
+                        onTrimChrome={trimL0Chrome}
+                    />
+                    <NavList
+                        {...l0Chrome}
+                        items={roots}
+                        level={0}
+                        openCodes={treeOpenCodes}
+                        collapsed={layoutCollapsed}
+                        onFolderEnter={enterFromTreeFolder}
+                        onLeafEnter={enterFromTreeLeaf}
+                        enablePins={pinsEnabled}
+                        allowPin={false}
+                        dataTestId={dataTestId ? `${dataTestId}-col-0` : undefined}
+                    />
+                </div>
 
-            {flyoutsVisible ? null : (
-                <button
-                    type="button"
-                    className={styles.resizeHandle}
-                    aria-label={resizeSidebar}
-                    onPointerDown={onResizePointerDown}
-                    onPointerMove={onResizePointerMove}
-                    onPointerUp={endResize}
-                    onPointerCancel={endResize}
-                    onLostPointerCapture={endResize}
-                    data-test-id={dataTestId ? `${dataTestId}-resize` : undefined}
-                />
-            )}
+                {footer ? <Footer onTrimChrome={trimL0Chrome}>{footer}</Footer> : null}
 
-            <Submenus
-                layers={layers}
-                roots={roots}
-                pinnedRootItem={pinnedRootItem}
-                rootRef={rootRef}
-                flyoutRefs={flyoutRefs}
-                activeId={activeId}
-                openCodes={openCodes}
-                size={size}
-                variant={variant}
-                pinsEnabled={pinsEnabled}
-                dataTestId={dataTestId}
-                onChange={setActiveId}
-                onFolderEnter={activeFolderEnter}
-                onLeafEnter={activeLeafEnter}
-                onFolderLeave={handleFolderLeave}
-                onLeafActivate={collapse}
-                getAimSubmenu={getAimSubmenu}
-                getAimMenuHeight={getAimMenuHeight}
-                onMouseMove={onMouseMove}
-                onItemContextMenu={handleItemContextMenu}
-                onCancelLeave={cancelLeave}
-                onFlyoutChromeMove={handleFlyoutChromeMove}
-            />
+                {flyoutsVisible ? null : (
+                    <button
+                        type="button"
+                        className={styles.resizeHandle}
+                        aria-label={resizeSidebar}
+                        onPointerDown={onResizePointerDown}
+                        onPointerMove={onResizePointerMove}
+                        onPointerUp={endResize}
+                        onPointerCancel={endResize}
+                        onLostPointerCapture={endResize}
+                        data-test-id={dataTestId ? `${dataTestId}-resize` : undefined}
+                    />
+                )}
 
-            {contextMenu ? (
-                <ItemContextMenu
-                    menu={contextMenu}
+                <Submenus
+                    layers={layers}
+                    roots={roots}
+                    pinnedRootItem={pinnedRootItem}
+                    rootRef={rootRef}
+                    flyoutRefs={flyoutRefs}
+                    activeId={activeId}
+                    openCodes={openCodes}
+                    size={size}
+                    variant={variant}
+                    pinsEnabled={pinsEnabled}
                     dataTestId={dataTestId}
-                    menuRef={contextMenuRef}
-                    onClose={closeContextMenu}
-                    onTogglePin={handleTogglePin}
-                    onMouseEnter={cancelLeave}
+                    onChange={setActiveId}
+                    onFolderEnter={activeFolderEnter}
+                    onLeafEnter={activeLeafEnter}
+                    onFolderLeave={handleFolderLeave}
+                    onLeafActivate={collapse}
+                    getAimSubmenu={getAimSubmenu}
+                    getAimMenuHeight={getAimMenuHeight}
+                    onMouseMove={onMouseMove}
+                    onItemContextMenu={handleItemContextMenu}
+                    onCancelLeave={cancelLeave}
+                    onFlyoutChromeMove={handleFlyoutChromeMove}
                 />
-            ) : null}
-        </aside>
+
+                {contextMenu ? (
+                    <ItemContextMenu
+                        menu={contextMenu}
+                        dataTestId={dataTestId}
+                        menuRef={contextMenuRef}
+                        onClose={closeContextMenu}
+                        onTogglePin={handleTogglePin}
+                        onMouseEnter={cancelLeave}
+                    />
+                ) : null}
+            </aside>
+        </Search>
     );
 };
 

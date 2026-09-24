@@ -1,3 +1,5 @@
+import { type ComponentPropsWithRef } from 'react';
+
 import { withThemeByDataAttribute } from '@storybook/addon-themes';
 
 import { ModalHub, ModalProvider } from '../src/modal-hub';
@@ -34,18 +36,55 @@ const RU_LABELS: IAuiLabels = {
     unpinMenuItem: 'Открепить',
     pinnedSection: 'Закреплённые',
     pinnedSectionHint: 'ПКМ по пункту меню, чтобы закрепить',
+    searchMenu: 'Поиск по меню',
+    searchMenuEmpty: 'Ничего не найдено',
     openInNewTab: 'Открыть в новой вкладке',
+    sortAscending: 'По возрастанию',
+    sortDescending: 'По убыванию',
+    save: 'Сохранить',
+    arrangementList: 'Элементы',
+    moreActions: 'Ещё действия',
+    clearFilters: 'Очистить',
 };
+
+/** Keeps story links inside the preview iframe (`<base target="_parent">`). */
+const StorybookLink = ({ href, onClick, children, ...props }: ComponentPropsWithRef<'a'>) => (
+    <a
+        {...props}
+        href={href}
+        target="_self"
+        onClick={event => {
+            onClick?.(event);
+
+            if (
+                event.defaultPrevented ||
+                event.metaKey ||
+                event.ctrlKey ||
+                event.shiftKey ||
+                event.altKey ||
+                event.button !== 0
+            ) {
+                return;
+            }
+
+            event.preventDefault();
+        }}
+    >
+        {children}
+    </a>
+);
 
 const withProvider: Decorator = (Story, context) => {
     const locale = (context.globals.locale as string) || 'ru-RU';
 
     return (
-        <AdminUiProvider locale={locale} labels={locale.startsWith('ru') ? RU_LABELS : undefined}>
+        <AdminUiProvider
+            locale={locale}
+            labels={locale.startsWith('ru') ? RU_LABELS : undefined}
+            linkComponent={StorybookLink}
+        >
             <ModalProvider>
-                {/* <div style={{ padding: 16 }}> */}
                 <Story />
-                {/* </div> */}
                 <ModalHub />
             </ModalProvider>
         </AdminUiProvider>
@@ -98,7 +137,7 @@ const preview: Preview = {
                 date: /Date$/i,
             },
         },
-        layout: 'fullscreen',
+        layout: 'padded',
         backgrounds: {
             disable: true,
         },

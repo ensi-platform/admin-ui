@@ -1,9 +1,11 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { type ArgTypes, type Meta, type StoryObj } from '@storybook/react';
 
+import { type IUseAutocompleteSuggest } from '@/autocomplete-async/types';
 import { Button } from '@/button';
 import { Loader } from '@/loader';
+import { SuggestChecklist } from '@/suggest-checklist';
 
 import { Table } from '../Component';
 import { useTableRowSelection } from '../hooks/useTableRowSelection';
@@ -74,6 +76,41 @@ const DEMO_ROWS: IDemoRow[] = Array.from({ length: 48 }, (_, i) => {
 });
 
 type TSortKey = 'order' | 'name' | 'city' | 'status' | 'qty' | 'amount' | 'updatedAt';
+
+const useCitySuggest: IUseAutocompleteSuggest = ({ query, enabled }) => {
+    const [result, setResult] = useState<{
+        options: { value: string; label: string }[];
+        isLoading: boolean;
+        hasMore: boolean;
+    }>({
+        options: [],
+        isLoading: false,
+        hasMore: false,
+    });
+
+    useEffect(() => {
+        if (!enabled) {
+            setResult({ options: [], isLoading: false, hasMore: false });
+
+            return;
+        }
+
+        setResult(current => ({ ...current, isLoading: true, hasMore: false }));
+
+        const timer = window.setTimeout(() => {
+            const options = CITIES.filter(city => city.toLowerCase().includes(query.toLowerCase())).map(city => ({
+                value: city,
+                label: city,
+            }));
+
+            setResult({ options, isLoading: false, hasMore: false });
+        }, 200);
+
+        return () => window.clearTimeout(timer);
+    }, [enabled, query]);
+
+    return result;
+};
 
 const DEFAULT_ARGS: ITableBaseProps = {
     children: null,
@@ -392,6 +429,56 @@ export const Empty: StoryObj<ITableBaseProps> = {
                     </Table.Footer>
                 </Table>
             </div>
+        );
+    },
+};
+
+/** Sort and an inline async checklist share one header drop. */
+export const HeaderFilter: StoryObj<ITableBaseProps> = {
+    render: function HeaderFilterStory(args) {
+        const [sortDirection, setSortDirection] = useState<TTableSortDirection>();
+        const [cities, setCities] = useState<string[]>([]);
+
+        const rows = DEMO_ROWS.filter(row => (cities.length === 0 ? true : cities.includes(row.city))).slice(0, 8);
+
+        return (
+            <Table {...args} hasChecked={false}>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Header sticky>
+                            <Table.Row>
+                                <Table.HeaderCell
+                                    noWrap
+                                    sortable
+                                    sortDirection={sortDirection}
+                                    onSort={setSortDirection}
+                                    filterActive={cities.length > 0}
+                                    filter={
+                                        <SuggestChecklist
+                                            aria-label="City"
+                                            placeholder="Search"
+                                            useSuggest={useCitySuggest}
+                                            value={cities}
+                                            onChange={next => setCities(next.map(String))}
+                                        />
+                                    }
+                                >
+                                    City
+                                </Table.HeaderCell>
+                                <Table.HeaderCell noWrap>Customer</Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                            {rows.map(row => (
+                                <Table.Row key={row.id}>
+                                    <Table.Cell>{row.city}</Table.Cell>
+                                    <Table.Cell>{row.name}</Table.Cell>
+                                </Table.Row>
+                            ))}
+                        </Table.Body>
+                    </Table.Table>
+                </Table.Scroll>
+            </Table>
         );
     },
 };

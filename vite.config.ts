@@ -83,6 +83,7 @@ export default defineConfig({
                 'react/jsx-runtime',
                 'class-variance-authority',
                 'classnames',
+                'react-aria',
                 'react-aria-components',
                 'react-hook-form',
                 'react-fast-compare',

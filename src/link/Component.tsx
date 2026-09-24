@@ -19,6 +19,7 @@ export const Link = <P extends ElementType = 'a'>({
 
     return (
         <Component
+            {...(Component === 'a' ? { target: '_self' } : {})}
             className={cn(linkVariants({ variant: 'primary' }), typographyStyles[typography ?? 'bodyS'], className)}
             data-test-id={dataTestId}
             {...props}

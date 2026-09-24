@@ -1,0 +1,89 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    margin-inline: calc(var(--aui-arrangement-settings-item-pad-x-md) * -1);
+    padding: 0;
+    list-style: none;
+    outline: none;
+}
+
+.item {
+    position: relative;
+    z-index: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--aui-arrangement-settings-gap-md);
+    padding-block: var(--aui-arrangement-settings-item-pad-y-md);
+    padding-inline: var(--aui-arrangement-settings-item-pad-x-md);
+    border-radius: var(--aui-arrangement-settings-item-radius-md);
+    color: var(--aui-arrangement-settings-item-fg);
+    outline: none;
+    cursor: grab;
+}
+
+.item::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.item[data-hovered]::before {
+    background: var(--aui-arrangement-settings-item-bg-hover);
+}
+
+.item[data-dragging] {
+    opacity: 0.4;
+}
+
+.label {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.drag {
+    display: inline-flex;
+    flex: 0 0 auto;
+    margin-inline-start: auto;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    outline: none;
+    cursor: grab;
+}
+
+.check {
+    display: inline-flex;
+}
+
+.grip {
+    width: var(--aui-arrangement-settings-grip-w-md);
+    height: var(--aui-arrangement-settings-grip-h-md);
+    flex: none;
+}
+
+.indicator {
+    display: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    pointer-events: none;
+}
+
+.indicator[data-drop-target] {
+    display: block;
+    height: var(--aui-arrangement-settings-indicator-h);
+    outline: 1px solid var(--aui-arrangement-settings-indicator);
+    outline-offset: -1px;
+}
+
+.preview {
+    background: var(--aui-arrangement-settings-preview-bg);
+    box-shadow: var(--aui-arrangement-settings-preview-shadow);
+}

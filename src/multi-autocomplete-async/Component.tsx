@@ -13,7 +13,7 @@ export const MultiAutocompleteAsync = ({
 }: IMultiAutocompleteAsyncProps) => {
     const { inputValue, setInputValue, debouncedQuery } = useAutocompleteAsyncInput(debounceMs);
     const enabled = !disabled && debouncedQuery.length >= minLength;
-    const { options, isLoading, isError } = useAutocompleteAsyncSuggest({
+    const { options, isLoading, isLoadingMore, isError, hasMore, loadMore } = useAutocompleteAsyncSuggest({
         useSuggest,
         query: debouncedQuery,
         enabled,
@@ -33,6 +33,9 @@ export const MultiAutocompleteAsync = ({
                 isLoading,
             })}
             isError={Boolean(isError)}
+            hasMore={hasMore}
+            onLoadMore={loadMore}
+            isLoadingMore={isLoadingMore}
             inputValue={inputValue}
             onInputChange={setInputValue}
         />

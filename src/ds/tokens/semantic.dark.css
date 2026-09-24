@@ -247,6 +247,7 @@
     --aui-table-fg-primary: var(--aui-page-fg-primary);
     --aui-table-fg-header: var(--aui-page-fg-muted);
     --aui-table-fg-muted: var(--aui-page-fg-muted);
+    --aui-table-fg-danger: var(--aui-control-fg-danger);
     --aui-table-fg-disabled: var(--aui-page-fg-muted);
     --aui-table-border-primary: var(--aui-surface-border-primary);
     --aui-table-border-on-fill: var(--aui-page-fg-muted);

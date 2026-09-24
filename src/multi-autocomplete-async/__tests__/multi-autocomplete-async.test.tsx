@@ -2,7 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
-import { type TUseAutocompleteSuggest } from '@/autocomplete-async/types';
+import { type IUseAutocompleteSuggest } from '@/autocomplete-async/types';
 import { AdminUiProvider } from '@/provider';
 
 import { MultiAutocompleteAsync } from '..';
@@ -12,14 +12,15 @@ const OPTIONS = [
     { value: 'adidas', label: 'Adidas' },
 ];
 
-const useStaticSuggest: TUseAutocompleteSuggest = ({ query, enabled }) => {
+const useStaticSuggest: IUseAutocompleteSuggest = ({ query, enabled }) => {
     if (!enabled) {
-        return { options: [], isLoading: false };
+        return { options: [], isLoading: false, hasMore: false };
     }
 
     return {
         options: OPTIONS.filter(item => item.label.toLowerCase().includes(query.toLowerCase())),
         isLoading: false,
+        hasMore: false,
     };
 };
 

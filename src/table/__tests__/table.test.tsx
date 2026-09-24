@@ -452,4 +452,95 @@ describe('Table', () => {
         expect(footer).not.toHaveAttribute('data-sticky');
         expect(footer).not.toHaveClass(footerStyles.sticky);
     });
+
+    it('opens a header filter and toggles sort inside the drop', async () => {
+        const user = userEvent.setup();
+        const onSort = vi.fn();
+
+        const FilterDemo = () => {
+            const [direction, setDirection] = useState<'asc' | 'desc' | undefined>();
+
+            return (
+                <Table>
+                    <Table.Scroll>
+                        <Table.Table>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell
+                                        sortable
+                                        sortDirection={direction}
+                                        onSort={next => {
+                                            onSort(next);
+                                            setDirection(next);
+                                        }}
+                                        filter={<span>Query</span>}
+                                    >
+                                        Status
+                                    </Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+                        </Table.Table>
+                    </Table.Scroll>
+                </Table>
+            );
+        };
+
+        renderWithProvider(<FilterDemo />);
+
+        const trigger = screen.getByRole('button', { name: 'Status' });
+        expect(trigger).toHaveAttribute('aria-haspopup', 'dialog');
+        expect(trigger.querySelector('[data-trigger-chevron]')).not.toBeNull();
+        expect(trigger.querySelector('[data-active]')).toBeNull();
+
+        await user.click(trigger);
+
+        const dialog = screen.getByRole('dialog');
+        expect(dialog).toHaveTextContent('Query');
+        expect(dialog.textContent?.indexOf('Query')).toBeLessThan(dialog.textContent?.indexOf('Ascending') ?? -1);
+        expect(trigger).toHaveAttribute('data-open');
+
+        const ascending = screen.getByRole('button', { name: 'Ascending' });
+        await user.click(ascending);
+        expect(onSort).toHaveBeenLastCalledWith('asc');
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
+        expect(trigger.querySelector('[data-sort-mark="asc"]')).not.toBeNull();
+        expect(trigger.querySelector('[data-trigger-chevron]')).toBeNull();
+
+        await user.click(ascending);
+        expect(onSort).toHaveBeenLastCalledWith('asc');
+
+        const descending = screen.getByRole('button', { name: 'Descending' });
+        await user.click(descending);
+        expect(onSort).toHaveBeenLastCalledWith('desc');
+        expect(trigger.querySelector('[data-sort-mark="desc"]')).not.toBeNull();
+        expect(trigger.querySelector('[data-sort-mark="asc"]')).toBeNull();
+        expect(ascending).not.toHaveAttribute('aria-pressed');
+        expect(descending).not.toHaveAttribute('aria-pressed');
+
+        await user.click(document.body);
+
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+
+    it('marks the filter icon when filterActive', () => {
+        renderWithProvider(
+            <Table>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell filter={<span>Query</span>} filterActive>
+                                    Status
+                                </Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                    </Table.Table>
+                </Table.Scroll>
+            </Table>
+        );
+
+        const trigger = screen.getByRole('button', { name: 'Status' });
+        expect(trigger.querySelector('[data-active]')).not.toBeNull();
+        expect(trigger.querySelector('[data-trigger-chevron]')).toBeNull();
+    });
 });

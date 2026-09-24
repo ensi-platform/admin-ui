@@ -8,18 +8,19 @@ import { MultiAutocompleteAsync, FormMultiAutocompleteAsync } from '@ensi-platfo
 
 - several values + backend suggestions
 - local list — see `MultiAutocomplete`
+- an already open checkbox list — see `SuggestChecklist`
 
 ## API (short)
 
 ### `useSuggest` contract
 
-Same as `AutocompleteAsync`: merge `selected ∪ fetched` is the hook's job; keep `useSuggest` stable across renders; UI `isLoading` = debounce-pending **or** fetch in flight.
+Same as `AutocompleteAsync`: `IUseAutocompleteSuggest` with `page` and `hasMore`. The hook returns one page; the package appends pages. Merge `selected ∪ fetched` is the hook's job; keep `useSuggest` stable across renders; UI `isLoading` = debounce-pending **or** fetch in flight.
 
 ### MultiAutocompleteAsync
 
 | Prop           | Values                                  | Default | Description                     |
 | -------------- | --------------------------------------- | ------- | ------------------------------- |
-| `useSuggest`   | `TUseAutocompleteSuggest`               | —       | suggest hook (required)         |
+| `useSuggest`   | `IUseAutocompleteSuggest`               | —       | suggest hook (required)         |
 | `minLength`    | `number`                                | `0`     | min query length before fetch   |
 | `debounceMs`   | `number`                                | `300`   | input debounce                  |
 | `value`        | `(string \| number)[]`                  | —       | controlled; `[]` after clear    |
@@ -42,7 +43,7 @@ No external `options` / `isLoading`.
 | `name`        | `string`                  | —       | field name in `Form`     |
 | `label`       | `ReactNode`               | —       | `Field.Label`            |
 | `hint`        | `ReactNode`               | —       | hint under the control   |
-| `useSuggest`  | `TUseAutocompleteSuggest` | —       | suggest hook             |
+| `useSuggest`  | `IUseAutocompleteSuggest` | —       | suggest hook             |
 | `minLength`   | `number`                  | `0`     | min query length         |
 | `debounceMs`  | `number`                  | `300`   | input debounce           |
 | `placeholder` | `string`                  | —       | placeholder              |

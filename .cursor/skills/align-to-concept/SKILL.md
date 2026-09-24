@@ -29,8 +29,8 @@ Copy and tick:
 - [ ] Zone containers: bg XOR border (except control / focus / alert)
 - [ ] Nested surface boxes from page ≤ 2
 - [ ] Tag/Badge/chip: one signal (tint XOR outline)
-- [ ] Nav: use `CascadeMenu` (hover flyout); do NOT match sidebar from *-v3.png; logo LogoEnsiMark + ensi-opensource text currentColor; `data-open` only while flyout open; no current-page highlight (breadcrumbs); single Pinned L0 item → flyout list (leaf+folder, max 8, pinUserId LS); no search/counters
-- [ ] List: Tag row without bordered bar; table flush; pagination without per-page boxes
+- [ ] Nav: use `CascadeMenu` (hover flyout); do NOT match sidebar from *-v3.png; logo LogoEnsiMark + ensi-opensource text currentColor; `data-open` only while flyout open; no current-page highlight (breadcrumbs); single Pinned L0 item → flyout list (leaf+folder, max 8, pinUserId LS); search button next to collapse; dimmed backdrop + small window above center (field, linked leaves + ancestor path); Escape or backdrop click closes; collapsed rail stays collapsed; no counters
+- [ ] List: ActiveFilters (Tag + clear link) without bordered bar; table flush; pagination without per-page boxes
 - [ ] Filters: fields on page; no muted bar wrapping controls
 - [ ] Detail: underline Tabs; no per-section cards; at most one heavy alert
 ```

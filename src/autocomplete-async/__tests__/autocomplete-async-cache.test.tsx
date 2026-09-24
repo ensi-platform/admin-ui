@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
-import { type TUseAutocompleteSuggest } from '@/autocomplete-async/types';
+import { type IUseAutocompleteSuggest } from '@/autocomplete-async/types';
 import { AdminUiProvider } from '@/provider';
 import { type TComboboxValue } from '@/select/types';
 
@@ -46,9 +46,10 @@ describe('AutocompleteAsync cache label', () => {
 
         const Harness = () => {
             const [empty, setEmpty] = useState(false);
-            const useSuggest: TUseAutocompleteSuggest = () => ({
+            const useSuggest: IUseAutocompleteSuggest = () => ({
                 options: empty ? [] : [{ value: 'nike', label: 'Nike' }],
                 isLoading: false,
+                hasMore: false,
             });
 
             return (
@@ -87,7 +88,7 @@ describe('AutocompleteAsync cache label', () => {
             <AdminUiProvider>
                 <AutocompleteAsync
                     aria-label="Brand"
-                    useSuggest={() => ({ options: [], isLoading: false })}
+                    useSuggest={() => ({ options: [], isLoading: false, hasMore: false })}
                     debounceMs={0}
                 />
             </AdminUiProvider>
@@ -103,9 +104,10 @@ describe('AutocompleteAsync cache label', () => {
         const Harness = () => {
             const [value, setValue] = useState<TComboboxValue | null>(null);
             const [empty, setEmpty] = useState(false);
-            const useSuggest: TUseAutocompleteSuggest = () => ({
+            const useSuggest: IUseAutocompleteSuggest = () => ({
                 options: empty ? [] : [{ value: 'nike', label: 'Nike' }],
                 isLoading: false,
+                hasMore: false,
             });
 
             return (

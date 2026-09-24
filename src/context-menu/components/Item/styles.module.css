@@ -16,6 +16,10 @@
     background: var(--aui-context-menu-item-bg-hover);
 }
 
+.danger {
+    color: var(--aui-context-menu-item-fg-danger);
+}
+
 .root:disabled {
     opacity: 0.4;
     cursor: not-allowed;

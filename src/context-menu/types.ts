@@ -43,6 +43,9 @@ export interface IContextMenuBaseProps extends IContextMenuThemeProps, IContextM
 export interface IContextMenuProps
     extends IContextMenuBaseProps, Omit<ComponentPropsWithRef<'div'>, keyof IContextMenuBaseProps | 'children'> {}
 
+/** Item tone. */
+export type TContextMenuItemVariant = 'primary' | 'danger';
+
 /** Own / chrome props for ContextMenu.Item. */
 export interface IContextMenuItemOwnProps extends IDataTestIdProps {
     /** Label. */
@@ -51,6 +54,8 @@ export interface IContextMenuItemOwnProps extends IDataTestIdProps {
     icon?: TSVGRIcon;
     /** Disables this item. */
     disabled?: boolean;
+    /** Visual tone. */
+    variant?: TContextMenuItemVariant;
     /** Ref to the item button (React 19 prop). */
     ref?: Ref<HTMLButtonElement>;
 }

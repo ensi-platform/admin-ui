@@ -1,13 +1,18 @@
 ## Пример
 
 ```tsx
-const useBrandSuggest: TUseAutocompleteSuggest = ({ query, enabled }) => {
+const useBrandSuggest: IUseAutocompleteSuggest = ({ query, enabled, page }) => {
     const { data, isFetching, isError } = useQuery({
-        queryKey: ['brands', query],
-        queryFn: () => fetchBrands(query),
+        queryKey: ['brands', query, page],
+        queryFn: () => fetchBrands(query, page),
         enabled,
     });
-    return { options: data ?? [], isLoading: isFetching, isError };
+    return {
+        options: data?.options ?? [],
+        isLoading: isFetching,
+        isError,
+        hasMore: data?.hasMore ?? false,
+    };
 };
 
 <AutocompleteAsync aria-label="Бренд" useSuggest={useBrandSuggest} minLength={2} clear />;

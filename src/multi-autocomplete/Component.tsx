@@ -23,6 +23,9 @@ export const MultiAutocomplete = ({
     clientFilter = true,
     isLoading = false,
     isError = false,
+    hasMore = false,
+    onLoadMore,
+    isLoadingMore = false,
     size = 'md',
     variant = 'primary',
     block = true,
@@ -85,6 +88,9 @@ export const MultiAutocomplete = ({
                         variant={variant}
                         isLoading={isLoading}
                         isError={isError}
+                        hasMore={hasMore}
+                        onLoadMore={onLoadMore}
+                        isLoadingMore={isLoadingMore}
                         showEmptyStatus
                     />
                 </>

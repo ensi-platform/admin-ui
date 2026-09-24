@@ -1,4 +1,4 @@
-import { type ComponentPropsWithRef, type ReactNode } from 'react';
+import { type ComponentPropsWithRef, type ElementType, type ReactNode } from 'react';
 
 export type TTextDirection = 'ltr' | 'rtl';
 
@@ -44,17 +44,38 @@ export interface IAuiLabels {
     pinnedSection: string;
     /** CascadeMenu: empty pinned list hint (how to pin). */
     pinnedSectionHint: string;
+    /** CascadeMenu: search field accessible name and placeholder. */
+    searchMenu: string;
+    /** CascadeMenu: search panel when nothing matches. */
+    searchMenuEmpty: string;
     /** CascadeMenu: open leaf in new tab. */
     openInNewTab: string;
+    /** Table header filter: ascending sort action. */
+    sortAscending: string;
+    /** Table header filter: descending sort action. */
+    sortDescending: string;
+    /** DataTable actions: kebab accessible name. */
+    moreActions: string;
+    /** ArrangementSettings: save the draft. */
+    save: string;
+    /** ArrangementSettings: accessible name of the item list. */
+    arrangementList: string;
+    /** ActiveFilters: clear the whole row. */
+    clearFilters: string;
 }
 
 export type TAuiLabels = IAuiLabels;
+
+/** Host router link. Anchor props; `href` is the URL. */
+export type TAuiLinkComponent = ElementType<ComponentPropsWithRef<'a'>>;
 
 /** Admin UI context value. */
 export interface IAuiContextValue {
     locale: string;
     direction: TTextDirection;
     labels: IAuiLabels;
+    /** Host router link. Defaults to `a`. */
+    linkComponent?: TAuiLinkComponent;
 }
 
 export interface IAdminUiProviderProps extends Omit<ComponentPropsWithRef<'div'>, 'children' | 'dir'> {
@@ -65,4 +86,6 @@ export interface IAdminUiProviderProps extends Omit<ComponentPropsWithRef<'div'>
     locale?: string;
     /** Partial override of built-in labels. */
     labels?: Partial<IAuiLabels>;
+    /** Host router link for menu navigation. Defaults to `a`. */
+    linkComponent?: TAuiLinkComponent;
 }

@@ -4,20 +4,27 @@ import { CalendarDate } from '@internationalized/date';
 import { type ArgTypes, type Meta, type StoryObj } from '@storybook/react';
 import { type DateRange } from 'react-aria-components';
 
+import { ActiveFilters } from '@/active-filters';
+import { ArrangementSettings, type IArrangementSettingsItem } from '@/arrangement-settings';
+import { type IUseAutocompleteSuggest } from '@/autocomplete-async/types';
 import { Avatar } from '@/avatar';
 import { Badge } from '@/badge';
 import { Button } from '@/button';
+import { ContextMenu } from '@/context-menu';
+import { DataTable, type IDataTableSort } from '@/data-table';
 import { DateRangePicker } from '@/date-range-picker';
 import { typographyStyles } from '@/ds/typography';
 import { Field, useField } from '@/field';
+import { Filters } from '@/filters';
 import { Cart, ChevronDown, LogoEnsiMark, Package, Users } from '@/icons';
 import { Input } from '@/input';
 import { Link } from '@/link';
-import { NumberInput } from '@/number-input';
+import { MultiAutocompleteAsync } from '@/multi-autocomplete-async';
+import { NumberRange, type INumberRangeValue } from '@/number-range';
 import { Popover } from '@/popover';
 import { Select, type TComboboxValue } from '@/select';
-import { Table, useTableRowSelection } from '@/table';
-import { Tag } from '@/tag';
+import { SuggestChecklist } from '@/suggest-checklist';
+import { useTableRowSelection } from '@/table';
 
 import { CascadeMenu } from '../Component';
 import { type ICascadeMenuProps } from '../types';
@@ -376,6 +383,78 @@ const PAYMENT_OPTIONS = [
     { value: 'cash', label: 'Cash' },
 ];
 
+const formatDate = (date: { day: number; month: number; year: number }) =>
+    `${String(date.day).padStart(2, '0')}.${String(date.month).padStart(2, '0')}.${date.year}`;
+
+const dateKey = (date: { day: number; month: number; year: number }) =>
+    date.year * 10_000 + date.month * 100 + date.day;
+
+const createdKey = (createdAt: string) => {
+    const [year, month, day] = createdAt.split('-').map(Number);
+
+    return year * 10_000 + month * 100 + day;
+};
+
+const parseAmount = (amount: string) => Number(amount.replace(/[^\d]/g, ''));
+
+const FILTER_ITEMS: IArrangementSettingsItem[] = [
+    { id: 'status', label: 'Status' },
+    { id: 'assignee', label: 'Assignee' },
+    { id: 'client', label: 'Client' },
+    { id: 'created', label: 'Created' },
+    { id: 'amount', label: 'Amount' },
+    { id: 'payment', label: 'Payment' },
+];
+
+const optionSuggest =
+    (options: { value: string; label: string }[]): IUseAutocompleteSuggest =>
+    ({ query, enabled }) => {
+        if (!enabled) {
+            return { options: [], isLoading: false, hasMore: false };
+        }
+
+        const needle = query.trim().toLowerCase();
+
+        return {
+            options: options.filter(item => item.label.toLowerCase().includes(needle)),
+            isLoading: false,
+            hasMore: false,
+        };
+    };
+
+const useStatusSuggest = optionSuggest(STATUS_OPTIONS);
+const useAssigneeSuggest = optionSuggest(ASSIGNEE_OPTIONS);
+
+const optionLabel = (options: { value: string; label: string }[], value: string) =>
+    options.find(item => item.value === value)?.label ?? value;
+
+const ChecklistFilter = ({
+    label,
+    useSuggest,
+    value,
+    onChange,
+}: {
+    label: string;
+    useSuggest: IUseAutocompleteSuggest;
+    value: string[];
+    onChange: (value: string[]) => void;
+}) => (
+    <SuggestChecklist
+        aria-label={label}
+        placeholder="Search"
+        useSuggest={useSuggest}
+        value={value}
+        debounceMs={0}
+        onChange={next => onChange(next.map(String))}
+    />
+);
+
+const FieldMultiAutocompleteAsync = (props: ComponentProps<typeof MultiAutocompleteAsync>) => {
+    const { controlProps, size, invalid, disabled } = useField();
+
+    return <MultiAutocompleteAsync {...controlProps} size={size} invalid={invalid} disabled={disabled} {...props} />;
+};
+
 const FieldSelect = (props: ComponentProps<typeof Select>) => {
     const { controlProps, size, invalid, disabled } = useField();
 
@@ -394,78 +473,428 @@ const FieldDateRangePicker = (props: ComponentProps<typeof DateRangePicker>) => 
     return <DateRangePicker {...controlProps} size={size} invalid={invalid} disabled={disabled} {...props} />;
 };
 
-interface IFilterTag {
-    id: string;
-    label: string;
-}
+const FieldNumberRange = (props: ComponentProps<typeof NumberRange>) => {
+    const { size, invalid, disabled } = useField();
 
-const INITIAL_TAGS: IFilterTag[] = [
-    { id: 'status', label: 'Status: In progress' },
-    { id: 'assignee', label: 'Assignee: Ivanov I.I.' },
-    { id: 'date', label: 'Created: 01.05.2025 – 31.05.2025' },
+    return <NumberRange size={size} invalid={invalid} disabled={disabled} {...props} />;
+};
+
+const TABLE_COLUMNS: IArrangementSettingsItem[] = [
+    { id: 'id', label: 'ID' },
+    { id: 'name', label: 'Name' },
+    { id: 'client', label: 'Client' },
+    { id: 'assignee', label: 'Assignee' },
+    { id: 'status', label: 'Status' },
+    { id: 'amount', label: 'Amount' },
+    { id: 'created', label: 'Created' },
 ];
 
 const ListPageContent = () => {
     const [view, setView] = useState<'table' | 'filters'>('table');
-    const [tags, setTags] = useState(INITIAL_TAGS);
+    const [columns, setColumns] = useState<string[]>(() => TABLE_COLUMNS.map(column => column.id));
+    const [columnSettingsOpen, setColumnSettingsOpen] = useState(false);
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
+    const [sort, setSort] = useState<IDataTableSort>();
+    const [settingsOpen, setSettingsOpen] = useState(false);
+    const [visibleFilters, setVisibleFilters] = useState(() => FILTER_ITEMS.map(item => item.id));
+    const [menu, setMenu] = useState<{ x: number; y: number } | null>(null);
 
-    const [status, setStatus] = useState<TComboboxValue | null>('in_progress');
-    const [assignee, setAssignee] = useState<TComboboxValue | null>('ivanov');
+    const [statuses, setStatuses] = useState<string[]>(['in_progress']);
+    const [assignees, setAssignees] = useState<string[]>([]);
     const [client, setClient] = useState('');
     const [period, setPeriod] = useState<DateRange | null>({
         start: new CalendarDate(2025, 5, 1),
         end: new CalendarDate(2025, 5, 31),
     });
-    const [amountFrom, setAmountFrom] = useState<number | null>(null);
-    const [amountTo, setAmountTo] = useState<number | null>(null);
+    const [amount, setAmount] = useState<INumberRangeValue>({ from: null, to: null });
     const [payment, setPayment] = useState<TComboboxValue | null>(null);
 
-    const pageCount = Math.max(1, Math.ceil(ORDER_ROWS.length / pageSize));
+    const rows = useMemo(() => {
+        const statusLabels = statuses.map(value => STATUS_OPTIONS.find(item => item.value === value)?.label ?? value);
+        const assigneeLabels = assignees.map(
+            value => ASSIGNEE_OPTIONS.find(item => item.value === value)?.label ?? value
+        );
+        const filtered = ORDER_ROWS.filter(row => {
+            if (statusLabels.length > 0 && !statusLabels.includes(row.status)) {
+                return false;
+            }
+
+            if (assigneeLabels.length > 0 && !assigneeLabels.includes(row.assignee)) {
+                return false;
+            }
+
+            if (client && !`${row.client} ${row.name}`.toLowerCase().includes(client.toLowerCase())) {
+                return false;
+            }
+
+            if (
+                period?.start &&
+                period.end &&
+                (createdKey(row.createdAt) < dateKey(period.start) || createdKey(row.createdAt) > dateKey(period.end))
+            ) {
+                return false;
+            }
+
+            const rowAmount = parseAmount(row.amount);
+
+            if (amount.from != null && rowAmount < amount.from) {
+                return false;
+            }
+
+            if (amount.to != null && rowAmount > amount.to) {
+                return false;
+            }
+
+            return true;
+        });
+
+        if (!sort) {
+            return filtered;
+        }
+
+        const direction = sort.direction === 'asc' ? 1 : -1;
+
+        return [...filtered].sort((left, right) => {
+            if (sort.column === 'assignee') {
+                return left.assignee.localeCompare(right.assignee) * direction;
+            }
+
+            if (sort.column === 'status') {
+                return left.status.localeCompare(right.status) * direction;
+            }
+
+            if (sort.column === 'amount') {
+                return (parseAmount(left.amount) - parseAmount(right.amount)) * direction;
+            }
+
+            return (createdKey(left.createdAt) - createdKey(right.createdAt)) * direction;
+        });
+    }, [amount, assignees, client, period, sort, statuses]);
+
+    const pageCount = Math.max(1, Math.ceil(rows.length / pageSize));
     const currentPage = Math.min(page, pageCount);
-    const pageRows = ORDER_ROWS.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-    const pageIds = useMemo(() => pageRows.map(r => r.id), [pageRows]);
+    const pageRows = rows.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+    const pageIds = useMemo(() => pageRows.map(row => row.id), [pageRows]);
     const { isSelected, toggle, isAllSelected, isIndeterminate, setAllOnPage } = useTableRowSelection(pageIds);
 
-    const from = ORDER_ROWS.length === 0 ? 0 : (currentPage - 1) * pageSize + 1;
-    const to = Math.min(currentPage * pageSize, ORDER_ROWS.length);
+    const from = rows.length === 0 ? 0 : (currentPage - 1) * pageSize + 1;
+    const to = Math.min(currentPage * pageSize, rows.length);
 
     const resetFilters = () => {
-        setStatus(null);
-        setAssignee(null);
+        setStatuses([]);
+        setAssignees([]);
         setClient('');
         setPeriod(null);
-        setAmountFrom(null);
-        setAmountTo(null);
+        setAmount({ from: null, to: null });
         setPayment(null);
+        setPage(1);
     };
 
     const applyFilters = () => {
-        const next: IFilterTag[] = [];
-
-        if (status != null) {
-            const label = STATUS_OPTIONS.find(o => o.value === status)?.label ?? String(status);
-            next.push({ id: 'status', label: `Status: ${label}` });
-        }
-
-        if (assignee != null) {
-            const label = ASSIGNEE_OPTIONS.find(o => o.value === assignee)?.label ?? String(assignee);
-            next.push({ id: 'assignee', label: `Assignee: ${label}` });
-        }
-
-        if (period?.start && period?.end) {
-            const fmt = (d: { day: number; month: number; year: number }) =>
-                `${String(d.day).padStart(2, '0')}.${String(d.month).padStart(2, '0')}.${d.year}`;
-            next.push({
-                id: 'date',
-                label: `Created: ${fmt(period.start)} – ${fmt(period.end)}`,
-            });
-        }
-
-        setTags(next);
         setView('table');
         setPage(1);
+    };
+
+    const applyMulti = (apply: (next: string[]) => void) => (next: string[]) => {
+        apply(next);
+        setPage(1);
+    };
+
+    const multiChips = (
+        label: string,
+        values: string[],
+        options: { value: string; label: string }[],
+        suggest: IUseAutocompleteSuggest,
+        apply: (next: string[]) => void
+    ) => {
+        if (values.length === 0) {
+            return null;
+        }
+
+        const onChange = applyMulti(apply);
+
+        if (values.length === 1) {
+            return (
+                <ActiveFilters.Item onRemove={() => onChange([])}>
+                    {label}: {optionLabel(options, values[0])}
+                </ActiveFilters.Item>
+            );
+        }
+
+        return (
+            <ActiveFilters.Group label={label} count={values.length} onRemove={() => onChange([])}>
+                <ChecklistFilter label={label} useSuggest={suggest} value={values} onChange={onChange} />
+            </ActiveFilters.Group>
+        );
+    };
+
+    const filterCell = (id: string) => {
+        if (id === 'status') {
+            return (
+                <Filters.Cell key={id}>
+                    <Field>
+                        <Field.Label>Status</Field.Label>
+                        <FieldMultiAutocompleteAsync
+                            useSuggest={useStatusSuggest}
+                            value={statuses}
+                            debounceMs={0}
+                            clear
+                            placeholder="Select status"
+                            onChange={next => setStatuses(next.map(String))}
+                        />
+                    </Field>
+                </Filters.Cell>
+            );
+        }
+
+        if (id === 'assignee') {
+            return (
+                <Filters.Cell key={id}>
+                    <Field>
+                        <Field.Label>Assignee</Field.Label>
+                        <FieldMultiAutocompleteAsync
+                            useSuggest={useAssigneeSuggest}
+                            value={assignees}
+                            debounceMs={0}
+                            clear
+                            placeholder="Select assignee"
+                            onChange={next => setAssignees(next.map(String))}
+                        />
+                    </Field>
+                </Filters.Cell>
+            );
+        }
+
+        if (id === 'client') {
+            return (
+                <Filters.Cell key={id}>
+                    <Field>
+                        <Field.Label>Client</Field.Label>
+                        <FieldInput
+                            value={client}
+                            onChange={e => setClient(e.target.value)}
+                            placeholder="Name, email or phone"
+                            clear
+                        />
+                    </Field>
+                </Filters.Cell>
+            );
+        }
+
+        if (id === 'created') {
+            return (
+                <Filters.Cell key={id} kind="range">
+                    <Field>
+                        <Field.Label>Created</Field.Label>
+                        <FieldDateRangePicker value={period} onChange={setPeriod} clear />
+                    </Field>
+                </Filters.Cell>
+            );
+        }
+
+        if (id === 'amount') {
+            return (
+                <Filters.Cell key={id} kind="range">
+                    <Field>
+                        <Field.Label>Amount from / to</Field.Label>
+                        <FieldNumberRange
+                            fromLabel="Amount from"
+                            toLabel="Amount to"
+                            fromPlaceholder="From"
+                            toPlaceholder="To"
+                            value={amount}
+                            onChange={setAmount}
+                            min={0}
+                            clear
+                        />
+                    </Field>
+                </Filters.Cell>
+            );
+        }
+
+        if (id === 'payment') {
+            return (
+                <Filters.Cell key={id}>
+                    <Field>
+                        <Field.Label>Payment</Field.Label>
+                        <FieldSelect
+                            options={PAYMENT_OPTIONS}
+                            value={payment}
+                            onChange={setPayment}
+                            clear
+                            placeholder="Select payment"
+                        />
+                    </Field>
+                </Filters.Cell>
+            );
+        }
+
+        return null;
+    };
+
+    const headerColumn = (id: string) => {
+        if (id === 'id') {
+            return (
+                <DataTable.HeaderCell key={id} noWrap>
+                    ID
+                </DataTable.HeaderCell>
+            );
+        }
+
+        if (id === 'name') {
+            return (
+                <DataTable.HeaderCell key={id} noWrap>
+                    Name
+                </DataTable.HeaderCell>
+            );
+        }
+
+        if (id === 'client') {
+            return (
+                <DataTable.HeaderCell key={id} noWrap>
+                    Client
+                </DataTable.HeaderCell>
+            );
+        }
+
+        if (id === 'assignee') {
+            return (
+                <DataTable.HeaderCell key={id} column="assignee" sortable noWrap>
+                    Assignee
+                    <DataTable.Filter active={assignees.length > 0}>
+                        <ChecklistFilter
+                            label="Assignee"
+                            useSuggest={useAssigneeSuggest}
+                            value={assignees}
+                            onChange={applyMulti(setAssignees)}
+                        />
+                    </DataTable.Filter>
+                </DataTable.HeaderCell>
+            );
+        }
+
+        if (id === 'status') {
+            return (
+                <DataTable.HeaderCell key={id} column="status" sortable noWrap>
+                    Status
+                    <DataTable.Filter active={statuses.length > 0}>
+                        <ChecklistFilter
+                            label="Status"
+                            useSuggest={useStatusSuggest}
+                            value={statuses}
+                            onChange={applyMulti(setStatuses)}
+                        />
+                    </DataTable.Filter>
+                </DataTable.HeaderCell>
+            );
+        }
+
+        if (id === 'amount') {
+            return (
+                <DataTable.HeaderCell key={id} column="amount" sortable numeric noWrap>
+                    Amount
+                    <DataTable.Filter active={amount.from != null || amount.to != null}>
+                        <NumberRange
+                            fromLabel="Amount from"
+                            toLabel="Amount to"
+                            fromPlaceholder="From"
+                            toPlaceholder="To"
+                            value={amount}
+                            min={0}
+                            clear
+                            onChange={next => {
+                                setAmount(next);
+                                setPage(1);
+                            }}
+                        />
+                    </DataTable.Filter>
+                </DataTable.HeaderCell>
+            );
+        }
+
+        if (id === 'created') {
+            return (
+                <DataTable.HeaderCell key={id} column="created" sortable noWrap>
+                    Created
+                    <DataTable.Filter active={period?.start != null && period.end != null}>
+                        <DateRangePicker
+                            aria-label="Created"
+                            value={period}
+                            onChange={value => {
+                                setPeriod(value);
+                                setPage(1);
+                            }}
+                            clear
+                        />
+                    </DataTable.Filter>
+                </DataTable.HeaderCell>
+            );
+        }
+
+        return null;
+    };
+
+    const bodyColumn = (row: IOrderRow, id: string) => {
+        if (id === 'id') {
+            return (
+                <DataTable.Cell key={id} noWrap>
+                    <Link href={`#/orders/${row.id}`}>{row.id}</Link>
+                </DataTable.Cell>
+            );
+        }
+
+        if (id === 'name') {
+            return (
+                <DataTable.Cell key={id} noWrap>
+                    {row.name}
+                </DataTable.Cell>
+            );
+        }
+
+        if (id === 'client') {
+            return (
+                <DataTable.Cell key={id} noWrap>
+                    {row.client}
+                </DataTable.Cell>
+            );
+        }
+
+        if (id === 'assignee') {
+            return (
+                <DataTable.Cell key={id} noWrap>
+                    {row.assignee}
+                </DataTable.Cell>
+            );
+        }
+
+        if (id === 'status') {
+            return (
+                <DataTable.Cell key={id} noWrap>
+                    <Badge size="sm" variant={statusBadgeVariant(row.status)}>
+                        {row.status}
+                    </Badge>
+                </DataTable.Cell>
+            );
+        }
+
+        if (id === 'amount') {
+            return (
+                <DataTable.Cell key={id} numeric noWrap>
+                    {row.amount}
+                </DataTable.Cell>
+            );
+        }
+
+        if (id === 'created') {
+            return (
+                <DataTable.Cell key={id} noWrap>
+                    {row.createdAt}
+                </DataTable.Cell>
+            );
+        }
+
+        return null;
     };
 
     return (
@@ -484,6 +913,9 @@ const ListPageContent = () => {
                 <div style={{ display: 'flex', gap: 8 }}>
                     {view === 'table' ? (
                         <>
+                            <Button variant="secondary" onClick={() => setColumnSettingsOpen(true)}>
+                                Configure table
+                            </Button>
                             <Button variant="secondary" onClick={() => setView('filters')}>
                                 Filters
                             </Button>
@@ -503,179 +935,149 @@ const ListPageContent = () => {
             </div>
 
             {view === 'filters' ? (
-                <div
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-                        gap: 16,
-                        maxWidth: 880,
-                    }}
-                >
-                    <Field>
-                        <Field.Label>Status</Field.Label>
-                        <FieldSelect
-                            options={STATUS_OPTIONS}
-                            value={status}
-                            onChange={setStatus}
-                            clear
-                            placeholder="Select status"
-                        />
-                    </Field>
-                    <Field>
-                        <Field.Label>Assignee</Field.Label>
-                        <FieldSelect
-                            options={ASSIGNEE_OPTIONS}
-                            value={assignee}
-                            onChange={setAssignee}
-                            clear
-                            placeholder="Select assignee"
-                        />
-                    </Field>
-                    <Field>
-                        <Field.Label>Client</Field.Label>
-                        <FieldInput
-                            value={client}
-                            onChange={e => setClient(e.target.value)}
-                            placeholder="Name, email or phone"
-                            clear
-                        />
-                    </Field>
-                    <Field>
-                        <Field.Label>Created</Field.Label>
-                        <FieldDateRangePicker value={period} onChange={setPeriod} clear />
-                    </Field>
-                    <Field>
-                        <Field.Label>Amount from / to</Field.Label>
-                        <div style={{ display: 'flex', gap: 8 }}>
-                            <NumberInput
-                                aria-label="Amount from"
-                                value={amountFrom}
-                                onChange={setAmountFrom}
-                                placeholder="From"
-                                min={0}
-                                clear
-                            />
-                            <NumberInput
-                                aria-label="Amount to"
-                                value={amountTo}
-                                onChange={setAmountTo}
-                                placeholder="To"
-                                min={0}
-                                clear
-                            />
-                        </div>
-                    </Field>
-                    <Field>
-                        <Field.Label>Payment</Field.Label>
-                        <FieldSelect
-                            options={PAYMENT_OPTIONS}
-                            value={payment}
-                            onChange={setPayment}
-                            clear
-                            placeholder="Select payment"
-                        />
-                    </Field>
-                </div>
+                <>
+                    <Filters>
+                        <Filters.Grid columns={2} span={{ range: 2 }}>
+                            {visibleFilters.map(filterCell)}
+                        </Filters.Grid>
+                        <Filters.Footer>
+                            <Button type="button" variant="secondary" onClick={() => setSettingsOpen(true)}>
+                                Filter settings
+                            </Button>
+                        </Filters.Footer>
+                    </Filters>
+                    <ArrangementSettings
+                        open={settingsOpen}
+                        onOpenChange={setSettingsOpen}
+                        title="Filter settings"
+                        items={FILTER_ITEMS}
+                        value={visibleFilters}
+                        onSave={setVisibleFilters}
+                    />
+                </>
             ) : (
                 <>
-                    {tags.length > 0 ? (
-                        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
-                            {tags.map(tag => (
-                                <Tag key={tag.id} onRemove={() => setTags(prev => prev.filter(t => t.id !== tag.id))}>
-                                    {tag.label}
-                                </Tag>
-                            ))}
-                            <Link
-                                href="#clear"
-                                onClick={e => {
-                                    e.preventDefault();
-                                    setTags([]);
+                    <ActiveFilters onClear={resetFilters}>
+                        {multiChips('Status', statuses, STATUS_OPTIONS, useStatusSuggest, setStatuses)}
+                        {multiChips('Assignee', assignees, ASSIGNEE_OPTIONS, useAssigneeSuggest, setAssignees)}
+                        {client ? (
+                            <ActiveFilters.Item
+                                onRemove={() => {
+                                    setClient('');
+                                    setPage(1);
                                 }}
                             >
-                                Clear all
-                            </Link>
-                        </div>
-                    ) : null}
+                                Client: {client}
+                            </ActiveFilters.Item>
+                        ) : null}
+                        {period?.start && period.end ? (
+                            <ActiveFilters.Item
+                                onRemove={() => {
+                                    setPeriod(null);
+                                    setPage(1);
+                                }}
+                            >
+                                Created: {formatDate(period.start)} – {formatDate(period.end)}
+                            </ActiveFilters.Item>
+                        ) : null}
+                        {amount.from != null || amount.to != null ? (
+                            <ActiveFilters.Item
+                                onRemove={() => {
+                                    setAmount({ from: null, to: null });
+                                    setPage(1);
+                                }}
+                            >
+                                Amount: {amount.from == null ? '…' : amount.from} –{' '}
+                                {amount.to == null ? '…' : amount.to}
+                            </ActiveFilters.Item>
+                        ) : null}
+                        {payment != null ? (
+                            <ActiveFilters.Item
+                                onRemove={() => {
+                                    setPayment(null);
+                                    setPage(1);
+                                }}
+                            >
+                                Payment:{' '}
+                                {PAYMENT_OPTIONS.find(item => item.value === payment)?.label ?? String(payment)}
+                            </ActiveFilters.Item>
+                        ) : null}
+                    </ActiveFilters>
 
-                    <Table size="md" block hasChecked zebra>
-                        <Table.Scroll>
-                            <Table.Table>
-                                <Table.Header sticky>
-                                    <Table.Row>
-                                        <Table.HeaderCheckboxCell
-                                            checked={isAllSelected}
-                                            indeterminate={isIndeterminate}
-                                            onChange={setAllOnPage}
-                                            aria-label="Select all"
+                    <DataTable size="md" block hasChecked zebra sort={sort} onSortChange={setSort}>
+                        <DataTable.Header sticky>
+                            <DataTable.Row>
+                                <DataTable.HeaderCheckboxCell
+                                    checked={isAllSelected}
+                                    indeterminate={isIndeterminate}
+                                    onChange={setAllOnPage}
+                                    aria-label="Select all"
+                                />
+                                {columns.map(headerColumn)}
+                                <DataTable.HeaderCell utility />
+                            </DataTable.Row>
+                        </DataTable.Header>
+                        <DataTable.Body>
+                            {pageRows.map(row => (
+                                <DataTable.Row
+                                    key={row.id}
+                                    checked={isSelected(row.id)}
+                                    onContextMenu={event => {
+                                        event.preventDefault();
+                                        setMenu({ x: event.clientX, y: event.clientY });
+                                    }}
+                                >
+                                    <DataTable.CheckboxCell
+                                        checked={isSelected(row.id)}
+                                        onChange={() => toggle(row.id)}
+                                        aria-label={`Select ${row.id}`}
+                                    />
+                                    {columns.map(id => bodyColumn(row, id))}
+                                    <DataTable.Cell utility>
+                                        <DataTable.Actions
+                                            onClick={event => {
+                                                const rect = event.currentTarget.getBoundingClientRect();
+                                                setMenu({ x: rect.left, y: rect.bottom });
+                                            }}
                                         />
-                                        <Table.HeaderCell noWrap>ID</Table.HeaderCell>
-                                        <Table.HeaderCell noWrap>Name</Table.HeaderCell>
-                                        <Table.HeaderCell noWrap>Client</Table.HeaderCell>
-                                        <Table.HeaderCell noWrap>Assignee</Table.HeaderCell>
-                                        <Table.HeaderCell noWrap>Status</Table.HeaderCell>
-                                        <Table.HeaderCell numeric noWrap>
-                                            Amount
-                                        </Table.HeaderCell>
-                                        <Table.HeaderCell noWrap>Created</Table.HeaderCell>
-                                        <Table.HeaderCell utility>Actions</Table.HeaderCell>
-                                    </Table.Row>
-                                </Table.Header>
-                                <Table.Body>
-                                    {pageRows.map(row => (
-                                        <Table.Row key={row.id} checked={isSelected(row.id)}>
-                                            <Table.CheckboxCell
-                                                checked={isSelected(row.id)}
-                                                onChange={() => toggle(row.id)}
-                                                aria-label={`Select ${row.id}`}
-                                            />
-                                            <Table.Cell noWrap>
-                                                <Link href={`#/orders/${row.id}`}>{row.id}</Link>
-                                            </Table.Cell>
-                                            <Table.Cell noWrap>{row.name}</Table.Cell>
-                                            <Table.Cell noWrap>{row.client}</Table.Cell>
-                                            <Table.Cell noWrap>{row.assignee}</Table.Cell>
-                                            <Table.Cell noWrap>
-                                                <Badge size="sm" variant={statusBadgeVariant(row.status)}>
-                                                    {row.status}
-                                                </Badge>
-                                            </Table.Cell>
-                                            <Table.Cell numeric noWrap>
-                                                {row.amount}
-                                            </Table.Cell>
-                                            <Table.Cell noWrap>{row.createdAt}</Table.Cell>
-                                            <Table.Cell utility>
-                                                <Table.ActionBar
-                                                    visibleCount={1}
-                                                    items={[
-                                                        { text: 'Open', onClick: () => undefined },
-                                                        { text: 'Edit', onClick: () => undefined },
-                                                        { text: 'Delete', onClick: () => undefined, danger: true },
-                                                    ]}
-                                                />
-                                            </Table.Cell>
-                                        </Table.Row>
-                                    ))}
-                                </Table.Body>
-                            </Table.Table>
-                        </Table.Scroll>
-                        <Table.Footer>
-                            <Table.PageSize
+                                    </DataTable.Cell>
+                                </DataTable.Row>
+                            ))}
+                        </DataTable.Body>
+                        <DataTable.Footer>
+                            <DataTable.PageSize
                                 value={pageSize}
                                 onChange={next => {
                                     setPageSize(next);
                                     setPage(1);
                                 }}
                             />
-                            <Table.Pagination
+                            <DataTable.Pagination
                                 page={currentPage}
                                 pageCount={pageCount}
                                 onPageChange={setPage}
                                 from={from}
                                 to={to}
-                                total={ORDER_ROWS.length}
+                                total={rows.length}
                             />
-                        </Table.Footer>
-                    </Table>
+                        </DataTable.Footer>
+                    </DataTable>
+                    <ArrangementSettings
+                        open={columnSettingsOpen}
+                        onOpenChange={setColumnSettingsOpen}
+                        title="Configure table"
+                        placement="right"
+                        items={TABLE_COLUMNS}
+                        value={columns}
+                        onSave={setColumns}
+                    />
+                    <ContextMenu open={menu != null} x={menu?.x ?? 0} y={menu?.y ?? 0} onClose={() => setMenu(null)}>
+                        <ContextMenu.Item onClick={() => setMenu(null)}>Open</ContextMenu.Item>
+                        <ContextMenu.Item onClick={() => setMenu(null)}>Edit</ContextMenu.Item>
+                        <ContextMenu.Item variant="danger" onClick={() => setMenu(null)}>
+                            Delete
+                        </ContextMenu.Item>
+                    </ContextMenu>
                 </>
             )}
         </div>

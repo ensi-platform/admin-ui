@@ -26,7 +26,7 @@
     },
     "scripts": {
         "sync-package": "node --experimental-strip-types scripts/sync-package.ts",
-        "build": "pnpm sync-package && vite build && cp src/ds/tokens/OFL.txt dist/tokens/",
+        "build": "pnpm sync-package && vite build && cp src/ds/tokens/OFL.txt dist/tokens/ && node --experimental-strip-types scripts/publish-manifest.ts",
         "prepublishOnly": "pnpm build",
         "dev": "vite build --watch",
         "typecheck": "tsc --noEmit",
@@ -97,12 +97,14 @@
         "@internationalized/date": "^3.10.0",
         "class-variance-authority": "0.7.1",
         "classnames": "2.5.1",
+        "react-aria": "3.50.0",
         "react-aria-components": "^1.19.0",
         "react-fast-compare": "^3.2.2",
         "usehooks-ts": "^3.1.1"
     },
     "publishConfig": {
-        "access": "public"
+        "access": "public",
+        "directory": "publish"
     },
     "bugs": {
         "url": "https://github.com/ensi-platform/admin-ui/issues"
@@ -111,6 +113,14 @@
         "./action-popup": {
             "types": "./dist/action-popup/index.d.ts",
             "import": "./dist/action-popup/index.js"
+        },
+        "./active-filters": {
+            "types": "./dist/active-filters/index.d.ts",
+            "import": "./dist/active-filters/index.js"
+        },
+        "./arrangement-settings": {
+            "types": "./dist/arrangement-settings/index.d.ts",
+            "import": "./dist/arrangement-settings/index.js"
         },
         "./autocomplete": {
             "types": "./dist/autocomplete/index.d.ts",
@@ -156,6 +166,10 @@
             "types": "./dist/context-menu/index.d.ts",
             "import": "./dist/context-menu/index.js"
         },
+        "./data-table": {
+            "types": "./dist/data-table/index.d.ts",
+            "import": "./dist/data-table/index.js"
+        },
         "./date-picker": {
             "types": "./dist/date-picker/index.d.ts",
             "import": "./dist/date-picker/index.js"
@@ -171,6 +185,10 @@
         "./field": {
             "types": "./dist/field/index.d.ts",
             "import": "./dist/field/index.js"
+        },
+        "./filters": {
+            "types": "./dist/filters/index.d.ts",
+            "import": "./dist/filters/index.js"
         },
         "./form": {
             "types": "./dist/form/index.d.ts",
@@ -224,6 +242,10 @@
             "types": "./dist/number-input/index.d.ts",
             "import": "./dist/number-input/index.js"
         },
+        "./number-range": {
+            "types": "./dist/number-range/index.d.ts",
+            "import": "./dist/number-range/index.js"
+        },
         "./popover": {
             "types": "./dist/popover/index.d.ts",
             "import": "./dist/popover/index.js"
@@ -235,6 +257,10 @@
         "./select": {
             "types": "./dist/select/index.d.ts",
             "import": "./dist/select/index.js"
+        },
+        "./suggest-checklist": {
+            "types": "./dist/suggest-checklist/index.d.ts",
+            "import": "./dist/suggest-checklist/index.js"
         },
         "./switch": {
             "types": "./dist/switch/index.d.ts",

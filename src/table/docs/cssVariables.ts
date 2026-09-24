@@ -12,6 +12,7 @@ export const docsCssVariables = `/* CSS variables — Table (--aui-table-*) */
 --aui-table-fg-primary: var(--aui-page-fg-primary); /* primary foreground */
 --aui-table-fg-header: var(--aui-page-fg-muted); /* header foreground */
 --aui-table-fg-muted: var(--aui-page-fg-muted); /* muted foreground */
+--aui-table-fg-danger: var(--aui-control-fg-danger); /* active filter icon */
 --aui-table-fg-disabled: var(--aui-page-fg-muted); /* disabled foreground */
 --aui-table-border-primary: var(--aui-surface-border-primary); /* primary border */
 --aui-table-border-on-fill: var(--aui-page-fg-muted); /* on fill border */
@@ -35,6 +36,8 @@ export const docsCssVariables = `/* CSS variables — Table (--aui-table-*) */
 --aui-table-action-gap: var(--aui-spacing-4); /* row actions gap */
 
 --aui-table-sort-gap: var(--aui-spacing-4); /* sort gap */
+--aui-table-sort-bg-hover: var(--aui-surface-bg-muted); /* sort item hover */
+--aui-table-sort-bg-active: var(--aui-surface-bg-muted-hover); /* sort item pressed */
 
 --aui-table-footer-gap: var(--aui-spacing-12); /* footer gap */
 --aui-table-footer-pad-x: var(--aui-spacing-12); /* footer pad x */

@@ -5,6 +5,7 @@ import cn from 'classnames';
 import { typographyStyles } from '@ds/typography';
 
 import { ChevronRight } from '@/icons';
+import { useAuiLink } from '@/provider';
 import { Tooltip } from '@/tooltip';
 
 import { useMenuList } from '../../context';
@@ -36,6 +37,7 @@ export const MenuListItem = <P extends ElementType = 'a'>({
     href,
     ...props
 }: TMenuListItemProps<P>) => {
+    const AuiLink = useAuiLink();
     const { size, activeId, setActiveId, disabled: listDisabled, collapsed } = useMenuList();
     const isDisabled = disabled || listDisabled;
     const isActive = activeId === id;
@@ -56,7 +58,7 @@ export const MenuListItem = <P extends ElementType = 'a'>({
         setActiveId(id);
     };
 
-    const Component = (as ?? (href != null ? 'a' : 'button')) as ElementType;
+    const Component = (as ?? (href != null ? AuiLink : 'button')) as ElementType;
     const leafProps =
         Component === 'button'
             ? { type: 'button' as const, disabled: isDisabled }

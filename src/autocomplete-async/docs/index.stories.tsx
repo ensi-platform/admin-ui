@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { type ArgTypes, type Meta, type StoryObj } from '@storybook/react';
 import { z } from 'zod';
 
-import { type TUseAutocompleteSuggest, type IAutocompleteAsyncProps } from '@/autocomplete-async/types';
+import { type IUseAutocompleteSuggest, type IAutocompleteAsyncProps } from '@/autocomplete-async/types';
 import { Button } from '@/button';
 import { Form } from '@/form';
 
@@ -23,7 +23,7 @@ const ALL = [
     { value: 'puma', label: 'Puma' },
 ];
 
-const useMockBrandSuggest: TUseAutocompleteSuggest = ({ query, enabled }) => {
+const useMockBrandSuggest: IUseAutocompleteSuggest = ({ query, enabled }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [options, setOptions] = useState(ALL);
 
@@ -44,7 +44,7 @@ const useMockBrandSuggest: TUseAutocompleteSuggest = ({ query, enabled }) => {
         return () => window.clearTimeout(id);
     }, [query, enabled]);
 
-    return { options, isLoading };
+    return { options, isLoading, hasMore: false };
 };
 
 const DEFAULT_ARGS: IAutocompleteAsyncProps = {

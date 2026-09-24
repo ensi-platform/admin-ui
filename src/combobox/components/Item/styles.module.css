@@ -41,6 +41,8 @@
 
 .sm {
     gap: var(--aui-combobox-gap-sm);
+    box-sizing: border-box;
+    height: var(--aui-combobox-item-h-sm);
     padding: var(--aui-combobox-item-pad-y-sm) var(--aui-combobox-item-pad-x-sm);
 }
 
@@ -51,6 +53,8 @@
 
 .md {
     gap: var(--aui-combobox-gap-md);
+    box-sizing: border-box;
+    height: var(--aui-combobox-item-h-md);
     padding: var(--aui-combobox-item-pad-y-md) var(--aui-combobox-item-pad-x-md);
 }
 
@@ -61,6 +65,8 @@
 
 .lg {
     gap: var(--aui-combobox-gap-lg);
+    box-sizing: border-box;
+    height: var(--aui-combobox-item-h-lg);
     padding: var(--aui-combobox-item-pad-y-lg) var(--aui-combobox-item-pad-x-lg);
 }
 

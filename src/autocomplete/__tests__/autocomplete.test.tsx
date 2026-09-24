@@ -18,6 +18,24 @@ const OPTIONS = [
     { value: 'kzn', label: 'Казань', disabled: true },
 ];
 
+class LoadMoreObserver {
+    observe() {
+        return undefined;
+    }
+
+    unobserve() {
+        return undefined;
+    }
+
+    disconnect() {
+        return undefined;
+    }
+
+    takeRecords() {
+        return [];
+    }
+}
+
 const FieldBoundAutocomplete = () => {
     const { controlProps, size, invalid, disabled } = useField();
 
@@ -67,6 +85,72 @@ describe('Autocomplete', () => {
         await user.click(screen.getByRole('option', { name: 'Санкт-Петербург' }));
 
         expect(onChange).toHaveBeenCalledWith('spb');
+    });
+
+    it('shows the next-page loader', async () => {
+        const user = userEvent.setup();
+
+        vi.stubGlobal('IntersectionObserver', LoadMoreObserver);
+
+        render(
+            <AdminUiProvider>
+                <Autocomplete
+                    aria-label="City"
+                    options={OPTIONS}
+                    clientFilter={false}
+                    hasMore
+                    isLoadingMore
+                    onLoadMore={() => undefined}
+                />
+            </AdminUiProvider>
+        );
+
+        const input = screen.getByRole('combobox', { name: /City/ });
+
+        await user.click(input);
+        await user.type(input, 'М');
+
+        expect(await screen.findByRole('option', { name: 'Loading suggestions' })).toBeInTheDocument();
+    });
+
+    it('keeps a load-more sentinel without the page loader', async () => {
+        const user = userEvent.setup();
+
+        vi.stubGlobal('IntersectionObserver', LoadMoreObserver);
+
+        render(
+            <AdminUiProvider>
+                <Autocomplete
+                    aria-label="City"
+                    options={OPTIONS}
+                    clientFilter={false}
+                    hasMore
+                    onLoadMore={() => undefined}
+                />
+            </AdminUiProvider>
+        );
+
+        const input = screen.getByRole('combobox', { name: /City/ });
+
+        await user.click(input);
+        await user.type(input, 'М');
+
+        expect(await screen.findByRole('option', { name: 'Москва' })).toBeInTheDocument();
+        expect(screen.queryByRole('option', { name: 'Loading suggestions' })).not.toBeInTheDocument();
+    });
+
+    it('shows an error status when suggest fails', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <AdminUiProvider>
+                <Autocomplete aria-label="City" options={[]} isError clientFilter={false} />
+            </AdminUiProvider>
+        );
+
+        await user.click(screen.getByRole('button', { name: /предложени|Show suggestions|suggestions/i }));
+
+        expect(await screen.findByRole('status')).toHaveTextContent('Failed to load suggestions');
     });
 
     it('clears value when clear is clicked', async () => {

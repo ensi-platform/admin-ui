@@ -8,18 +8,19 @@ import { MultiAutocompleteAsync, FormMultiAutocompleteAsync } from '@ensi-platfo
 
 - несколько значений + подсказки с бэкенда
 - локальный список — см. `MultiAutocomplete`
+- уже открытый список чекбоксов — см. `SuggestChecklist`
 
 ## API (кратко)
 
 ### Контракт `useSuggest`
 
-Тот же, что у `AutocompleteAsync`: merge `selected ∪ fetched` — обязанность хука; `useSuggest` стабилен между рендерами; UI `isLoading` = debounce-pending **или** fetch in flight.
+Тот же, что у `AutocompleteAsync`: `IUseAutocompleteSuggest` с `page` и `hasMore`. Хук отдаёт одну страницу, пакет дописывает следующие. Merge `selected ∪ fetched` — обязанность хука; `useSuggest` стабилен между рендерами; UI `isLoading` = debounce-pending **или** fetch in flight.
 
 ### MultiAutocompleteAsync
 
 | Prop           | Значения                                | По умолчанию | Описание                               |
 | -------------- | --------------------------------------- | ------------ | -------------------------------------- |
-| `useSuggest`   | `TUseAutocompleteSuggest`               | —            | хук подсказок (обязателен)             |
+| `useSuggest`   | `IUseAutocompleteSuggest`               | —            | хук подсказок (обязателен)             |
 | `minLength`    | `number`                                | `0`          | мин. длина query для запроса           |
 | `debounceMs`   | `number`                                | `300`        | debounce ввода                         |
 | `value`        | `(string \| number)[]`                  | —            | управляемое значение; `[]` после clear |
@@ -42,7 +43,7 @@ import { MultiAutocompleteAsync, FormMultiAutocompleteAsync } from '@ensi-platfo
 | `name`        | `string`                  | —            | имя поля в `Form`                 |
 | `label`       | `ReactNode`               | —            | подпись `Field.Label`             |
 | `hint`        | `ReactNode`               | —            | подсказка под контролом           |
-| `useSuggest`  | `TUseAutocompleteSuggest` | —            | хук подсказок                     |
+| `useSuggest`  | `IUseAutocompleteSuggest` | —            | хук подсказок                     |
 | `minLength`   | `number`                  | `0`          | мин. длина query                  |
 | `debounceMs`  | `number`                  | `300`        | debounce ввода                    |
 | `placeholder` | `string`                  | —            | плейсхолдер                       |

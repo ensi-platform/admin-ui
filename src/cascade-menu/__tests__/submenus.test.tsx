@@ -3,6 +3,8 @@ import { createRef, type MutableRefObject } from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
+import { AdminUiProvider } from '@/provider';
+
 import { Submenus } from '../components/Submenus';
 import { type IHoverLayer } from '../hooks/useHoverMenu';
 import { type ICascadeMenuItem } from '../utils';
@@ -23,29 +25,31 @@ describe('Submenus', () => {
         const rootRef = createRef<HTMLElement>();
 
         return render(
-            <Submenus
-                layers={layers}
-                roots={menuRoots}
-                pinnedRootItem={null}
-                rootRef={rootRef}
-                flyoutRefs={flyoutRefs}
-                openCodes={new Set()}
-                size="md"
-                variant="primary"
-                pinsEnabled={false}
-                dataTestId="cascade"
-                onChange={noop}
-                onFolderEnter={noop}
-                onLeafEnter={noop}
-                onFolderLeave={noop}
-                onLeafActivate={noop}
-                getAimSubmenu={() => null}
-                getAimMenuHeight={() => undefined}
-                onMouseMove={noop}
-                onItemContextMenu={noop}
-                onCancelLeave={noop}
-                onFlyoutChromeMove={() => noop}
-            />
+            <AdminUiProvider>
+                <Submenus
+                    layers={layers}
+                    roots={menuRoots}
+                    pinnedRootItem={null}
+                    rootRef={rootRef}
+                    flyoutRefs={flyoutRefs}
+                    openCodes={new Set()}
+                    size="md"
+                    variant="primary"
+                    pinsEnabled={false}
+                    dataTestId="cascade"
+                    onChange={noop}
+                    onFolderEnter={noop}
+                    onLeafEnter={noop}
+                    onFolderLeave={noop}
+                    onLeafActivate={noop}
+                    getAimSubmenu={() => null}
+                    getAimMenuHeight={() => undefined}
+                    onMouseMove={noop}
+                    onItemContextMenu={noop}
+                    onCancelLeave={noop}
+                    onFlyoutChromeMove={() => noop}
+                />
+            </AdminUiProvider>
         );
     };
 

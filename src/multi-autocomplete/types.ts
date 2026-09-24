@@ -51,6 +51,12 @@ export interface IMultiAutocompleteOwnProps extends IDataTestIdProps {
     isLoading?: boolean;
     /** Show error empty-state in the list. */
     isError?: boolean;
+    /** Further suggest pages exist. */
+    hasMore?: boolean;
+    /** Fetch the next suggest page. */
+    onLoadMore?: () => void;
+    /** True while a later page is loading. */
+    isLoadingMore?: boolean;
     /** Ref to the ComboBox root (React 19 prop). */
     ref?: Ref<HTMLDivElement>;
 }

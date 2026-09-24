@@ -1,16 +1,21 @@
 .root {
     display: block;
+    max-height: var(--aui-combobox-popover-max-h);
+    overflow: auto;
     outline: none;
+    box-sizing: border-box;
 }
 
-.sm {
-    padding: var(--aui-combobox-list-pad-sm);
-}
-
-.md {
-    padding: var(--aui-combobox-list-pad-md);
-}
-
+.sm,
+.md,
 .lg {
-    padding: var(--aui-combobox-list-pad-lg);
+    padding: 0;
+}
+
+.more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--aui-combobox-fg-muted);
 }

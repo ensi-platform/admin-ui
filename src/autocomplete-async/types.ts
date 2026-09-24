@@ -21,6 +21,8 @@ export interface IAutocompleteSuggestInput {
     query: string;
     /** Skip fetch (closed popover, below minLength, disabled). */
     enabled?: boolean;
+    /** Zero-based page. Resets when `query` changes. */
+    page: number;
 }
 
 /** Result shape Autocomplete glue expects from AP. */
@@ -34,10 +36,16 @@ export interface IAutocompleteSuggestResult {
     /** Optional; UI can show error empty-state. */
     isError?: boolean;
     error?: Error | null;
+    /** Another page exists after this one. */
+    hasMore: boolean;
 }
 
 /** Hook module contract — AP services implement this signature. */
-export type TUseAutocompleteSuggest = (input: IAutocompleteSuggestInput) => IAutocompleteSuggestResult;
+export interface IUseAutocompleteSuggest {
+    // Public name is `I*`. A function type would be forced to the `T*` prefix.
+    // eslint-disable-next-line @typescript-eslint/prefer-function-type
+    (input: IAutocompleteSuggestInput): IAutocompleteSuggestResult;
+}
 
 /** Theme inputs. */
 export interface IAutocompleteAsyncThemeProps extends IAutocompleteThemeProps {}
@@ -51,7 +59,7 @@ export interface IAutocompleteAsyncControlProps extends Omit<
 /** Own / chrome props (not from RAC). */
 export interface IAutocompleteAsyncOwnProps extends IDataTestIdProps {
     /** AP suggest module. Must be a stable hook reference. */
-    useSuggest: TUseAutocompleteSuggest;
+    useSuggest: IUseAutocompleteSuggest;
     /** Skip fetch below this length. */
     minLength?: number;
     /** Debounce query before calling useSuggest. */
@@ -66,7 +74,7 @@ export interface IAutocompleteAsyncContentProps extends Omit<
     IAutocompleteContentProps,
     'options' | 'clientFilter' | 'isLoading' | 'isError'
 > {
-    useSuggest: TUseAutocompleteSuggest;
+    useSuggest: IUseAutocompleteSuggest;
     minLength?: number;
     debounceMs?: number;
 }

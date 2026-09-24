@@ -4,6 +4,8 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
+import { AdminUiProvider } from '@/provider';
+
 import { ContextMenu } from '../index';
 
 import styles from '../styles.module.css';
@@ -21,6 +23,18 @@ describe('ContextMenu', () => {
         expect(screen.queryByTestId('cm')).not.toBeInTheDocument();
     });
 
+    it('portals menu into the provider root', () => {
+        render(
+            <AdminUiProvider data-test-id="aui-root">
+                <ContextMenu open x={40} y={80} onClose={() => undefined} dataTestId="cm">
+                    <ContextMenu.Item>Pin</ContextMenu.Item>
+                </ContextMenu>
+            </AdminUiProvider>
+        );
+
+        expect(screen.getByTestId('aui-root')).toContainElement(screen.getByTestId('cm'));
+    });
+
     it('portals menu to document.body at x/y', () => {
         render(
             <ContextMenu open x={40} y={80} onClose={() => undefined} dataTestId="cm">
@@ -34,6 +48,23 @@ describe('ContextMenu', () => {
         expect(menu.parentElement).toBe(document.body);
         expect(menu).toHaveStyle({ top: '80px', left: '40px' });
         expect(menu).toHaveClass(styles.root, styles.md, styles.primary);
+    });
+
+    it('keeps the placed position when the menu content changes', () => {
+        const { rerender } = render(
+            <ContextMenu open x={40} y={80} onClose={() => undefined} dataTestId="cm">
+                <ContextMenu.Item>Pin</ContextMenu.Item>
+            </ContextMenu>
+        );
+
+        rerender(
+            <ContextMenu open x={40} y={80} onClose={() => undefined} dataTestId="cm">
+                <ContextMenu.Item>Pin</ContextMenu.Item>
+                <ContextMenu.Item>Open</ContextMenu.Item>
+            </ContextMenu>
+        );
+
+        expect(screen.getByTestId('cm')).toHaveStyle({ top: '80px', left: '40px' });
     });
 
     it('forwards callback ref to menu root', () => {
@@ -69,6 +100,16 @@ describe('ContextMenu', () => {
 
         expect(screen.getByTestId('ctx')).toBeInTheDocument();
         expect(screen.getByTestId('ctx-pin')).toBeInTheDocument();
+    });
+
+    it('marks a danger item', () => {
+        render(
+            <ContextMenu open x={0} y={0} onClose={() => undefined}>
+                <ContextMenu.Item variant="danger">Delete</ContextMenu.Item>
+            </ContextMenu>
+        );
+
+        expect(screen.getByRole('menuitem', { name: 'Delete' })).toHaveAttribute('data-variant', 'danger');
     });
 
     it('closes on outside mousedown', () => {

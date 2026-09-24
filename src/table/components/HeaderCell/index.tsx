@@ -1,6 +1,9 @@
+import { type ReactNode } from 'react';
+
 import cn from 'classnames';
 
 import { getNextSortDirection } from '../../utils';
+import { HeaderFilter } from '../HeaderFilter';
 import { TableSortIndicator } from '../SortIndicator';
 
 import { tableHeaderCellVariants } from './theme';
@@ -30,15 +33,44 @@ export const TableHeaderCell = ({
     sortable = false,
     sortDirection,
     onSort,
+    filter,
+    filterActive = false,
     className,
     dataTestId,
     style,
     scope = 'col',
     ...props
 }: ITableHeaderCellProps) => {
-    const handleSortClick = () => {
-        onSort?.(getNextSortDirection(sortDirection));
-    };
+    let content: ReactNode = children;
+
+    if (sortable && filter == null) {
+        content = (
+            <span className={styles.content}>
+                <TableSortIndicator
+                    sortDirection={sortDirection}
+                    onClick={() => onSort?.(getNextSortDirection(sortDirection))}
+                >
+                    {children}
+                </TableSortIndicator>
+            </span>
+        );
+    }
+
+    if (filter != null) {
+        content = (
+            <span className={styles.content}>
+                <HeaderFilter
+                    sortable={sortable}
+                    sortDirection={sortDirection}
+                    onSort={onSort}
+                    filter={filter}
+                    filterActive={filterActive}
+                >
+                    {children}
+                </HeaderFilter>
+            </span>
+        );
+    }
 
     return (
         <th
@@ -52,17 +84,10 @@ export const TableHeaderCell = ({
             data-numeric={numeric || undefined}
             data-utility={utility || undefined}
             data-sortable={sortable || undefined}
+            data-filter={filter != null || undefined}
             data-test-id={dataTestId}
         >
-            {sortable ? (
-                <span className={styles.content}>
-                    <TableSortIndicator sortDirection={sortDirection} onClick={handleSortClick}>
-                        {children}
-                    </TableSortIndicator>
-                </span>
-            ) : (
-                children
-            )}
+            {content}
         </th>
     );
 };

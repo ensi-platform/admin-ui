@@ -4,7 +4,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
-import { type TUseAutocompleteSuggest } from '@/autocomplete-async/types';
+import { type IUseAutocompleteSuggest } from '@/autocomplete-async/types';
 import { AdminUiProvider } from '@/provider';
 import { type TComboboxValue } from '@/select/types';
 
@@ -15,14 +15,15 @@ const OPTIONS = [
     { value: 'adidas', label: 'Adidas' },
 ];
 
-const useStaticSuggest: TUseAutocompleteSuggest = ({ query, enabled }) => {
+const useStaticSuggest: IUseAutocompleteSuggest = ({ query, enabled }) => {
     if (!enabled) {
-        return { options: [], isLoading: false };
+        return { options: [], isLoading: false, hasMore: false };
     }
 
     return {
         options: OPTIONS.filter(item => item.label.toLowerCase().includes(query.toLowerCase())),
         isLoading: false,
+        hasMore: false,
     };
 };
 
@@ -71,7 +72,7 @@ describe('AutocompleteAsync', () => {
 
     it('respects minLength before enabling suggest', async () => {
         const user = userEvent.setup();
-        const useSuggest = vi.fn<TUseAutocompleteSuggest>(() => ({ options: [], isLoading: false }));
+        const useSuggest = vi.fn<IUseAutocompleteSuggest>(() => ({ options: [], isLoading: false, hasMore: false }));
 
         render(
             <AdminUiProvider>
@@ -92,10 +93,10 @@ describe('AutocompleteAsync', () => {
 
     it('passes isLoading from suggest result', async () => {
         const user = userEvent.setup();
-        const useLoadingSuggest: TUseAutocompleteSuggest = () => {
+        const useLoadingSuggest: IUseAutocompleteSuggest = () => {
             const [options] = useState(OPTIONS);
 
-            return { options, isLoading: true };
+            return { options, isLoading: true, hasMore: false };
         };
 
         render(
@@ -145,9 +146,9 @@ describe('AutocompleteAsync', () => {
     it('keeps cached label when option leaves the list', async () => {
         const user = userEvent.setup();
         let queryGate = '';
-        const useGatedSuggest: TUseAutocompleteSuggest = ({ query, enabled }) => {
+        const useGatedSuggest: IUseAutocompleteSuggest = ({ query, enabled }) => {
             if (!enabled) {
-                return { options: [], isLoading: false };
+                return { options: [], isLoading: false, hasMore: false };
             }
 
             queryGate = query;
@@ -155,6 +156,7 @@ describe('AutocompleteAsync', () => {
             return {
                 options: OPTIONS.filter(item => item.label.toLowerCase().includes(query.toLowerCase())),
                 isLoading: false,
+                hasMore: false,
             };
         };
 
@@ -229,7 +231,7 @@ describe('AutocompleteAsync', () => {
             <AdminUiProvider>
                 <AutocompleteAsync
                     aria-label="Brand"
-                    useSuggest={() => ({ options: [], isLoading: false })}
+                    useSuggest={() => ({ options: [], isLoading: false, hasMore: false })}
                     debounceMs={0}
                     value="missing"
                 />

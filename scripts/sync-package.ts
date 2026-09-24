@@ -41,7 +41,7 @@ export const getViteEntries = (packageRoot: string): Record<string, string> => {
     return Object.fromEntries(packages.map(pkg => [`${pkg.name}/index`, pkg.entry]));
 };
 
-const buildExports = (packages: IPublicPackage[]) =>
+export const buildExports = (packages: IPublicPackage[]) =>
     Object.fromEntries(
         packages.map(pkg => [
             `./${pkg.name}`,

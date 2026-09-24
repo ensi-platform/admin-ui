@@ -20,7 +20,8 @@ import { AdminUiProvider, useAuiLabels } from '@ensi-platform/admin-ui/provider'
 | ----------- | --------------------- | ------------- | ---------------- |
 | `locale`    | `string`              | `ru-RU`       | BCP 47           |
 | `direction` | `ltr` \| `rtl`        | from `locale` | text direction   |
-| `labels`    | `Partial<IAuiLabels>` | EN defaults   | built-in strings |
-| `className` | `string`              | —             | root `div`       |
+| `labels`        | `Partial<IAuiLabels>` | EN defaults | built-in strings                          |
+| `linkComponent` | link component        | `a`         | app router (`href` is the item URL)       |
+| `className`     | `string`              | —           | root `div`                                |
 
-Hooks: `useAuiLabels()`, `useAuiLocale()`, `useAuiDirection()`.
+Hooks: `useAuiLabels()`, `useAuiLocale()`, `useAuiDirection()`, `useAuiLink()`.

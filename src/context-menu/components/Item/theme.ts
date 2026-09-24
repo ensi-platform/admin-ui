@@ -9,8 +9,13 @@ export const contextMenuItemVariants = cva(styles.root, {
             md: styles.md,
             lg: styles.lg,
         },
+        variant: {
+            primary: null,
+            danger: styles.danger,
+        },
     },
     defaultVariants: {
         size: 'md',
+        variant: 'primary',
     },
 });

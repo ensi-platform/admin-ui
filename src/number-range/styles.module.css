@@ -1,0 +1,15 @@
+.root {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--aui-number-range-gap-md);
+}
+
+.block {
+    display: flex;
+    width: 100%;
+}
+
+.field {
+    flex: 1 1 0;
+    min-width: 0;
+}

@@ -1,5 +1,6 @@
 export { ComboboxItemContent, comboboxItemVariants } from './components/Item';
 export { ComboboxList, type IComboboxListProps } from './components/List';
+export { readCssPx, useComboboxListMetrics } from './components/List/metrics';
 export { ComboboxListStatus, type IComboboxListStatusProps } from './components/ListStatus';
 export { ComboboxMultiTrigger, type IComboboxMultiTriggerProps } from './components/MultiTrigger';
 export { ComboboxPopover, type IComboboxPopoverProps } from './components/Popover';

@@ -23,7 +23,8 @@ Slots: `Scroll` / `Table` / `Header` / `Body` / `Footer` / `Row` / `Cell` / `Hea
 - `Scroll` — scroll area; `Footer` is a sibling (not inside `Table.Table` / `<table>`)
 - `Table` — native `<table>`: only `Header` / `Body` / `Row` / cells
 - `Header`: `sticky?`; `Footer`: `sticky?` (default `true`); left `PageSize`, right `Pagination`
-- `Cell` / `HeaderCell`: `numeric?`, `align?`, `utility?`, `noWrap?`, `width?`; `HeaderCell` also has `sortable?`, `sortDirection?`, `onSort?`
+- `Cell` / `HeaderCell`: `numeric?`, `align?`, `utility?`, `noWrap?`, `width?`; `HeaderCell` also has `sortable?`, `sortDirection?`, `onSort?`, `filter?`, `filterActive?`
+- `filter` is the drop body in the column header. The trigger is a floating pill. When the column is `sortable`, sort actions sit under the filter. Without `filter`, sorting stays a click on the header. `filterActive` colors the filter icon
 - `Pagination`: controlled `page` + `pageCount` + `onPageChange` + `from` + `to` + `total`; optional `rangeLabel?`, `prevLabel?` / `nextLabel?`, `disabled?`
 - `PageSize`: controlled `value` + `onChange`; `options?` (default `[5, 10, 25, 50, 100]`); `label?`; `disabled?`
 - `ActionBar`: `items`, `visibleCount?`

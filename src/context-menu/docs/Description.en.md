@@ -33,6 +33,7 @@ import { ContextMenu } from '@ensi-platform/admin-ui/context-menu';
 | `children`   | `ReactNode` | —       | label          |
 | `icon`       | SVGR        | —       | leading icon   |
 | `disabled`   | `boolean`   | `false` | disabled item  |
+| `variant`    | `primary` \| `danger` | `primary` | item tone |
 | `onClick`    | handler     | —       | action         |
 | `dataTestId` | `string`    | —       | `data-test-id` |
 

@@ -1,4 +1,4 @@
-import { type ReactElement, type SVGProps } from 'react';
+import { type ComponentPropsWithRef, type ReactElement, type SVGProps } from 'react';
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -58,7 +58,27 @@ const BasicList = ({
     </MenuList>
 );
 
+const RouterLink = ({ children, ...props }: ComponentPropsWithRef<'a'>) => (
+    <a {...props} data-test-id="router-link">
+        {children}
+    </a>
+);
+
 describe('MenuList', () => {
+    it('renders the provider link component', () => {
+        render(
+            <AdminUiProvider linkComponent={RouterLink}>
+                <MenuList>
+                    <MenuList.Item id="orders" href="/orders">
+                        Orders
+                    </MenuList.Item>
+                </MenuList>
+            </AdminUiProvider>
+        );
+
+        expect(screen.getByTestId('router-link')).toHaveAttribute('href', '/orders');
+    });
+
     it('renders groups and items', () => {
         renderWithProvider(<BasicList />);
 

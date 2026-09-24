@@ -26,7 +26,15 @@ export const defaultLabels: IAuiLabels = {
     unpinMenuItem: 'Unpin',
     pinnedSection: 'Pinned',
     pinnedSectionHint: 'Right-click a menu item to pin it',
+    searchMenu: 'Search menu',
+    searchMenuEmpty: 'No sections found',
     openInNewTab: 'Open in new tab',
+    sortAscending: 'Ascending',
+    sortDescending: 'Descending',
+    moreActions: 'More actions',
+    save: 'Save',
+    arrangementList: 'Items',
+    clearFilters: 'Clear all',
 };
 
 export const AuiContext = createContext<IAuiContextValue | null>(null);

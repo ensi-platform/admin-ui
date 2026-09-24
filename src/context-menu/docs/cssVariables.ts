@@ -4,6 +4,7 @@ export const docsCssVariables = `/* CSS variables — ContextMenu (--aui-context
 --aui-context-menu-border-primary: var(--aui-surface-border-primary); /* panel / separator border */
 --aui-context-menu-border-focus: var(--aui-control-border-focus); /* item focus ring */
 --aui-context-menu-item-bg-hover: var(--aui-surface-bg-muted); /* item hover fill */
+--aui-context-menu-item-fg-danger: var(--aui-control-fg-danger); /* danger item text */
 --aui-context-menu-radius-md: var(--aui-radius-4); /* panel / item radius */
 --aui-context-menu-min-w: 140px; /* panel min width */
 --aui-context-menu-pad-sm: var(--aui-spacing-4); /* panel padding sm */

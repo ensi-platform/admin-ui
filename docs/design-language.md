@@ -42,7 +42,7 @@
 | Active | `data-open` только у открытого flyout-folder; current leaf без pill (крошки) | persistent path pill от `activePath`; leaf soft pill; pill **и** left bar **и** border |
 | Pins | один пункт Pinned в L0 → hover-flyout со списком; hint про ПКМ если пусто; RMB Pin/Unpin (не L0) + Open in new tab; leaf+folder; divider; лимит 8; LS по `pinUserId` | список N пинов прямо в L0; pin L0; trailing pin button; card вокруг пинов; DnD; sticky flyout |
 | User | divider + `Avatar` → `Popover` | user в bordered card |
-| Поиск / счётчики | нет | — |
+| Поиск | кнопка рядом со сворачиванием; затемнение + небольшое окно выше центра (поле и список листов `link` + путь); Escape / клик по затемнению закрывает; полоска не разворачивается | фильтр дерева на месте; счётчики |
 
 CascadeMenu = слой 0 (app chrome). **Не** входит в content-budget таблицы/форм.
 
@@ -56,7 +56,7 @@ Z-order: L0+flyout (`--aui-z-chrome`) выше sticky table (`--aui-table-z-stic
 ### List — таблица
 
 - title (`headingM`); `Button` secondary «Фильтры» + primary «+ Новый …»
-- активные фильтры: ряд `Tag` + link «Очистить» — **без** bordered bar вокруг ряда
+- активные фильтры: `ActiveFilters` (`Tag` + ссылка «Очистить») — **без** bordered bar вокруг ряда
 - `Table` flush на `page` — **без** внешней rounded card
 - статус в ячейке — `Badge` (tint only)
 - pagination: active = fill; **без** border-клетки на каждую страницу

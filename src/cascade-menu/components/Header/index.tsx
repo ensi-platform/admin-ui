@@ -2,7 +2,9 @@ import { type ReactNode } from 'react';
 
 import cn from 'classnames';
 
-import { PanelLeft, PanelLeftClose } from '@/icons';
+import { PanelLeft, PanelLeftClose, Search as SearchIcon } from '@/icons';
+
+import { useSearchTrigger } from '../Search/context';
 
 import styles from './styles.module.css';
 
@@ -29,6 +31,7 @@ export const Header = ({
     onTrimChrome,
 }: IHeaderProps) => {
     const CollapseIcon = collapsed ? PanelLeft : PanelLeftClose;
+    const { open, searchMenu, dataTestId: searchTestId, openSearch } = useSearchTrigger();
 
     const collapseBtn = (
         <button
@@ -43,6 +46,23 @@ export const Header = ({
         </button>
     );
 
+    const actions = (
+        <div className={styles.actions}>
+            <button
+                type="button"
+                className={styles.collapseBtn}
+                aria-label={searchMenu}
+                aria-expanded={open}
+                aria-haspopup="dialog"
+                onClick={openSearch}
+                data-test-id={searchTestId ? `${searchTestId}-search-toggle` : undefined}
+            >
+                <SearchIcon className={styles.collapseIcon} />
+            </button>
+            {collapseBtn}
+        </div>
+    );
+
     return (
         <div
             className={cn(styles.brand, layoutCollapsed && styles.collapsed)}
@@ -55,9 +75,9 @@ export const Header = ({
                 ) : (
                     <span className={styles.brandLogoSpacer} />
                 )}
-                {layoutCollapsed ? null : collapseBtn}
+                {layoutCollapsed ? null : actions}
             </div>
-            {layoutCollapsed ? collapseBtn : null}
+            {layoutCollapsed ? actions : null}
         </div>
     );
 };

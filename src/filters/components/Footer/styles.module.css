@@ -1,0 +1,7 @@
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--aui-filters-gap-md);
+    padding-top: var(--aui-filters-pad-y-md);
+}

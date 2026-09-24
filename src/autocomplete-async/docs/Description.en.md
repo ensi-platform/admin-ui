@@ -14,12 +14,15 @@ import { AutocompleteAsync, FormAutocompleteAsync } from '@ensi-platform/admin-u
 ### `useSuggest` contract
 
 ```ts
-type TUseAutocompleteSuggest = (input: { query: string; enabled?: boolean }) => {
-    options: IComboboxOption[];
-    isLoading: boolean;
-    isError?: boolean;
-    error?: Error | null;
-};
+interface IUseAutocompleteSuggest {
+    (input: { query: string; enabled?: boolean; page: number }): {
+        options: IComboboxOption[];
+        isLoading: boolean;
+        isError?: boolean;
+        error?: Error | null;
+        hasMore: boolean;
+    };
+}
 ```
 
 Pass a stable module hook reference (not inline or conditional).
@@ -27,24 +30,25 @@ Pass a stable module hook reference (not inline or conditional).
 - `debounceMs` / `minLength` live in `AutocompleteAsync`; UI loading = debounce-pending **or** hook `isLoading`
 - merging the selected value with the server response is the hook's job (otherwise the selected label disappears)
 - hook `isLoading` covers the whole in-flight request (React Query: `isFetching`); do not duplicate debounce in the hook when `debounceMs` is set
+- the hook returns one page (`page` starts at 0). The package appends pages and drops duplicate `value`s. `hasMore: false` stops further loads. A new `query` resets to page 0
 
 ### AutocompleteAsync
 
-| Prop           | Values                                      | Default | Description                       |
-| -------------- | ------------------------------------------- | ------- | --------------------------------- |
-| `useSuggest`   | `TUseAutocompleteSuggest`                   | —       | suggest hook (required)           |
-| `minLength`    | `number`                                    | `0`     | min query length before fetch     |
-| `debounceMs`   | `number`                                    | `300`   | input debounce                    |
-| `value`        | `string \| number \| null`                  | —       | controlled value                  |
-| `defaultValue` | `string \| number \| null`                  | —       | uncontrolled initial              |
-| `onChange`     | `(value: string \| number \| null) => void` | —       | selection change; `null` on clear |
-| `placeholder`  | `string`                                    | —       | placeholder                       |
-| `clear`        | `boolean`                                   | `false` | clear button                      |
-| `size`         | `sm` \| `md` \| `lg`                        | `md`    | size                              |
-| `invalid`      | `boolean`                                   | `false` | invalid state                     |
-| `disabled`     | `boolean`                                   | `false` | disabled                          |
-| `block`        | `boolean`                                   | —       | full width                        |
-| `dataTestId`   | `string`                                    | —       | `data-test-id` for tests          |
+| Prop           | Values                                      | Default | Description                                |
+| -------------- | ------------------------------------------- | ------- | ------------------------------------------ |
+| `useSuggest`   | `IUseAutocompleteSuggest`                   | —       | suggest hook (required); one page per call |
+| `minLength`    | `number`                                    | `0`     | min query length before fetch              |
+| `debounceMs`   | `number`                                    | `300`   | input debounce                             |
+| `value`        | `string \| number \| null`                  | —       | controlled value                           |
+| `defaultValue` | `string \| number \| null`                  | —       | uncontrolled initial                       |
+| `onChange`     | `(value: string \| number \| null) => void` | —       | selection change; `null` on clear          |
+| `placeholder`  | `string`                                    | —       | placeholder                                |
+| `clear`        | `boolean`                                   | `false` | clear button                               |
+| `size`         | `sm` \| `md` \| `lg`                        | `md`    | size                                       |
+| `invalid`      | `boolean`                                   | `false` | invalid state                              |
+| `disabled`     | `boolean`                                   | `false` | disabled                                   |
+| `block`        | `boolean`                                   | —       | full width                                 |
+| `dataTestId`   | `string`                                    | —       | `data-test-id` for tests                   |
 
 No external `options` / `isLoading`.
 
@@ -55,7 +59,7 @@ No external `options` / `isLoading`.
 | `name`        | `string`                  | —       | field name in `Form`             |
 | `label`       | `ReactNode`               | —       | `Field.Label`                    |
 | `hint`        | `ReactNode`               | —       | hint under the control           |
-| `useSuggest`  | `TUseAutocompleteSuggest` | —       | suggest hook                     |
+| `useSuggest`  | `IUseAutocompleteSuggest` | —       | suggest hook                     |
 | `minLength`   | `number`                  | `0`     | min query length                 |
 | `debounceMs`  | `number`                  | `300`   | input debounce                   |
 | `placeholder` | `string`                  | —       | placeholder                      |

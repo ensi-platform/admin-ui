@@ -47,6 +47,21 @@ const ModalHarness = ({
 };
 
 describe('Modal', () => {
+    it('portals the dialog inside the provider root', () => {
+        render(
+            <AdminUiProvider data-test-id="aui-root">
+                <Modal open>
+                    <Modal.Header>
+                        <Modal.Title>Заголовок</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Контент</Modal.Body>
+                </Modal>
+            </AdminUiProvider>
+        );
+
+        expect(screen.getByTestId('aui-root')).toContainElement(screen.getByRole('dialog'));
+    });
+
     it('renders dialog when open', () => {
         render(<ModalHarness open dataTestId="modal" />);
 

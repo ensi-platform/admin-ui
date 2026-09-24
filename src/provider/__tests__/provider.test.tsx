@@ -3,7 +3,9 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+
+import { typographyStyles } from '@ds/typography';
 
 import { AdminUiProvider, useAuiDirection, useAuiLabels, useAuiLocale } from '..';
 
@@ -51,13 +53,40 @@ describe('AdminUiProvider', () => {
             </AdminUiProvider>
         );
 
-        expect(screen.getByTestId('aui-root')).toHaveClass(styles.root);
+        const root = screen.getByTestId('aui-root');
+
+        expect(root).toHaveClass(styles.root);
+        expect(root).toHaveClass(typographyStyles.bodyM);
 
         const css = readFileSync(resolve(providerDir, '../styles.module.css'), 'utf8');
 
         expect(css).toMatch(/\.root\s*\{[^}]*background:\s*var\(--aui-page-bg-primary\)/s);
         expect(css).toMatch(/\.root\s*\{[^}]*color:\s*var\(--aui-page-fg-primary\)/s);
         expect(css).toMatch(/\.root\s*\{[^}]*min-height:\s*100%/s);
+    });
+
+    it('forwards callback ref to the root', () => {
+        const ref = vi.fn();
+
+        render(
+            <AdminUiProvider ref={ref} data-test-id="aui-root">
+                <span>child</span>
+            </AdminUiProvider>
+        );
+
+        expect(ref).toHaveBeenCalledWith(screen.getByTestId('aui-root'));
+    });
+
+    it('forwards object ref to the root', () => {
+        const ref = { current: null as HTMLDivElement | null };
+
+        render(
+            <AdminUiProvider ref={ref} data-test-id="aui-root">
+                <span>child</span>
+            </AdminUiProvider>
+        );
+
+        expect(ref.current).toBe(screen.getByTestId('aui-root'));
     });
 
     it('throws useAuiLabels outside provider', () => {

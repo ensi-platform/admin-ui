@@ -14,12 +14,15 @@ import { AutocompleteAsync, FormAutocompleteAsync } from '@ensi-platform/admin-u
 ### Контракт `useSuggest`
 
 ```ts
-type TUseAutocompleteSuggest = (input: { query: string; enabled?: boolean }) => {
-    options: IComboboxOption[];
-    isLoading: boolean;
-    isError?: boolean;
-    error?: Error | null;
-};
+interface IUseAutocompleteSuggest {
+    (input: { query: string; enabled?: boolean; page: number }): {
+        options: IComboboxOption[];
+        isLoading: boolean;
+        isError?: boolean;
+        error?: Error | null;
+        hasMore: boolean;
+    };
+}
 ```
 
 Передавайте стабильную ссылку на хук модуля (не inline и не условную).
@@ -27,12 +30,13 @@ type TUseAutocompleteSuggest = (input: { query: string; enabled?: boolean }) => 
 - `debounceMs` / `minLength` — в `AutocompleteAsync`; индикатор загрузки в UI — ожидание debounce **или** `isLoading` из хука
 - объединение выбранного значения с ответом сервера — обязанность хука (иначе пропадёт подпись выбранного)
 - в хуке `isLoading` — на весь активный запрос (в React Query: `isFetching`); debounce в хуке не дублировать, если задан `debounceMs`
+- хук отдаёт одну страницу (`page` с 0). Пакет дописывает страницы и отбрасывает повторные `value`. `hasMore: false` останавливает догрузку. Новый `query` снова запрашивает страницу 0
 
 ### AutocompleteAsync
 
 | Prop           | Значения                                    | По умолчанию | Описание                          |
 | -------------- | ------------------------------------------- | ------------ | --------------------------------- |
-| `useSuggest`   | `TUseAutocompleteSuggest`                   | —            | хук подсказок (обязателен)        |
+| `useSuggest`   | `IUseAutocompleteSuggest`                   | —            | хук подсказок (обязателен)        |
 | `minLength`    | `number`                                    | `0`          | мин. длина запроса перед запросом |
 | `debounceMs`   | `number`                                    | `300`        | задержка ввода                    |
 | `value`        | `string \| number \| null`                  | —            | управляемое значение              |
@@ -55,7 +59,7 @@ type TUseAutocompleteSuggest = (input: { query: string; enabled?: boolean }) => 
 | `name`        | `string`                  | —            | имя поля в `Form`                  |
 | `label`       | `ReactNode`               | —            | подпись `Field.Label`              |
 | `hint`        | `ReactNode`               | —            | подсказка под контролом            |
-| `useSuggest`  | `TUseAutocompleteSuggest` | —            | хук подсказок                      |
+| `useSuggest`  | `IUseAutocompleteSuggest` | —            | хук подсказок                      |
 | `minLength`   | `number`                  | `0`          | мин. длина запроса                 |
 | `debounceMs`  | `number`                  | `300`        | задержка ввода                     |
 | `placeholder` | `string`                  | —            | плейсхолдер                        |

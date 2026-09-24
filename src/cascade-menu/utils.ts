@@ -15,6 +15,46 @@ export const PIN_STORAGE_PREFIX = 'aui-cascade-menu-pins:';
 /** Default max pinned codes. */
 export const DEFAULT_MAX_PINNED = 8;
 
+/** Max rows in the sidebar search panel. */
+export const CASCADE_MENU_SEARCH_LIMIT = 12;
+
+/** Linked leaf shown in sidebar search. */
+export interface ICascadeMenuSearchHit {
+    code: string;
+    text: string;
+    link: string;
+    /** Ancestor titles from the root down to the parent. */
+    path: string[];
+}
+
+/** Linked leaves whose title or ancestor title contains `query` (case-insensitive). */
+export const searchCascadeMenu = (
+    items: ICascadeMenuItem[],
+    query: string,
+    limit: number = CASCADE_MENU_SEARCH_LIMIT
+): ICascadeMenuSearchHit[] => {
+    const needle = query.trim().toLocaleLowerCase();
+
+    if (!needle) {
+        return [];
+    }
+
+    const includesNeedle = (labels: string[]) => labels.some(label => label.toLocaleLowerCase().includes(needle));
+
+    const collect = (nodes: ICascadeMenuItem[], ancestors: string[]): ICascadeMenuSearchHit[] =>
+        nodes.flatMap(node => {
+            const hit =
+                node.link && includesNeedle([node.text, ...ancestors])
+                    ? [{ code: node.code, text: node.text, link: node.link, path: ancestors }]
+                    : [];
+            const nested = node.children?.length ? collect(node.children, [...ancestors, node.text]) : [];
+
+            return [...hit, ...nested];
+        });
+
+    return collect(items, []).slice(0, limit);
+};
+
 /** Keep leaves allowed by codes; drop empty branches. */
 export const filterCascadeMenuItems = (items: ICascadeMenuItem[], allowedCodes?: string[]): ICascadeMenuItem[] => {
     if (!allowedCodes) {

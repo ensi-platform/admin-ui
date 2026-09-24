@@ -23,7 +23,8 @@ import { Table, useTableRowSelection } from '@ensi-platform/admin-ui/table';
 - `Scroll` — область скролла; `Footer` — sibling рядом (не внутри `Table.Table` / `<table>`)
 - `Table` — нативный `<table>`: только `Header` / `Body` / `Row` / ячейки
 - `Header`: `sticky?`; `Footer`: `sticky?` (по умолчанию `true`); слева `PageSize`, справа `Pagination`
-- `Cell` / `HeaderCell`: `numeric?`, `align?`, `utility?`, `noWrap?`, `width?`; у `HeaderCell` ещё `sortable?`, `sortDirection?`, `onSort?`
+- `Cell` / `HeaderCell`: `numeric?`, `align?`, `utility?`, `noWrap?`, `width?`; у `HeaderCell` ещё `sortable?`, `sortDirection?`, `onSort?`, `filter?`, `filterActive?`
+- `filter` — тело дропа в шапке колонки. Триггер — плашка. Если колонка `sortable`, пункты сортировки под фильтром. Без `filter` сортировка по-прежнему кликом по заголовку. `filterActive` красит иконку фильтра
 - `Pagination`: controlled `page` + `pageCount` + `onPageChange` + `from` + `to` + `total`; опционально `rangeLabel?`, `prevLabel?` / `nextLabel?`, `disabled?`
 - `PageSize`: controlled `value` + `onChange`; `options?` (по умолчанию `[5, 10, 25, 50, 100]`); `label?`; `disabled?`
 - `ActionBar`: `items`, `visibleCount?`

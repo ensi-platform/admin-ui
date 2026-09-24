@@ -50,3 +50,9 @@
     white-space: nowrap;
     padding: var(--aui-table-pad-y-utility) var(--aui-table-pad-x-utility);
 }
+
+/* 1px lets the actions button stretch to the row height. */
+.utility:has([data-row-actions]) {
+    height: 1px;
+    padding: 0;
+}

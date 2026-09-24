@@ -2,7 +2,7 @@ import { type Ref } from 'react';
 
 import { type IDataTestIdProps } from '@ds/common';
 
-import { type TUseAutocompleteSuggest } from '@/autocomplete-async/types';
+import { type IUseAutocompleteSuggest } from '@/autocomplete-async/types';
 import { type IFieldStateProps } from '@/field/types';
 import { type IFormFieldLayoutProps } from '@/form/types';
 import {
@@ -13,7 +13,7 @@ import {
     type TMultiAutocompleteVariant,
 } from '@/multi-autocomplete/types';
 
-export type { TMultiAutocompleteSize, TMultiAutocompleteVariant, TUseAutocompleteSuggest };
+export type { TMultiAutocompleteSize, TMultiAutocompleteVariant, IUseAutocompleteSuggest };
 
 /** Theme inputs. */
 export interface IMultiAutocompleteAsyncThemeProps extends IMultiAutocompleteThemeProps {}
@@ -27,7 +27,7 @@ export interface IMultiAutocompleteAsyncControlProps extends Omit<
 /** Own / chrome props (not from RAC). */
 export interface IMultiAutocompleteAsyncOwnProps extends IDataTestIdProps {
     /** AP suggest module. Must be a stable hook reference. */
-    useSuggest: TUseAutocompleteSuggest;
+    useSuggest: IUseAutocompleteSuggest;
     /** Skip fetch below this length. */
     minLength?: number;
     /** Debounce query before calling useSuggest. */
@@ -42,7 +42,7 @@ export interface IMultiAutocompleteAsyncContentProps extends Omit<
     IMultiAutocompleteContentProps,
     'options' | 'clientFilter' | 'isLoading' | 'isError'
 > {
-    useSuggest: TUseAutocompleteSuggest;
+    useSuggest: IUseAutocompleteSuggest;
     minLength?: number;
     debounceMs?: number;
 }

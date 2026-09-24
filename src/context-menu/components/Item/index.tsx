@@ -20,6 +20,7 @@ export const ContextMenuItem = ({
     children,
     icon: Icon,
     disabled = false,
+    variant = 'primary',
     className,
     dataTestId,
     onClick,
@@ -34,7 +35,8 @@ export const ContextMenuItem = ({
             type="button"
             role="menuitem"
             disabled={disabled}
-            className={cn(contextMenuItemVariants({ size }), itemTypography[size], className)}
+            className={cn(contextMenuItemVariants({ size, variant }), itemTypography[size], className)}
+            data-variant={variant}
             data-test-id={dataTestId}
             onClick={onClick}
         >

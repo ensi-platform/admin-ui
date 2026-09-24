@@ -46,6 +46,9 @@ export const docsCssVariables = `/* CSS variables — Select (--aui-combobox-*) 
 --aui-combobox-item-pad-y-sm: var(--aui-spacing-4); /* list item pad y sm */
 --aui-combobox-item-pad-y-md: var(--aui-spacing-4); /* list item pad y md */
 --aui-combobox-item-pad-y-lg: var(--aui-spacing-8); /* list item pad y lg */
+--aui-combobox-item-h-sm: calc(var(--aui-font-size-sm) * var(--aui-line-height-sm) + (2 * var(--aui-combobox-item-pad-y-sm))); /* list item height sm */
+--aui-combobox-item-h-md: calc(var(--aui-font-size-md) * var(--aui-line-height-md) + (2 * var(--aui-combobox-item-pad-y-md))); /* list item height md */
+--aui-combobox-item-h-lg: calc(var(--aui-font-size-lg) * var(--aui-line-height-lg) + (2 * var(--aui-combobox-item-pad-y-lg))); /* list item height lg */
 --aui-combobox-item-radius-md: var(--aui-control-radius-sm); /* list item radius md */
 
 --aui-combobox-list-status-gap-md: var(--aui-spacing-8); /* list status gap md */

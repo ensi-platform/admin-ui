@@ -38,6 +38,7 @@ Package channel overview: [`docs/ai.md`](../ai.md). Architecture: [`docs/archite
 | action / submit / link-as-button | `Button` | — |
 | entity status (read-only) | `Badge` | `Tag` |
 | removable chip / filter value / MultiSelect chips | `Tag` | `Badge` |
+| applied filters on a list (chips + clear) | `ActiveFilters` | `Filters`, `Badge` |
 | single-line text | `Input` / `FormInput` | `Textarea` |
 | multi-line text | `Textarea` / `FormTextarea` | `Input` |
 | one from a list | `Select` / `FormSelect` | `MultiSelect` |

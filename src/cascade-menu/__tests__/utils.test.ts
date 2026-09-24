@@ -1,10 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+    CASCADE_MENU_SEARCH_LIMIT,
     filterCascadeMenuItems,
     findActiveCodeByPath,
     findAncestorCodes,
     isNodeInsideCascadeChrome,
+    searchCascadeMenu,
     type ICascadeMenuItem,
 } from '../utils';
 
@@ -51,6 +53,61 @@ describe('cascade-menu utils', () => {
     it('finds active code by path', () => {
         expect(findActiveCodeByPath(sample, '/products/catalog')).toBe('products_catalog');
         expect(findActiveCodeByPath(sample, '/feeds')).toBe('feeds');
+    });
+
+    it('searches linked leaves by title and ancestor path', () => {
+        expect(searchCascadeMenu(sample, '   ')).toEqual([]);
+        expect(searchCascadeMenu(sample, 'catalog')).toEqual([
+            { code: 'products_catalog', text: 'Catalog', link: '/products/catalog', path: ['Products'] },
+        ]);
+        expect(searchCascadeMenu(sample, 'PRODUCTS').map(hit => hit.code)).toEqual([
+            'products_catalog',
+            'products_import',
+        ]);
+        expect(searchCascadeMenu(sample, 'entities')).toEqual([
+            {
+                code: 'customers_delete',
+                text: 'Delete request',
+                link: '/customers/entities/deleting',
+                path: ['Customers', 'Entities'],
+            },
+        ]);
+        expect(searchCascadeMenu(sample, 'feeds')).toEqual([
+            { code: 'feeds', text: 'Feeds', link: '/feeds', path: [] },
+        ]);
+        expect(searchCascadeMenu(sample, 'missing')).toEqual([]);
+    });
+
+    it('caps search hits', () => {
+        const many: ICascadeMenuItem[] = [
+            {
+                text: 'Root',
+                code: 'root',
+                children: Array.from({ length: CASCADE_MENU_SEARCH_LIMIT + 3 }, (_, index) => ({
+                    text: `Item ${index}`,
+                    code: `item_${index}`,
+                    link: `/item/${index}`,
+                })),
+            },
+        ];
+
+        expect(searchCascadeMenu(many, 'item')).toHaveLength(CASCADE_MENU_SEARCH_LIMIT);
+
+        const gated: ICascadeMenuItem[] = [
+            ...Array.from({ length: CASCADE_MENU_SEARCH_LIMIT - 1 }, (_, index) => ({
+                text: `Item ${index}`,
+                code: `item_${index}`,
+                link: `/item/${index}`,
+            })),
+            {
+                text: 'Item gate',
+                code: 'item_gate',
+                link: '/item/gate',
+                children: [{ text: 'Item nested', code: 'item_nested', link: '/item/nested' }],
+            },
+        ];
+
+        expect(searchCascadeMenu(gated, 'item').map(hit => hit.code)).not.toContain('item_nested');
     });
 
     it('finds ancestor codes for a nested leaf', () => {

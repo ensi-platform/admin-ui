@@ -1,0 +1,3 @@
+.cell {
+    grid-column: span var(--aui-filters-span);
+}

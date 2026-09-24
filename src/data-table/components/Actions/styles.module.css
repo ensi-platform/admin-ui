@@ -1,0 +1,43 @@
+.trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: var(--aui-table-pad-y-utility) var(--aui-table-pad-x-utility);
+    border: none;
+    background: transparent;
+    color: var(--aui-table-fg-muted);
+    cursor: pointer;
+    transition: color var(--aui-table-duration-fast) var(--aui-table-ease-out);
+}
+
+.trigger:hover,
+.trigger:focus-visible {
+    color: var(--aui-table-fg-primary);
+}
+
+.trigger:focus-visible {
+    outline: 2px solid var(--aui-table-border-focus);
+    outline-offset: -2px;
+}
+
+.visuallyHidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .trigger {
+        transition: none;
+    }
+}

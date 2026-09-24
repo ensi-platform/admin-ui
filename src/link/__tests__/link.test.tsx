@@ -23,6 +23,7 @@ describe('Link', () => {
 
         expect(link.tagName).toBe('A');
         expect(link).toHaveAttribute('href', '/orders');
+        expect(link).toHaveAttribute('target', '_self');
         expect(link).toHaveClass(styles.root, styles.primary, typographyStyles.bodyS);
     });
 

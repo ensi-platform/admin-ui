@@ -13,6 +13,10 @@ export interface ITableHeaderCellOwnProps extends IDataTestIdProps, ITableCellCh
     sortDirection?: TTableSortDirection;
     /** Called with the next sort direction. */
     onSort?: (direction: TTableSortDirection | undefined) => void;
+    /** Filter body rendered in the header drop, under sort when `sortable`. */
+    filter?: ReactNode;
+    /** Marks the filter icon when a value is applied. */
+    filterActive?: boolean;
 }
 
 export interface ITableHeaderCellProps

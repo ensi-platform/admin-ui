@@ -121,6 +121,20 @@ export const WithForm: StoryObj = {
     ),
 };
 
+const LONG_OPTIONS = Array.from({ length: 40 }, (_, index) => ({
+    value: `row-${index + 1}`,
+    label: `Row ${index + 1}`,
+}));
+
+/** Long option list: the popover scrolls and the last row stays selectable. */
+export const LongList: StoryObj<ISelectProps> = {
+    render: () => (
+        <div style={{ maxWidth: 320 }}>
+            <SelectStoryComponent aria-label="Rows" options={LONG_OPTIONS} placeholder="Select row" />
+        </div>
+    ),
+};
+
 export const Sizes: StoryObj<ISelectProps> = {
     render: () => (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 320 }}>

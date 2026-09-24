@@ -9,5 +9,5 @@ export type {
     IMultiAutocompleteAsyncThemeProps,
     TMultiAutocompleteSize,
     TMultiAutocompleteVariant,
-    TUseAutocompleteSuggest,
+    IUseAutocompleteSuggest,
 } from './types';

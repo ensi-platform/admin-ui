@@ -1,4 +1,4 @@
-import { type ReactElement } from 'react';
+import { type ComponentPropsWithRef, type ReactElement } from 'react';
 
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -8,6 +8,7 @@ import { Cart, LogoEnsi, Package } from '@/icons';
 import { AdminUiProvider } from '@/provider';
 
 import { CascadeMenu } from '..';
+import { useSearchTrigger } from '../components/Search/context';
 import { COLLAPSED_STORAGE_PREFIX, WIDTH_STORAGE_PREFIX } from '../hooks/useCascadeMenuChrome';
 import { HOVER_DELAY_MS, LEAVE_CLOSE_MS } from '../hooks/useHoverMenu';
 import { type ICascadeMenuItem } from '../utils';
@@ -37,6 +38,12 @@ const items: ICascadeMenuItem[] = [
         children: [{ text: 'List', code: 'orders_list', link: '/orders/list' }],
     },
 ];
+
+const RouterLink = ({ children, ...props }: ComponentPropsWithRef<'a'>) => (
+    <a {...props} data-test-id="router-link">
+        {children}
+    </a>
+);
 
 const renderWithProvider = (ui: ReactElement) => render(<AdminUiProvider>{ui}</AdminUiProvider>);
 
@@ -1668,6 +1675,135 @@ describe('CascadeMenu', () => {
         expect(screen.getByTestId('cascade-context-new-tab')).toBeInTheDocument();
         expect(screen.queryByTestId('cascade-context-pin')).not.toBeInTheDocument();
         expect(screen.queryByRole('menuitem', { name: /^Pin$/ })).not.toBeInTheDocument();
+    });
+
+    it('searches sections from the header overlay and navigates to a match', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        renderWithProvider(<CascadeMenu items={items} dataTestId="cascade" onChange={onChange} />);
+
+        const products = screen.getByRole('button', { name: /Products/ });
+        mockItemRect(products, 96, 220);
+        fireEvent.mouseEnter(products);
+        expect(screen.getByTestId('cascade-col-1')).toBeInTheDocument();
+        expect(screen.queryByRole('combobox', { name: 'Search menu' })).not.toBeInTheDocument();
+
+        await user.click(screen.getByRole('button', { name: 'Search menu' }));
+
+        expect(screen.queryByTestId('cascade-col-1')).not.toBeInTheDocument();
+
+        const search = screen.getByRole('combobox', { name: 'Search menu' });
+
+        expect(search).toHaveFocus();
+        expect(screen.getByTestId('cascade-search-panel')).toBeEmptyDOMElement();
+
+        await user.type(search, 'attr');
+
+        const panel = screen.getByTestId('cascade-search-panel');
+        const hit = within(panel).getByRole('option', { name: /Attributes/ });
+
+        expect(hit).toHaveAttribute('href', '/products/attributes');
+        expect(hit).toHaveTextContent('Products / Directories');
+
+        await user.click(hit);
+
+        expect(onChange).toHaveBeenCalledWith('products_attributes');
+        expect(screen.queryByRole('combobox', { name: 'Search menu' })).not.toBeInTheDocument();
+    });
+
+    it('renders search hits with the provider link component', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <AdminUiProvider linkComponent={RouterLink}>
+                <CascadeMenu items={items} dataTestId="cascade" />
+            </AdminUiProvider>
+        );
+
+        await user.click(screen.getByRole('button', { name: 'Search menu' }));
+        await user.type(screen.getByRole('combobox', { name: 'Search menu' }), 'attr');
+
+        expect(screen.getByTestId('router-link')).toHaveAttribute('href', '/products/attributes');
+    });
+
+    it('clears the query and closes the search overlay on Escape', async () => {
+        const user = userEvent.setup();
+
+        renderWithProvider(<CascadeMenu items={items} dataTestId="cascade" />);
+
+        await user.click(screen.getByRole('button', { name: 'Search menu' }));
+
+        const search = screen.getByRole('combobox', { name: 'Search menu' });
+        await user.type(search, 'zzz');
+
+        expect(screen.getByTestId('cascade-search-panel')).toHaveTextContent('No sections found');
+
+        await user.click(screen.getByRole('button', { name: 'Clear' }));
+        expect(search).toHaveValue('');
+        expect(screen.getByTestId('cascade-search-panel')).toBeEmptyDOMElement();
+
+        await user.type(search, 'attr');
+        await user.keyboard('{Escape}');
+        expect(screen.queryByRole('combobox', { name: 'Search menu' })).not.toBeInTheDocument();
+    });
+
+    it('opens search from the collapsed rail without expanding it', async () => {
+        const user = userEvent.setup();
+
+        renderWithProvider(<CascadeMenu items={items} dataTestId="cascade" defaultCollapsed />);
+
+        expect(screen.queryByRole('combobox', { name: 'Search menu' })).not.toBeInTheDocument();
+
+        await user.click(screen.getByRole('button', { name: 'Search menu' }));
+
+        expect(screen.getByTestId('cascade')).toHaveAttribute('data-collapsed', 'true');
+        expect(screen.getByRole('combobox', { name: 'Search menu' })).toHaveFocus();
+    });
+
+    it('moves the search highlight and opens the active hit', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        renderWithProvider(
+            <CascadeMenu
+                items={[...items, { text: 'Feeds', code: 'feeds', link: '/feeds' }]}
+                onChange={onChange}
+                defaultCollapsed
+            />
+        );
+
+        expect(screen.getByRole('button', { name: 'Search menu' })).not.toHaveAttribute('data-test-id');
+
+        await user.click(screen.getByRole('button', { name: 'Search menu' }));
+
+        const search = screen.getByRole('combobox', { name: 'Search menu' });
+
+        await user.type(search, 'zzz');
+        await user.keyboard('{ArrowDown}');
+
+        expect(screen.getByText('No sections found')).toBeInTheDocument();
+
+        await user.click(screen.getByRole('button', { name: 'Clear' }));
+        await user.type(search, 'feed');
+
+        expect(screen.getByRole('option', { name: 'Feeds' }).querySelector('span + span')).toBeNull();
+
+        await user.clear(search);
+        await user.type(search, 'products');
+        await user.keyboard('{ArrowDown}{ArrowUp}{Enter}');
+
+        expect(onChange).toHaveBeenCalledWith('products_catalog');
+    });
+
+    it('throws when the search trigger is used outside the menu', () => {
+        const Probe = () => {
+            useSearchTrigger();
+
+            return null;
+        };
+
+        expect(() => render(<Probe />)).toThrow('CascadeMenu search trigger requires CascadeMenu.');
     });
 
     it('renders pinned column without dataTestId', () => {
