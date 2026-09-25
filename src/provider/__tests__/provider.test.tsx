@@ -66,6 +66,13 @@ describe('AdminUiProvider', () => {
         expect(css).toMatch(/\.root\s*\{[^}]*min-height:\s*100%/s);
     });
 
+    it('resets descendant margin at zero specificity', () => {
+        const css = readFileSync(resolve(providerDir, '../styles.module.css'), 'utf8');
+
+        expect(css).toMatch(/:where\(\.root \*\)\s*\{[^}]*margin:\s*0/s);
+        expect(css).not.toMatch(/(^|\n)\.root \*\s*\{[^}]*margin:\s*0/s);
+    });
+
     it('forwards callback ref to the root', () => {
         const ref = vi.fn();
 
