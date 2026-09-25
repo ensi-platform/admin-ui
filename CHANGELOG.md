@@ -1,3 +1,8 @@
+## 0.4.2 - 2026-09-25
+
+### Bug Fixes
+- fix root styles
+
 ## 0.4.1 - 2026-09-24
 
 ### Bug Fixes
