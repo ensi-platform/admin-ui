@@ -1,3 +1,8 @@
+## 0.5.0 - 2026-10-01
+
+### Features
+- fixes + new features
+
 ## 0.4.2 - 2026-09-25
 
 ### Bug Fixes
