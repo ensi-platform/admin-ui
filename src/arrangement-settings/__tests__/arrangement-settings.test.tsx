@@ -87,13 +87,25 @@ describe('ArrangementSettings', () => {
         render(<Harness onSave={onSave} initial={['name']} />);
 
         expect(screen.queryByRole('tab')).not.toBeInTheDocument();
-        expect(screen.getByRole('grid', { name: 'Items' })).toBeInTheDocument();
+        expect(screen.getByRole('grid', { name: 'Элементы' })).toBeInTheDocument();
 
         await user.click(screen.getByRole('checkbox', { name: /Date/ }));
-        await user.click(screen.getByRole('button', { name: 'Save' }));
+        await user.click(screen.getByRole('button', { name: 'Сохранить' }));
 
         expect(onSave).toHaveBeenCalledWith(['name', 'date']);
         expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+
+    it('toggles a row from a click on the label', async () => {
+        const user = userEvent.setup();
+        const onSave = vi.fn();
+
+        render(<Harness onSave={onSave} />);
+
+        await user.click(screen.getByText('Name'));
+        await user.click(screen.getByRole('button', { name: 'Сохранить' }));
+
+        expect(onSave).toHaveBeenCalledWith(['date']);
     });
 
     it('turns a checked item off and saves the rest', async () => {
@@ -103,7 +115,7 @@ describe('ArrangementSettings', () => {
         render(<Harness onSave={onSave} />);
 
         await user.click(screen.getByRole('checkbox', { name: /Name/ }));
-        await user.click(screen.getByRole('button', { name: 'Save' }));
+        await user.click(screen.getByRole('button', { name: 'Сохранить' }));
 
         expect(onSave).toHaveBeenCalledWith(['date']);
     });
@@ -114,14 +126,14 @@ describe('ArrangementSettings', () => {
         expect(screen.getByRole('dialog').parentElement).toHaveClass(drawerStyles.panelRight);
     });
 
-    it('discards the draft on cancel', async () => {
+    it('discards the draft on dismiss', async () => {
         const user = userEvent.setup();
         const onSave = vi.fn();
 
         render(<Harness onSave={onSave} />);
 
         await user.click(screen.getByRole('checkbox', { name: /Name/ }));
-        await user.click(screen.getByRole('button', { name: 'Cancel' }));
+        await user.keyboard('{Escape}');
 
         expect(onSave).not.toHaveBeenCalled();
 
@@ -190,7 +202,7 @@ describe('ArrangementSettings', () => {
             target: { type: 'item', key: 'name', dropPosition: 'before' },
         });
 
-        await user.click(screen.getByRole('button', { name: 'Save' }));
+        await user.click(screen.getByRole('button', { name: 'Сохранить' }));
 
         expect(onSave).toHaveBeenCalledWith(['date', 'name']);
     });

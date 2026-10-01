@@ -44,17 +44,11 @@
     color: var(--aui-table-fg-danger);
 }
 
-.panel {
-    box-sizing: border-box;
+.panel.panel {
     width: var(--aui-table-filter-min-w);
-    min-width: var(--aui-table-filter-min-w);
+    min-width: 0;
     max-width: var(--aui-table-filter-min-w);
     overflow: visible;
-}
-
-.filterSlot {
-    width: 100%;
-    max-width: 100%;
 }
 
 .sortList {
@@ -78,6 +72,7 @@
     font: inherit;
     text-align: start;
     cursor: pointer;
+    position: relative;
     transition: background-color var(--aui-table-duration-fast) var(--aui-table-ease-out);
 }
 
@@ -90,8 +85,7 @@
 }
 
 .sortItem:focus-visible {
-    outline: 2px solid var(--aui-table-border-focus);
-    outline-offset: -2px;
+    outline: none;
 }
 
 .divider {

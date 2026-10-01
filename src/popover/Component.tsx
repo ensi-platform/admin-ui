@@ -9,6 +9,7 @@ import {
     Pressable,
 } from 'react-aria-components';
 
+import { supportRef } from '@ds/common/support-ref';
 import { typographyStyles } from '@ds/typography';
 
 import { popoverVariants } from './theme';
@@ -18,7 +19,7 @@ import styles from './styles.module.css';
 
 type TPressableChild = NonNullable<ComponentProps<typeof Pressable>['children']>;
 
-const PopoverRoot = (props: TPopoverProps) => <RacDialogTrigger {...props} />;
+const PopoverRoot = supportRef((props: TPopoverProps) => <RacDialogTrigger {...props} />);
 
 PopoverRoot.displayName = 'Popover';
 
@@ -27,35 +28,37 @@ const PopoverTrigger = ({ children }: IPopoverTriggerProps) => <Pressable>{child
 
 PopoverTrigger.displayName = 'Popover.Trigger';
 
-const PopoverContent = ({
-    ref,
-    children,
-    size = 'md',
-    variant = 'primary',
-    arrow = false,
-    offset = 4,
-    placement = 'bottom',
-    className,
-    dataTestId,
-    ...props
-}: IPopoverContentProps) => (
-    <RacPopover
-        {...props}
-        ref={ref}
-        offset={offset}
-        placement={placement}
-        className={cn(popoverVariants({ size, variant }), className)}
-        data-test-id={dataTestId}
-    >
-        {arrow ? (
-            <OverlayArrow className={styles.arrow}>
-                <svg className={styles.arrowSvg} viewBox="0 0 12 12" aria-hidden>
-                    <path d="M0 0 L6 6 L12 0" />
-                </svg>
-            </OverlayArrow>
-        ) : null}
-        <RacDialog className={cn(styles.dialog, typographyStyles.bodyS)}>{children}</RacDialog>
-    </RacPopover>
+const PopoverContent = supportRef(
+    ({
+        ref,
+        children,
+        size = 'md',
+        variant = 'primary',
+        arrow = false,
+        offset = 4,
+        placement = 'bottom',
+        className,
+        dataTestId,
+        ...props
+    }: IPopoverContentProps) => (
+        <RacPopover
+            {...props}
+            ref={ref}
+            offset={offset}
+            placement={placement}
+            className={cn(popoverVariants({ size, variant }), className)}
+            data-test-id={dataTestId}
+        >
+            {arrow ? (
+                <OverlayArrow className={styles.arrow}>
+                    <svg className={styles.arrowSvg} viewBox="0 0 12 12" aria-hidden>
+                        <path d="M0 0 L6 6 L12 0" />
+                    </svg>
+                </OverlayArrow>
+            ) : null}
+            <RacDialog className={cn(styles.dialog, typographyStyles.bodyS)}>{children}</RacDialog>
+        </RacPopover>
+    )
 );
 
 PopoverContent.displayName = 'Popover.Content';

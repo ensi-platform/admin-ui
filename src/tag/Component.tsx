@@ -1,5 +1,7 @@
 import cn from 'classnames';
 
+import { supportRef } from '@ds/common/support-ref';
+
 import { Clear } from '@/icons';
 import { useAuiLabels } from '@/provider';
 
@@ -32,27 +34,29 @@ const TagRemoveButton = ({ onRemove, disabled }: { onRemove: () => void; disable
     );
 };
 
-export const Tag = ({
-    ref,
-    children,
-    size = 'md',
-    variant = 'primary',
-    onRemove,
-    disabled = false,
-    className,
-    dataTestId,
-    ...props
-}: ITagProps) => (
-    <span
-        {...props}
-        ref={ref}
-        className={cn(tagVariants({ size, variant }), className)}
-        data-disabled={disabled || undefined}
-        data-test-id={dataTestId}
-    >
-        <span className={styles.label}>{children}</span>
-        {onRemove ? <TagRemoveButton onRemove={onRemove} disabled={disabled} /> : null}
-    </span>
+export const Tag = supportRef(
+    ({
+        ref,
+        children,
+        size = 'md',
+        variant = 'primary',
+        onRemove,
+        disabled = false,
+        className,
+        dataTestId,
+        ...props
+    }: ITagProps) => (
+        <span
+            {...props}
+            ref={ref}
+            className={cn(tagVariants({ size, variant }), className)}
+            data-disabled={disabled || undefined}
+            data-test-id={dataTestId}
+        >
+            <span className={styles.label}>{children}</span>
+            {onRemove ? <TagRemoveButton onRemove={onRemove} disabled={disabled} /> : null}
+        </span>
+    )
 );
 
 Tag.displayName = 'Tag';

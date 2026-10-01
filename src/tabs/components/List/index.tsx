@@ -1,12 +1,14 @@
 import cn from 'classnames';
 import { TabList as RacTabList } from 'react-aria-components';
 
+import { supportRef } from '@ds/common/support-ref';
+
 import { useTabs } from '../../context';
 import { type ITabsListProps } from '../../types';
 
 import { tabsListVariants } from './theme';
 
-export const TabsList = ({ ref, children, className, dataTestId, ...props }: ITabsListProps) => {
+export const TabsList = supportRef(({ ref, children, className, dataTestId, ...props }: ITabsListProps) => {
     const { size, variant } = useTabs();
 
     return (
@@ -20,6 +22,6 @@ export const TabsList = ({ ref, children, className, dataTestId, ...props }: ITa
             {children}
         </RacTabList>
     );
-};
+});
 
 TabsList.displayName = 'Tabs.List';

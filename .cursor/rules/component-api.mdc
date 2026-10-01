@@ -19,7 +19,7 @@ alwaysApply: false
 - type-алиас пропсов: `TButtonProps` (не `I*`, если это `type`)
 - interfaces: `I*` (`IButtonBaseProps`, `IIconButtonProps`)
 - компонент — arrow function
-- **запрещён `forwardRef`**: `ref` — обычный prop (`ref?: Ref<HTMLElement>`), React 19
+- **запрещён `forwardRef`**: `ref` — обычный prop (`ref?: Ref<HTMLElement>`), React 19. Граница React 18 — только `supportRef` из `@ds/common/support-ref` (`src/ds/common/support-ref`)
 - `type` прокидывать только если рендер как `button`
 - классы: `cn(buttonVariants({ size, variant, block }), className)`
 - `displayName` — только для DevTools / compound, не ради forwardRef
@@ -182,7 +182,7 @@ export const Input = ({ ref, size = 'md', variant = 'primary', … }: IInputProp
 );
 ```
 
-Не импортировать `forwardRef` из `react`.
+Не импортировать `forwardRef` из `react`. На React 18 его вызывает только `supportRef`.
 
 ## Эталон Button
 

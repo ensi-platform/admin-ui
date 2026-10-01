@@ -1,4 +1,4 @@
-Text role classes. Family: **Inter** via `--aui-font-sans` (loaded with tokens). `AdminUiProvider` root locks `font-size: 16px` (rem base).
+Text role classes. Family: **Inter** via `--aui-font-sans` (loaded with tokens). The rem base is the `html` font-size. `AdminUiProvider` root sets `font-size: 1rem`.
 
 ```tsx
 import { typographyStyles } from '@ensi-platform/admin-ui/typography';

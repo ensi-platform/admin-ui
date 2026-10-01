@@ -20,7 +20,7 @@ describe('TimeField', () => {
         const onChange = vi.fn();
         renderField(<TimeField aria-label="Время" clear value={new Time(14, 30)} onChange={onChange} />);
 
-        await user.click(screen.getByRole('button', { name: 'Clear' }));
+        await user.click(screen.getByRole('button', { name: 'Очистить' }));
         expect(onChange).toHaveBeenCalledWith(null);
     });
 
@@ -29,8 +29,8 @@ describe('TimeField', () => {
         const onChange = vi.fn();
         renderField(<TimeField aria-label="Время" clear defaultValue={new Time(14, 30)} onChange={onChange} />);
 
-        await user.click(screen.getByRole('button', { name: 'Clear' }));
+        await user.click(screen.getByRole('button', { name: 'Очистить' }));
         expect(onChange).toHaveBeenCalledWith(null);
-        expect(screen.queryByRole('button', { name: 'Clear' })).not.toBeInTheDocument();
+        expect(screen.queryByRole('button', { name: 'Очистить' })).not.toBeInTheDocument();
     });
 });

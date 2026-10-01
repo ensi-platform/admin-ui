@@ -174,7 +174,7 @@ page-radius-md               →  radius-8
 --aui-line-height-xs | sm | md | lg | xl | 2xl | tight | normal
 ```
 
-`AdminUiProvider` root: `font-size: 16px` (rem base for space + type).
+`AdminUiProvider` root: `font-size: 1rem`. Rem base is the `html` font-size.
 
 Готовые роли — CSS Module `typographyStyles` (`src/ds/typography/`, импорт `@ds/typography`): только `var(--aui-…)`, без литералов.
 

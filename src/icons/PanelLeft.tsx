@@ -1,6 +1,8 @@
 import { type SVGProps } from 'react';
 
-export const PanelLeft = ({ title, ...props }: SVGProps<SVGSVGElement> & { title?: string }) => (
+import { supportRef } from '@ds/common/support-ref';
+
+export const PanelLeft = supportRef(({ title, ...props }: SVGProps<SVGSVGElement> & { title?: string }) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 16 16"
@@ -17,6 +19,6 @@ export const PanelLeft = ({ title, ...props }: SVGProps<SVGSVGElement> & { title
         />
         <path fill="currentColor" d="M6 3h1.25v10H6V3Z" />
     </svg>
-);
+));
 
 PanelLeft.displayName = 'PanelLeft';

@@ -7,8 +7,10 @@ describe('toCssSize', () => {
         expect(toCssSize(undefined)).toBeUndefined();
     });
 
-    it('appends px for numbers', () => {
-        expect(toCssSize(16)).toBe('16px');
+    it('converts numbers to rem at the 16px root', () => {
+        expect(toCssSize(16)).toBe('1rem');
+        expect(toCssSize(8)).toBe('0.5rem');
+        expect(toCssSize(20)).toBe('1.25rem');
     });
 
     it('passes strings through', () => {

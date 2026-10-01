@@ -68,9 +68,9 @@ export default {
 
 export const Default: StoryObj<IAdminUiProviderProps> = {};
 
-export const EnglishDefaults: StoryObj<IAdminUiProviderProps> = {
+export const BuiltInLabels: StoryObj<IAdminUiProviderProps> = {
     args: {
-        locale: 'en-US',
+        locale: 'ru-RU',
         labels: undefined,
     },
 };

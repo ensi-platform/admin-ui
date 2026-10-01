@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { render as renderBare } from '@testing-library/react/pure';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -36,9 +37,24 @@ describe('SelectedTags', () => {
             />
         );
 
-        await user.click(screen.getByRole('button', { name: /2 more selected/i }));
+        await user.click(screen.getByRole('button', { name: /2 ещё выбрано/ }));
 
         expect(onExpandedChange).toHaveBeenCalledWith(true);
+    });
+
+    it('falls back to default overflow label without AdminUiProvider', () => {
+        renderBare(
+            <SelectedTags
+                items={ITEMS}
+                size="md"
+                expanded={false}
+                onExpandedChange={vi.fn()}
+                onRemove={vi.fn()}
+                aria-label="Selected"
+            />
+        );
+
+        expect(screen.getByRole('button', { name: /2 ещё выбрано/ })).toBeInTheDocument();
     });
 
     it('removes via TagGroup onRemove', async () => {

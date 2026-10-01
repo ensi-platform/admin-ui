@@ -27,7 +27,7 @@ export const ArrangementSettings = ({
     dataTestId,
     placement = 'left',
 }: IArrangementSettingsProps) => {
-    const { cancel, save, arrangementList } = useAuiLabels();
+    const { save, arrangementList } = useAuiLabels();
     const [seenOpen, setSeenOpen] = useState(open);
     const [draft, setDraft] = useState(() => draftFromValue(items, value));
 
@@ -53,7 +53,6 @@ export const ArrangementSettings = ({
         <Drawer open={open} onOpenChange={onOpenChange} placement={placement} dataTestId={dataTestId}>
             <Drawer.Header>
                 <Drawer.Title>{title}</Drawer.Title>
-                <Drawer.CloseButton />
             </Drawer.Header>
             <Drawer.Body>
                 <List
@@ -69,11 +68,9 @@ export const ArrangementSettings = ({
                 />
             </Drawer.Body>
             <Drawer.Footer>
-                <Button type="button" variant="secondary" onClick={close}>
-                    {cancel}
-                </Button>
                 <Button
                     type="button"
+                    block
                     onClick={() => {
                         onSave(visibleIdsInOrder(draft.order, draft.visible));
                         close();

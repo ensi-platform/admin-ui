@@ -11,8 +11,8 @@ import { Table, useTableRowSelection } from '..';
 
 import cellStyles from '../components/Cell/styles.module.css';
 import checkboxCellStyles from '../components/CheckboxCell/styles.module.css';
-import footerStyles from '../components/Footer/styles.module.css';
 import headerStyles from '../components/Header/styles.module.css';
+import headerCellStyles from '../components/HeaderCell/styles.module.css';
 import shellStyles from '../styles.module.css';
 
 const rows = [
@@ -75,6 +75,7 @@ describe('Table', () => {
 
         expect(screen.getByTestId('thead')).toHaveAttribute('data-sticky');
         expect(screen.getByTestId('thead')).toHaveClass(headerStyles.sticky);
+        expect(screen.getByRole('columnheader', { name: 'Name' })).toHaveClass(headerCellStyles.sticky);
     });
 
     it('applies checked state on row', () => {
@@ -208,7 +209,7 @@ describe('Table', () => {
         expect(screen.getByRole('button', { name: 'Edit' })).toBeInTheDocument();
         expect(screen.queryByRole('button', { name: 'Delete' })).not.toBeInTheDocument();
 
-        await user.click(screen.getByRole('button', { name: 'More actions' }));
+        await user.click(screen.getByRole('button', { name: 'Ещё действия' }));
         await user.click(await screen.findByRole('button', { name: 'Delete' }));
         expect(onDelete).toHaveBeenCalledTimes(1);
     });
@@ -265,6 +266,157 @@ describe('Table', () => {
         await user.click(screen.getByRole('checkbox', { name: 'Select all' }));
         expect(screen.getByRole('checkbox', { name: 'Select Alice' })).toBeChecked();
         expect(screen.getByRole('checkbox', { name: 'Select Bob' })).toBeChecked();
+    });
+
+    it('toggles row selection on a single cell click', async () => {
+        const user = userEvent.setup();
+
+        const SelectionDemo = () => {
+            const ids = rows.map(r => r.id);
+            const { isSelected, toggle, isAllSelected, setAllOnPage } = useTableRowSelection(ids);
+
+            return (
+                <Table hasChecked>
+                    <Table.Scroll>
+                        <Table.Table>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCheckboxCell
+                                        checked={isAllSelected}
+                                        onChange={setAllOnPage}
+                                        aria-label="Select all"
+                                    />
+                                    <Table.HeaderCell>Name</Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+                            <Table.Body>
+                                {rows.map(row => (
+                                    <Table.Row key={row.id} checked={isSelected(row.id)}>
+                                        <Table.CheckboxCell
+                                            checked={isSelected(row.id)}
+                                            onChange={() => toggle(row.id)}
+                                            aria-label={`Select ${row.name}`}
+                                        />
+                                        <Table.Cell>{row.name}</Table.Cell>
+                                        <Table.Cell utility>
+                                            <Table.ActionBar
+                                                visibleCount={1}
+                                                items={[{ text: 'Edit', onClick: () => undefined }]}
+                                            />
+                                        </Table.Cell>
+                                    </Table.Row>
+                                ))}
+                            </Table.Body>
+                        </Table.Table>
+                    </Table.Scroll>
+                </Table>
+            );
+        };
+
+        render(<SelectionDemo />);
+
+        await user.click(screen.getByText('Alice'));
+        expect(screen.getByRole('checkbox', { name: 'Select Alice' })).toBeChecked();
+        expect(screen.getByRole('checkbox', { name: 'Select Bob' })).not.toBeChecked();
+
+        await user.click(screen.getByText('Alice'));
+        expect(screen.getByRole('checkbox', { name: 'Select Alice' })).not.toBeChecked();
+
+        await user.click(screen.getAllByRole('button', { name: 'Edit' })[0]);
+        expect(screen.getByRole('checkbox', { name: 'Select Alice' })).not.toBeChecked();
+
+        await user.click(screen.getByText('Name'));
+        expect(screen.getByRole('checkbox', { name: 'Select all' })).not.toBeChecked();
+    });
+
+    it('honors row onClick, preventDefault, and non-body rows for selection', async () => {
+        const user = userEvent.setup();
+        const onRowClick = vi.fn((event: { preventDefault: () => void }) => {
+            event.preventDefault();
+        });
+
+        const SelectionDemo = () => {
+            const ids = rows.map(r => r.id);
+            const { isSelected, toggle } = useTableRowSelection(ids);
+
+            return (
+                <Table hasChecked>
+                    <Table.Scroll>
+                        <Table.Table>
+                            <Table.Header>
+                                <Table.Row dataTestId="header-row">
+                                    <Table.HeaderCell>Name</Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+                            <Table.Body>
+                                {rows.map(row => (
+                                    <Table.Row
+                                        key={row.id}
+                                        checked={isSelected(row.id)}
+                                        onClick={onRowClick}
+                                        dataTestId={`row-${row.name}`}
+                                    >
+                                        <Table.CheckboxCell
+                                            checked={isSelected(row.id)}
+                                            onChange={() => toggle(row.id)}
+                                            aria-label={`Select ${row.name}`}
+                                        />
+                                        <Table.Cell>{row.name}</Table.Cell>
+                                    </Table.Row>
+                                ))}
+                            </Table.Body>
+                        </Table.Table>
+                    </Table.Scroll>
+                </Table>
+            );
+        };
+
+        render(<SelectionDemo />);
+
+        await user.click(screen.getByText('Alice'));
+        expect(onRowClick).toHaveBeenCalled();
+        expect(screen.getByRole('checkbox', { name: 'Select Alice' })).not.toBeChecked();
+
+        await user.click(screen.getByTestId('header-row'));
+        expect(screen.getByRole('checkbox', { name: 'Select Alice' })).not.toBeChecked();
+    });
+
+    it('skips selection when the click target is interactive', async () => {
+        const user = userEvent.setup();
+
+        const SelectionDemo = () => {
+            const ids = rows.map(r => r.id);
+            const { isSelected, toggle } = useTableRowSelection(ids);
+
+            return (
+                <Table hasChecked>
+                    <Table.Scroll>
+                        <Table.Table>
+                            <Table.Body>
+                                {rows.map(row => (
+                                    <Table.Row key={row.id} checked={isSelected(row.id)}>
+                                        <Table.CheckboxCell
+                                            checked={isSelected(row.id)}
+                                            onChange={() => toggle(row.id)}
+                                            aria-label={`Select ${row.name}`}
+                                        />
+                                        <Table.Cell>{row.name}</Table.Cell>
+                                        <Table.Cell>
+                                            <a href="#edit">Open</a>
+                                        </Table.Cell>
+                                    </Table.Row>
+                                ))}
+                            </Table.Body>
+                        </Table.Table>
+                    </Table.Scroll>
+                </Table>
+            );
+        };
+
+        render(<SelectionDemo />);
+
+        await user.click(screen.getAllByRole('link', { name: 'Open' })[0]);
+        expect(screen.getByRole('checkbox', { name: 'Select Alice' })).not.toBeChecked();
     });
 
     it('keeps Footer outside Loader veil when composed by the app', () => {
@@ -339,7 +491,7 @@ describe('Table', () => {
         );
 
         expect(screen.getByRole('button', { name: 'Edit' })).toBeInTheDocument();
-        await user.click(screen.getByRole('button', { name: 'More actions' }));
+        await user.click(screen.getByRole('button', { name: 'Ещё действия' }));
         await user.click(await screen.findByRole('button', { name: 'Delete' }));
         expect(onDelete).toHaveBeenCalledTimes(1);
     });
@@ -369,7 +521,7 @@ describe('Table', () => {
 
         expect(screen.getByRole('button', { name: 'Edit' })).toBeInTheDocument();
         expect(screen.getByRole('button', { name: 'Copy' })).toBeInTheDocument();
-        expect(screen.queryByRole('button', { name: 'More actions' })).not.toBeInTheDocument();
+        expect(screen.queryByRole('button', { name: 'Ещё действия' })).not.toBeInTheDocument();
     });
 
     it('stops row click when checkbox cells are clicked', async () => {
@@ -450,7 +602,6 @@ describe('Table', () => {
 
         const footer = screen.getByTestId('non-sticky-footer');
         expect(footer).not.toHaveAttribute('data-sticky');
-        expect(footer).not.toHaveClass(footerStyles.sticky);
     });
 
     it('opens a header filter and toggles sort inside the drop', async () => {
@@ -496,10 +647,10 @@ describe('Table', () => {
 
         const dialog = screen.getByRole('dialog');
         expect(dialog).toHaveTextContent('Query');
-        expect(dialog.textContent?.indexOf('Query')).toBeLessThan(dialog.textContent?.indexOf('Ascending') ?? -1);
+        expect(dialog.textContent?.indexOf('Query')).toBeLessThan(dialog.textContent?.indexOf('По возрастанию') ?? -1);
         expect(trigger).toHaveAttribute('data-open');
 
-        const ascending = screen.getByRole('button', { name: 'Ascending' });
+        const ascending = screen.getByRole('button', { name: 'По возрастанию' });
         await user.click(ascending);
         expect(onSort).toHaveBeenLastCalledWith('asc');
         expect(screen.getByRole('dialog')).toBeInTheDocument();
@@ -509,7 +660,7 @@ describe('Table', () => {
         await user.click(ascending);
         expect(onSort).toHaveBeenLastCalledWith('asc');
 
-        const descending = screen.getByRole('button', { name: 'Descending' });
+        const descending = screen.getByRole('button', { name: 'По убыванию' });
         await user.click(descending);
         expect(onSort).toHaveBeenLastCalledWith('desc');
         expect(trigger.querySelector('[data-sort-mark="desc"]')).not.toBeNull();

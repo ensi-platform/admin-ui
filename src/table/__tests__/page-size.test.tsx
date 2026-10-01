@@ -51,8 +51,8 @@ describe('Table.PageSize', () => {
         renderWithProvider(<Table.PageSize value={10} onChange={() => undefined} dataTestId="page-size" />);
 
         expect(screen.getByTestId('page-size')).toBeInTheDocument();
-        expect(screen.getByText('Per page')).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: /Per page/ })).toHaveTextContent('10');
+        expect(screen.getByText('Строк на странице')).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: /Строк на странице/ })).toHaveTextContent('10');
     });
 
     it('calls onChange when an option is selected', async () => {
@@ -82,7 +82,7 @@ describe('Table.PageSize', () => {
     it('disables the select when disabled', () => {
         renderWithProvider(<Table.PageSize value={10} onChange={() => undefined} disabled />);
 
-        expect(screen.getByRole('button', { name: /Per page/ })).toBeDisabled();
+        expect(screen.getByRole('button', { name: /Строк на странице/ })).toBeDisabled();
     });
 
     it('renders custom label and options', () => {

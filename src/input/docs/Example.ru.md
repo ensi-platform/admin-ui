@@ -16,6 +16,6 @@ const EmailControl = () => {
 
 <Form initialValues={{ email: '' }} validationSchema={schema} onSubmit={save}>
   <FormInput name="email" label="Email" hint="…" clear />
-  <Button type="submit">Save</Button>
+  <Button type="submit">Сохранить</Button>
 </Form>
 ```

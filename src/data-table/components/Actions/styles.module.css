@@ -24,6 +24,12 @@
     outline-offset: -2px;
 }
 
+.icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+}
+
 .visuallyHidden {
     position: absolute;
     width: 1px;

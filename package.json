@@ -13,6 +13,10 @@
         "docs/ai.md",
         "docs/architecture.md",
         "docs/README.md",
+        "scripts/consumer-root.ts",
+        "scripts/sync-skill-consumer.ts",
+        "scripts/sync-agents-consumer.ts",
+        "scripts/sync-consumer.ts",
         "src/*/docs/Description.*.md",
         "src/*/docs/Example.*.md",
         "src/*/docs/cssVariables.ts",
@@ -28,7 +32,7 @@
         "sync-package": "node --experimental-strip-types scripts/sync-package.ts",
         "build": "pnpm sync-package && vite build && cp src/ds/tokens/OFL.txt dist/tokens/ && node --experimental-strip-types scripts/publish-manifest.ts",
         "prepublishOnly": "pnpm build",
-        "dev": "vite build --watch",
+        "dev": "mkdir -p publish && rm -rf publish/dist && ln -s ../dist publish/dist && vite build --watch",
         "typecheck": "tsc --noEmit",
         "lint": "eslint ./src ./.storybook ./scripts --fix",
         "format": "prettier ./src --write --ignore-unknown --ignore-path .prettierignore",
@@ -97,7 +101,7 @@
         "@internationalized/date": "^3.10.0",
         "class-variance-authority": "0.7.1",
         "classnames": "2.5.1",
-        "react-aria": "3.52.1",
+        "react-aria": "3.50.0",
         "react-aria-components": "^1.19.0",
         "react-fast-compare": "^3.2.2",
         "usehooks-ts": "^3.1.1"
@@ -257,6 +261,10 @@
         "./select": {
             "types": "./dist/select/index.d.ts",
             "import": "./dist/select/index.js"
+        },
+        "./slider": {
+            "types": "./dist/slider/index.d.ts",
+            "import": "./dist/slider/index.js"
         },
         "./suggest-checklist": {
             "types": "./dist/suggest-checklist/index.d.ts",

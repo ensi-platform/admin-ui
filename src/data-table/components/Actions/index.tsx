@@ -23,7 +23,7 @@ export const DataTableActions = ({ onClick, label, dataTestId, className }: IDat
                 onClick?.(event);
             }}
         >
-            <MoreVertical width={16} height={16} />
+            <MoreVertical className={styles.icon} />
             <span className={styles.visuallyHidden}>{accessibleName}</span>
         </button>
     );

@@ -1,6 +1,8 @@
 import { type SVGProps } from 'react';
 
-export const ChevronDown = ({ title, ...props }: SVGProps<SVGSVGElement> & { title?: string }) => (
+import { supportRef } from '@ds/common/support-ref';
+
+export const ChevronDown = supportRef(({ title, ...props }: SVGProps<SVGSVGElement> & { title?: string }) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 16 16"
@@ -14,6 +16,6 @@ export const ChevronDown = ({ title, ...props }: SVGProps<SVGSVGElement> & { tit
             fill="currentColor"
         />
     </svg>
-);
+));
 
 ChevronDown.displayName = 'ChevronDown';

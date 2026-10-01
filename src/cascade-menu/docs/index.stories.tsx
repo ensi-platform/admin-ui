@@ -208,10 +208,10 @@ const CascadeMenuShell = ({
                 {...props}
                 header={
                     collapsed ? (
-                        <LogoEnsiMark width={28} height={28} title="ensi-opensource" />
+                        <LogoEnsiMark width="1.75rem" height="1.75rem" title="ensi-opensource" />
                     ) : (
                         <span className={styles.brandLockup}>
-                            <LogoEnsiMark width={28} height={28} aria-hidden title="" />
+                            <LogoEnsiMark width="1.75rem" height="1.75rem" aria-hidden title="" />
                             <span className={styles.brandWordmark}>Ensi opensource</span>
                         </span>
                     )

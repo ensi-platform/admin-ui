@@ -26,9 +26,9 @@ describe('Table.Pagination', () => {
 
         expect(screen.getByTestId('pager')).toBeInTheDocument();
         expect(screen.getByRole('navigation', { name: 'Pagination' })).toBeInTheDocument();
-        expect(screen.getByText('1–5 of 10')).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: 'Previous' })).toBeDisabled();
-        expect(screen.getByRole('button', { name: 'Next' })).toBeEnabled();
+        expect(screen.getByText('1–5 из 10')).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Назад' })).toBeDisabled();
+        expect(screen.getByRole('button', { name: 'Далее' })).toBeEnabled();
     });
 
     it('calls onPageChange for prev and next', async () => {
@@ -47,42 +47,68 @@ describe('Table.Pagination', () => {
             />
         );
 
-        await user.click(screen.getByRole('button', { name: 'Previous' }));
+        await user.click(screen.getByRole('button', { name: 'Назад' }));
         expect(onPageChange).toHaveBeenCalledWith(1);
 
-        await user.click(screen.getByRole('button', { name: 'Next' }));
+        await user.click(screen.getByRole('button', { name: 'Далее' }));
         expect(onPageChange).toHaveBeenCalledWith(3);
+    });
+
+    it('jumps to a numbered page and the last page', async () => {
+        const user = userEvent.setup();
+        const onPageChange = vi.fn();
+
+        renderWithProvider(
+            <Table.Pagination
+                {...baseProps}
+                page={1}
+                pageCount={20}
+                from={1}
+                to={5}
+                total={100}
+                onPageChange={onPageChange}
+            />
+        );
+
+        expect(screen.getByText('1', { selector: '[aria-current="page"]' })).toBeInTheDocument();
+        expect(screen.getByText('…')).toHaveAttribute('aria-hidden', 'true');
+
+        await user.click(screen.getByRole('button', { name: 'Страница 3' }));
+        expect(onPageChange).toHaveBeenCalledWith(3);
+
+        await user.click(screen.getByRole('button', { name: 'Страница 20' }));
+        expect(onPageChange).toHaveBeenCalledWith(20);
     });
 
     it('disables next on the last page', () => {
         renderWithProvider(<Table.Pagination {...baseProps} page={2} pageCount={2} from={6} to={10} />);
 
-        expect(screen.getByRole('button', { name: 'Next' })).toBeDisabled();
-        expect(screen.getByRole('button', { name: 'Previous' })).toBeEnabled();
+        expect(screen.getByRole('button', { name: 'Далее' })).toBeDisabled();
+        expect(screen.getByRole('button', { name: 'Назад' })).toBeEnabled();
     });
 
     it('still renders when pageCount is below 2', () => {
         renderWithProvider(<Table.Pagination {...baseProps} page={1} pageCount={1} from={1} to={3} total={3} />);
 
         expect(screen.getByRole('navigation', { name: 'Pagination' })).toBeInTheDocument();
-        expect(screen.getByText('1–3 of 3')).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: 'Previous' })).toBeDisabled();
-        expect(screen.getByRole('button', { name: 'Next' })).toBeDisabled();
+        expect(screen.getByText('1–3 из 3')).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Назад' })).toBeDisabled();
+        expect(screen.getByRole('button', { name: 'Далее' })).toBeDisabled();
     });
 
     it('uses paginationRange label template', () => {
         renderWithProvider(<Table.Pagination {...baseProps} />, {
-            paginationRange: '{from}–{to} из {total}',
+            paginationRange: '{from}-{to}/{total}',
         });
 
-        expect(screen.getByText('1–5 из 10')).toBeInTheDocument();
+        expect(screen.getByText('1-5/10')).toBeInTheDocument();
     });
 
     it('prefers rangeLabel over the template', () => {
         renderWithProvider(<Table.Pagination {...baseProps} rangeLabel="custom range" />);
 
         expect(screen.getByText('custom range')).toBeInTheDocument();
-        expect(screen.queryByText('1–5 of 10')).not.toBeInTheDocument();
+        expect(screen.queryByText('1–5 из 10')).not.toBeInTheDocument();
     });
 
     it('renders inside Table.Footer without wrapping table cells', () => {

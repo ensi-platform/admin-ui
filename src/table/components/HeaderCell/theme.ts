@@ -21,5 +21,9 @@ export const tableHeaderCellVariants = cva(styles.root, {
             true: styles.utility,
             false: null,
         },
+        sticky: {
+            true: styles.sticky,
+            false: null,
+        },
     },
 });

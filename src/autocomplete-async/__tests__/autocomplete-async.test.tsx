@@ -107,7 +107,7 @@ describe('AutocompleteAsync', () => {
 
         await user.click(screen.getByRole('button', { name: /предложени|Show suggestions|suggestions/i }));
 
-        expect(await screen.findByRole('status')).toHaveAttribute('aria-label', 'Loading suggestions');
+        expect(await screen.findByRole('status')).toHaveAttribute('aria-label', 'Загрузка подсказок');
     });
 
     it('clears selection and input', async () => {

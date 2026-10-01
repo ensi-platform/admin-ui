@@ -1,7 +1,9 @@
 import { type SVGProps } from 'react';
 
+import { supportRef } from '@ds/common/support-ref';
+
 /** Vertical grip for drag and drop. */
-export const GripVertical = ({ title, ...props }: SVGProps<SVGSVGElement> & { title?: string }) => (
+export const GripVertical = supportRef(({ title, ...props }: SVGProps<SVGSVGElement> & { title?: string }) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -21,6 +23,6 @@ export const GripVertical = ({ title, ...props }: SVGProps<SVGSVGElement> & { ti
         <circle cx="15" cy="5" r="1" />
         <circle cx="15" cy="19" r="1" />
     </svg>
-);
+));
 
 GripVertical.displayName = 'GripVertical';

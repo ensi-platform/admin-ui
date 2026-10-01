@@ -93,6 +93,16 @@
     --aui-switch-border-focus: var(--aui-control-border-focus);
     --aui-switch-border-danger: var(--aui-control-border-danger);
 
+    /* slider */
+    --aui-slider-track-bg-primary: var(--aui-surface-bg-muted);
+    --aui-slider-track-bg-selected: var(--aui-control-bg-brand);
+    --aui-slider-thumb-bg-primary: var(--aui-control-bg-brand);
+    --aui-slider-fg-primary: var(--aui-page-fg-primary);
+    --aui-slider-fg-muted: var(--aui-page-fg-muted);
+    --aui-slider-tick-fg: var(--aui-page-fg-muted);
+    --aui-slider-border-focus: var(--aui-control-border-focus);
+    --aui-slider-border-danger: var(--aui-control-border-danger);
+
     /* number-input — aliases input (same as light) */
     --aui-number-input-bg-primary: var(--aui-input-bg-primary);
     --aui-number-input-fg-primary: var(--aui-input-fg-primary);

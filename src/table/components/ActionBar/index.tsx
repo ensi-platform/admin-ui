@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { Button } from '@/button';
 import { MoreVertical } from '@/icons';
 import { Popover } from '@/popover';
+import { useAuiLabels } from '@/provider';
 
 import { useTableContext } from '../../context';
 
@@ -38,10 +39,12 @@ const ActionButton = ({
 export const TableActionBar = ({
     items,
     visibleCount = 1,
-    overflowLabel = 'More actions',
+    overflowLabel,
     dataTestId,
     className,
 }: ITableActionBarProps) => {
+    const { moreActions } = useAuiLabels();
+    const resolvedOverflowLabel = overflowLabel ?? moreActions;
     const { size } = useTableContext();
     const visible = items.slice(0, Math.max(0, visibleCount));
     const overflow = items.slice(Math.max(0, visibleCount));
@@ -58,12 +61,12 @@ export const TableActionBar = ({
                             type="button"
                             size={size === 'lg' ? 'md' : 'sm'}
                             variant="secondary"
-                            aria-label={overflowLabel}
+                            aria-label={resolvedOverflowLabel}
                             icon={{ Component: MoreVertical }}
                             className={styles.overflowTrigger}
                             onClick={event => event.stopPropagation()}
                         >
-                            <span className={styles.visuallyHidden}>{overflowLabel}</span>
+                            <span className={styles.visuallyHidden}>{resolvedOverflowLabel}</span>
                         </Button>
                     </Popover.Trigger>
                     <Popover.Content placement="bottom end">

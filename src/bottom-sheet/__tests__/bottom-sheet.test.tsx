@@ -4,6 +4,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
+import { supportRef } from '@ds/common/support-ref';
+
 import { AdminUiProvider } from '@/provider';
 
 import { BottomSheet } from '../index';
@@ -12,40 +14,44 @@ import { shouldCloseSheet } from '../utils';
 
 import styles from '../styles.module.css';
 
-const BottomSheetHarness = ({
-    open: openProp = true,
-    onOpenChange,
-    closeButtonOnClick,
-    ...props
-}: Omit<IBottomSheetProps, 'open' | 'onOpenChange' | 'children'> & {
-    open?: boolean;
-    onOpenChange?: IBottomSheetProps['onOpenChange'];
-    closeButtonOnClick?: (event: MouseEvent<HTMLButtonElement>) => void;
-}) => {
-    const [open, setOpen] = useState(openProp);
+const BottomSheetHarness = supportRef(
+    ({
+        ref,
+        open: openProp = true,
+        onOpenChange,
+        closeButtonOnClick,
+        ...props
+    }: Omit<IBottomSheetProps, 'open' | 'onOpenChange' | 'children'> & {
+        open?: boolean;
+        onOpenChange?: IBottomSheetProps['onOpenChange'];
+        closeButtonOnClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+    }) => {
+        const [open, setOpen] = useState(openProp);
 
-    return (
-        <AdminUiProvider labels={{ close: 'Закрыть' }}>
-            <BottomSheet
-                {...props}
-                open={open}
-                onOpenChange={next => {
-                    setOpen(next);
-                    onOpenChange?.(next);
-                }}
-            >
-                <BottomSheet.Header>
-                    <BottomSheet.Title>Заголовок</BottomSheet.Title>
-                    <BottomSheet.CloseButton dataTestId="bottom-sheet-close" onClick={closeButtonOnClick} />
-                </BottomSheet.Header>
-                <BottomSheet.Body>Контент</BottomSheet.Body>
-                <BottomSheet.Footer>
-                    <button type="button">OK</button>
-                </BottomSheet.Footer>
-            </BottomSheet>
-        </AdminUiProvider>
-    );
-};
+        return (
+            <AdminUiProvider labels={{ close: 'Закрыть' }}>
+                <BottomSheet
+                    {...props}
+                    ref={ref}
+                    open={open}
+                    onOpenChange={next => {
+                        setOpen(next);
+                        onOpenChange?.(next);
+                    }}
+                >
+                    <BottomSheet.Header>
+                        <BottomSheet.Title>Заголовок</BottomSheet.Title>
+                        <BottomSheet.CloseButton dataTestId="bottom-sheet-close" onClick={closeButtonOnClick} />
+                    </BottomSheet.Header>
+                    <BottomSheet.Body>Контент</BottomSheet.Body>
+                    <BottomSheet.Footer>
+                        <button type="button">OK</button>
+                    </BottomSheet.Footer>
+                </BottomSheet>
+            </AdminUiProvider>
+        );
+    }
+);
 
 const dispatchPointer = (
     target: Element,

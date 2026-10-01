@@ -3,6 +3,8 @@ import { type ChangeEventHandler, useRef, useState } from 'react';
 import cn from 'classnames';
 import { Group, TextArea as RacTextArea } from 'react-aria-components';
 
+import { supportRef } from '@ds/common/support-ref';
+
 import { Clear } from '@/icons';
 import { useAuiLabels } from '@/provider';
 
@@ -48,71 +50,73 @@ const TextAreaClearButton = ({ onClear }: { onClear: () => void }) => {
     );
 };
 
-export const TextArea = ({
-    ref,
-    size = 'md',
-    variant = 'primary',
-    block = true,
-    invalid = false,
-    disabled = false,
-    clear = false,
-    className,
-    dataTestId,
-    value,
-    defaultValue,
-    onChange,
-    ...props
-}: ITextAreaProps) => {
-    const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
-    const isControlled = value !== undefined;
-    const [uncontrolledValue, setUncontrolledValue] = useState(() => toStringValue(defaultValue));
-    const currentValue = isControlled ? toStringValue(value) : uncontrolledValue;
-    const showClear = clear && !disabled && currentValue !== '';
+export const TextArea = supportRef(
+    ({
+        ref,
+        size = 'md',
+        variant = 'primary',
+        block = true,
+        invalid = false,
+        disabled = false,
+        clear = false,
+        className,
+        dataTestId,
+        value,
+        defaultValue,
+        onChange,
+        ...props
+    }: ITextAreaProps) => {
+        const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
+        const isControlled = value !== undefined;
+        const [uncontrolledValue, setUncontrolledValue] = useState(() => toStringValue(defaultValue));
+        const currentValue = isControlled ? toStringValue(value) : uncontrolledValue;
+        const showClear = clear && !disabled && currentValue !== '';
 
-    const handleChange: ChangeEventHandler<HTMLTextAreaElement> = event => {
-        if (!isControlled) {
-            setUncontrolledValue(event.target.value);
-        }
+        const handleChange: ChangeEventHandler<HTMLTextAreaElement> = event => {
+            if (!isControlled) {
+                setUncontrolledValue(event.target.value);
+            }
 
-        onChange?.(event);
-    };
+            onChange?.(event);
+        };
 
-    const emitEmptyChange = () => {
-        const el = textAreaRef.current;
-        const event = toEmptyTextAreaChangeEvent(el);
+        const emitEmptyChange = () => {
+            const el = textAreaRef.current;
+            const event = toEmptyTextAreaChangeEvent(el);
 
-        clearTextAreaElementValue(el);
+            clearTextAreaElementValue(el);
 
-        if (!isControlled) {
-            setUncontrolledValue('');
-        }
+            if (!isControlled) {
+                setUncontrolledValue('');
+            }
 
-        onChange?.(event);
-    };
+            onChange?.(event);
+        };
 
-    return (
-        <Group
-            className={cn(textAreaVariants({ size, variant, block }), className)}
-            data-test-id={dataTestId}
-            isInvalid={invalid}
-            isDisabled={disabled}
-        >
-            <RacTextArea
-                {...props}
-                ref={node => {
-                    textAreaRef.current = node;
-                    assignRef(ref, node);
-                }}
-                value={value}
-                defaultValue={defaultValue}
-                onChange={handleChange}
-                disabled={disabled}
-                aria-invalid={invalid || undefined}
-                className={styles.fieldInput}
-            />
-            {showClear ? <TextAreaClearButton onClear={emitEmptyChange} /> : null}
-        </Group>
-    );
-};
+        return (
+            <Group
+                className={cn(textAreaVariants({ size, variant, block }), className)}
+                data-test-id={dataTestId}
+                isInvalid={invalid}
+                isDisabled={disabled}
+            >
+                <RacTextArea
+                    {...props}
+                    ref={node => {
+                        textAreaRef.current = node;
+                        assignRef(ref, node);
+                    }}
+                    value={value}
+                    defaultValue={defaultValue}
+                    onChange={handleChange}
+                    disabled={disabled}
+                    aria-invalid={invalid || undefined}
+                    className={styles.fieldInput}
+                />
+                {showClear ? <TextAreaClearButton onClear={emitEmptyChange} /> : null}
+            </Group>
+        );
+    }
+);
 
 TextArea.displayName = 'TextArea';

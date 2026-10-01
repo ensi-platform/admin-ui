@@ -3,6 +3,8 @@ import { useState } from 'react';
 import cn from 'classnames';
 import { Group, Input as RacInput, NumberField } from 'react-aria-components';
 
+import { supportRef } from '@ds/common/support-ref';
+
 import { Clear } from '@/icons';
 import { useAuiLabels } from '@/provider';
 
@@ -38,98 +40,103 @@ const NumberInputClearButton = ({ onClear }: { onClear: () => void }) => {
     );
 };
 
-export const NumberInput = ({
-    ref,
-    size = 'md',
-    variant = 'primary',
-    block = true,
-    invalid = false,
-    disabled = false,
-    clear = false,
-    value,
-    defaultValue,
-    onChange,
-    onBlur,
-    min,
-    max,
-    step,
-    prefix,
-    suffix,
-    placeholder,
-    name,
-    id,
-    className,
-    dataTestId,
-    'aria-label': ariaLabel,
-    'aria-labelledby': ariaLabelledby,
-    'aria-describedby': ariaDescribedby,
-    ...props
-}: INumberInputProps) => {
-    const isControlled = value !== undefined;
-    const [uncontrolledValue, setUncontrolledValue] = useState<number | null>(() =>
-        defaultValue === undefined || Number.isNaN(defaultValue) ? null : defaultValue
-    );
-    const currentValue = isControlled ? value : uncontrolledValue;
-    const showClear = clear && !disabled && hasNumberValue(currentValue);
-    /** When `clear` is on, drive RAC as controlled so clear can reset the field. */
-    const driveValue = isControlled || clear;
+export const NumberInput = supportRef(
+    ({
+        ref,
+        size = 'md',
+        variant = 'primary',
+        block = true,
+        invalid = false,
+        disabled = false,
+        clear = false,
+        value,
+        defaultValue,
+        onChange,
+        onBlur,
+        min,
+        max,
+        step,
+        prefix,
+        suffix,
+        placeholder,
+        name,
+        id,
+        className,
+        dataTestId,
+        'aria-label': ariaLabel,
+        'aria-labelledby': ariaLabelledby,
+        'aria-describedby': ariaDescribedby,
+        ...props
+    }: INumberInputProps) => {
+        const isControlled = value !== undefined;
+        const [uncontrolledValue, setUncontrolledValue] = useState<number | null>(() =>
+            defaultValue === undefined || Number.isNaN(defaultValue) ? null : defaultValue
+        );
+        const currentValue = isControlled ? value : uncontrolledValue;
+        const showClear = clear && !disabled && hasNumberValue(currentValue);
+        /** When `clear` is on, drive RAC as controlled so clear can reset the field. */
+        const driveValue = isControlled || clear;
+        /** Prefer explicit aria-label over Field's phantom labelledby when Label is absent. */
+        const labelledBy = ariaLabel ? undefined : ariaLabelledby;
 
-    return (
-        <NumberField
-            {...props}
-            className={cn(styles.root, className)}
-            value={driveValue ? toRacValue(currentValue) : undefined}
-            defaultValue={!driveValue && defaultValue !== undefined ? toRacValue(defaultValue) : undefined}
-            onChange={next => {
-                const nextValue = Number.isNaN(next) ? null : next;
+        return (
+            <NumberField
+                {...props}
+                className={cn(styles.root, className)}
+                value={driveValue ? toRacValue(currentValue) : undefined}
+                defaultValue={!driveValue && defaultValue !== undefined ? toRacValue(defaultValue) : undefined}
+                onChange={next => {
+                    const nextValue = Number.isNaN(next) ? null : next;
 
-                if (!isControlled) {
-                    setUncontrolledValue(nextValue);
-                }
+                    if (!isControlled) {
+                        setUncontrolledValue(nextValue);
+                    }
 
-                onChange?.(nextValue);
-            }}
-            isDisabled={disabled}
-            isInvalid={invalid}
-            minValue={min}
-            maxValue={max}
-            step={step}
-            aria-label={ariaLabel}
-        >
-            <Group
-                className={numberInputGroupVariants({ size, variant, block })}
-                data-test-id={dataTestId}
-                isInvalid={invalid}
+                    onChange?.(nextValue);
+                }}
                 isDisabled={disabled}
+                isInvalid={invalid}
+                minValue={min}
+                maxValue={max}
+                step={step}
+                aria-label={ariaLabel}
+                aria-labelledby={labelledBy}
             >
-                {prefix ? <span className={styles.addon}>{prefix}</span> : null}
-                <RacInput
-                    ref={ref}
-                    name={name}
-                    id={id}
-                    placeholder={placeholder}
-                    onBlur={onBlur}
-                    aria-label={ariaLabel}
-                    aria-labelledby={ariaLabelledby}
-                    aria-describedby={ariaDescribedby}
-                    aria-invalid={invalid || undefined}
-                    className={styles.fieldInput}
-                />
-                {showClear ? (
-                    <NumberInputClearButton
-                        onClear={() => {
-                            if (!isControlled) {
-                                setUncontrolledValue(null);
-                            }
-
-                            onChange?.(null);
-                        }}
+                <Group
+                    className={numberInputGroupVariants({ size, variant, block })}
+                    data-test-id={dataTestId}
+                    isInvalid={invalid}
+                    isDisabled={disabled}
+                >
+                    {prefix ? <span className={styles.addon}>{prefix}</span> : null}
+                    <RacInput
+                        ref={ref}
+                        name={name}
+                        id={id}
+                        placeholder={placeholder}
+                        onBlur={onBlur}
+                        aria-label={ariaLabel}
+                        aria-labelledby={labelledBy}
+                        aria-describedby={ariaDescribedby}
+                        aria-invalid={invalid || undefined}
+                        className={styles.fieldInput}
                     />
-                ) : null}
-                {suffix ? <span className={styles.addon}>{suffix}</span> : null}
-            </Group>
-        </NumberField>
-    );
-};
+                    {showClear ? (
+                        <NumberInputClearButton
+                            onClear={() => {
+                                if (!isControlled) {
+                                    setUncontrolledValue(null);
+                                }
+
+                                onChange?.(null);
+                            }}
+                        />
+                    ) : null}
+                    {suffix ? <span className={styles.addon}>{suffix}</span> : null}
+                </Group>
+            </NumberField>
+        );
+    }
+);
 
 NumberInput.displayName = 'NumberInput';

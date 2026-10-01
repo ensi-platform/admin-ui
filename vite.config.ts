@@ -26,6 +26,13 @@ const toDistRelative = (fromFile: string, targetAbs: string): string => {
     return rel;
 };
 
+/** Same relocation as `beforeWriteFile` path rewrite (`dist/src` → `dist`). */
+const relocateDistPath = (abs: string): string =>
+    abs
+        .replace('/dist/src/', '/dist/')
+        .replace('/dist/ds/tokens/', '/dist/tokens/')
+        .replace('/dist/ds/typography/', '/dist/typography/');
+
 export default defineConfig({
     base: './',
     resolve: {
@@ -45,10 +52,7 @@ export default defineConfig({
             pathsToAliases: false,
             beforeWriteFile: (filePath, content) => {
                 // Public nested entries sit next to JS (`dist/tokens`, `dist/typography`), not under `ds/`.
-                const outPath = filePath
-                    .replace('/dist/src/', '/dist/')
-                    .replace('/dist/ds/tokens/', '/dist/tokens/')
-                    .replace('/dist/ds/typography/', '/dist/typography/');
+                const outPath = relocateDistPath(filePath);
 
                 const outContent = content
                     .replace(
@@ -62,7 +66,17 @@ export default defineConfig({
                     .replace(
                         /from ['"]\.\/ds\/typography\/index\.js['"]/g,
                         () => `from '${toDistRelative(outPath, resolve(distRoot, 'typography/index.js'))}'`
-                    );
+                    )
+                    .replace(/from (['"])([^'"]+)\1/g, (full, quote: string, spec: string) => {
+                        if (!spec.startsWith('.') && !spec.startsWith('@/')) return full;
+
+                        const abs = spec.startsWith('@/')
+                            ? resolve(distRoot, spec.slice(2))
+                            : resolve(dirname(filePath), spec);
+                        const next = toDistRelative(outPath, relocateDistPath(abs));
+
+                        return next === spec ? full : `from ${quote}${next}${quote}`;
+                    });
 
                 return { filePath: outPath, content: outContent };
             },

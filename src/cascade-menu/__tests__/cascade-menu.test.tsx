@@ -4,6 +4,8 @@ import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { supportRef } from '@ds/common/support-ref';
+
 import { Cart, LogoEnsi, Package } from '@/icons';
 import { AdminUiProvider } from '@/provider';
 
@@ -39,11 +41,11 @@ const items: ICascadeMenuItem[] = [
     },
 ];
 
-const RouterLink = ({ children, ...props }: ComponentPropsWithRef<'a'>) => (
-    <a {...props} data-test-id="router-link">
+const RouterLink = supportRef(({ ref, children, ...props }: ComponentPropsWithRef<'a'>) => (
+    <a {...props} ref={ref} data-test-id="router-link">
         {children}
     </a>
-);
+));
 
 const renderWithProvider = (ui: ReactElement) => render(<AdminUiProvider>{ui}</AdminUiProvider>);
 
@@ -1050,9 +1052,9 @@ describe('CascadeMenu', () => {
         renderWithProvider(<CascadeMenu items={items} dataTestId="cascade" defaultPinnedCodes={[]} />);
 
         expect(screen.getByTestId('cascade-pinned-icon')).toBeInTheDocument();
-        expect(screen.getByTestId('cascade-pinned')).toHaveTextContent('Pinned');
+        expect(screen.getByTestId('cascade-pinned')).toHaveTextContent('Закреплённые');
         const empty = screen.getByTestId('cascade-pinned-empty');
-        expect(empty).toHaveTextContent('Right-click a menu item to pin it');
+        expect(empty).toHaveTextContent('ПКМ по пункту меню, чтобы закрепить');
         expect(empty).not.toHaveTextContent('Empty');
     });
 
@@ -1089,7 +1091,7 @@ describe('CascadeMenu', () => {
         expect(screen.queryByTestId('cascade-pinned-empty')).not.toBeInTheDocument();
 
         const pinnedRoot = within(screen.getByTestId('cascade-pinned')).getByRole('button', {
-            name: /^Pinned$/,
+            name: /^Закреплённые$/,
         });
         expect(
             within(screen.getByTestId('cascade-pinned')).queryByRole('button', { name: /Directories/ })
@@ -1137,7 +1139,7 @@ describe('CascadeMenu', () => {
             within(screen.getByTestId('cascade-pinned')).queryByRole('link', { name: /Import/ })
         ).not.toBeInTheDocument();
         expect(
-            within(screen.getByTestId('cascade-pinned')).getByRole('button', { name: /^Pinned$/ })
+            within(screen.getByTestId('cascade-pinned')).getByRole('button', { name: /^Закреплённые$/ })
         ).toBeInTheDocument();
     });
 
@@ -1172,7 +1174,7 @@ describe('CascadeMenu', () => {
         );
 
         const pinned = screen.getByTestId('cascade-pinned');
-        const pinnedRoot = within(pinned).getByRole('button', { name: /^Pinned$/ });
+        const pinnedRoot = within(pinned).getByRole('button', { name: /^Закреплённые$/ });
         expect(within(pinned).queryByRole('button', { name: /Directories/ })).not.toBeInTheDocument();
         expect(within(pinned).queryByRole('link', { name: /Catalog/ })).not.toBeInTheDocument();
 
@@ -1183,7 +1185,7 @@ describe('CascadeMenu', () => {
         const flyout = screen.getByTestId('cascade-col-1');
         expect(within(flyout).getByRole('button', { name: /Directories/ })).toBeInTheDocument();
         expect(within(flyout).getByRole('link', { name: /Catalog/ })).toBeInTheDocument();
-        expect(screen.getByTestId('cascade-col-1-header')).toHaveTextContent('Pinned');
+        expect(screen.getByTestId('cascade-col-1-header')).toHaveTextContent('Закреплённые');
     });
 
     it('opens nested flyout from folder inside pinned list', () => {
@@ -1192,7 +1194,7 @@ describe('CascadeMenu', () => {
         );
 
         const pinnedRoot = within(screen.getByTestId('cascade-pinned')).getByRole('button', {
-            name: /^Pinned$/,
+            name: /^Закреплённые$/,
         });
         mockItemRect(pinnedRoot, 96, 220);
         fireEvent.mouseEnter(pinnedRoot);
@@ -1223,7 +1225,7 @@ describe('CascadeMenu', () => {
         const pinned = screen.getByTestId('cascade-pinned');
         const pinnedItems = within(pinned).getAllByRole('button');
         expect(pinnedItems).toHaveLength(1);
-        expect(pinnedItems[0]).toHaveAttribute('aria-label', 'Pinned');
+        expect(pinnedItems[0]).toHaveAttribute('aria-label', 'Закреплённые');
     });
 
     it('moves data-open from pinned to tree when hovering L0 folder', () => {
@@ -1232,7 +1234,7 @@ describe('CascadeMenu', () => {
         );
 
         const pinnedRoot = within(screen.getByTestId('cascade-pinned')).getByRole('button', {
-            name: /^Pinned$/,
+            name: /^Закреплённые$/,
         });
         mockItemRect(pinnedRoot, 96, 220);
         fireEvent.mouseEnter(pinnedRoot);
@@ -1259,7 +1261,7 @@ describe('CascadeMenu', () => {
             mockItemRect(root, 0, 280, 640);
 
             const pinnedRoot = within(screen.getByTestId('cascade-pinned')).getByRole('button', {
-                name: /^Pinned$/,
+                name: /^Закреплённые$/,
             });
             mockItemRect(pinnedRoot, 96, 220);
             fireEvent.mouseEnter(pinnedRoot);
@@ -1315,7 +1317,7 @@ describe('CascadeMenu', () => {
             mockItemRect(root, 0, 280, 640);
 
             const pinnedRoot = within(screen.getByTestId('cascade-pinned')).getByRole('button', {
-                name: /^Pinned$/,
+                name: /^Закреплённые$/,
             });
             mockItemRect(pinnedRoot, 96, 220);
             fireEvent.mouseEnter(pinnedRoot);
@@ -1394,7 +1396,7 @@ describe('CascadeMenu', () => {
             mockItemRect(root, 0, 280, 640);
 
             const pinnedRoot = within(screen.getByTestId('cascade-pinned')).getByRole('button', {
-                name: /^Pinned$/,
+                name: /^Закреплённые$/,
             });
             mockItemRect(pinnedRoot, 96, 220);
             fireEvent.mouseEnter(pinnedRoot);
@@ -1455,7 +1457,7 @@ describe('CascadeMenu', () => {
             mockItemRect(root, 0, 280, 640);
 
             const pinnedRoot = within(screen.getByTestId('cascade-pinned')).getByRole('button', {
-                name: /^Pinned$/,
+                name: /^Закреплённые$/,
             });
             mockItemRect(pinnedRoot, 96, 220);
             fireEvent.mouseEnter(pinnedRoot);
@@ -1598,8 +1600,8 @@ describe('CascadeMenu', () => {
     it('shows empty Pinned hint without dataTestId', () => {
         renderWithProvider(<CascadeMenu items={items} defaultPinnedCodes={[]} />);
 
-        expect(screen.getByText('Pinned')).toBeInTheDocument();
-        expect(screen.getByText('Right-click a menu item to pin it')).toBeInTheDocument();
+        expect(screen.getByText('Закреплённые')).toBeInTheDocument();
+        expect(screen.getByText('ПКМ по пункту меню, чтобы закрепить')).toBeInTheDocument();
         expect(screen.queryByTestId('cascade-pinned')).not.toBeInTheDocument();
         expect(screen.queryByTestId('cascade-pinned-empty')).not.toBeInTheDocument();
     });
@@ -1617,7 +1619,7 @@ describe('CascadeMenu', () => {
         });
 
         expect(screen.getByTestId('cascade-context-pin')).toBeInTheDocument();
-        expect(screen.getByTestId('cascade-context-pin')).toHaveTextContent('Pin');
+        expect(screen.getByTestId('cascade-context-pin')).toHaveTextContent('Закрепить');
         expect(screen.queryByTestId('cascade-context-new-tab')).not.toBeInTheDocument();
     });
 
@@ -1633,8 +1635,8 @@ describe('CascadeMenu', () => {
             clientY: 100,
         });
 
-        expect(screen.getByRole('menuitem', { name: /Pin/ })).toBeInTheDocument();
-        expect(screen.getByRole('menuitem', { name: /Open in new tab/i })).toBeInTheDocument();
+        expect(screen.getByRole('menuitem', { name: 'Закрепить' })).toBeInTheDocument();
+        expect(screen.getByRole('menuitem', { name: /Открыть в новой вкладке/i })).toBeInTheDocument();
         expect(screen.queryByTestId('cascade-context')).not.toBeInTheDocument();
     });
 
@@ -1657,7 +1659,7 @@ describe('CascadeMenu', () => {
             clientY: 120,
         });
 
-        expect(screen.getByTestId('cascade-context-pin')).toHaveTextContent('Unpin');
+        expect(screen.getByTestId('cascade-context-pin')).toHaveTextContent('Открепить');
     });
 
     it('opens link-only context menu on L0 leaf when pins enabled', () => {
@@ -1687,13 +1689,13 @@ describe('CascadeMenu', () => {
         mockItemRect(products, 96, 220);
         fireEvent.mouseEnter(products);
         expect(screen.getByTestId('cascade-col-1')).toBeInTheDocument();
-        expect(screen.queryByRole('combobox', { name: 'Search menu' })).not.toBeInTheDocument();
+        expect(screen.queryByRole('combobox', { name: 'Поиск по меню' })).not.toBeInTheDocument();
 
-        await user.click(screen.getByRole('button', { name: 'Search menu' }));
+        await user.click(screen.getByRole('button', { name: 'Поиск по меню' }));
 
         expect(screen.queryByTestId('cascade-col-1')).not.toBeInTheDocument();
 
-        const search = screen.getByRole('combobox', { name: 'Search menu' });
+        const search = screen.getByRole('combobox', { name: 'Поиск по меню' });
 
         expect(search).toHaveFocus();
         expect(screen.getByTestId('cascade-search-panel')).toBeEmptyDOMElement();
@@ -1709,7 +1711,7 @@ describe('CascadeMenu', () => {
         await user.click(hit);
 
         expect(onChange).toHaveBeenCalledWith('products_attributes');
-        expect(screen.queryByRole('combobox', { name: 'Search menu' })).not.toBeInTheDocument();
+        expect(screen.queryByRole('combobox', { name: 'Поиск по меню' })).not.toBeInTheDocument();
     });
 
     it('renders search hits with the provider link component', async () => {
@@ -1721,8 +1723,8 @@ describe('CascadeMenu', () => {
             </AdminUiProvider>
         );
 
-        await user.click(screen.getByRole('button', { name: 'Search menu' }));
-        await user.type(screen.getByRole('combobox', { name: 'Search menu' }), 'attr');
+        await user.click(screen.getByRole('button', { name: 'Поиск по меню' }));
+        await user.type(screen.getByRole('combobox', { name: 'Поиск по меню' }), 'attr');
 
         expect(screen.getByTestId('router-link')).toHaveAttribute('href', '/products/attributes');
     });
@@ -1732,20 +1734,20 @@ describe('CascadeMenu', () => {
 
         renderWithProvider(<CascadeMenu items={items} dataTestId="cascade" />);
 
-        await user.click(screen.getByRole('button', { name: 'Search menu' }));
+        await user.click(screen.getByRole('button', { name: 'Поиск по меню' }));
 
-        const search = screen.getByRole('combobox', { name: 'Search menu' });
+        const search = screen.getByRole('combobox', { name: 'Поиск по меню' });
         await user.type(search, 'zzz');
 
-        expect(screen.getByTestId('cascade-search-panel')).toHaveTextContent('No sections found');
+        expect(screen.getByTestId('cascade-search-panel')).toHaveTextContent('Ничего не найдено');
 
-        await user.click(screen.getByRole('button', { name: 'Clear' }));
+        await user.click(screen.getByRole('button', { name: 'Очистить' }));
         expect(search).toHaveValue('');
         expect(screen.getByTestId('cascade-search-panel')).toBeEmptyDOMElement();
 
         await user.type(search, 'attr');
         await user.keyboard('{Escape}');
-        expect(screen.queryByRole('combobox', { name: 'Search menu' })).not.toBeInTheDocument();
+        expect(screen.queryByRole('combobox', { name: 'Поиск по меню' })).not.toBeInTheDocument();
     });
 
     it('opens search from the collapsed rail without expanding it', async () => {
@@ -1753,12 +1755,12 @@ describe('CascadeMenu', () => {
 
         renderWithProvider(<CascadeMenu items={items} dataTestId="cascade" defaultCollapsed />);
 
-        expect(screen.queryByRole('combobox', { name: 'Search menu' })).not.toBeInTheDocument();
+        expect(screen.queryByRole('combobox', { name: 'Поиск по меню' })).not.toBeInTheDocument();
 
-        await user.click(screen.getByRole('button', { name: 'Search menu' }));
+        await user.click(screen.getByRole('button', { name: 'Поиск по меню' }));
 
         expect(screen.getByTestId('cascade')).toHaveAttribute('data-collapsed', 'true');
-        expect(screen.getByRole('combobox', { name: 'Search menu' })).toHaveFocus();
+        expect(screen.getByRole('combobox', { name: 'Поиск по меню' })).toHaveFocus();
     });
 
     it('moves the search highlight and opens the active hit', async () => {
@@ -1773,18 +1775,18 @@ describe('CascadeMenu', () => {
             />
         );
 
-        expect(screen.getByRole('button', { name: 'Search menu' })).not.toHaveAttribute('data-test-id');
+        expect(screen.getByRole('button', { name: 'Поиск по меню' })).not.toHaveAttribute('data-test-id');
 
-        await user.click(screen.getByRole('button', { name: 'Search menu' }));
+        await user.click(screen.getByRole('button', { name: 'Поиск по меню' }));
 
-        const search = screen.getByRole('combobox', { name: 'Search menu' });
+        const search = screen.getByRole('combobox', { name: 'Поиск по меню' });
 
         await user.type(search, 'zzz');
         await user.keyboard('{ArrowDown}');
 
-        expect(screen.getByText('No sections found')).toBeInTheDocument();
+        expect(screen.getByText('Ничего не найдено')).toBeInTheDocument();
 
-        await user.click(screen.getByRole('button', { name: 'Clear' }));
+        await user.click(screen.getByRole('button', { name: 'Очистить' }));
         await user.type(search, 'feed');
 
         expect(screen.getByRole('option', { name: 'Feeds' }).querySelector('span + span')).toBeNull();
@@ -1809,7 +1811,7 @@ describe('CascadeMenu', () => {
     it('renders pinned column without dataTestId', () => {
         renderWithProvider(<CascadeMenu items={items} defaultPinnedCodes={['products_catalog']} />);
 
-        expect(screen.getByRole('button', { name: /^Pinned$/ })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: /^Закреплённые$/ })).toBeInTheDocument();
         expect(screen.queryByTestId('cascade-pinned')).not.toBeInTheDocument();
         expect(screen.queryByTestId('cascade-pinned-col')).not.toBeInTheDocument();
     });

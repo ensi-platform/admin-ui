@@ -9,19 +9,3 @@
     line-height: 0;
 }
 
-:global(tbody) .root {
-    box-shadow: inset 0 -1px 0 var(--aui-table-border-primary);
-}
-
-:global(tbody tr[data-checked]) .root {
-    box-shadow: inset 0 -1px 0 var(--aui-table-border-on-fill);
-}
-
-:global(tbody tr:has(+ tr[data-checked])) .root {
-    box-shadow: inset 0 -1px 0 var(--aui-table-border-on-fill);
-}
-
-:global(tbody tr:last-child) .root,
-:global(tr[data-bottom-border='false']) .root {
-    box-shadow: none;
-}

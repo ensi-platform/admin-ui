@@ -21,7 +21,7 @@ Headless behavior — [`react-aria-components`](https://react-aria.adobe.com). �
 ```tsx
 import { AdminUiProvider, useAuiLabels } from '@ensi-platform/admin-ui/provider';
 
-<AdminUiProvider locale="ru-RU" labels={{ close: t('aui.close') }}>
+<AdminUiProvider locale="ru-RU">
     …
 </AdminUiProvider>;
 ```
@@ -36,6 +36,7 @@ const { close, clear, confirm, cancel, delete: deleteLabel, notDelete } = useAui
 
 - хардкод пользовательских строк в примитивах запрещён
 - бизнес-копирайт — children / props снаружи (уже переведённые)
+- встроенные строки — русские (`defaultLabels`); `labels` только подмена
 - новый ключ → `IAuiLabels` + `defaultLabels` в `src/provider/` + README
 
 ## Прочее

@@ -1,5 +1,7 @@
 import { type ComponentProps } from 'react';
 
+import { supportRef } from '@ds/common/support-ref';
+
 import { Field, useField } from '@/field';
 import { useFieldHook } from '@/form/hooks/useFieldHook';
 import { getError } from '@/form/utils';
@@ -9,11 +11,11 @@ import { type IFormInputProps } from './types';
 
 type TFormInputControlProps = Omit<ComponentProps<typeof Input>, 'size' | 'invalid' | 'disabled'>;
 
-const FormInputControl = (props: TFormInputControlProps) => {
+const FormInputControl = supportRef((props: TFormInputControlProps) => {
     const { controlProps, size, invalid, disabled } = useField();
 
     return <Input {...controlProps} size={size} invalid={invalid} disabled={disabled} {...props} />;
-};
+});
 
 export const FormInput = ({
     name,

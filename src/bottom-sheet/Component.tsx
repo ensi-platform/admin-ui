@@ -3,6 +3,8 @@ import { useCallback, useMemo, useRef } from 'react';
 import cn from 'classnames';
 import { Dialog, Modal as RacModal, ModalOverlay } from 'react-aria-components';
 
+import { supportRef } from '@ds/common/support-ref';
+
 import { useOverlayExitComplete } from '@/hooks';
 
 import { BottomSheetBody } from './components/Body';
@@ -31,89 +33,91 @@ const BottomSheetExitComplete = ({
     return null;
 };
 
-const BottomSheetRoot = ({
-    ref,
-    children,
-    open,
-    onOpenChange,
-    onExitComplete,
-    variant = 'primary',
-    fullscreen = false,
-    dismissable = true,
-    keyboardDismissable = true,
-    className,
-    dataTestId,
-    ...props
-}: IBottomSheetProps) => {
-    const panelRef = useRef<HTMLDivElement | null>(null);
-    const contentRef = useRef<HTMLDivElement | null>(null);
+const BottomSheetRoot = supportRef(
+    ({
+        ref,
+        children,
+        open,
+        onOpenChange,
+        onExitComplete,
+        variant = 'primary',
+        fullscreen = false,
+        dismissable = true,
+        keyboardDismissable = true,
+        className,
+        dataTestId,
+        ...props
+    }: IBottomSheetProps) => {
+        const panelRef = useRef<HTMLDivElement | null>(null);
+        const contentRef = useRef<HTMLDivElement | null>(null);
 
-    const setPanelRef = useCallback(
-        (node: HTMLDivElement | null) => {
-            panelRef.current = node;
+        const setPanelRef = useCallback(
+            (node: HTMLDivElement | null) => {
+                panelRef.current = node;
 
-            if (typeof ref === 'function') {
-                ref(node);
-                return;
-            }
+                if (typeof ref === 'function') {
+                    ref(node);
+                    return;
+                }
 
-            if (ref) {
-                ref.current = node;
-            }
-        },
-        [ref]
-    );
+                if (ref) {
+                    ref.current = node;
+                }
+            },
+            [ref]
+        );
 
-    const onSwipeClose = useCallback(() => {
-        onOpenChange?.(false);
-    }, [onOpenChange]);
+        const onSwipeClose = useCallback(() => {
+            onOpenChange?.(false);
+        }, [onOpenChange]);
 
-    const swipeHandlers = useBottomSheetSwipe({
-        enabled: dismissable,
-        onClose: onSwipeClose,
-        panelRef,
-        contentRef,
-    });
+        const swipeHandlers = useBottomSheetSwipe({
+            enabled: dismissable,
+            onClose: onSwipeClose,
+            panelRef,
+            contentRef,
+        });
 
-    const contextValue = useMemo(() => ({ contentRef }), []);
+        const contextValue = useMemo(() => ({ contentRef }), []);
 
-    return (
-        <ModalOverlay
-            {...props}
-            isOpen={open}
-            onOpenChange={onOpenChange}
-            isDismissable={dismissable}
-            isKeyboardDismissDisabled={!keyboardDismissable}
-            className={bottomSheetOverlayVariants()}
-        >
-            {({ isExiting }) => (
-                <>
-                    <BottomSheetExitComplete open={open} isExiting={isExiting} onExitComplete={onExitComplete} />
-                    <BottomSheetContext.Provider value={contextValue}>
-                        <RacModal
-                            ref={setPanelRef}
-                            className={cn(
-                                bottomSheetPanelVariants({
-                                    variant,
-                                    fullscreen,
-                                }),
-                                className
-                            )}
-                            {...swipeHandlers}
-                        >
-                            <Dialog className={styles.dialog} data-test-id={dataTestId}>
-                                <div className={styles.handle} aria-hidden>
-                                    <span className={styles.handleLine} />
-                                </div>
-                                {children}
-                            </Dialog>
-                        </RacModal>
-                    </BottomSheetContext.Provider>
-                </>
-            )}
-        </ModalOverlay>
-    );
-};
+        return (
+            <ModalOverlay
+                {...props}
+                isOpen={open}
+                onOpenChange={onOpenChange}
+                isDismissable={dismissable}
+                isKeyboardDismissDisabled={!keyboardDismissable}
+                className={bottomSheetOverlayVariants()}
+            >
+                {({ isExiting }) => (
+                    <>
+                        <BottomSheetExitComplete open={open} isExiting={isExiting} onExitComplete={onExitComplete} />
+                        <BottomSheetContext.Provider value={contextValue}>
+                            <RacModal
+                                ref={setPanelRef}
+                                className={cn(
+                                    bottomSheetPanelVariants({
+                                        variant,
+                                        fullscreen,
+                                    }),
+                                    className
+                                )}
+                                {...swipeHandlers}
+                            >
+                                <Dialog className={styles.dialog} data-test-id={dataTestId}>
+                                    <div className={styles.handle} aria-hidden>
+                                        <span className={styles.handleLine} />
+                                    </div>
+                                    {children}
+                                </Dialog>
+                            </RacModal>
+                        </BottomSheetContext.Provider>
+                    </>
+                )}
+            </ModalOverlay>
+        );
+    }
+);
 
 BottomSheetRoot.displayName = 'BottomSheet';
 

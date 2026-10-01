@@ -49,4 +49,15 @@ describe('FormNumberRange', () => {
 
         await user.tab();
     });
+
+    it('treats a null field value as an empty range', () => {
+        render(
+            <Form initialValues={{ amount: null }} onSubmit={() => undefined}>
+                <FormNumberRange name="amount" fromLabel="From" toLabel="To" />
+            </Form>
+        );
+
+        expect(screen.getByRole('textbox', { name: 'From' })).toHaveValue('');
+        expect(screen.getByRole('textbox', { name: 'To' })).toHaveValue('');
+    });
 });

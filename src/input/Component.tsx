@@ -3,6 +3,8 @@ import { type ChangeEventHandler, useRef, useState } from 'react';
 import cn from 'classnames';
 import { Group, Input as RacInput } from 'react-aria-components';
 
+import { supportRef } from '@ds/common/support-ref';
+
 import { Clear } from '@/icons';
 import { useAuiLabels } from '@/provider';
 
@@ -48,71 +50,73 @@ const InputClearButton = ({ onClear }: { onClear: () => void }) => {
     );
 };
 
-export const Input = ({
-    ref,
-    size = 'md',
-    variant = 'primary',
-    block = true,
-    invalid = false,
-    disabled = false,
-    clear = false,
-    className,
-    dataTestId,
-    value,
-    defaultValue,
-    onChange,
-    ...props
-}: IInputProps) => {
-    const inputRef = useRef<HTMLInputElement | null>(null);
-    const isControlled = value !== undefined;
-    const [uncontrolledValue, setUncontrolledValue] = useState(() => toStringValue(defaultValue));
-    const currentValue = isControlled ? toStringValue(value) : uncontrolledValue;
-    const showClear = clear && !disabled && currentValue !== '';
+export const Input = supportRef(
+    ({
+        ref,
+        size = 'md',
+        variant = 'primary',
+        block = true,
+        invalid = false,
+        disabled = false,
+        clear = false,
+        className,
+        dataTestId,
+        value,
+        defaultValue,
+        onChange,
+        ...props
+    }: IInputProps) => {
+        const inputRef = useRef<HTMLInputElement | null>(null);
+        const isControlled = value !== undefined;
+        const [uncontrolledValue, setUncontrolledValue] = useState(() => toStringValue(defaultValue));
+        const currentValue = isControlled ? toStringValue(value) : uncontrolledValue;
+        const showClear = clear && !disabled && currentValue !== '';
 
-    const handleChange: ChangeEventHandler<HTMLInputElement> = event => {
-        if (!isControlled) {
-            setUncontrolledValue(event.target.value);
-        }
+        const handleChange: ChangeEventHandler<HTMLInputElement> = event => {
+            if (!isControlled) {
+                setUncontrolledValue(event.target.value);
+            }
 
-        onChange?.(event);
-    };
+            onChange?.(event);
+        };
 
-    const emitEmptyChange = () => {
-        const el = inputRef.current;
-        const event = toEmptyInputChangeEvent(el);
+        const emitEmptyChange = () => {
+            const el = inputRef.current;
+            const event = toEmptyInputChangeEvent(el);
 
-        clearInputElementValue(el);
+            clearInputElementValue(el);
 
-        if (!isControlled) {
-            setUncontrolledValue('');
-        }
+            if (!isControlled) {
+                setUncontrolledValue('');
+            }
 
-        onChange?.(event);
-    };
+            onChange?.(event);
+        };
 
-    return (
-        <Group
-            className={cn(inputVariants({ size, variant, block }), className)}
-            data-test-id={dataTestId}
-            isInvalid={invalid}
-            isDisabled={disabled}
-        >
-            <RacInput
-                {...props}
-                ref={node => {
-                    inputRef.current = node;
-                    assignRef(ref, node);
-                }}
-                value={value}
-                defaultValue={defaultValue}
-                onChange={handleChange}
-                disabled={disabled}
-                aria-invalid={invalid || undefined}
-                className={styles.fieldInput}
-            />
-            {showClear ? <InputClearButton onClear={emitEmptyChange} /> : null}
-        </Group>
-    );
-};
+        return (
+            <Group
+                className={cn(inputVariants({ size, variant, block }), className)}
+                data-test-id={dataTestId}
+                isInvalid={invalid}
+                isDisabled={disabled}
+            >
+                <RacInput
+                    {...props}
+                    ref={node => {
+                        inputRef.current = node;
+                        assignRef(ref, node);
+                    }}
+                    value={value}
+                    defaultValue={defaultValue}
+                    onChange={handleChange}
+                    disabled={disabled}
+                    aria-invalid={invalid || undefined}
+                    className={styles.fieldInput}
+                />
+                {showClear ? <InputClearButton onClear={emitEmptyChange} /> : null}
+            </Group>
+        );
+    }
+);
 
 Input.displayName = 'Input';

@@ -28,6 +28,8 @@ export interface IAuiLabels {
     paginationPrev: string;
     /** Table.Pagination: next-page control label. */
     paginationNext: string;
+    /** Table.Pagination: page button accessible name (`{page}`). */
+    paginationPage: string;
     /** Table.Pagination: range template (`{from}`, `{to}`, `{total}`). */
     paginationRange: string;
     /** CascadeMenu: collapse rail control. */

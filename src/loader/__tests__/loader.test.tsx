@@ -41,7 +41,7 @@ describe('Loader', () => {
             </Loader>
         );
 
-        expect(screen.getByRole('status')).toHaveAttribute('aria-label', 'Loading');
+        expect(screen.getByRole('status')).toHaveAttribute('aria-label', 'Загрузка');
         expect(screen.getByTestId('loader')).toHaveAttribute('aria-busy', 'true');
         expect(screen.getByRole('status').querySelector(`.${styles.spinner}`)).toBeInTheDocument();
     });

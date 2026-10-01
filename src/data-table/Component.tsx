@@ -1,5 +1,7 @@
 import { Children, isValidElement, useMemo, type ReactNode } from 'react';
 
+import { supportRef } from '@ds/common/support-ref';
+
 import { Table } from '@/table';
 
 import { DataTableActions } from './components/Actions';
@@ -11,7 +13,7 @@ import { type IDataTableProps } from './types';
 
 const isFooter = (node: ReactNode) => isValidElement(node) && node.type === Table.Footer;
 
-const DataTableRoot = ({ ref, children, sort, onSortChange, size = 'md', ...props }: IDataTableProps) => {
+const DataTableRoot = supportRef(({ ref, children, sort, onSortChange, size = 'md', ...props }: IDataTableProps) => {
     const value = useMemo(() => ({ sort, onSortChange }), [sort, onSortChange]);
     const tableChildren: ReactNode[] = [];
     const footerChildren: ReactNode[] = [];
@@ -35,7 +37,7 @@ const DataTableRoot = ({ ref, children, sort, onSortChange, size = 'md', ...prop
             </Table>
         </DataTableSortContext.Provider>
     );
-};
+});
 
 DataTableRoot.displayName = 'DataTable';
 

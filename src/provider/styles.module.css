@@ -5,9 +5,9 @@
     min-height: 100%;
 }
 
-/* Beats bodyM's 1rem so this node stays the 16px rem lock. */
+/* Beats bodyM on this node. 1rem follows html, so font: inherit scales with it. */
 .root.root {
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 .root,

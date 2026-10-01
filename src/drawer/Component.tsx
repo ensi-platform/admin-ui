@@ -1,6 +1,8 @@
 import cn from 'classnames';
 import { Dialog, Modal as RacModal, ModalOverlay } from 'react-aria-components';
 
+import { supportRef } from '@ds/common/support-ref';
+
 import { useOverlayExitComplete } from '@/hooks';
 
 import { DrawerBody } from './components/Body';
@@ -27,52 +29,54 @@ const DrawerExitComplete = ({
     return null;
 };
 
-const DrawerRoot = ({
-    ref,
-    children,
-    open,
-    onOpenChange,
-    onExitComplete,
-    size = 'md',
-    variant = 'primary',
-    placement = 'right',
-    fullscreen = false,
-    dismissable = true,
-    keyboardDismissable = true,
-    className,
-    dataTestId,
-    ...props
-}: IDrawerProps) => (
-    <ModalOverlay
-        {...props}
-        isOpen={open}
-        onOpenChange={onOpenChange}
-        isDismissable={dismissable}
-        isKeyboardDismissDisabled={!keyboardDismissable}
-        className={drawerOverlayVariants({ placement })}
-    >
-        {({ isExiting }) => (
-            <>
-                <DrawerExitComplete open={open} isExiting={isExiting} onExitComplete={onExitComplete} />
-                <RacModal
-                    ref={ref}
-                    className={cn(
-                        drawerPanelVariants({
-                            size: fullscreen ? undefined : size,
-                            variant,
-                            placement,
-                            fullscreen,
-                        }),
-                        className
-                    )}
-                >
-                    <Dialog className={styles.dialog} data-test-id={dataTestId}>
-                        {children}
-                    </Dialog>
-                </RacModal>
-            </>
-        )}
-    </ModalOverlay>
+const DrawerRoot = supportRef(
+    ({
+        ref,
+        children,
+        open,
+        onOpenChange,
+        onExitComplete,
+        size = 'md',
+        variant = 'primary',
+        placement = 'right',
+        fullscreen = false,
+        dismissable = true,
+        keyboardDismissable = true,
+        className,
+        dataTestId,
+        ...props
+    }: IDrawerProps) => (
+        <ModalOverlay
+            {...props}
+            isOpen={open}
+            onOpenChange={onOpenChange}
+            isDismissable={dismissable}
+            isKeyboardDismissDisabled={!keyboardDismissable}
+            className={drawerOverlayVariants({ placement })}
+        >
+            {({ isExiting }) => (
+                <>
+                    <DrawerExitComplete open={open} isExiting={isExiting} onExitComplete={onExitComplete} />
+                    <RacModal
+                        ref={ref}
+                        className={cn(
+                            drawerPanelVariants({
+                                size: fullscreen ? undefined : size,
+                                variant,
+                                placement,
+                                fullscreen,
+                            }),
+                            className
+                        )}
+                    >
+                        <Dialog className={styles.dialog} data-test-id={dataTestId}>
+                            {children}
+                        </Dialog>
+                    </RacModal>
+                </>
+            )}
+        </ModalOverlay>
+    )
 );
 
 DrawerRoot.displayName = 'Drawer';

@@ -1,5 +1,7 @@
 import { type ComponentProps } from 'react';
 
+import { supportRef } from '@ds/common/support-ref';
+
 import { Field, useField, type IFieldContextValue } from '@/field';
 import { useFieldHook } from '@/form/hooks/useFieldHook';
 import { getError } from '@/form/utils';
@@ -9,7 +11,7 @@ import { type IFormCheckboxProps } from './types';
 
 type TFormCheckboxControlProps = Omit<ComponentProps<typeof Checkbox>, keyof IFieldContextValue>;
 
-const FormCheckboxControl = (props: TFormCheckboxControlProps) => {
+const FormCheckboxControl = supportRef((props: TFormCheckboxControlProps) => {
     const { controlProps, size, invalid, disabled } = useField();
     const { id, 'aria-describedby': ariaDescribedby, 'aria-invalid': ariaInvalid } = controlProps;
 
@@ -24,7 +26,7 @@ const FormCheckboxControl = (props: TFormCheckboxControlProps) => {
             {...props}
         />
     );
-};
+});
 
 export const FormCheckbox = ({
     name,

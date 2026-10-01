@@ -22,4 +22,4 @@ import { ArrangementSettings } from '@ensi-platform/admin-ui/arrangement-setting
 | `onSave`       | `(value: string[]) => void`       | —       | commit the draft                            |
 | `dataTestId`   | `string`                          | —       | `data-test-id`                              |
 
-The draft is copied when the drawer opens. Drag the whole row, including its side plate, and only that row moves: the checkbox shows the item and is not part of the drag. An insertion line appears between rows, and an elevated copy of the row follows the pointer. A hidden item stays in the list. Save commits only checked ids, in list order.
+The draft is copied when the drawer opens. A single click on the row toggles the checkbox. Drag the whole row, including its side plate, and only that row moves: the checkbox shows the item and is not part of the drag. An insertion line appears between rows, and an elevated copy of the row follows the pointer. A hidden item stays in the list. Save commits only checked ids, in list order.

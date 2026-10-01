@@ -1,5 +1,7 @@
 import cn from 'classnames';
 
+import { supportRef } from '@ds/common/support-ref';
+
 import { avatarVariants } from './theme';
 import { type IAvatarProps } from './types';
 
@@ -19,34 +21,36 @@ const getInitials = (name?: string): string => {
     return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
 };
 
-export const Avatar = ({
-    ref,
-    size = 'md',
-    variant = 'primary',
-    src,
-    name,
-    initials,
-    children,
-    className,
-    dataTestId,
-    ...props
-}: IAvatarProps) => {
-    const label = name ?? initials ?? undefined;
-    const text = initials ?? getInitials(name);
+export const Avatar = supportRef(
+    ({
+        ref,
+        size = 'md',
+        variant = 'primary',
+        src,
+        name,
+        initials,
+        children,
+        className,
+        dataTestId,
+        ...props
+    }: IAvatarProps) => {
+        const label = name ?? initials ?? undefined;
+        const text = initials ?? getInitials(name);
 
-    return (
-        <span
-            {...props}
-            ref={ref}
-            className={cn(avatarVariants({ size, variant }), className)}
-            data-test-id={dataTestId}
-            role={src || children ? undefined : 'img'}
-            aria-label={src || children ? undefined : label}
-            aria-hidden={src || children || label ? undefined : true}
-        >
-            {children || (src ? <img className={styles.image} src={src} alt={name ?? ''} /> : text)}
-        </span>
-    );
-};
+        return (
+            <span
+                {...props}
+                ref={ref}
+                className={cn(avatarVariants({ size, variant }), className)}
+                data-test-id={dataTestId}
+                role={src || children ? undefined : 'img'}
+                aria-label={src || children ? undefined : label}
+                aria-hidden={src || children || label ? undefined : true}
+            >
+                {children || (src ? <img className={styles.image} src={src} alt={name ?? ''} /> : text)}
+            </span>
+        );
+    }
+);
 
 Avatar.displayName = 'Avatar';

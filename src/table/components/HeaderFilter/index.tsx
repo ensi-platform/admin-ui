@@ -59,7 +59,7 @@ export const HeaderFilter = ({
                 placement="bottom start"
                 shouldCloseOnInteractOutside={closeUnlessNested}
             >
-                <div className={styles.filterSlot}>{filter}</div>
+                {filter}
                 {sortable ? (
                     <>
                         <div className={styles.divider} />

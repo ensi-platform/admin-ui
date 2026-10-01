@@ -1,5 +1,7 @@
 import { type ComponentProps } from 'react';
 
+import { supportRef } from '@ds/common/support-ref';
+
 import { Field, useField } from '@/field';
 import { useFieldHook } from '@/form/hooks/useFieldHook';
 import { getError } from '@/form/utils';
@@ -9,11 +11,11 @@ import { type IFormCheckboxGroupProps } from './types';
 
 type TFormCheckboxGroupControlProps = Omit<ComponentProps<typeof CheckboxGroup>, 'size' | 'invalid' | 'disabled'>;
 
-const FormCheckboxGroupControl = (props: TFormCheckboxGroupControlProps) => {
+const FormCheckboxGroupControl = supportRef((props: TFormCheckboxGroupControlProps) => {
     const { controlProps, size, invalid, disabled } = useField();
 
     return <CheckboxGroup {...controlProps} size={size} invalid={invalid} disabled={disabled} {...props} />;
-};
+});
 
 export const FormCheckboxGroup = ({
     name,

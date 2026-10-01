@@ -13,7 +13,7 @@
 - [architecture.md](./architecture.md) — стек, токены, Form, exports
 - [ai.md](./ai.md) — канал для АП / skills
 - [design-language.md](./design-language.md) — визуальный канон (слои, CascadeMenu WIP, list/detail); **v3** = content only, сайдбар на скринах не канон
-- [skills/](./skills/) — skill `admin-ui` (публикуется с пакетом)
+- [skills/](./skills/) — skill `admin-ui` (публикуется с пакетом; автосинк в `.cursor/skills`, `.claude/skills` и маркер-блок в `AGENTS.md` через postinstall, см. [ai.md](./ai.md))
 - [concepts/](./concepts/) — скриншоты-референсы интерфейса АП (индекс: [concepts/README.md](./concepts/README.md))
 
 ## Storybook

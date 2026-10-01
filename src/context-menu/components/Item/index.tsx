@@ -1,5 +1,6 @@
 import cn from 'classnames';
 
+import { supportRef } from '@ds/common/support-ref';
 import { typographyStyles } from '@ds/typography';
 
 import { useContextMenu } from '../../context';
@@ -15,35 +16,37 @@ const itemTypography = {
     lg: typographyStyles.bodyM,
 } as const;
 
-export const ContextMenuItem = ({
-    ref,
-    children,
-    icon: Icon,
-    disabled = false,
-    variant = 'primary',
-    className,
-    dataTestId,
-    onClick,
-    ...props
-}: IContextMenuItemProps) => {
-    const { size } = useContextMenu();
+export const ContextMenuItem = supportRef(
+    ({
+        ref,
+        children,
+        icon: Icon,
+        disabled = false,
+        variant = 'primary',
+        className,
+        dataTestId,
+        onClick,
+        ...props
+    }: IContextMenuItemProps) => {
+        const { size } = useContextMenu();
 
-    return (
-        <button
-            {...props}
-            ref={ref}
-            type="button"
-            role="menuitem"
-            disabled={disabled}
-            className={cn(contextMenuItemVariants({ size, variant }), itemTypography[size], className)}
-            data-variant={variant}
-            data-test-id={dataTestId}
-            onClick={onClick}
-        >
-            {Icon ? <Icon className={styles.icon} aria-hidden focusable={false} /> : null}
-            {children}
-        </button>
-    );
-};
+        return (
+            <button
+                {...props}
+                ref={ref}
+                type="button"
+                role="menuitem"
+                disabled={disabled}
+                className={cn(contextMenuItemVariants({ size, variant }), itemTypography[size], className)}
+                data-variant={variant}
+                data-test-id={dataTestId}
+                onClick={onClick}
+            >
+                {Icon ? <Icon className={styles.icon} aria-hidden focusable={false} /> : null}
+                {children}
+            </button>
+        );
+    }
+);
 
 ContextMenuItem.displayName = 'ContextMenu.Item';

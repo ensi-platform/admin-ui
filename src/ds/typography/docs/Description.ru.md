@@ -1,4 +1,4 @@
-Классы ролей текста. Family: **Inter** через `--aui-font-sans` (подключается с токенами). Root `AdminUiProvider` фиксирует `font-size: 16px` (база rem).
+Классы ролей текста. Family: **Inter** через `--aui-font-sans` (подключается с токенами). База rem — `font-size` у `html`. Root `AdminUiProvider` задаёт `font-size: 1rem`.
 
 ```tsx
 import { typographyStyles } from '@ensi-platform/admin-ui/typography';

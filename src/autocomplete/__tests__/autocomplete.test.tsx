@@ -110,7 +110,7 @@ describe('Autocomplete', () => {
         await user.click(input);
         await user.type(input, 'М');
 
-        expect(await screen.findByRole('option', { name: 'Loading suggestions' })).toBeInTheDocument();
+        expect(await screen.findByRole('option', { name: 'Загрузка подсказок' })).toBeInTheDocument();
     });
 
     it('keeps a load-more sentinel without the page loader', async () => {
@@ -136,7 +136,7 @@ describe('Autocomplete', () => {
         await user.type(input, 'М');
 
         expect(await screen.findByRole('option', { name: 'Москва' })).toBeInTheDocument();
-        expect(screen.queryByRole('option', { name: 'Loading suggestions' })).not.toBeInTheDocument();
+        expect(screen.queryByRole('option', { name: 'Загрузка подсказок' })).not.toBeInTheDocument();
     });
 
     it('shows an error status when suggest fails', async () => {
@@ -150,7 +150,7 @@ describe('Autocomplete', () => {
 
         await user.click(screen.getByRole('button', { name: /предложени|Show suggestions|suggestions/i }));
 
-        expect(await screen.findByRole('status')).toHaveTextContent('Failed to load suggestions');
+        expect(await screen.findByRole('status')).toHaveTextContent('Не удалось загрузить подсказки');
     });
 
     it('clears value when clear is clicked', async () => {
@@ -181,7 +181,7 @@ describe('Autocomplete', () => {
 
         await user.click(screen.getByRole('button', { name: /предложени|Show suggestions|suggestions/i }));
 
-        expect(await screen.findByRole('status')).toHaveAttribute('aria-label', 'Loading suggestions');
+        expect(await screen.findByRole('status')).toHaveAttribute('aria-label', 'Загрузка подсказок');
     });
 
     it('does not open when disabled', async () => {

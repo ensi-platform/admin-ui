@@ -3,7 +3,5 @@
 }
 
 .sticky {
-    position: sticky;
-    top: 0;
-    z-index: var(--aui-table-z-sticky);
+    background: var(--aui-table-bg-header);
 }

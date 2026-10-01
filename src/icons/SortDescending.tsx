@@ -1,7 +1,9 @@
 import { type SVGProps } from 'react';
 
+import { supportRef } from '@ds/common/support-ref';
+
 /** Sort descending: long bar on top, short bar at the bottom. */
-export const SortDescending = ({ title, ...props }: SVGProps<SVGSVGElement> & { title?: string }) => (
+export const SortDescending = supportRef(({ title, ...props }: SVGProps<SVGSVGElement> & { title?: string }) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 256 256"
@@ -14,6 +16,6 @@ export const SortDescending = ({ title, ...props }: SVGProps<SVGSVGElement> & { 
         <rect x="40" y="116" width="120" height="24" rx="8" fill="currentColor" />
         <rect x="40" y="184" width="64" height="24" rx="8" fill="currentColor" />
     </svg>
-);
+));
 
 SortDescending.displayName = 'SortDescending';

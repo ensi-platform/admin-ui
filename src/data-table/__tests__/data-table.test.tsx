@@ -228,7 +228,7 @@ describe('DataTable', () => {
         expect(table).not.toContainElement(screen.getByTestId('footer'));
         expect(screen.queryByRole('menuitem', { name: 'Open' })).not.toBeInTheDocument();
 
-        await user.click(screen.getByRole('button', { name: 'More actions' }));
+        await user.click(screen.getByRole('button', { name: 'Ещё действия' }));
 
         const remove = screen.getByRole('menuitem', { name: 'Delete' });
         expect(remove).toBeDisabled();

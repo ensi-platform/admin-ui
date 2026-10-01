@@ -3,7 +3,7 @@ import { type ComponentPropsWithRef } from 'react';
 import { withThemeByDataAttribute } from '@storybook/addon-themes';
 
 import { ModalHub, ModalProvider } from '../src/modal-hub';
-import { AdminUiProvider, type IAuiLabels } from '../src/provider';
+import { AdminUiProvider } from '../src/provider';
 
 import { DocsContainer } from './DocsContainer';
 import { DocsPage } from './DocsPage';
@@ -11,41 +11,6 @@ import { DocsPage } from './DocsPage';
 import type { Decorator, Preview } from '@storybook/react';
 
 import '../src/ds/tokens/index.css';
-
-const RU_LABELS: IAuiLabels = {
-    close: 'Закрыть',
-    clear: 'Очистить',
-    confirm: 'Подтвердить',
-    cancel: 'Отмена',
-    delete: 'Удалить',
-    notDelete: 'Не удалять',
-    loading: 'Загрузка',
-    loadingSuggestions: 'Загрузка подсказок',
-    noSuggestions: 'Ничего не найдено',
-    suggestionsError: 'Не удалось загрузить подсказки',
-    moreSelected: 'ещё выбрано',
-    openCalendar: 'Открыть календарь',
-    pageSize: 'Строк на странице',
-    paginationPrev: 'Назад',
-    paginationNext: 'Далее',
-    paginationRange: '{from}–{to} из {total}',
-    collapseSidebar: 'Свернуть меню',
-    expandSidebar: 'Развернуть меню',
-    resizeSidebar: 'Изменить ширину меню',
-    pinMenuItem: 'Закрепить',
-    unpinMenuItem: 'Открепить',
-    pinnedSection: 'Закреплённые',
-    pinnedSectionHint: 'ПКМ по пункту меню, чтобы закрепить',
-    searchMenu: 'Поиск по меню',
-    searchMenuEmpty: 'Ничего не найдено',
-    openInNewTab: 'Открыть в новой вкладке',
-    sortAscending: 'По возрастанию',
-    sortDescending: 'По убыванию',
-    save: 'Сохранить',
-    arrangementList: 'Элементы',
-    moreActions: 'Ещё действия',
-    clearFilters: 'Очистить',
-};
 
 /** Keeps story links inside the preview iframe (`<base target="_parent">`). */
 const StorybookLink = ({ href, onClick, children, ...props }: ComponentPropsWithRef<'a'>) => (
@@ -78,11 +43,7 @@ const withProvider: Decorator = (Story, context) => {
     const locale = (context.globals.locale as string) || 'ru-RU';
 
     return (
-        <AdminUiProvider
-            locale={locale}
-            labels={locale.startsWith('ru') ? RU_LABELS : undefined}
-            linkComponent={StorybookLink}
-        >
+        <AdminUiProvider locale={locale} linkComponent={StorybookLink}>
             <ModalProvider>
                 <Story />
                 <ModalHub />

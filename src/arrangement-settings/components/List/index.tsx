@@ -28,9 +28,18 @@ const Row = ({
     onVisibleChange: (next: string[]) => void;
 }) => {
     const visible = useContext(VisibleContext);
+    const toggle = () => {
+        onVisibleChange(toggleItemVisibility(visible, item.id, !visible.includes(item.id)));
+    };
 
     return (
-        <GridListItem id={item.id} textValue={item.label} className={styles.item} data-arrangement-id={item.id}>
+        <GridListItem
+            id={item.id}
+            textValue={item.label}
+            className={styles.item}
+            data-arrangement-id={item.id}
+            onAction={toggle}
+        >
             <div className={styles.check} onPointerDown={stopRowPress}>
                 <Checkbox
                     aria-label={item.label}

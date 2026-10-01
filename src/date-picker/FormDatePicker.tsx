@@ -2,6 +2,8 @@ import { type Ref } from 'react';
 
 import { type DateValue } from '@internationalized/date';
 
+import { supportRef } from '@ds/common/support-ref';
+
 import { Field, useField } from '@/field';
 import { useFieldHook } from '@/form/hooks/useFieldHook';
 import { getError } from '@/form/utils';
@@ -15,7 +17,7 @@ type TFormDatePickerControlProps = Omit<IDatePickerProps, 'size' | 'invalid' | '
     ref?: Ref<HTMLDivElement>;
 };
 
-const FormDatePickerControl = ({ ref, value, onChange, onBlur, ...props }: TFormDatePickerControlProps) => {
+const FormDatePickerControl = supportRef(({ ref, value, onChange, onBlur, ...props }: TFormDatePickerControlProps) => {
     const { controlProps, size, invalid, disabled } = useField();
 
     return (
@@ -31,7 +33,7 @@ const FormDatePickerControl = ({ ref, value, onChange, onBlur, ...props }: TForm
             onBlur={onBlur}
         />
     );
-};
+});
 
 FormDatePickerControl.displayName = 'FormDatePickerControl';
 

@@ -186,6 +186,23 @@
     --aui-switch-duration-fast: var(--aui-control-duration-fast);
     --aui-switch-ease-out: var(--aui-control-ease-out);
 
+    /* slider */
+    --aui-slider-track-bg-primary: var(--aui-surface-bg-muted);
+    --aui-slider-track-bg-selected: var(--aui-control-bg-brand);
+    --aui-slider-thumb-bg-primary: var(--aui-control-bg-brand);
+    --aui-slider-fg-primary: var(--aui-page-fg-primary);
+    --aui-slider-fg-muted: var(--aui-page-fg-muted);
+    --aui-slider-tick-fg: var(--aui-page-fg-muted);
+    --aui-slider-border-focus: var(--aui-control-border-focus);
+    --aui-slider-border-danger: var(--aui-control-border-danger);
+    --aui-slider-gap-md: var(--aui-spacing-8);
+    --aui-slider-track-h: var(--aui-spacing-4);
+    --aui-slider-tick-h: var(--aui-spacing-12);
+    --aui-slider-thumb-sm: var(--aui-spacing-12);
+    --aui-slider-thumb-md: var(--aui-spacing-16);
+    --aui-slider-thumb-lg: var(--aui-spacing-20);
+    --aui-slider-radius-md: 999px;
+
     /* number-input — group chrome (aliases input) */
     --aui-number-input-bg-primary: var(--aui-input-bg-primary);
     --aui-number-input-fg-primary: var(--aui-input-fg-primary);
@@ -701,9 +718,9 @@
     --aui-avatar-size-sm: var(--aui-spacing-24);
     --aui-avatar-size-md: var(--aui-spacing-32);
     --aui-avatar-size-lg: var(--aui-spacing-40);
-    --aui-avatar-font-sm: 10px;
-    --aui-avatar-font-md: 12px;
-    --aui-avatar-font-lg: 14px;
+    --aui-avatar-font-sm: 0.625rem;
+    --aui-avatar-font-md: 0.75rem;
+    --aui-avatar-font-lg: 0.875rem;
     --aui-avatar-font-weight: var(--aui-font-weight-medium);
 
     /* menu-list — flat groups / items */

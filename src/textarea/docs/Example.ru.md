@@ -16,6 +16,6 @@ const CommentControl = () => {
 
 <Form initialValues={{ comment: '' }} validationSchema={schema} onSubmit={save}>
   <FormTextArea name="comment" label="Комментарий" hint="…" clear />
-  <Button type="submit">Save</Button>
+  <Button type="submit">Сохранить</Button>
 </Form>
 ```

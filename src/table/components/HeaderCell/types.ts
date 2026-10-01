@@ -17,6 +17,8 @@ export interface ITableHeaderCellOwnProps extends IDataTestIdProps, ITableCellCh
     filter?: ReactNode;
     /** Marks the filter icon when a value is applied. */
     filterActive?: boolean;
+    /** Stick while the table shell scrolls. Defaults to `Table.Header` `sticky`. */
+    sticky?: boolean;
 }
 
 export interface ITableHeaderCellProps

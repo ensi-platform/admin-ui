@@ -41,7 +41,14 @@ describe('MonthYearSelect', () => {
 
         try {
             renderSelect(
-                <MonthYearSelect type="year" value={2024} minValue={2020} maxValue={2030} onChange={noopChange} />
+                <MonthYearSelect
+                    type="year"
+                    value={2024}
+                    minValue={2020}
+                    maxValue={2030}
+                    onChange={noopChange}
+                    aria-label="Year"
+                />
             );
 
             await user.click(screen.getByTestId('calendar-year-select-trigger'));
@@ -60,7 +67,9 @@ describe('MonthYearSelect', () => {
 
     it('ignores null selection keys', () => {
         const onChange = vi.fn();
-        renderSelect(<MonthYearSelect type="month" value={6} minValue={1} maxValue={12} onChange={onChange} />);
+        renderSelect(
+            <MonthYearSelect type="month" value={6} minValue={1} maxValue={12} onChange={onChange} aria-label="Month" />
+        );
 
         expect(selectionHandlers.length).toBeGreaterThan(0);
         act(() => {
@@ -70,20 +79,38 @@ describe('MonthYearSelect', () => {
     });
 
     it('uses numeric display when month value is out of labels', () => {
-        renderSelect(<MonthYearSelect type="month" value={13} minValue={1} maxValue={12} onChange={noopChange} />);
+        renderSelect(
+            <MonthYearSelect
+                type="month"
+                value={13}
+                minValue={1}
+                maxValue={12}
+                onChange={noopChange}
+                aria-label="Month"
+            />
+        );
         expect(screen.getByTestId('calendar-month-select-trigger')).toHaveTextContent('13');
     });
 
     it('keeps selectedKey null when value is outside items range', () => {
         renderSelect(
-            <MonthYearSelect type="year" value={2024} minValue={2025} maxValue={2030} onChange={noopChange} />
+            <MonthYearSelect
+                type="year"
+                value={2024}
+                minValue={2025}
+                maxValue={2030}
+                onChange={noopChange}
+                aria-label="Year"
+            />
         );
         expect(screen.getByTestId('calendar-year-select-trigger')).toHaveTextContent('2024');
     });
 
     it('ignores same value and non-numeric selection keys', () => {
         const onChange = vi.fn();
-        renderSelect(<MonthYearSelect type="month" value={6} minValue={1} maxValue={12} onChange={onChange} />);
+        renderSelect(
+            <MonthYearSelect type="month" value={6} minValue={1} maxValue={12} onChange={onChange} aria-label="Month" />
+        );
 
         act(() => {
             selectionHandlers.at(-1)?.('6');

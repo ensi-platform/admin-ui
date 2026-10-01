@@ -2,6 +2,8 @@ import { useMemo } from 'react';
 
 import cn from 'classnames';
 
+import { supportRef } from '@ds/common/support-ref';
+
 import { TableActionBar } from './components/ActionBar';
 import { TableBody } from './components/Body';
 import { TableCell } from './components/Cell';
@@ -20,35 +22,37 @@ import { TableContext } from './context';
 import { tableShellVariants } from './theme';
 import { type ITableProps } from './types';
 
-const TableRoot = ({
-    ref,
-    children,
-    size = 'md',
-    block = true,
-    hasChecked = false,
-    zebra = false,
-    className,
-    dataTestId,
-    ...props
-}: ITableProps) => {
-    const value = useMemo(() => ({ size, hasChecked }), [size, hasChecked]);
+const TableRoot = supportRef(
+    ({
+        ref,
+        children,
+        size = 'md',
+        block = true,
+        hasChecked = false,
+        zebra = false,
+        className,
+        dataTestId,
+        ...props
+    }: ITableProps) => {
+        const value = useMemo(() => ({ size, hasChecked }), [size, hasChecked]);
 
-    return (
-        <TableContext.Provider value={value}>
-            <div
-                {...props}
-                ref={ref}
-                className={cn(tableShellVariants({ size, block, hasChecked, zebra }), className)}
-                data-size={size}
-                data-has-checked={hasChecked || undefined}
-                data-zebra={zebra || undefined}
-                data-test-id={dataTestId}
-            >
-                {children}
-            </div>
-        </TableContext.Provider>
-    );
-};
+        return (
+            <TableContext.Provider value={value}>
+                <div
+                    {...props}
+                    ref={ref}
+                    className={cn(tableShellVariants({ size, block, hasChecked, zebra }), className)}
+                    data-size={size}
+                    data-has-checked={hasChecked || undefined}
+                    data-zebra={zebra || undefined}
+                    data-test-id={dataTestId}
+                >
+                    {children}
+                </div>
+            </TableContext.Provider>
+        );
+    }
+);
 
 TableRoot.displayName = 'Table';
 

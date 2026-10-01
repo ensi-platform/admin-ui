@@ -33,6 +33,16 @@ const DirectionProbe = () => {
 };
 
 describe('AdminUiProvider', () => {
+    it('uses Russian built-in labels', () => {
+        render(
+            <AdminUiProvider>
+                <LabelsProbe />
+            </AdminUiProvider>
+        );
+
+        expect(screen.getByTestId('labels')).toHaveTextContent('Очистить');
+    });
+
     it('exposes labels, locale and direction', () => {
         render(
             <AdminUiProvider locale="en-US" direction="rtl" labels={{ clear: 'Clear' }}>

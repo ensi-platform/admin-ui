@@ -12,7 +12,16 @@ const sourcePackage = {
     description: 'Admin UI',
     type: 'module',
     sideEffects: ['**/*.css', './dist/tokens/index.js'],
-    files: ['dist', 'docs/ai.md', 'src/*/docs/Description.*.md', 'src/*/types.ts'],
+    files: [
+        'dist',
+        'docs/ai.md',
+        'scripts/consumer-root.ts',
+        'scripts/sync-skill-consumer.ts',
+        'scripts/sync-agents-consumer.ts',
+        'scripts/sync-consumer.ts',
+        'src/*/docs/Description.*.md',
+        'src/*/types.ts',
+    ],
     keywords: ['ensi'],
     license: 'SEE LICENSE IN LICENSE',
     homepage: 'https://ensi.tech',
@@ -55,7 +64,9 @@ describe('buildPublishManifest', () => {
             },
         });
         expect(manifest).not.toHaveProperty('engines');
-        expect(manifest).not.toHaveProperty('scripts');
+        expect(manifest.scripts).toEqual({
+            postinstall: 'node --experimental-strip-types scripts/sync-consumer.ts || exit 0',
+        });
         expect(manifest).not.toHaveProperty('devDependencies');
         expect(manifest).not.toHaveProperty('packageManager');
         expect(manifest).not.toHaveProperty('private');
@@ -71,6 +82,7 @@ describe('writePublishPackage', () => {
         mkdirSync(join(packageRoot, 'dist/button'), { recursive: true });
         mkdirSync(join(packageRoot, 'dist/tokens'), { recursive: true });
         mkdirSync(join(packageRoot, 'docs'), { recursive: true });
+        mkdirSync(join(packageRoot, 'scripts'), { recursive: true });
 
         writeFileSync(join(packageRoot, 'package.json'), `${JSON.stringify(sourcePackage, null, 4)}\n`);
         writeFileSync(join(packageRoot, 'src/button/index.ts'), 'export const Button = {};\n');
@@ -78,6 +90,10 @@ describe('writePublishPackage', () => {
         writeFileSync(join(packageRoot, 'src/button/docs/Description.en.md'), '# Button\n');
         writeFileSync(join(packageRoot, 'src/secret.ts'), 'export const secret = true;\n');
         writeFileSync(join(packageRoot, 'docs/ai.md'), '# AI\n');
+        writeFileSync(join(packageRoot, 'scripts/consumer-root.ts'), 'export const noop = true;\n');
+        writeFileSync(join(packageRoot, 'scripts/sync-skill-consumer.ts'), 'export const noop = true;\n');
+        writeFileSync(join(packageRoot, 'scripts/sync-agents-consumer.ts'), 'export const noop = true;\n');
+        writeFileSync(join(packageRoot, 'scripts/sync-consumer.ts'), 'export const noop = true;\n');
         writeFileSync(join(packageRoot, 'docs/notes.md'), '# Notes\n');
         writeFileSync(join(packageRoot, 'dist/button/index.js'), 'export const Button = {};\n');
         writeFileSync(join(packageRoot, 'dist/tokens/OFL.txt'), 'OFL\n');
@@ -98,6 +114,10 @@ describe('writePublishPackage', () => {
         });
         expect(manifest.engines).toBeUndefined();
         expect(readFileSync(join(publishRoot, 'docs/ai.md'), 'utf8')).toBe('# AI\n');
+        expect(readFileSync(join(publishRoot, 'scripts/consumer-root.ts'), 'utf8')).toContain('noop');
+        expect(readFileSync(join(publishRoot, 'scripts/sync-skill-consumer.ts'), 'utf8')).toContain('noop');
+        expect(readFileSync(join(publishRoot, 'scripts/sync-agents-consumer.ts'), 'utf8')).toContain('noop');
+        expect(readFileSync(join(publishRoot, 'scripts/sync-consumer.ts'), 'utf8')).toContain('noop');
         expect(readFileSync(join(publishRoot, 'src/button/types.ts'), 'utf8')).toContain('TButton');
         expect(readFileSync(join(publishRoot, 'src/button/docs/Description.en.md'), 'utf8')).toBe('# Button\n');
         expect(readFileSync(join(publishRoot, 'dist/tokens/OFL.txt'), 'utf8')).toBe('OFL\n');

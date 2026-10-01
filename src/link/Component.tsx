@@ -2,29 +2,25 @@ import { type ElementType } from 'react';
 
 import cn from 'classnames';
 
+import { supportRef } from '@ds/common/support-ref';
 import { typographyStyles } from '@ds/typography';
 
 import { linkVariants } from './theme';
 import { type TLinkProps } from './types';
 
-export const Link = <P extends ElementType = 'a'>({
-    as,
-    children,
-    className,
-    dataTestId,
-    typography,
-    ...props
-}: TLinkProps<P>) => {
-    const Component = as ?? 'a';
+export const Link = supportRef(
+    <P extends ElementType = 'a'>({ as, children, className, dataTestId, typography, ...props }: TLinkProps<P>) => {
+        const Component = as ?? 'a';
 
-    return (
-        <Component
-            {...(Component === 'a' ? { target: '_self' } : {})}
-            className={cn(linkVariants({ variant: 'primary' }), typographyStyles[typography ?? 'bodyS'], className)}
-            data-test-id={dataTestId}
-            {...props}
-        >
-            {children}
-        </Component>
-    );
-};
+        return (
+            <Component
+                {...(Component === 'a' ? { target: '_self' } : {})}
+                className={cn(linkVariants({ variant: 'primary' }), typographyStyles[typography ?? 'bodyS'], className)}
+                data-test-id={dataTestId}
+                {...props}
+            >
+                {children}
+            </Component>
+        );
+    }
+);

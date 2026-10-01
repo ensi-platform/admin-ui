@@ -13,7 +13,7 @@ describe('ComboboxListStatus', () => {
             </AdminUiProvider>
         );
 
-        expect(screen.getByRole('status')).toHaveAttribute('aria-label', 'Loading suggestions');
+        expect(screen.getByRole('status')).toHaveAttribute('aria-label', 'Загрузка подсказок');
     });
 
     it('renders error message', () => {
@@ -23,7 +23,7 @@ describe('ComboboxListStatus', () => {
             </AdminUiProvider>
         );
 
-        expect(screen.getByRole('status')).toHaveTextContent('Failed to load suggestions');
+        expect(screen.getByRole('status')).toHaveTextContent('Не удалось загрузить подсказки');
     });
 
     it('renders empty message', () => {
@@ -33,7 +33,7 @@ describe('ComboboxListStatus', () => {
             </AdminUiProvider>
         );
 
-        expect(screen.getByRole('status')).toHaveTextContent('No suggestions');
+        expect(screen.getByRole('status')).toHaveTextContent('Ничего не найдено');
     });
 
     it('returns null when idle', () => {

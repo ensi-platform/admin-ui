@@ -1,5 +1,7 @@
 import { type Ref } from 'react';
 
+import { supportRef } from '@ds/common/support-ref';
+
 import { Field, useField } from '@/field';
 import { useFieldHook } from '@/form/hooks/useFieldHook';
 import { getError } from '@/form/utils';
@@ -15,23 +17,25 @@ type TFormNumberRangeControlProps = Omit<INumberRangeProps, 'size' | 'invalid' |
     ref?: Ref<HTMLDivElement>;
 };
 
-const FormNumberRangeControl = ({ ref, value, onChange, onBlur, ...props }: TFormNumberRangeControlProps) => {
-    const { controlProps, size, invalid, disabled } = useField();
+const FormNumberRangeControl = supportRef(
+    ({ ref, value, onChange, onBlur, ...props }: TFormNumberRangeControlProps) => {
+        const { controlProps, size, invalid, disabled } = useField();
 
-    return (
-        <NumberRange
-            {...controlProps}
-            {...props}
-            ref={ref}
-            size={size}
-            invalid={invalid}
-            disabled={disabled}
-            value={value}
-            onChange={onChange}
-            onBlur={onBlur}
-        />
-    );
-};
+        return (
+            <NumberRange
+                {...controlProps}
+                {...props}
+                ref={ref}
+                size={size}
+                invalid={invalid}
+                disabled={disabled}
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+            />
+        );
+    }
+);
 
 FormNumberRangeControl.displayName = 'FormNumberRangeControl';
 

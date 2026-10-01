@@ -1,6 +1,8 @@
 import cn from 'classnames';
 import { Dialog, Modal as RacModal, ModalOverlay } from 'react-aria-components';
 
+import { supportRef } from '@ds/common/support-ref';
+
 import { useOverlayExitComplete } from '@/hooks';
 
 import { ModalBody } from './components/Body';
@@ -27,50 +29,52 @@ const ModalExitComplete = ({
     return null;
 };
 
-const ModalRoot = ({
-    ref,
-    children,
-    open,
-    onOpenChange,
-    onExitComplete,
-    size = 'md',
-    variant = 'primary',
-    fullscreen = false,
-    dismissable = true,
-    keyboardDismissable = true,
-    className,
-    dataTestId,
-    ...props
-}: IModalProps) => (
-    <ModalOverlay
-        {...props}
-        isOpen={open}
-        onOpenChange={onOpenChange}
-        isDismissable={dismissable}
-        isKeyboardDismissDisabled={!keyboardDismissable}
-        className={modalOverlayVariants()}
-    >
-        {({ isExiting }) => (
-            <>
-                <ModalExitComplete open={open} isExiting={isExiting} onExitComplete={onExitComplete} />
-                <RacModal
-                    ref={ref}
-                    className={cn(
-                        modalPanelVariants({
-                            size: fullscreen ? undefined : size,
-                            variant,
-                            fullscreen,
-                        }),
-                        className
-                    )}
-                >
-                    <Dialog className={styles.dialog} data-test-id={dataTestId}>
-                        {children}
-                    </Dialog>
-                </RacModal>
-            </>
-        )}
-    </ModalOverlay>
+const ModalRoot = supportRef(
+    ({
+        ref,
+        children,
+        open,
+        onOpenChange,
+        onExitComplete,
+        size = 'md',
+        variant = 'primary',
+        fullscreen = false,
+        dismissable = true,
+        keyboardDismissable = true,
+        className,
+        dataTestId,
+        ...props
+    }: IModalProps) => (
+        <ModalOverlay
+            {...props}
+            isOpen={open}
+            onOpenChange={onOpenChange}
+            isDismissable={dismissable}
+            isKeyboardDismissDisabled={!keyboardDismissable}
+            className={modalOverlayVariants()}
+        >
+            {({ isExiting }) => (
+                <>
+                    <ModalExitComplete open={open} isExiting={isExiting} onExitComplete={onExitComplete} />
+                    <RacModal
+                        ref={ref}
+                        className={cn(
+                            modalPanelVariants({
+                                size: fullscreen ? undefined : size,
+                                variant,
+                                fullscreen,
+                            }),
+                            className
+                        )}
+                    >
+                        <Dialog className={styles.dialog} data-test-id={dataTestId}>
+                            {children}
+                        </Dialog>
+                    </RacModal>
+                </>
+            )}
+        </ModalOverlay>
+    )
 );
 
 ModalRoot.displayName = 'Modal';

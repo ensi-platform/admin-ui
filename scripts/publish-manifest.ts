@@ -34,6 +34,11 @@ export const buildPublishManifest = (source: object, packages: IPublicPackage[])
     });
 
     manifest.exports = buildExports(packages);
+    // Mirrors the skill into `.cursor` / `.claude` and upserts an AGENTS.md block;
+    // never fails the install (see scripts/sync-consumer.ts).
+    manifest.scripts = {
+        postinstall: 'node --experimental-strip-types scripts/sync-consumer.ts || exit 0',
+    };
 
     return manifest;
 };

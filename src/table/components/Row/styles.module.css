@@ -1,4 +1,5 @@
 .root {
+    position: relative;
     transition:
         background-color var(--aui-table-duration-fast) var(--aui-table-ease-out),
         box-shadow var(--aui-table-duration-fast) var(--aui-table-ease-out);
@@ -10,7 +11,8 @@
     }
 }
 
-.root[data-clickable] {
+.root[data-clickable],
+:global(tbody) .root:has(input[type='checkbox']) {
     cursor: pointer;
 }
 
@@ -42,7 +44,5 @@
 }
 
 .root:focus-visible {
-    outline: 2px solid var(--aui-table-border-focus);
-    outline-offset: -2px;
-    border-radius: var(--aui-table-radius-md);
+    outline: none;
 }

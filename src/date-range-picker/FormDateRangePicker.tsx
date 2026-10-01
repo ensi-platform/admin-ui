@@ -2,6 +2,8 @@ import { type Ref } from 'react';
 
 import { type DateRange } from 'react-aria-components';
 
+import { supportRef } from '@ds/common/support-ref';
+
 import { Field, useField } from '@/field';
 import { useFieldHook } from '@/form/hooks/useFieldHook';
 import { getError } from '@/form/utils';
@@ -18,23 +20,25 @@ type TFormDateRangePickerControlProps = Omit<
     ref?: Ref<HTMLDivElement>;
 };
 
-const FormDateRangePickerControl = ({ ref, value, onChange, onBlur, ...props }: TFormDateRangePickerControlProps) => {
-    const { controlProps, size, invalid, disabled } = useField();
+const FormDateRangePickerControl = supportRef(
+    ({ ref, value, onChange, onBlur, ...props }: TFormDateRangePickerControlProps) => {
+        const { controlProps, size, invalid, disabled } = useField();
 
-    return (
-        <DateRangePicker
-            {...controlProps}
-            {...props}
-            ref={ref}
-            size={size}
-            invalid={invalid}
-            disabled={disabled}
-            value={value}
-            onChange={onChange}
-            onBlur={onBlur}
-        />
-    );
-};
+        return (
+            <DateRangePicker
+                {...controlProps}
+                {...props}
+                ref={ref}
+                size={size}
+                invalid={invalid}
+                disabled={disabled}
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+            />
+        );
+    }
+);
 
 FormDateRangePickerControl.displayName = 'FormDateRangePickerControl';
 

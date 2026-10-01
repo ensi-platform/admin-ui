@@ -2,6 +2,8 @@ import { type Ref } from 'react';
 
 import { type TimeValue } from 'react-aria-components';
 
+import { supportRef } from '@ds/common/support-ref';
+
 import { Field, useField } from '@/field';
 import { useFieldHook } from '@/form/hooks/useFieldHook';
 import { getError } from '@/form/utils';
@@ -15,7 +17,7 @@ type TFormTimeFieldControlProps = Omit<ITimeFieldProps, 'size' | 'invalid' | 'di
     ref?: Ref<HTMLDivElement>;
 };
 
-const FormTimeFieldControl = ({ ref, value, onChange, onBlur, ...props }: TFormTimeFieldControlProps) => {
+const FormTimeFieldControl = supportRef(({ ref, value, onChange, onBlur, ...props }: TFormTimeFieldControlProps) => {
     const { controlProps, size, invalid, disabled } = useField();
 
     return (
@@ -31,7 +33,7 @@ const FormTimeFieldControl = ({ ref, value, onChange, onBlur, ...props }: TFormT
             onBlur={onBlur}
         />
     );
-};
+});
 
 FormTimeFieldControl.displayName = 'FormTimeFieldControl';
 

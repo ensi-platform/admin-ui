@@ -123,7 +123,7 @@ describe('Button', () => {
             </Button>
         );
 
-        expect(screen.getByTestId('indent-btn')).toHaveStyle({ '--button-icon-indent': '8px' });
+        expect(screen.getByTestId('indent-btn')).toHaveStyle({ '--button-icon-indent': '0.5rem' });
     });
 
     it('renders icon with icon class and a11y attrs', () => {
@@ -140,7 +140,7 @@ describe('Button', () => {
         render(<Button icon={{ Component: TestIcon, size: 20, fill: '#3d3d3d' }}>Save</Button>);
 
         expect(screen.getByTestId('test-icon')).toHaveStyle({
-            '--icon-size': '20px',
+            '--icon-size': '1.25rem',
             '--icon-fill': '#3d3d3d',
         });
     });

@@ -1,6 +1,8 @@
 import { type SVGProps } from 'react';
 
-export const Clear = ({ title, ...props }: SVGProps<SVGSVGElement> & { title?: string }) => (
+import { supportRef } from '@ds/common/support-ref';
+
+export const Clear = supportRef(({ title, ...props }: SVGProps<SVGSVGElement> & { title?: string }) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 16 16"
@@ -14,6 +16,6 @@ export const Clear = ({ title, ...props }: SVGProps<SVGSVGElement> & { title?: s
             fill="currentColor"
         />
     </svg>
-);
+));
 
 Clear.displayName = 'Clear';

@@ -25,8 +25,8 @@ import { Table, useTableRowSelection } from '@ensi-platform/admin-ui/table';
 - `Header`: `sticky?`; `Footer`: `sticky?` (по умолчанию `true`); слева `PageSize`, справа `Pagination`
 - `Cell` / `HeaderCell`: `numeric?`, `align?`, `utility?`, `noWrap?`, `width?`; у `HeaderCell` ещё `sortable?`, `sortDirection?`, `onSort?`, `filter?`, `filterActive?`
 - `filter` — тело дропа в шапке колонки. Триггер — плашка. Если колонка `sortable`, пункты сортировки под фильтром. Без `filter` сортировка по-прежнему кликом по заголовку. `filterActive` красит иконку фильтра
-- `Pagination`: controlled `page` + `pageCount` + `onPageChange` + `from` + `to` + `total`; опционально `rangeLabel?`, `prevLabel?` / `nextLabel?`, `disabled?`
+- `Pagination`: controlled `page` + `pageCount` + `onPageChange` + `from` + `to` + `total`; номера страниц (окно, первая и последняя всегда на месте); опционально `rangeLabel?`, `prevLabel?` / `nextLabel?`, `disabled?`
 - `PageSize`: controlled `value` + `onChange`; `options?` (по умолчанию `[5, 10, 25, 50, 100]`); `label?`; `disabled?`
 - `ActionBar`: `items`, `visibleCount?`
 - `Loader` из пакета — внешняя композиция (часто вокруг `Table.Table` внутри `Scroll`); у `Table` нет своего loading
-- `useTableRowSelection(pageRowIds)` — выбор **текущей** страницы (`setAllOnPage`); при смене page / pageSize вызывать `clearAll`
+- `useTableRowSelection(pageRowIds)` — выбор **текущей** страницы (`setAllOnPage`); при смене page / pageSize вызывать `clearAll`. Клик по ячейке строки переключает её чекбокс; клик по кнопке, ссылке или шапке — нет

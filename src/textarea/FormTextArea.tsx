@@ -1,5 +1,7 @@
 import { type ComponentProps } from 'react';
 
+import { supportRef } from '@ds/common/support-ref';
+
 import { Field, useField } from '@/field';
 import { useFieldHook } from '@/form/hooks/useFieldHook';
 import { getError } from '@/form/utils';
@@ -9,11 +11,11 @@ import { type IFormTextAreaProps } from './types';
 
 type TFormTextAreaControlProps = Omit<ComponentProps<typeof TextArea>, 'size' | 'invalid' | 'disabled'>;
 
-const FormTextAreaControl = (props: TFormTextAreaControlProps) => {
+const FormTextAreaControl = supportRef((props: TFormTextAreaControlProps) => {
     const { controlProps, size, invalid, disabled } = useField();
 
     return <TextArea {...controlProps} size={size} invalid={invalid} disabled={disabled} {...props} />;
-};
+});
 
 export const FormTextArea = ({
     name,

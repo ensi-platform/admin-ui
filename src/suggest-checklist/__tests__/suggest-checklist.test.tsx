@@ -64,7 +64,7 @@ describe('SuggestChecklist', () => {
         );
 
         await waitFor(() => {
-            expect(screen.getByRole('status', { name: 'Loading suggestions' })).toBeInTheDocument();
+            expect(screen.getByRole('status', { name: 'Загрузка подсказок' })).toBeInTheDocument();
         });
     });
 
@@ -149,7 +149,7 @@ describe('SuggestChecklist', () => {
         );
 
         expect(await screen.findByRole('checkbox', { name: 'Nike' })).toBeInTheDocument();
-        expect(await screen.findByText('Loading suggestions')).toBeInTheDocument();
+        expect(await screen.findByText('Загрузка подсказок')).toBeInTheDocument();
     });
 
     it('shows an error when suggest fails', async () => {
@@ -166,7 +166,7 @@ describe('SuggestChecklist', () => {
             </AdminUiProvider>
         );
 
-        expect(await screen.findByRole('status')).toHaveTextContent('Failed to load suggestions');
+        expect(await screen.findByRole('status')).toHaveTextContent('Не удалось загрузить подсказки');
     });
 
     it('omits a selected value that was never loaded', async () => {

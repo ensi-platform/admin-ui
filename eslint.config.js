@@ -59,6 +59,12 @@ export default [
         },
     },
     {
+        files: ['src/ds/common/support-ref/index.ts'],
+        rules: {
+            'no-restricted-imports': 'off',
+        },
+    },
+    {
         files: [
             'vitest.setup.ts',
             'vitest.config.ts',

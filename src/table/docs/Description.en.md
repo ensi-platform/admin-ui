@@ -25,8 +25,8 @@ Slots: `Scroll` / `Table` / `Header` / `Body` / `Footer` / `Row` / `Cell` / `Hea
 - `Header`: `sticky?`; `Footer`: `sticky?` (default `true`); left `PageSize`, right `Pagination`
 - `Cell` / `HeaderCell`: `numeric?`, `align?`, `utility?`, `noWrap?`, `width?`; `HeaderCell` also has `sortable?`, `sortDirection?`, `onSort?`, `filter?`, `filterActive?`
 - `filter` is the drop body in the column header. The trigger is a floating pill. When the column is `sortable`, sort actions sit under the filter. Without `filter`, sorting stays a click on the header. `filterActive` colors the filter icon
-- `Pagination`: controlled `page` + `pageCount` + `onPageChange` + `from` + `to` + `total`; optional `rangeLabel?`, `prevLabel?` / `nextLabel?`, `disabled?`
+- `Pagination`: controlled `page` + `pageCount` + `onPageChange` + `from` + `to` + `total`; numbered pages (window, first and last always present); optional `rangeLabel?`, `prevLabel?` / `nextLabel?`, `disabled?`
 - `PageSize`: controlled `value` + `onChange`; `options?` (default `[5, 10, 25, 50, 100]`); `label?`; `disabled?`
 - `ActionBar`: `items`, `visibleCount?`
 - Package `Loader` — external composition (often wrap `Table.Table` inside `Scroll`); `Table` has no built-in loading
-- `useTableRowSelection(pageRowIds)` — select the **current** page (`setAllOnPage`); call `clearAll` when page / pageSize changes
+- `useTableRowSelection(pageRowIds)` — select the **current** page (`setAllOnPage`); call `clearAll` when page / pageSize changes. A cell click toggles that row's checkbox; a click on a button, link, or header does not

@@ -1,5 +1,7 @@
 import { type ComponentProps } from 'react';
 
+import { supportRef } from '@ds/common/support-ref';
+
 import { Field, useField } from '@/field';
 import { useFieldHook } from '@/form/hooks/useFieldHook';
 import { getError } from '@/form/utils';
@@ -9,7 +11,7 @@ import { type IFormSwitchProps } from './types';
 
 type TFormSwitchControlProps = Omit<ComponentProps<typeof Switch>, 'size' | 'invalid' | 'disabled'>;
 
-const FormSwitchControl = (props: TFormSwitchControlProps) => {
+const FormSwitchControl = supportRef((props: TFormSwitchControlProps) => {
     const { controlProps, size, invalid, disabled } = useField();
     const { id, 'aria-describedby': ariaDescribedby, 'aria-invalid': ariaInvalid } = controlProps;
 
@@ -24,7 +26,7 @@ const FormSwitchControl = (props: TFormSwitchControlProps) => {
             {...props}
         />
     );
-};
+});
 
 export const FormSwitch = ({
     name,

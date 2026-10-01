@@ -5,7 +5,6 @@
     font-weight: var(--aui-table-font-weight-header);
     color: var(--aui-table-fg-header);
     box-sizing: border-box;
-    box-shadow: inset 0 -1px 0 var(--aui-table-border-primary);
     transition: background-color var(--aui-table-duration-fast) var(--aui-table-ease-out);
 }
 
@@ -17,7 +16,30 @@
 
 .root[data-sortable]:not([data-filter]),
 .root[data-filter] {
+    position: relative;
     padding: 0;
+}
+
+.root[data-sortable]:focus-within,
+.root[data-filter]:focus-within {
+    z-index: 2;
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+    z-index: var(--aui-table-z-sticky);
+    background: var(--aui-table-bg-header);
+}
+
+.sticky[data-sortable]:not([data-filter]),
+.sticky[data-filter] {
+    position: sticky;
+}
+
+.sticky[data-sortable]:focus-within,
+.sticky[data-filter]:focus-within {
+    z-index: calc(var(--aui-table-z-sticky) + 1);
 }
 
 .root[data-sortable]:not([data-filter]):hover,

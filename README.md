@@ -25,17 +25,7 @@ import { Button } from '@ensi-platform/admin-ui/button';
 import { typographyStyles } from '@ensi-platform/admin-ui/typography';
 
 export const Example = () => (
-    <AdminUiProvider
-        locale="ru-RU"
-        labels={{
-            close: t('aui.close'),
-            clear: t('aui.clear'),
-            confirm: t('aui.confirm'),
-            cancel: t('aui.cancel'),
-            delete: t('aui.delete'),
-            notDelete: t('aui.notDelete'),
-        }}
-    >
+    <AdminUiProvider locale="ru-RU">
         <p className={typographyStyles.bodyM}>Body text</p>
         <Button variant="primary">Save</Button>
     </AdminUiProvider>
@@ -43,7 +33,7 @@ export const Example = () => (
 ```
 
 1. Import tokens **once** in the app entry.
-2. Mount `AdminUiProvider` at the UI root (locale, portals, built-in a11y labels).
+2. Mount `AdminUiProvider` at the UI root (locale, portals, Russian chrome strings). Pass `labels` only to override a key.
 3. Import only via subpaths (no package root barrel):
 
 ```tsx
