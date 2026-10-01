@@ -29,6 +29,7 @@
         "node": ">=22.18.0"
     },
     "scripts": {
+        "repack": "rm -rf ./node_modules && pnpm store prune && pnpm i",
         "sync-package": "node --experimental-strip-types scripts/sync-package.ts",
         "build": "pnpm sync-package && vite build && cp src/ds/tokens/OFL.txt dist/tokens/ && node --experimental-strip-types scripts/publish-manifest.ts",
         "prepublishOnly": "pnpm build",
@@ -89,7 +90,7 @@
         "vite": "^7.0.0",
         "vite-plugin-dts": "^4.5.4",
         "vite-plugin-lib-inject-css": "^2.2.2",
-        "vitest": "^4.1.10",
+        "vitest": "^4.1.11",
         "zod": "^4.4.3"
     },
     "homepage": "https://ensi.tech",
