@@ -1,3 +1,11 @@
+## 0.6.0 - 2026-10-04
+
+### Features
+- add new components + fix components and ai skills
+
+### Bug Fixes
+- fix deps
+
 ## Unreleased
 
 ### Features
