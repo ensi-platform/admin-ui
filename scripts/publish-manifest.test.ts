@@ -15,11 +15,14 @@ const sourcePackage = {
     files: [
         'dist',
         'docs/ai.md',
+        'docs/design-language.md',
+        'docs/architecture.md',
         'scripts/consumer-root.ts',
         'scripts/sync-skill-consumer.ts',
         'scripts/sync-agents-consumer.ts',
         'scripts/sync-consumer.ts',
-        'src/*/docs/Description.*.md',
+        'src/*/docs/Description.md',
+        'src/*/docs/Example.md',
         'src/*/types.ts',
     ],
     keywords: ['ensi'],
@@ -82,14 +85,23 @@ describe('writePublishPackage', () => {
         mkdirSync(join(packageRoot, 'dist/button'), { recursive: true });
         mkdirSync(join(packageRoot, 'dist/tokens'), { recursive: true });
         mkdirSync(join(packageRoot, 'docs'), { recursive: true });
+        mkdirSync(join(packageRoot, 'src/docs/ai'), { recursive: true });
         mkdirSync(join(packageRoot, 'scripts'), { recursive: true });
 
         writeFileSync(join(packageRoot, 'package.json'), `${JSON.stringify(sourcePackage, null, 4)}\n`);
         writeFileSync(join(packageRoot, 'src/button/index.ts'), 'export const Button = {};\n');
         writeFileSync(join(packageRoot, 'src/button/types.ts'), 'export type TButton = string;\n');
         writeFileSync(join(packageRoot, 'src/button/docs/Description.en.md'), '# Button\n');
+        writeFileSync(join(packageRoot, 'src/button/docs/Description.ru.md'), '# Кнопка\n');
+        writeFileSync(join(packageRoot, 'src/button/docs/Example.en.md'), '## Example\n');
+        writeFileSync(join(packageRoot, 'src/button/docs/Example.ru.md'), '## Пример\n');
         writeFileSync(join(packageRoot, 'src/secret.ts'), 'export const secret = true;\n');
-        writeFileSync(join(packageRoot, 'docs/ai.md'), '# AI\n');
+        writeFileSync(join(packageRoot, 'docs/ai.md'), '# Канал\n');
+        writeFileSync(join(packageRoot, 'src/docs/ai/Description.en.md'), '# AI\n');
+        writeFileSync(join(packageRoot, 'docs/design-language.md'), '# Канон\n');
+        writeFileSync(join(packageRoot, 'docs/design-language.en.md'), '# Design language\n');
+        writeFileSync(join(packageRoot, 'docs/architecture.md'), '# Архитектура\n');
+        writeFileSync(join(packageRoot, 'docs/architecture.en.md'), '# Architecture\n');
         writeFileSync(join(packageRoot, 'scripts/consumer-root.ts'), 'export const noop = true;\n');
         writeFileSync(join(packageRoot, 'scripts/sync-skill-consumer.ts'), 'export const noop = true;\n');
         writeFileSync(join(packageRoot, 'scripts/sync-agents-consumer.ts'), 'export const noop = true;\n');
@@ -114,12 +126,19 @@ describe('writePublishPackage', () => {
         });
         expect(manifest.engines).toBeUndefined();
         expect(readFileSync(join(publishRoot, 'docs/ai.md'), 'utf8')).toBe('# AI\n');
+        expect(readFileSync(join(publishRoot, 'docs/design-language.md'), 'utf8')).toBe('# Design language\n');
+        expect(readFileSync(join(publishRoot, 'docs/architecture.md'), 'utf8')).toBe('# Architecture\n');
+        expect(() => readFileSync(join(publishRoot, 'docs/design-language.en.md'), 'utf8')).toThrow();
         expect(readFileSync(join(publishRoot, 'scripts/consumer-root.ts'), 'utf8')).toContain('noop');
         expect(readFileSync(join(publishRoot, 'scripts/sync-skill-consumer.ts'), 'utf8')).toContain('noop');
         expect(readFileSync(join(publishRoot, 'scripts/sync-agents-consumer.ts'), 'utf8')).toContain('noop');
         expect(readFileSync(join(publishRoot, 'scripts/sync-consumer.ts'), 'utf8')).toContain('noop');
         expect(readFileSync(join(publishRoot, 'src/button/types.ts'), 'utf8')).toContain('TButton');
-        expect(readFileSync(join(publishRoot, 'src/button/docs/Description.en.md'), 'utf8')).toBe('# Button\n');
+        expect(readFileSync(join(publishRoot, 'src/button/docs/Description.md'), 'utf8')).toBe('# Button\n');
+        expect(readFileSync(join(publishRoot, 'src/button/docs/Example.md'), 'utf8')).toBe('## Example\n');
+        expect(() => readFileSync(join(publishRoot, 'src/button/docs/Description.en.md'), 'utf8')).toThrow();
+        expect(() => readFileSync(join(publishRoot, 'src/button/docs/Description.ru.md'), 'utf8')).toThrow();
+        expect(() => readFileSync(join(publishRoot, 'src/button/docs/Example.ru.md'), 'utf8')).toThrow();
         expect(readFileSync(join(publishRoot, 'dist/tokens/OFL.txt'), 'utf8')).toBe('OFL\n');
         expect(() => readFileSync(join(publishRoot, 'src/secret.ts'), 'utf8')).toThrow();
         expect(() => readFileSync(join(publishRoot, 'docs/notes.md'), 'utf8')).toThrow();

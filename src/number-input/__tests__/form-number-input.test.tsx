@@ -9,6 +9,28 @@ import { AdminUiProvider } from '@/provider';
 import { FormNumberInput } from '..';
 
 describe('FormNumberInput', () => {
+    it('marks only mapped fields as read-only', () => {
+        render(
+            <Form initialValues={{ price: 1, qty: 2 }} readOnly={{ price: true }} onSubmit={vi.fn()}>
+                <FormNumberInput name="price" label="Price" />
+                <FormNumberInput name="qty" label="Qty" />
+            </Form>
+        );
+
+        expect(screen.getByLabelText('Price')).toHaveAttribute('readonly');
+        expect(screen.getByLabelText('Qty')).not.toHaveAttribute('readonly');
+    });
+
+    it('lets an explicit readOnly override the form map', () => {
+        render(
+            <Form initialValues={{ price: 1 }} readOnly={{ price: true }} onSubmit={vi.fn()}>
+                <FormNumberInput name="price" label="Price" readOnly={false} />
+            </Form>
+        );
+
+        expect(screen.getByLabelText('Price')).not.toHaveAttribute('readonly');
+    });
+
     it('submits ruble store value', async () => {
         const user = userEvent.setup();
         const onSubmit = vi.fn();

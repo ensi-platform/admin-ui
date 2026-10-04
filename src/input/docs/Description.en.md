@@ -18,7 +18,8 @@ import { Input, FormInput } from '@ensi-platform/admin-ui/input';
 | ------------- | -------------------- | ------- | ---------------------------------------- |
 | `size`        | `sm` \| `md` \| `lg` | `md`    | size; inside Field inherits `Field.size` |
 | `invalid`     | `boolean`            | `false` | invalid state                            |
-| `disabled`    | `boolean`            | `false` | disabled                                 |
+| `disabled`    | `boolean`            | `false` | disabled (no focus, no selection)        |
+| `readOnly`    | `boolean`            | `false` | visible and copyable, not editable       |
 | `clear`       | `boolean`            | `false` | clear button → `onChange` with `''`      |
 | `placeholder` | `string`             | —       | placeholder                              |
 | `type`        | HTML `type`          | —       | input type                               |
@@ -36,6 +37,7 @@ No `as` / prefix/suffix.
 | `clear`      | `boolean`            | —       | clear button             |
 | `size`       | `sm` \| `md` \| `lg` | `md`    | size (on Field)          |
 | `disabled`   | `boolean`            | —       | disabled                 |
+| `readOnly`   | `boolean`            | —       | visible and copyable, not editable |
 | `dataTestId` | `string`             | —       | `data-test-id` for tests |
 
 value / onChange / onBlur / validity come from `Form`.

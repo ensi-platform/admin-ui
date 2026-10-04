@@ -18,10 +18,15 @@ export const buttonVariants = cva(styles.root, {
             true: styles.block,
             false: null,
         },
+        iconOnly: {
+            true: styles.iconOnly,
+            false: null,
+        },
     },
     defaultVariants: {
         size: 'md',
         variant: 'primary',
         block: false,
+        iconOnly: false,
     },
 });

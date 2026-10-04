@@ -17,7 +17,8 @@ import { TextArea, FormTextArea } from '@ensi-platform/admin-ui/textarea';
 | ------------- | -------------------- | ------------ | ------------------------------------------- |
 | `size`        | `sm` \| `md` \| `lg` | `md`         | размер; внутри Field наследует `Field.size` |
 | `invalid`     | `boolean`            | `false`      | ошибка                                      |
-| `disabled`    | `boolean`            | `false`      | недоступен                                  |
+| `disabled`    | `boolean`            | `false`      | недоступен (нет фокуса и выделения)         |
+| `readOnly`    | `boolean`            | `false`      | видно и можно скопировать, изменить нельзя  |
 | `clear`       | `boolean`            | `false`      | кнопка очистки → `onChange` с `''`          |
 | `placeholder` | `string`             | —            | плейсхолдер                                 |
 | `rows`        | `number`             | —            | число строк                                 |
@@ -35,6 +36,7 @@ import { TextArea, FormTextArea } from '@ensi-platform/admin-ui/textarea';
 | `clear`      | `boolean`            | —            | кнопка очистки                    |
 | `size`       | `sm` \| `md` \| `lg` | `md`         | размер (на Field)                 |
 | `disabled`   | `boolean`            | —            | недоступен                        |
+| `readOnly`   | `boolean`            | —            | видно и можно скопировать, изменить нельзя |
 | `dataTestId` | `string`             | —            | атрибут `data-test-id` для тестов |
 
 value / onChange / onBlur / валидность — из `Form`.

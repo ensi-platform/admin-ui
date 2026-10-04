@@ -145,6 +145,43 @@ describe('Button', () => {
         });
     });
 
+    it('hides only the text when hidden is set', () => {
+        render(
+            <Button hidden icon={{ Component: TestIcon }} aria-label="Back">
+                Back
+            </Button>
+        );
+
+        const button = screen.getByRole('button', { name: 'Back' });
+
+        expect(button).not.toHaveAttribute('hidden');
+        expect(screen.getByTestId('test-icon')).toBeInTheDocument();
+        expect(screen.getByText('Back')).not.toBeVisible();
+        expect(button).toHaveClass(styles.iconOnly);
+    });
+
+    it('does not put hidden on a polymorphic root', () => {
+        render(
+            <Button as="a" href="#back" hidden icon={{ Component: TestIcon }} aria-label="Back">
+                Back
+            </Button>
+        );
+
+        expect(screen.getByRole('link', { name: 'Back' })).not.toHaveAttribute('hidden');
+    });
+
+    it('keeps a trailing icon when hidden', () => {
+        render(
+            <Button hidden icon={{ Component: TestIcon, after: true }} aria-label="Back">
+                Back
+            </Button>
+        );
+
+        const button = screen.getByRole('button', { name: 'Back' });
+
+        expect(button.lastElementChild).toBe(screen.getByTestId('test-icon'));
+    });
+
     it('merges icon className', () => {
         render(<Button icon={{ Component: TestIcon, className: 'extra' }}>Save</Button>);
 

@@ -1,6 +1,7 @@
 /** NumberInput CSS variables from semantic tokens (--aui-number-input-*). */
 export const docsCssVariables = `/* CSS variables — NumberInput (--aui-number-input-*) */
 --aui-number-input-bg-primary: var(--aui-input-bg-primary); /* primary fill */
+--aui-number-input-bg-readonly: var(--aui-input-bg-readonly); /* read-only fill */
 --aui-number-input-fg-primary: var(--aui-input-fg-primary); /* primary foreground */
 --aui-number-input-fg-muted: var(--aui-input-fg-muted); /* muted foreground */
 --aui-number-input-border-primary: var(--aui-input-border-primary); /* primary border */

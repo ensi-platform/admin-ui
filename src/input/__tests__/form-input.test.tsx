@@ -62,6 +62,74 @@ describe('FormInput', () => {
         expect(screen.getByLabelText('Email')).toBeDisabled();
     });
 
+    it('disables only fields listed in the Form disabled map', () => {
+        render(
+            <Form initialValues={{ email: '', name: '' }} disabled={{ email: true }} onSubmit={vi.fn()}>
+                <FormInput name="email" label="Email" />
+                <FormInput name="name" label="Name" />
+            </Form>
+        );
+
+        expect(screen.getByLabelText('Email')).toBeDisabled();
+        expect(screen.getByLabelText('Name')).not.toBeDisabled();
+    });
+
+    it('treats a missing or false map key as enabled', () => {
+        render(
+            <Form initialValues={{ email: '', name: '' }} disabled={{ email: false }} onSubmit={vi.fn()}>
+                <FormInput name="email" label="Email" />
+                <FormInput name="name" label="Name" />
+            </Form>
+        );
+
+        expect(screen.getByLabelText('Email')).not.toBeDisabled();
+        expect(screen.getByLabelText('Name')).not.toBeDisabled();
+    });
+
+    it('keeps an explicit field disabled when the form is not disabled', () => {
+        render(
+            <Form initialValues={{ email: '' }} onSubmit={vi.fn()}>
+                <FormInput name="email" label="Email" disabled />
+            </Form>
+        );
+
+        expect(screen.getByLabelText('Email')).toBeDisabled();
+    });
+
+    it('lets an explicit field disabled override the form map', () => {
+        render(
+            <Form initialValues={{ email: '', name: '' }} disabled={{ email: true, name: false }} onSubmit={vi.fn()}>
+                <FormInput name="email" label="Email" disabled={false} />
+                <FormInput name="name" label="Name" disabled />
+            </Form>
+        );
+
+        expect(screen.getByLabelText('Email')).not.toBeDisabled();
+        expect(screen.getByLabelText('Name')).toBeDisabled();
+    });
+
+    it('marks only mapped fields as read-only', () => {
+        render(
+            <Form initialValues={{ email: 'a', name: 'b' }} readOnly={{ email: true }} onSubmit={vi.fn()}>
+                <FormInput name="email" label="Email" />
+                <FormInput name="name" label="Name" />
+            </Form>
+        );
+
+        expect(screen.getByLabelText('Email')).toHaveAttribute('readonly');
+        expect(screen.getByLabelText('Name')).not.toHaveAttribute('readonly');
+    });
+
+    it('lets an explicit readOnly override the form map', () => {
+        render(
+            <Form initialValues={{ email: 'a' }} readOnly={{ email: true }} onSubmit={vi.fn()}>
+                <FormInput name="email" label="Email" readOnly={false} />
+            </Form>
+        );
+
+        expect(screen.getByLabelText('Email')).not.toHaveAttribute('readonly');
+    });
+
     it('sets data-test-id on Field root', () => {
         render(
             <Form initialValues={{ email: '' }} onSubmit={vi.fn()}>

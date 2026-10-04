@@ -25,6 +25,11 @@
     cursor: not-allowed;
 }
 
+.root[data-readonly] {
+    background: var(--aui-input-bg-readonly);
+    cursor: default;
+}
+
 .sm {
     height: var(--aui-input-h-sm);
     padding: 0 var(--aui-input-pad-x-sm);
@@ -115,11 +120,15 @@
     color: var(--aui-input-fg-primary);
 }
 
+.primary[data-readonly] {
+    background: var(--aui-input-bg-readonly);
+}
+
 .primary .fieldInput::placeholder {
     color: var(--aui-input-fg-muted);
 }
 
-.primary[data-hovered]:not([data-disabled]):not([data-invalid]) {
+.primary[data-hovered]:not([data-disabled]):not([data-invalid]):not([data-readonly]) {
     border-color: var(--aui-input-border-focus);
 }
 

@@ -108,6 +108,65 @@ describe('Form', () => {
         expect(screen.getByTestId('disabled-flag')).toHaveTextContent('true');
     });
 
+    it('keeps the same disabled map reference when the parent rerenders with equal contents', () => {
+        const seen: unknown[] = [];
+
+        const Probe = () => {
+            const { disabled } = useAuiForm();
+
+            seen.push(disabled);
+
+            return null;
+        };
+
+        const Harness = ({ tick }: { tick: number }) => (
+            <Form initialValues={{ email: '' }} disabled={{ email: tick >= 0 }} onSubmit={vi.fn()}>
+                <Probe />
+            </Form>
+        );
+
+        const { rerender } = render(<Harness tick={0} />);
+
+        rerender(<Harness tick={0} />);
+
+        expect(seen[0]).toEqual({ email: true });
+        expect(seen[1]).toBe(seen[0]);
+    });
+
+    it('updates disabled and readOnly context when the maps change', () => {
+        const Probe = () => {
+            const { disabled, readOnly } = useAuiForm();
+
+            return (
+                <>
+                    <span data-test-id="disabled-flag">{JSON.stringify(disabled)}</span>
+                    <span data-test-id="readonly-flag">{JSON.stringify(readOnly)}</span>
+                </>
+            );
+        };
+
+        const Harness = ({ tick }: { tick: number }) => (
+            <Form
+                initialValues={{ email: '' }}
+                disabled={{ email: tick === 0 }}
+                readOnly={{ email: tick === 0 }}
+                onSubmit={vi.fn()}
+            >
+                <Probe />
+            </Form>
+        );
+
+        const { rerender } = render(<Harness tick={0} />);
+
+        expect(screen.getByTestId('disabled-flag')).toHaveTextContent('{"email":true}');
+        expect(screen.getByTestId('readonly-flag')).toHaveTextContent('{"email":true}');
+
+        rerender(<Harness tick={1} />);
+
+        expect(screen.getByTestId('disabled-flag')).toHaveTextContent('{"email":false}');
+        expect(screen.getByTestId('readonly-flag')).toHaveTextContent('{"email":false}');
+    });
+
     it('renders div when isForm is false', () => {
         const { container } = render(
             <Form initialValues={{ email: '' }} isForm={false} onSubmit={vi.fn()}>

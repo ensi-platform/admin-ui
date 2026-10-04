@@ -1,4 +1,4 @@
-Text role classes. Family: **Inter** via `--aui-font-sans` (loaded with tokens). The rem base is the `html` font-size. `AdminUiProvider` root sets `font-size: 1rem`.
+Text role classes. Family: **Inter** via `--aui-font-family` (loaded with tokens). The rem base is the `html` font-size. `AdminUiProvider` root sets `font-size: 1rem`.
 
 ```tsx
 import { typographyStyles } from '@ensi-platform/admin-ui/typography';
@@ -8,7 +8,7 @@ import { typographyStyles } from '@ensi-platform/admin-ui/typography';
 
 - body copy in primitives and admin screens
 - compose `typographyStyles.*` in JSX; do not duplicate `font-*` / `line-height` in your CSS Modules
-- base font on the root is already set by `AdminUiProvider` via `--aui-font-sans`
+- base font on the root is already set by `AdminUiProvider` via `--aui-font-family`
 - list / detail page title — `headingM` (or `headingL`)
 
 ## API (short)
@@ -23,7 +23,7 @@ import { typographyStyles } from '@ensi-platform/admin-ui/typography';
 | `headingM`   | `--aui-font-size-xl`  | semibold | `--aui-line-height-xl`    |
 | `headingL`   | `--aui-font-size-2xl` | semibold | `--aui-line-height-2xl`   |
 
-Tokens: `--aui-font-sans`, `--aui-font-size-xs…2xl`, `--aui-font-weight-regular|medium|semibold`, `--aui-line-height-xs…2xl|tight|normal`.
+Tokens: `--aui-font-family`, `--aui-font-size-xs…2xl`, `--aui-font-weight-regular|medium|semibold`, `--aui-line-height-xs…2xl|tight|normal`.
 
 `label*` — later.
 

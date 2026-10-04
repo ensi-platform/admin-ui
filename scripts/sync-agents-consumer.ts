@@ -13,7 +13,8 @@ const BLOCK_BODY = [
     '',
     'When building or changing Ensi admin screens, forms, filters, or overlays, use `@ensi-platform/admin-ui` primitives.',
     'Before coding, read `node_modules/@ensi-platform/admin-ui/docs/ai.md` and the relevant',
-    '`src/<name>/docs/Description.*.md` / `types.ts` — do not invent the API.',
+    '`src/<name>/docs/Description.md` / `types.ts` — do not invent the API.',
+    'For whole screens (lists, filters, detail pages) also follow `node_modules/@ensi-platform/admin-ui/docs/design-language.md`.',
 ].join('\n');
 
 const buildBlock = (): string => `${BLOCK_START}\n${BLOCK_BODY}\n${BLOCK_END}`;

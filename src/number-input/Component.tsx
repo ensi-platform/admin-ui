@@ -48,6 +48,7 @@ export const NumberInput = supportRef(
         block = true,
         invalid = false,
         disabled = false,
+        readOnly = false,
         clear = false,
         value,
         defaultValue,
@@ -73,7 +74,7 @@ export const NumberInput = supportRef(
             defaultValue === undefined || Number.isNaN(defaultValue) ? null : defaultValue
         );
         const currentValue = isControlled ? value : uncontrolledValue;
-        const showClear = clear && !disabled && hasNumberValue(currentValue);
+        const showClear = clear && !disabled && !readOnly && hasNumberValue(currentValue);
         /** When `clear` is on, drive RAC as controlled so clear can reset the field. */
         const driveValue = isControlled || clear;
         /** Prefer explicit aria-label over Field's phantom labelledby when Label is absent. */
@@ -95,6 +96,7 @@ export const NumberInput = supportRef(
                     onChange?.(nextValue);
                 }}
                 isDisabled={disabled}
+                isReadOnly={readOnly}
                 isInvalid={invalid}
                 minValue={min}
                 maxValue={max}
@@ -107,6 +109,7 @@ export const NumberInput = supportRef(
                     data-test-id={dataTestId}
                     isInvalid={invalid}
                     isDisabled={disabled}
+                    isReadOnly={readOnly}
                 >
                     {prefix ? <span className={styles.addon}>{prefix}</span> : null}
                     <RacInput

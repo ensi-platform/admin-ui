@@ -23,13 +23,15 @@ export interface ITextAreaThemeProps {
 export interface ITextAreaOwnProps extends IDataTestIdProps {
     /** Clear button for the current value. */
     clear?: boolean;
+    /** Visible and copyable, but not editable. Not `disabled`. */
+    readOnly?: boolean;
     /** Ref to the native textarea (React 19 prop). */
     ref?: Ref<HTMLTextAreaElement>;
 }
 
 export interface ITextAreaBaseProps extends ITextAreaThemeProps, IFieldStateProps, ITextAreaOwnProps {}
 
-export type TTextAreaRacOmit = 'disabled' | 'isDisabled' | 'isInvalid';
+export type TTextAreaRacOmit = 'disabled' | 'readOnly' | 'isDisabled' | 'isInvalid' | 'isReadOnly';
 
 export interface ITextAreaProps
     extends ITextAreaBaseProps, Omit<RacTextAreaProps, keyof ITextAreaBaseProps | TTextAreaRacOmit> {}
@@ -47,6 +49,8 @@ export type TTextAreaFormRacOmit =
 
 export interface ITextAreaContentProps extends Omit<RacTextAreaProps, TTextAreaFormRacOmit> {
     clear?: boolean;
+    /** Visible and copyable, but not editable. Not `disabled`. */
+    readOnly?: boolean;
 }
 
 export interface IFormTextAreaProps

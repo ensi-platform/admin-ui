@@ -18,6 +18,36 @@ const FieldBoundInput = () => {
 };
 
 describe('Input', () => {
+    it('keeps a read-only value focusable and unchanged', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(<Input aria-label="Email" value="keep" readOnly onChange={onChange} dataTestId="email-input" />);
+
+        const input = screen.getByRole('textbox', { name: 'Email' });
+
+        expect(input).toHaveAttribute('readonly');
+        expect(input).not.toBeDisabled();
+        expect(screen.getByTestId('email-input')).not.toHaveAttribute('data-disabled');
+        expect(screen.getByTestId('email-input')).toHaveAttribute('data-readonly', 'true');
+
+        await user.click(input);
+        await user.type(input, 'x');
+
+        expect(onChange).not.toHaveBeenCalled();
+        expect(input).toHaveValue('keep');
+    });
+
+    it('hides the clear button when read-only', () => {
+        render(
+            <AdminUiProvider labels={{ clear: 'Clear' }}>
+                <Input aria-label="Email" value="keep" readOnly clear />
+            </AdminUiProvider>
+        );
+
+        expect(screen.queryByRole('button', { name: 'Clear' })).not.toBeInTheDocument();
+    });
+
     it('renders textbox', () => {
         render(<Input aria-label="Email" />);
 

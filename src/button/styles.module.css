@@ -3,7 +3,10 @@
     align-items: center;
     justify-content: center;
     gap: var(--button-icon-indent, var(--aui-button-gap-md));
+    box-sizing: border-box;
+    appearance: none;
     border: 1px solid transparent;
+    background-clip: border-box;
     border-radius: var(--aui-button-radius-md);
     font: inherit;
     line-height: var(--aui-button-line-height);
@@ -50,6 +53,21 @@
 .lg {
     padding: var(--aui-button-pad-y-lg) var(--aui-button-pad-x-lg);
     min-height: var(--aui-button-h-lg);
+}
+
+.iconOnly.sm {
+    min-width: var(--aui-button-h-sm);
+    padding-inline: 0;
+}
+
+.iconOnly.md {
+    min-width: var(--aui-button-h-md);
+    padding-inline: 0;
+}
+
+.iconOnly.lg {
+    min-width: var(--aui-button-h-lg);
+    padding-inline: 0;
 }
 
 .primary {

@@ -44,6 +44,7 @@ export const FormNumberInput = ({
     size = 'md',
     block = true,
     disabled,
+    readOnly,
     className,
     dataTestId,
     ...inputProps
@@ -51,6 +52,7 @@ export const FormNumberInput = ({
     const { field, fieldState, inputProps: rhfInputProps, setFieldValue, onBlurHandler } = useFieldHook({ name });
     const error = getError(fieldState.error)?.message;
     const isDisabled = disabled ?? rhfInputProps.disabled;
+    const isReadOnly = readOnly !== undefined ? readOnly : rhfInputProps.readOnly;
 
     return (
         <Field
@@ -66,6 +68,7 @@ export const FormNumberInput = ({
                 {...inputProps}
                 block={block}
                 name={rhfInputProps.name}
+                readOnly={isReadOnly || undefined}
                 ref={field.ref}
                 value={field.value ?? null}
                 onChange={view => {

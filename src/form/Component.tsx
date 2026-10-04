@@ -19,6 +19,7 @@ export const Form = <T extends FieldValues>({
     enableReinitialize = false,
     triggerOnReinitialize = false,
     disabled = false,
+    readOnly = false,
     onSubmit,
     onError,
     onReset,
@@ -92,9 +93,29 @@ export const Form = <T extends FieldValues>({
         [onBlur]
     );
 
+    const disabledRef = useRef(disabled);
+    const readOnlyRef = useRef(readOnly);
+
+    if (!deepEqual(disabledRef.current, disabled)) {
+        disabledRef.current = disabled;
+    }
+
+    if (!deepEqual(readOnlyRef.current, readOnly)) {
+        readOnlyRef.current = readOnly;
+    }
+
+    const stableDisabled = disabledRef.current;
+    const stableReadOnly = readOnlyRef.current;
+
     const providerValue = useMemo(
-        () => ({ onChange: onChangeHandler, onBlur: onBlurHandler, disabled, onSubmitHandler }),
-        [onChangeHandler, onBlurHandler, disabled, onSubmitHandler]
+        () => ({
+            onChange: onChangeHandler,
+            onBlur: onBlurHandler,
+            disabled: stableDisabled,
+            readOnly: stableReadOnly,
+            onSubmitHandler,
+        }),
+        [onChangeHandler, onBlurHandler, stableDisabled, stableReadOnly, onSubmitHandler]
     );
 
     return (

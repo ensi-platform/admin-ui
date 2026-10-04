@@ -94,12 +94,13 @@ admin-ui    →  var(--aui-…) в CSS Modules
 grey-50 … grey-800
 black-800, black-900, white, transparent
 charcoal-50, charcoal-100, charcoal-500, charcoal-600, charcoal-700
+neutral-50, neutral-100, neutral-200, neutral-300, neutral-400, neutral-500, neutral-800, neutral-900
 red-50, red-500, red-600, red-700
 green-50, green-500, green-700
 yellow-50, yellow-500, yellow-700
 ```
 
-Brand = charcoal (`charcoal-500` = `#3D3D3D`). Semantic `control-*-brand` → charcoal (dark: light fill + dark fg). `page-fg-link` → page fg (underline). `control-border-focus` → charcoal (light) / grey-100 (dark). Status (red/green/yellow); badge/toast info = neutral.
+Light brand = neutral (`neutral-800` = `#171717`, fg `neutral-50`). Dark brand = light fill (`grey-100`) + dark fg. `page-fg-link` → page fg (underline). `control-border-focus` → `neutral-400` (light) / grey-100 (dark). Status (red/green/yellow); badge/toast info = neutral. Light page = white, sidebar = `neutral-50`.
 
 ### Color — semantic
 
@@ -168,7 +169,7 @@ page-radius-md               →  radius-8
 Атомы в tokens (`primitives.css`):
 
 ```
---aui-font-sans
+--aui-font-family
 --aui-font-size-xs | sm | md | lg | xl | 2xl
 --aui-font-weight-regular | medium | semibold
 --aui-line-height-xs | sm | md | lg | xl | 2xl | tight | normal
@@ -213,7 +214,7 @@ field-label-fg | field-hint-fg | field-error-fg
 ### Input (semantic place)
 
 ```
-input-bg-primary
+input-bg-primary | input-bg-readonly
 input-fg-primary | input-fg-muted
 input-border-primary | input-border-focus | input-border-danger
 input-radius-md
@@ -224,7 +225,7 @@ input-pad-x-sm | md | lg
 ### Textarea (semantic place)
 
 ```
-textarea-bg-primary
+textarea-bg-primary | textarea-bg-readonly
 textarea-fg-primary | textarea-fg-muted
 textarea-border-primary | textarea-border-focus | textarea-border-danger
 textarea-radius-md

@@ -23,6 +23,11 @@
     cursor: not-allowed;
 }
 
+.group[data-readonly] {
+    background: var(--aui-number-input-bg-readonly);
+    cursor: default;
+}
+
 .sm {
     height: var(--aui-number-input-h-sm);
     padding: 0 var(--aui-number-input-pad-x-sm);
@@ -122,7 +127,11 @@
     color: var(--aui-number-input-fg-primary);
 }
 
-.primary[data-hovered]:not([data-disabled]):not([data-invalid]) {
+.primary[data-readonly] {
+    background: var(--aui-number-input-bg-readonly);
+}
+
+.primary[data-hovered]:not([data-disabled]):not([data-invalid]):not([data-readonly]) {
     border-color: var(--aui-number-input-border-focus);
 }
 

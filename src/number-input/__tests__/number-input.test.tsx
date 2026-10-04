@@ -9,6 +9,34 @@ import { NumberInput } from '..';
 import styles from '../styles.module.css';
 
 describe('NumberInput', () => {
+    it('keeps a read-only value focusable and unchanged', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(<NumberInput aria-label="Qty" value={4} readOnly onChange={onChange} dataTestId="qty" />);
+
+        const input = screen.getByRole('textbox', { name: 'Qty' });
+
+        expect(input).toHaveAttribute('readonly');
+        expect(input).not.toBeDisabled();
+        expect(screen.getByTestId('qty')).toHaveAttribute('data-readonly', 'true');
+
+        await user.click(input);
+        await user.type(input, '9');
+
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it('hides the clear button when read-only', () => {
+        render(
+            <AdminUiProvider labels={{ clear: 'Clear' }}>
+                <NumberInput aria-label="Qty" value={4} readOnly clear />
+            </AdminUiProvider>
+        );
+
+        expect(screen.queryByRole('button', { name: 'Clear' })).not.toBeInTheDocument();
+    });
+
     it('renders textbox', () => {
         render(<NumberInput aria-label="Qty" dataTestId="qty" />);
 

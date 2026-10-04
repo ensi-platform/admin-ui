@@ -2,11 +2,14 @@ import { type BaseSyntheticEvent, createContext, useContext } from 'react';
 
 import { type NativeFieldValue } from 'react-hook-form';
 
+import { type TFormFieldFlag } from './types';
+
 export interface IFormContextValue {
     onChange: (key: string, value: NativeFieldValue) => void;
     onBlur: (key: string, value: NativeFieldValue) => void;
     onSubmitHandler: (event?: BaseSyntheticEvent) => void;
-    disabled?: boolean;
+    disabled?: TFormFieldFlag;
+    readOnly?: TFormFieldFlag;
 }
 
 export const FormContext = createContext<IFormContextValue | undefined>(undefined);

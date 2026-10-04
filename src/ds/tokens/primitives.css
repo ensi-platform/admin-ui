@@ -14,12 +14,22 @@
     --aui-white: #ffffff;
     --aui-transparent: transparent;
 
-    /* color — brand (charcoal) */
+    /* color — brand (charcoal), dark chrome still uses grey */
     --aui-charcoal-50: #f5f5f5;
     --aui-charcoal-100: #e8e8e8;
     --aui-charcoal-500: #3d3d3d;
     --aui-charcoal-600: #2e2e2e;
     --aui-charcoal-700: #1f1f1f;
+
+    /* color — neutral (chroma 0), light theme only */
+    --aui-neutral-50: #fafafa;
+    --aui-neutral-100: #f5f5f5;
+    --aui-neutral-200: #e5e5e5;
+    --aui-neutral-300: #d4d4d4;
+    --aui-neutral-400: #a1a1a1;
+    --aui-neutral-500: #737373;
+    --aui-neutral-800: #171717;
+    --aui-neutral-900: #0a0a0a;
 
     /* color — status */
     --aui-red-50: #fef2f2;
@@ -61,7 +71,7 @@
     --aui-control-h-lg: calc(var(--aui-spacing) * 12);
 
     /* typography */
-    --aui-font-sans: 'Inter', system-ui, sans-serif;
+    --aui-font-family: 'Inter', system-ui, sans-serif;
     --aui-font-size-xs: 0.75rem;
     --aui-font-size-sm: 0.875rem;
     --aui-font-size-md: 1rem;

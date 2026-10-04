@@ -1,6 +1,7 @@
 /** Input CSS variables from semantic tokens (--aui-input-*). */
 export const docsCssVariables = `/* CSS variables — Input (--aui-input-*) */
 --aui-input-bg-primary: var(--aui-surface-bg-primary); /* primary fill */
+--aui-input-bg-readonly: var(--aui-surface-bg-muted); /* read-only fill */
 --aui-input-fg-primary: var(--aui-page-fg-primary); /* primary foreground */
 --aui-input-fg-muted: var(--aui-page-fg-muted); /* muted foreground */
 --aui-input-border-primary: var(--aui-surface-border-primary); /* primary border */

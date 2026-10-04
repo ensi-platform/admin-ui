@@ -248,7 +248,7 @@
 
     /* table — data list chrome (flush with page) */
     --aui-table-bg-primary: var(--aui-page-bg-primary);
-    --aui-table-bg-hover: var(--aui-grey-700);
+    --aui-table-bg-hover: var(--aui-grey-500);
     --aui-table-bg-selected: var(--aui-surface-bg-muted);
     --aui-table-bg-zebra: color-mix(in srgb, var(--aui-surface-bg-muted) 18%, var(--aui-table-bg-primary));
     --aui-table-bg-header: var(--aui-table-bg-primary);

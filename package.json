@@ -13,17 +13,21 @@
         "docs/ai.md",
         "docs/architecture.md",
         "docs/README.md",
+        "docs/design-language.md",
         "scripts/consumer-root.ts",
         "scripts/sync-skill-consumer.ts",
         "scripts/sync-agents-consumer.ts",
         "scripts/sync-consumer.ts",
-        "src/*/docs/Description.*.md",
-        "src/*/docs/Example.*.md",
+        "src/*/docs/Description.md",
+        "src/*/docs/Example.md",
         "src/*/docs/cssVariables.ts",
         "src/*/types.ts",
-        "src/ds/typography/docs/Description.*.md",
-        "src/ds/typography/docs/Example.*.md",
-        "src/ds/typography/docs/cssVariables.ts"
+        "src/ds/tokens/docs/Description.md",
+        "src/ds/typography/docs/Description.md",
+        "src/ds/typography/docs/Example.md",
+        "src/ds/typography/docs/cssVariables.ts",
+        "src/docs/getting-started/Description.md",
+        "src/docs/ai/Description.md"
     ],
     "engines": {
         "node": ">=22.18.0"

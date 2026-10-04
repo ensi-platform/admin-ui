@@ -9,7 +9,7 @@
 | Base | `Base/*` | `Button`, `MenuList`, `Avatar`, `Table`, … | примитивы и составные части |
 | App | `App/*` | `CascadeMenu` | готовые сборки chrome АП |
 
-App собирается из Base; layout `sidebar \| page` остаётся у consumer (без `AppShell`).
+App собирается из Base; layout `sidebar \| page` остаётся у consumer (без `AppShell`). Каркасы списка и детальной страницы — код приложения; пакет их не содержит. Визуальные правила экранов — `docs/design-language.md`.
 
 ## Стек
 

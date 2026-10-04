@@ -16,15 +16,11 @@
     cursor: pointer;
 }
 
-.root[data-clickable]:hover {
+:global(tbody) .root:not([data-disabled]):not([data-checked]):hover > :global(td) {
     background: var(--aui-table-bg-hover);
 }
 
-.root[data-checked] {
-    background: var(--aui-table-bg-selected);
-}
-
-.root[data-checked][data-clickable]:hover {
+.root[data-checked] > :global(td) {
     background: var(--aui-table-bg-selected);
 }
 

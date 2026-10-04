@@ -27,7 +27,8 @@ Not React Aria `Form` — this is RHF + zod.
 | `triggerOnReinitialize` | `boolean`                             | —       | `form.trigger()` after reinitialize       |
 | `mode`                  | RHF `mode`                            | `all`   | validation mode                           |
 | `isForm`                | `boolean`                             | `true`  | native `<form>`                           |
-| `disabled`              | `boolean`                             | `false` | disable via FormContext                   |
+| `disabled`              | `boolean` \| `{ [field name]: boolean }` | `false` | disable via form context; exact field name; missing key stays enabled; a field prop wins |
+| `readOnly`              | `boolean` \| `{ [field name]: boolean }` | `false` | visible and copyable, not editable; only `FormInput`, `FormTextArea`, `FormNumberInput`. Other controls use `disabled`. Native `disabled` removes focus and selection |
 | `className` / `id`      | `string`                              | —       | on the root element                       |
 
 Helpers: `useFieldHook({ name })` for Form controls; `getError(fieldState.error)` — error message. RHF re-exports: `useFormContext`, `useFormState`, `useFieldArray`, `useWatch`, `useController`.

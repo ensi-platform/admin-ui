@@ -4,17 +4,19 @@
 
 ## Source of truth
 
-Контракт примитива:
+Контракт примитива в репо (Storybook):
 
 - `src/<name>/docs/Description.ru.md` / `Description.en.md`
-- `Example.*.md`, при необходимости `cssVariables.ts`
+- `Example.ru.md` / `Example.en.md`, при необходимости `cssVariables.ts`
 - `types.ts` (когда есть)
 
-Storybook Docs читает те же файлы (+ stories в репо). В npm уходят Description / Example / cssVariables / types — без stories. В `docs/` пакета API компонентов не дублируем.
+Визуальный канон экранов — `docs/design-language.md`. Онбординг в репо — `src/docs/getting-started/Description.ru.md` / `Description.en.md`.
+
+Storybook Docs читает оба языка (+ stories в репо). В npm для агента уходит только английский, уже под именами `Description.md` и `Example.md` (из `*.en.md`), плюс `cssVariables.ts`, `types.ts` и онбординг `src/docs/getting-started/Description.md`. `docs/ai.md` в пакете — копия `src/docs/ai/Description.en.md`, `docs/design-language.md` — из `docs/design-language.en.md`, `docs/architecture.md` — из `docs/architecture.en.md`. `*.ru.md` и stories в пакет не входят. В `docs/` пакета API компонентов не дублируем.
 
 ## Skill `admin-ui`
 
-Source of truth: [`docs/skills/`](./skills/) (`SKILL.md` + `evals/`). Публикуется вместе с пакетом.
+Source of truth: [`docs/skills/`](./skills/) (`SKILL.md`). Публикуется вместе с пакетом.
 
 В consumer-приложении агент читает:
 

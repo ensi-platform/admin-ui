@@ -80,11 +80,30 @@
     right: -1px;
 }
 
-.resizeHandle:hover,
-.resizeHandle:focus-visible {
+/* Dwell so a pass along the edge does not thicken the line. */
+.resizeHandle:hover {
+    animation: handleHot 0s var(--aui-cascade-menu-handle-delay) forwards;
+}
+
+.resizeHandle:focus-visible,
+.root[data-resizing] .resizeHandle {
+    animation: none;
     background: var(--aui-cascade-menu-border-focus);
 }
 
 .resizeHandle:focus-visible {
     outline: none;
+}
+
+@keyframes handleHot {
+    to {
+        background: var(--aui-cascade-menu-border-focus);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .resizeHandle:hover {
+        animation: none;
+        background: var(--aui-cascade-menu-border-focus);
+    }
 }

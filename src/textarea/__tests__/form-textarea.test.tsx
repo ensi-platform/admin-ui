@@ -13,6 +13,28 @@ const schema = z.object({
 });
 
 describe('FormTextArea', () => {
+    it('marks only mapped fields as read-only', () => {
+        render(
+            <Form initialValues={{ comment: 'a', note: 'b' }} readOnly={{ comment: true }} onSubmit={vi.fn()}>
+                <FormTextArea name="comment" label="Comment" />
+                <FormTextArea name="note" label="Note" />
+            </Form>
+        );
+
+        expect(screen.getByLabelText('Comment')).toHaveAttribute('readonly');
+        expect(screen.getByLabelText('Note')).not.toHaveAttribute('readonly');
+    });
+
+    it('lets an explicit readOnly override the form map', () => {
+        render(
+            <Form initialValues={{ comment: 'a' }} readOnly={{ comment: true }} onSubmit={vi.fn()}>
+                <FormTextArea name="comment" label="Comment" readOnly={false} />
+            </Form>
+        );
+
+        expect(screen.getByLabelText('Comment')).not.toHaveAttribute('readonly');
+    });
+
     it('submits typed value', async () => {
         const user = userEvent.setup();
         const onSubmit = vi.fn();

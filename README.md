@@ -52,7 +52,7 @@ Components only read `--aui-*` CSS variables. Light defaults live in `semantic.c
 
 ## Docs
 
-Package docs (architecture, AI channel, concepts): [`docs/README.md`](docs/README.md)
+Package docs (architecture, AI channel): [`docs/README.md`](docs/README.md)
 
 Storybook: [https://ensi-platform.github.io/admin-ui](https://ensi-platform.github.io/admin-ui)
 

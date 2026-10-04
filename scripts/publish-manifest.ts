@@ -22,6 +22,20 @@ const PUBLISH_FIELDS = [
 
 const hasGlobMagic = (pattern: string) => /[*?{}[\]]/.test(pattern);
 
+/** Repo keeps Russian package docs and `*.en.md` sources. The npm copy is English only. */
+const ENGLISH_PUBLISH_SOURCES: Record<string, string> = {
+    'docs/ai.md': 'src/docs/ai/Description.en.md',
+    'docs/architecture.md': 'docs/architecture.en.md',
+    'docs/design-language.md': 'docs/design-language.en.md',
+};
+
+const toSourceRelative = (publishedRelative: string) =>
+    ENGLISH_PUBLISH_SOURCES[publishedRelative] ??
+    publishedRelative.replace(/Description\.md$/, 'Description.en.md').replace(/Example\.md$/, 'Example.en.md');
+
+const toPublishedRelative = (sourceRelative: string) =>
+    sourceRelative.replace(/Description\.en\.md$/, 'Description.md').replace(/Example\.en\.md$/, 'Example.md');
+
 /** Publish manifest built from a whitelist. Dev-only fields stay in the root package.json. */
 export const buildPublishManifest = (source: object, packages: IPublicPackage[]): Record<string, unknown> => {
     const record = source as Record<string, unknown>;
@@ -44,23 +58,27 @@ export const buildPublishManifest = (source: object, packages: IPublicPackage[])
 };
 
 const copyPublishEntry = (packageRoot: string, publishRoot: string, pattern: string) => {
-    if (!hasGlobMagic(pattern)) {
-        const from = join(packageRoot, pattern);
+    const sourcePattern = toSourceRelative(pattern);
+
+    if (!hasGlobMagic(sourcePattern)) {
+        const from = join(packageRoot, sourcePattern);
         if (!existsSync(from)) {
             return;
         }
 
-        cpSync(from, join(publishRoot, pattern), { recursive: statSync(from).isDirectory() });
+        const destination = join(publishRoot, pattern);
+        mkdirSync(dirname(destination), { recursive: true });
+        cpSync(from, destination, { recursive: statSync(from).isDirectory() });
         return;
     }
 
-    globSync(pattern, { cwd: packageRoot }).forEach(relativePath => {
+    globSync(sourcePattern, { cwd: packageRoot }).forEach(relativePath => {
         const from = join(packageRoot, relativePath);
         if (!statSync(from).isFile()) {
             return;
         }
 
-        const destination = join(publishRoot, relativePath);
+        const destination = join(publishRoot, toPublishedRelative(relativePath));
         mkdirSync(dirname(destination), { recursive: true });
         cpSync(from, destination);
     });

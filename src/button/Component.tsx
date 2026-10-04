@@ -26,6 +26,7 @@ export const Button = supportRef(
         size = 'md',
         variant = 'primary',
         block = false,
+        hidden = false,
         children,
         icon,
         className,
@@ -43,13 +44,13 @@ export const Button = supportRef(
         return (
             <Component
                 {...(Component === 'button' ? { type } : {})}
-                className={cn(buttonVariants({ size, variant, block }), className)}
+                className={cn(buttonVariants({ size, variant, block, iconOnly: hidden }), className)}
                 data-test-id={dataTestId}
                 style={rootStyle}
                 {...props}
             >
                 {icon && !icon.after ? <ButtonIcon {...icon} /> : null}
-                {children}
+                {hidden ? <span hidden>{children}</span> : children}
                 {icon && icon.after ? <ButtonIcon {...icon} /> : null}
             </Component>
         );

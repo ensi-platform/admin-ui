@@ -14,7 +14,7 @@ type TFormTextAreaControlProps = Omit<ComponentProps<typeof TextArea>, 'size' | 
 const FormTextAreaControl = supportRef((props: TFormTextAreaControlProps) => {
     const { controlProps, size, invalid, disabled } = useField();
 
-    return <TextArea {...controlProps} size={size} invalid={invalid} disabled={disabled} {...props} />;
+    return <TextArea {...props} {...controlProps} size={size} invalid={invalid} disabled={disabled} />;
 });
 
 export const FormTextArea = ({
@@ -24,13 +24,16 @@ export const FormTextArea = ({
     size = 'md',
     block = true,
     disabled,
+    readOnly,
     className,
     dataTestId,
     ...textAreaProps
 }: IFormTextAreaProps) => {
     const { field, fieldState, inputProps: rhfInputProps, onChangeHandler, onBlurHandler } = useFieldHook({ name });
+    const { disabled: formDisabled, readOnly: formReadOnly, ...restRhf } = rhfInputProps;
     const error = getError(fieldState.error)?.message;
-    const isDisabled = disabled ?? rhfInputProps.disabled;
+    const isDisabled = disabled ?? formDisabled;
+    const isReadOnly = readOnly !== undefined ? readOnly : formReadOnly;
 
     return (
         <Field
@@ -44,7 +47,8 @@ export const FormTextArea = ({
             {label ? <Field.Label>{label}</Field.Label> : null}
             <FormTextAreaControl
                 {...textAreaProps}
-                {...rhfInputProps}
+                {...restRhf}
+                readOnly={isReadOnly || undefined}
                 block={block}
                 ref={field.ref}
                 value={field.value ?? ''}

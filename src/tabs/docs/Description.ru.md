@@ -22,3 +22,20 @@ import { Tabs } from '@ensi-platform/admin-ui/tabs';
 | `dataTestId`   | `string`                  | —            | атрибут `data-test-id` для тестов |
 
 Слоты: `Tabs.List` / `Tabs.Tab` (`id`, `disabled?`) / `Tabs.Panel` (`id`). У `Tab` и `Panel` `id` должен совпадать.
+
+Вложенные `Tabs` — секции внутри панели вкладки. От верхнего уровня они отличаются только `size="sm"`.
+
+`Tabs` не пишет выбор в адрес и не хранит его вне компонента. Если нужно, синхронизируйте через `value` / `onChange`.
+
+Вертикального режима и отдельного второго визуального уровня нет. Боковое меню разделов собирается у потребителя на `react-aria-components`.
+
+Слота счётчика ошибок нет. Бейдж кладётся в `Tabs.Tab` как часть `children` (`Badge` с `variant="danger"`). Число должно быть текстом и иметь `aria-label`: состояние нельзя передать только цветом.
+
+```tsx
+<Tabs.Tab id="profile">
+    Профиль
+    <Badge size="sm" variant="danger" aria-label="3 errors">
+        3
+    </Badge>
+</Tabs.Tab>
+```

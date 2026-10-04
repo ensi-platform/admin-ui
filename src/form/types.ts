@@ -24,6 +24,12 @@ export interface IControllerRenderProps<T extends TFieldValueType> extends Omit<
 
 export type { FieldValues, Path };
 
+/** Form-wide flag, or a map of exact RHF field names. */
+export type TFormFieldFlag = boolean | Partial<Record<string, boolean>>;
+
+/** Typed form-wide flag. Keys are exact `Path`s, not prefixes. */
+export type TFormFieldFlags<T extends FieldValues> = boolean | Partial<Record<Path<T>, boolean>>;
+
 export interface IFormFieldComponent<
     TFieldValues extends FieldValues = FieldValues,
     TName extends Path<TFieldValues> = Path<TFieldValues>,
@@ -72,10 +78,10 @@ type TFormActionProps<T extends FieldValues> =
 
 export interface IFormBaseProps<T extends FieldValues>
     extends
-        Omit<UseFormProps<T>, 'children'>,
+        Omit<UseFormProps<T>, 'children' | 'readOnly' | 'disabled'>,
         Omit<
             HTMLProps<HTMLFormElement>,
-            'onSubmit' | 'ref' | 'onReset' | 'children' | 'onChange' | 'onError' | 'onBlur'
+            'onSubmit' | 'ref' | 'onReset' | 'children' | 'onChange' | 'onError' | 'onBlur' | 'disabled' | 'readOnly'
         > {
     /** Initial field values. */
     initialValues: DefaultValues<T>;
@@ -95,9 +101,18 @@ export interface IFormBaseProps<T extends FieldValues>
     isForm?: boolean;
     /**
      * Disable fields through FormContext.
+     * A map uses exact field names; a missing key means enabled.
+     * A field prop wins over this value.
      * @default false
      */
-    disabled?: boolean;
+    disabled?: TFormFieldFlags<T>;
+    /**
+     * Read-only fields through FormContext (`FormInput`, `FormTextArea`, `FormNumberInput`).
+     * A map uses exact field names. Other controls stay on `disabled`.
+     * A field prop wins over this value.
+     * @default false
+     */
+    readOnly?: TFormFieldFlags<T>;
     /** Call `form.trigger()` after reinitialize. */
     triggerOnReinitialize?: boolean;
     /** Reset handler. */

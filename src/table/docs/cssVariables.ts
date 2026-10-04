@@ -1,9 +1,9 @@
 /** Table CSS variables from semantic tokens (--aui-table-*). */
 export const docsCssVariables = `/* CSS variables — Table (--aui-table-*) */
 --aui-table-bg-primary: var(--aui-surface-bg-primary); /* primary fill */
---aui-table-bg-hover: var(--aui-surface-bg-muted-active); /* hover fill; dark: grey-700 */
---aui-table-bg-selected: var(--aui-surface-bg-muted); /* selected fill; dark: muted (grey-600) */
---aui-table-bg-zebra: color-mix(in srgb, var(--aui-surface-bg-muted) 18%, var(--aui-surface-bg-primary)); /* zebra fill */
+--aui-table-bg-hover: var(--aui-neutral-300); /* hover fill; dark: grey-500 */
+--aui-table-bg-selected: var(--aui-neutral-100); /* selected fill; dark: muted (grey-600) */
+--aui-table-bg-zebra: var(--aui-neutral-50); /* zebra fill; dark: muted 18% on page */
 --aui-table-bg-header: var(--aui-surface-bg-primary); /* header fill */
 --aui-table-bg-footer: var(--aui-surface-bg-primary); /* footer fill */
 

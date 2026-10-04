@@ -23,7 +23,8 @@ import { NumberInput, FormNumberInput } from '@ensi-platform/admin-ui/number-inp
 | `clear`                | `boolean`                  | `false` | clear → `onChange(null)`       |
 | `size`                 | `sm` \| `md` \| `lg`       | `md`    | size                           |
 | `invalid`              | `boolean`                  | `false` | invalid state                  |
-| `disabled`             | `boolean`                  | `false` | disabled                       |
+| `disabled`             | `boolean`                  | `false` | disabled (no focus, no selection) |
+| `readOnly`             | `boolean`                  | `false` | visible and copyable, not editable |
 | `formatOptions`        | `Intl.NumberFormatOptions` | —       | display/parse (RAC)            |
 | `placeholder`          | `string`                   | —       | placeholder                    |
 | `dataTestId`           | `string`                   | —       | `data-test-id` for tests       |
@@ -40,6 +41,7 @@ No stepper in v1.
 | `clear`                | `boolean`                  | —       | clear button                            |
 | `size`                 | `sm` \| `md` \| `lg`       | `md`    | size                                    |
 | `disabled`             | `boolean`                  | —       | disabled                                |
+| `readOnly`             | `boolean`                  | —       | visible and copyable, not editable      |
 | `min` / `max` / `step` | `number`                   | —       | bounds and step                         |
 | `prefix` / `suffix`    | `ReactNode`                | —       | content before/after the field          |
 | `formatOptions`        | `Intl.NumberFormatOptions` | —       | display/parse                           |

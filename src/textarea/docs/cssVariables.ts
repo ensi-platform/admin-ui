@@ -1,6 +1,7 @@
 /** Textarea CSS variables from semantic tokens (--aui-textarea-*). */
 export const docsCssVariables = `/* CSS variables — Textarea (--aui-textarea-*) */
 --aui-textarea-bg-primary: var(--aui-input-bg-primary); /* primary fill */
+--aui-textarea-bg-readonly: var(--aui-input-bg-readonly); /* read-only fill */
 --aui-textarea-fg-primary: var(--aui-input-fg-primary); /* primary foreground */
 --aui-textarea-fg-muted: var(--aui-input-fg-muted); /* muted foreground */
 --aui-textarea-border-primary: var(--aui-input-border-primary); /* primary border */

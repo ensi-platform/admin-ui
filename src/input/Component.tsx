@@ -58,6 +58,7 @@ export const Input = supportRef(
         block = true,
         invalid = false,
         disabled = false,
+        readOnly = false,
         clear = false,
         className,
         dataTestId,
@@ -70,7 +71,7 @@ export const Input = supportRef(
         const isControlled = value !== undefined;
         const [uncontrolledValue, setUncontrolledValue] = useState(() => toStringValue(defaultValue));
         const currentValue = isControlled ? toStringValue(value) : uncontrolledValue;
-        const showClear = clear && !disabled && currentValue !== '';
+        const showClear = clear && !disabled && !readOnly && currentValue !== '';
 
         const handleChange: ChangeEventHandler<HTMLInputElement> = event => {
             if (!isControlled) {
@@ -99,9 +100,11 @@ export const Input = supportRef(
                 data-test-id={dataTestId}
                 isInvalid={invalid}
                 isDisabled={disabled}
+                isReadOnly={readOnly}
             >
                 <RacInput
                     {...props}
+                    readOnly={readOnly}
                     ref={node => {
                         inputRef.current = node;
                         assignRef(ref, node);

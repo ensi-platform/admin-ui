@@ -1,7 +1,7 @@
 /** Tooltip CSS variables from semantic tokens (--aui-tooltip-*). */
 export const docsCssVariables = `/* CSS variables — Tooltip (--aui-tooltip-*) */
---aui-tooltip-bg-primary: var(--aui-grey-800); /* primary fill */
---aui-tooltip-fg-primary: var(--aui-white); /* primary foreground */
+--aui-tooltip-bg-primary: var(--aui-neutral-800); /* primary fill */
+--aui-tooltip-fg-primary: var(--aui-neutral-50); /* primary foreground */
 
 --aui-tooltip-radius-md: var(--aui-control-radius-sm); /* md radius */
 --aui-tooltip-pad-y-sm: var(--aui-spacing-4); /* padding-y sm */

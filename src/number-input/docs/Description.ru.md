@@ -23,7 +23,8 @@ import { NumberInput, FormNumberInput } from '@ensi-platform/admin-ui/number-inp
 | `clear`                | `boolean`                  | `false`      | очистка → `onChange(null)`           |
 | `size`                 | `sm` \| `md` \| `lg`       | `md`         | размер                               |
 | `invalid`              | `boolean`                  | `false`      | ошибка                               |
-| `disabled`             | `boolean`                  | `false`      | недоступен                           |
+| `disabled`             | `boolean`                  | `false`      | недоступен (нет фокуса и выделения)  |
+| `readOnly`             | `boolean`                  | `false`      | видно и можно скопировать, изменить нельзя |
 | `formatOptions`        | `Intl.NumberFormatOptions` | —            | отображение/парс (RAC)               |
 | `placeholder`          | `string`                   | —            | плейсхолдер                          |
 | `dataTestId`           | `string`                   | —            | атрибут `data-test-id` для тестов    |
@@ -40,6 +41,7 @@ Stepper в v1 нет.
 | `clear`                | `boolean`                  | —            | кнопка очистки                       |
 | `size`                 | `sm` \| `md` \| `lg`       | `md`         | размер                               |
 | `disabled`             | `boolean`                  | —            | недоступен                           |
+| `readOnly`             | `boolean`                  | —            | видно и можно скопировать, изменить нельзя |
 | `min` / `max` / `step` | `number`                   | —            | границы и шаг                        |
 | `prefix` / `suffix`    | `ReactNode`                | —            | контент до/после поля                |
 | `formatOptions`        | `Intl.NumberFormatOptions` | —            | отображение/парс                     |

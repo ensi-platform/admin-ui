@@ -1,3 +1,11 @@
+## Unreleased
+
+### Features
+
+- `Form` `disabled` and `readOnly` accept a boolean or a map of exact field names
+- `readOnly` on `Input`, `TextArea`, and `NumberInput` (value stays focusable and copyable)
+- `Button` `hidden` hides only the text; the icon stays. Pass `aria-label`
+
 ## 0.5.0 - 2026-10-01
 
 ### Features

@@ -1,7 +1,7 @@
 /** Toast CSS variables from semantic tokens (--aui-toast-*). */
 export const docsCssVariables = `/* CSS variables — Toast (--aui-toast-*) */
 --aui-toast-bg-neutral: var(--aui-surface-bg-muted); /* neutral fill */
---aui-toast-accent-neutral: var(--aui-grey-500); /* neutral accent */
+--aui-toast-accent-neutral: var(--aui-neutral-500); /* neutral accent */
 --aui-toast-bg-success: var(--aui-green-50); /* success fill */
 --aui-toast-accent-success: var(--aui-green-700); /* success accent */
 --aui-toast-bg-warning: var(--aui-yellow-50); /* warning fill */

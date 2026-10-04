@@ -20,5 +20,6 @@ import { Button } from '@ensi-platform/admin-ui/button';
 | `icon`       | `{ Component, after?, indent?, size?, className?, fill? }` | —            | иконка слева или справа (`after`)  |
 | `dataTestId` | `string`                                                   | —            | атрибут `data-test-id` для тестов  |
 | `as`         | тег или компонент                                          | `button`     | корень; для ссылки обычно `as="a"` |
+| `hidden`     | `boolean`                                                  | `false`      | прячет только текст (`children`), иконка остаётся. Нужен `aria-label`: скрытый текст не попадает в имя |
 
 Обычные атрибуты кнопки/ссылки (`type`, `disabled`, `onClick`, `href`, …) принимаются как у выбранного корневого элемента.

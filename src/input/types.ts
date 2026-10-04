@@ -23,6 +23,8 @@ export interface IInputThemeProps {
 export interface IInputOwnProps extends IDataTestIdProps {
     /** Clear button for the current value. */
     clear?: boolean;
+    /** Visible and copyable, but not editable. Not `disabled`. */
+    readOnly?: boolean;
     /** Ref to the native input (React 19 prop). */
     ref?: Ref<HTMLInputElement>;
 }
@@ -30,7 +32,7 @@ export interface IInputOwnProps extends IDataTestIdProps {
 export interface IInputBaseProps extends IInputThemeProps, IFieldStateProps, IInputOwnProps {}
 
 /** RAC keys with different names / already in Base. */
-export type TInputRacOmit = 'disabled' | 'size' | 'isDisabled' | 'isInvalid';
+export type TInputRacOmit = 'disabled' | 'readOnly' | 'size' | 'isDisabled' | 'isInvalid' | 'isReadOnly';
 
 export interface IInputProps extends IInputBaseProps, Omit<RacInputProps, keyof IInputBaseProps | TInputRacOmit> {}
 
@@ -40,6 +42,8 @@ export type TInputFormRacOmit =
 
 export interface IInputContentProps extends Omit<RacInputProps, TInputFormRacOmit> {
     clear?: boolean;
+    /** Visible and copyable, but not editable. Not `disabled`. */
+    readOnly?: boolean;
 }
 
 export interface IFormInputProps extends IFormFieldLayoutProps, Pick<IInputThemeProps, 'variant'>, IInputContentProps {}

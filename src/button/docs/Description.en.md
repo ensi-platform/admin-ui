@@ -20,5 +20,6 @@ import { Button } from '@ensi-platform/admin-ui/button';
 | `icon`       | `{ Component, after?, indent?, size?, className?, fill? }` | —         | icon before or after the label (`after`) |
 | `dataTestId` | `string`                                                   | —         | `data-test-id` for tests                 |
 | `as`         | tag or component                                           | `button`  | root; for a link usually `as="a"`        |
+| `hidden`     | `boolean`                                                  | `false`   | hides only the text (`children`); the icon stays. `aria-label` is required: hidden text is not the accessible name |
 
 Native button/link attributes (`type`, `disabled`, `onClick`, `href`, …) are accepted for the chosen root element.

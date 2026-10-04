@@ -49,13 +49,13 @@ ButtonStoryComponent.displayName = 'Button';
 
 | Тип | title |
 | --- | --- |
-| Корневые docs-only | `'Main'`, `'Getting started'` |
-| Base | `'Base/Button'`, `'Base/Badge'`, `'Base/Tag'`, `'Base/Tabs'`, `'Base/Table'`, `'Base/Loader'` |
+| Корневые docs-only | `'Main'`, `'Getting started'`, `'AI'` |
+| Base | `'Base/Button'`, `'Base/Badge'`, `'Base/Tag'`, `'Base/Tabs'`, `'Base/Table'`, `'Base/Loader'`, `'Base/Hooks'` |
 | Overlays | `'Overlays/BottomSheet'`, `'Overlays/Drawer'`, `'Overlays/Modal'`, `'Overlays/Popover'`, `'Overlays/Tooltip'`, `'Overlays/ActionPopup'`, `'Overlays/ModalHub'`, `'Overlays/Toast'` |
 | Form / Field / контрол | `'Form/Input'`, `'Form/Field'`, `'Form/Form'`, `'Form/Checkbox'`, `'Form/CheckboxGroup'`, `'Form/Switch'` |
-| Select и похожие | `'Form/Combobox/Select'`, … |
+| Select и похожие | `'Form/Combobox'` (docs-only, не импортировать), `'Form/Combobox/Select'`, … |
 | Дата / время | `'Form/DateField/DatePicker'`, … |
-| Design system | `'Design System/Typography'`, `'Design System/Provider'` |
+| Design system | `'Design System/Typography'`, `'Design System/Provider'`, `'Design System/Icons'` |
 
 ## Какие примеры делать
 

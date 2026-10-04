@@ -97,3 +97,12 @@ export const WithIcon: StoryObj<TButtonProps> = {
         icon: { Component: Check },
     },
 };
+
+export const IconOnly: StoryObj<TButtonProps> = {
+    args: {
+        children: 'Back',
+        hidden: true,
+        'aria-label': 'Back',
+        icon: { Component: Check },
+    },
+};

@@ -44,6 +44,8 @@ export interface INumberInputOwnProps extends IDataTestIdProps {
     suffix?: ReactNode;
     /** Clear button for the current value. */
     clear?: boolean;
+    /** Visible and copyable, but not editable. Not `disabled`. */
+    readOnly?: boolean;
     /** Placeholder text. */
     placeholder?: string;
     /** Native input `name`. */
@@ -61,6 +63,8 @@ export interface INumberInputContentProps {
     prefix?: ReactNode;
     suffix?: ReactNode;
     clear?: boolean;
+    /** Visible and copyable, but not editable. Not `disabled`. */
+    readOnly?: boolean;
     placeholder?: string;
     min?: number;
     max?: number;
@@ -76,6 +80,7 @@ export interface INumberInputBaseProps
 export type TNumberInputRacOmit =
     | 'children'
     | 'isDisabled'
+    | 'isReadOnly'
     | 'isInvalid'
     | 'value'
     | 'defaultValue'

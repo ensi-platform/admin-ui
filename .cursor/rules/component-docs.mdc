@@ -146,6 +146,7 @@ parameters: {
 ## Канал для АП
 
 - source of truth — `src/<name>/docs/` (+ types / stories) в этом пакете
+- в npm для агента только английский: `Description.en.md` / `Example.en.md` копируются как `Description.md` / `Example.md` (`*.ru.md` не публикуются); `docs/design-language.md` — из `docs/design-language.en.md`, `docs/architecture.md` — из `docs/architecture.en.md`, `docs/ai.md` — из `src/docs/ai/Description.en.md`; плюс `src/docs/getting-started/Description.md` и `src/ds/tokens/docs/Description.md`
 - skill `admin-ui`: `docs/skills/` (публикуется с npm; в consumer — `node_modules/@ensi-platform/admin-ui/docs/skills/`)
 - skill ссылается на Description / types / stories, не копирует длинные тексты
 - `.cursor/skills/admin-ui` в репо не храним — см. `docs/ai.md`

@@ -49,7 +49,7 @@
 
 .brandWordmark {
     overflow: hidden;
-    font-family: var(--aui-font-sans);
+    font-family: var(--aui-font-family);
     font-size: var(--aui-font-size-sm);
     font-weight: var(--aui-font-weight-medium);
     line-height: var(--aui-line-height-tight);

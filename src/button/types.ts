@@ -38,6 +38,8 @@ export interface IButtonOwnProps extends IDataTestIdProps {
     icon?: IButtonIconProps;
     /** Stretch to 100% of the parent width. */
     block?: boolean;
+    /** Hide only the text (children); the icon stays. Provide aria-label for the accessible name. */
+    hidden?: boolean;
 }
 
 export interface IButtonBaseProps extends IButtonThemeProps, IButtonOwnProps {}

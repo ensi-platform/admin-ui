@@ -1,4 +1,4 @@
-Классы ролей текста. Family: **Inter** через `--aui-font-sans` (подключается с токенами). База rem — `font-size` у `html`. Root `AdminUiProvider` задаёт `font-size: 1rem`.
+Классы ролей текста. Family: **Inter** через `--aui-font-family` (подключается с токенами). База rem — `font-size` у `html`. Root `AdminUiProvider` задаёт `font-size: 1rem`.
 
 ```tsx
 import { typographyStyles } from '@ensi-platform/admin-ui/typography';
@@ -8,7 +8,7 @@ import { typographyStyles } from '@ensi-platform/admin-ui/typography';
 
 - наборный текст в примитивах и экранах АП
 - compose `typographyStyles.*` в JSX; в своих CSS Modules не дублировать `font-*` / `line-height`
-- базовый шрифт на корне уже задаёт `AdminUiProvider` через `--aui-font-sans`
+- базовый шрифт на корне уже задаёт `AdminUiProvider` через `--aui-font-family`
 - заголовок страницы списка / detail — `headingM` (или `headingL`)
 
 ## API (кратко)
@@ -23,7 +23,7 @@ import { typographyStyles } from '@ensi-platform/admin-ui/typography';
 | `headingM`   | `--aui-font-size-xl`  | semibold | `--aui-line-height-xl`    |
 | `headingL`   | `--aui-font-size-2xl` | semibold | `--aui-line-height-2xl`   |
 
-Токены: `--aui-font-sans`, `--aui-font-size-xs…2xl`, `--aui-font-weight-regular|medium|semibold`, `--aui-line-height-xs…2xl|tight|normal`.
+Токены: `--aui-font-family`, `--aui-font-size-xs…2xl`, `--aui-font-weight-regular|medium|semibold`, `--aui-line-height-xs…2xl|tight|normal`.
 
 `label*` — позже.
 

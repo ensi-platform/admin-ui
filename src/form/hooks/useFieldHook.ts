@@ -4,10 +4,11 @@ import { type NativeFieldValue, useController, useFormContext } from 'react-hook
 
 import { useAuiForm } from '../context';
 import { type IFormFieldComponent } from '../types';
+import { resolveFieldFlag } from '../utils';
 
 /** Builds controlled field wiring by `name` for FormInput / FormSelect / …. */
 export const useFieldHook = <TElement extends HTMLElement = HTMLElement>({ name }: IFormFieldComponent) => {
-    const { onChange, onBlur: onFormBlur, disabled } = useAuiForm();
+    const { onChange, onBlur: onFormBlur, disabled, readOnly } = useAuiForm();
     const { control, setValue } = useFormContext();
 
     const { field, fieldState } = useController({
@@ -28,7 +29,8 @@ export const useFieldHook = <TElement extends HTMLElement = HTMLElement>({ name 
     const inputProps = {
         name,
         onBlur: onBlurHandler,
-        disabled,
+        disabled: resolveFieldFlag(disabled, name),
+        readOnly: resolveFieldFlag(readOnly, name) || undefined,
     };
 
     const setFieldValue = useCallback(

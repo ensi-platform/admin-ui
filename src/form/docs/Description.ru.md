@@ -27,7 +27,8 @@ import { Form, useFieldHook, getError } from '@ensi-platform/admin-ui/form';
 | `triggerOnReinitialize` | `boolean`                             | —            | `form.trigger()` после reinitialize       |
 | `mode`                  | RHF `mode`                            | `all`        | режим валидации                           |
 | `isForm`                | `boolean`                             | `true`       | нативный `<form>`                         |
-| `disabled`              | `boolean`                             | `false`      | disable через FormContext                 |
+| `disabled`              | `boolean` \| `{ [имя поля]: boolean }` | `false`      | недоступность через контекст формы; ключ — точное имя поля, нет ключа — поле доступно; проп поля важнее |
+| `readOnly`              | `boolean` \| `{ [имя поля]: boolean }` | `false`      | видно и можно скопировать, но нельзя изменить; только `FormInput`, `FormTextArea`, `FormNumberInput`. Остальные контролы — через `disabled`. Нативный `disabled` убирает фокус и выделение |
 | `className` / `id`      | `string`                              | —            | на корневой элемент                       |
 
 Хелперы: `useFieldHook({ name })` для Form-контролов; `getError(fieldState.error)` — текст ошибки. Re-export RHF: `useFormContext`, `useFormState`, `useFieldArray`, `useWatch`, `useController`.

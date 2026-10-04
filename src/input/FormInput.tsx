@@ -14,7 +14,7 @@ type TFormInputControlProps = Omit<ComponentProps<typeof Input>, 'size' | 'inval
 const FormInputControl = supportRef((props: TFormInputControlProps) => {
     const { controlProps, size, invalid, disabled } = useField();
 
-    return <Input {...controlProps} size={size} invalid={invalid} disabled={disabled} {...props} />;
+    return <Input {...props} {...controlProps} size={size} invalid={invalid} disabled={disabled} />;
 });
 
 export const FormInput = ({
@@ -24,13 +24,16 @@ export const FormInput = ({
     size = 'md',
     block = true,
     disabled,
+    readOnly,
     className,
     dataTestId,
     ...inputProps
 }: IFormInputProps) => {
     const { field, fieldState, inputProps: rhfInputProps, onChangeHandler, onBlurHandler } = useFieldHook({ name });
+    const { disabled: formDisabled, readOnly: formReadOnly, ...restRhf } = rhfInputProps;
     const error = getError(fieldState.error)?.message;
-    const isDisabled = disabled ?? rhfInputProps.disabled;
+    const isDisabled = disabled ?? formDisabled;
+    const isReadOnly = readOnly !== undefined ? readOnly : formReadOnly;
 
     return (
         <Field
@@ -44,7 +47,8 @@ export const FormInput = ({
             {label ? <Field.Label>{label}</Field.Label> : null}
             <FormInputControl
                 {...inputProps}
-                {...rhfInputProps}
+                {...restRhf}
+                readOnly={isReadOnly || undefined}
                 block={block}
                 ref={field.ref}
                 value={field.value ?? ''}
