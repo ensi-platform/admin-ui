@@ -44,7 +44,8 @@ export interface IVerticalTabsOwnProps extends IDataTestIdProps {
     disabled?: boolean;
 }
 
-export interface IVerticalTabsBaseProps extends IVerticalTabsThemeProps, IVerticalTabsControlProps, IVerticalTabsOwnProps {}
+export interface IVerticalTabsBaseProps
+    extends IVerticalTabsThemeProps, IVerticalTabsControlProps, IVerticalTabsOwnProps {}
 
 /** RAC keys omitted because names differ from ours. */
 export type TVerticalTabsRacOmit =
