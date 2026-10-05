@@ -11,9 +11,6 @@ export const docsCssVariables = `/* CSS variables — VerticalTabs (--aui-vertic
 --aui-vertical-tabs-gap-sm: var(--aui-spacing-4); /* sm item gap */
 --aui-vertical-tabs-gap-md: var(--aui-spacing-4); /* md item gap */
 --aui-vertical-tabs-gap-lg: var(--aui-spacing-8); /* lg item gap */
---aui-vertical-tabs-h-sm: var(--aui-spacing-32); /* height sm */
---aui-vertical-tabs-h-md: var(--aui-spacing-40); /* height md */
---aui-vertical-tabs-h-lg: var(--aui-spacing-48); /* height lg */
 --aui-vertical-tabs-pad-y-sm: var(--aui-spacing-4); /* padding-y sm */
 --aui-vertical-tabs-pad-x-sm: var(--aui-spacing-8); /* padding-x sm */
 --aui-vertical-tabs-pad-y-md: var(--aui-spacing-8); /* padding-y md */

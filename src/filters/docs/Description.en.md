@@ -1,4 +1,4 @@
-Listing filter section: a field grid with per-kind column spans and a footer for actions.
+Listing filter section: a content area and a footer for actions. The field grid is `GridLayout`.
 
 ```tsx
 import { Filters } from '@ensi-platform/admin-ui/filters';
@@ -7,7 +7,6 @@ import { Filters } from '@ensi-platform/admin-ui/filters';
 ## When to use
 
 - the filter form of a list page
-- a date or a range needs more columns than a short field
 - visibility and order belong in `ArrangementSettings`, not in this section
 
 ## API (short)
@@ -16,24 +15,11 @@ import { Filters } from '@ensi-platform/admin-ui/filters';
 | ------------ | -------- | ------- | -------------- |
 | `dataTestId` | `string` | —       | `data-test-id` |
 
-Slots: `Grid` / `Cell` / `Footer`. `Form` and controls stay outside.
+Slots: `Body` / `Footer`. `Form` and controls stay outside.
 
-### Grid
+### Body
 
-| Prop         | Values                   | Default | Description                                                         |
-| ------------ | ------------------------ | ------- | ------------------------------------------------------------------- |
-| `columns`    | `number`                 | `4`     | equal tracks; the page sets this, there are no built-in breakpoints |
-| `span`       | `Record<string, number>` | —       | field kind → columns; an unknown kind uses `default`, otherwise `1` |
-| `dataTestId` | `string`                 | —       | `data-test-id`                                                      |
-
-The cell span is clamped to `1…columns`.
-
-### Cell
-
-| Prop         | Values   | Default | Description    |
-| ------------ | -------- | ------- | -------------- |
-| `kind`       | `string` | —       | key in `span`  |
-| `dataTestId` | `string` | —       | `data-test-id` |
+The field area. The page lays the fields out with `GridLayout`.
 
 ### Footer
 

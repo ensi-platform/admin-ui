@@ -2,6 +2,7 @@
     display: inline-flex;
     align-items: center;
     gap: var(--aui-table-action-gap);
+    padding: var(--aui-table-pad-y-utility) var(--aui-table-pad-x-utility);
 }
 
 .menu {
@@ -9,11 +10,13 @@
     flex-direction: column;
     gap: var(--aui-table-action-gap);
     min-width: 10rem;
-    padding: var(--aui-spacing-4);
+    padding: var(--aui-table-pad-y-sm) var(--aui-table-pad-x-sm);
 }
 
 .menuItem {
     justify-content: flex-start;
+    width: 100%;
+    padding: var(--aui-table-pad-y-sm) var(--aui-table-pad-x-md);
 }
 
 .overflowTrigger {

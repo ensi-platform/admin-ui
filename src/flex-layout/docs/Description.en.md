@@ -10,7 +10,7 @@ import { FlexLayout } from '@ensi-platform/admin-ui/flex-layout';
 - several buttons side by side
 - a stack of blocks when equal columns are not needed
 
-Equal field columns use `Grid`.
+Equal field columns use `GridLayout`.
 
 ## API (short)
 

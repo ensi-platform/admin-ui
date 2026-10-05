@@ -3,6 +3,7 @@ import { type Meta, type StoryObj } from '@storybook/react';
 import { Button } from '@/button';
 import { FormDateRangePicker } from '@/date-range-picker';
 import { Form } from '@/form';
+import { GridLayout } from '@/grid-layout';
 import { FormInput } from '@/input';
 
 import { Filters } from '../Component';
@@ -16,14 +17,16 @@ import ExampleRu from './Example.ru.md';
 const FiltersDemo = () => (
     <Form initialValues={{ name: '', date: null }} onSubmit={() => undefined}>
         <Filters>
-            <Filters.Grid columns={4} span={{ text: 1, date: 2 }}>
-                <Filters.Cell kind="text">
-                    <FormInput name="name" label="Name" />
-                </Filters.Cell>
-                <Filters.Cell kind="date">
-                    <FormDateRangePicker name="date" label="Date" />
-                </Filters.Cell>
-            </Filters.Grid>
+            <Filters.Body>
+                <GridLayout cols={4} gap={16}>
+                    <GridLayout.Item>
+                        <FormInput name="name" label="Name" />
+                    </GridLayout.Item>
+                    <GridLayout.Item col={2}>
+                        <FormDateRangePicker name="date" label="Date" />
+                    </GridLayout.Item>
+                </GridLayout>
+            </Filters.Body>
             <Filters.Footer>
                 <Button type="button">Filter settings</Button>
                 <span>

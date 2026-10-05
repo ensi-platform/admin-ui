@@ -2,13 +2,13 @@ import cn from 'classnames';
 
 import { supportRef } from '@ds/common/support-ref';
 
-import { GridItem } from './components/Item';
-import { type IGridProps, type IGridStyle, type TGridGap } from './types';
-import { toGridColumn, toGridTemplate } from './utils';
+import { GridLayoutItem } from './components/Item';
+import { type IGridLayoutProps, type IGridLayoutStyle, type TGridLayoutGap } from './types';
+import { toGridLayoutColumn, toGridLayoutTemplate } from './utils';
 
 import styles from './styles.module.css';
 
-const gapClass: Record<TGridGap, string> = {
+const gapClass: Record<TGridLayoutGap, string> = {
     0: styles.gap0,
     4: styles.gap4,
     8: styles.gap8,
@@ -29,7 +29,7 @@ const alignClass = {
     stretch: null,
 } as const;
 
-const GridRoot = supportRef(
+const GridLayoutRoot = supportRef(
     ({
         ref,
         children,
@@ -42,11 +42,11 @@ const GridRoot = supportRef(
         dataTestId,
         style,
         ...props
-    }: IGridProps) => {
-        const gridStyle: IGridStyle = {
+    }: IGridLayoutProps) => {
+        const gridStyle: IGridLayoutStyle = {
             ...style,
-            '--aui-grid-template': toGridTemplate(cols),
-            '--aui-grid-col': toGridColumn(col),
+            '--aui-grid-layout-template': toGridLayoutTemplate(cols),
+            '--aui-grid-layout-col': toGridLayoutColumn(col),
         };
 
         return (
@@ -64,6 +64,6 @@ const GridRoot = supportRef(
     }
 );
 
-GridRoot.displayName = 'Grid';
+GridLayoutRoot.displayName = 'GridLayout';
 
-export const Grid = Object.assign(GridRoot, { Item: GridItem });
+export const GridLayout = Object.assign(GridLayoutRoot, { Item: GridLayoutItem });

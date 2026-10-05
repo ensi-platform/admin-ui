@@ -20,6 +20,7 @@ const draftFromValue = (items: IArrangementSettingsProps['items'], value: readon
 export const ArrangementSettings = ({
     open,
     onOpenChange,
+    onExitComplete,
     title,
     items,
     value,
@@ -50,7 +51,13 @@ export const ArrangementSettings = ({
     };
 
     return (
-        <Drawer open={open} onOpenChange={onOpenChange} placement={placement} dataTestId={dataTestId}>
+        <Drawer
+            open={open}
+            onOpenChange={onOpenChange}
+            onExitComplete={onExitComplete}
+            placement={placement}
+            dataTestId={dataTestId}
+        >
             <Drawer.Header>
                 <Drawer.Title>{title}</Drawer.Title>
             </Drawer.Header>

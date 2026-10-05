@@ -15,6 +15,8 @@ export interface IArrangementSettingsProps extends IDataTestIdProps {
     open: boolean;
     /** Open state change. Cancel and dismiss pass `false` without saving. */
     onOpenChange?: (open: boolean) => void;
+    /** Called after the exit animation finishes (or immediately if skipped). */
+    onExitComplete?: () => void;
     /** Drawer title. */
     title: string;
     /** Physical side of the viewport. */

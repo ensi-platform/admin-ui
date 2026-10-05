@@ -16,6 +16,7 @@ import { DateRangePicker } from '@/date-range-picker';
 import { typographyStyles } from '@/ds/typography';
 import { Field, useField } from '@/field';
 import { Filters } from '@/filters';
+import { GridLayout } from '@/grid-layout';
 import { Cart, ChevronDown, LogoEnsiMark, Package, Users } from '@/icons';
 import { Input } from '@/input';
 import { Link } from '@/link';
@@ -632,7 +633,7 @@ const ListPageContent = () => {
     const filterCell = (id: string) => {
         if (id === 'status') {
             return (
-                <Filters.Cell key={id}>
+                <GridLayout.Item key={id}>
                     <Field>
                         <Field.Label>Status</Field.Label>
                         <FieldMultiAutocompleteAsync
@@ -644,13 +645,13 @@ const ListPageContent = () => {
                             onChange={next => setStatuses(next.map(String))}
                         />
                     </Field>
-                </Filters.Cell>
+                </GridLayout.Item>
             );
         }
 
         if (id === 'assignee') {
             return (
-                <Filters.Cell key={id}>
+                <GridLayout.Item key={id}>
                     <Field>
                         <Field.Label>Assignee</Field.Label>
                         <FieldMultiAutocompleteAsync
@@ -662,13 +663,13 @@ const ListPageContent = () => {
                             onChange={next => setAssignees(next.map(String))}
                         />
                     </Field>
-                </Filters.Cell>
+                </GridLayout.Item>
             );
         }
 
         if (id === 'client') {
             return (
-                <Filters.Cell key={id}>
+                <GridLayout.Item key={id}>
                     <Field>
                         <Field.Label>Client</Field.Label>
                         <FieldInput
@@ -678,24 +679,24 @@ const ListPageContent = () => {
                             clear
                         />
                     </Field>
-                </Filters.Cell>
+                </GridLayout.Item>
             );
         }
 
         if (id === 'created') {
             return (
-                <Filters.Cell key={id} kind="range">
+                <GridLayout.Item key={id} col={2}>
                     <Field>
                         <Field.Label>Created</Field.Label>
                         <FieldDateRangePicker value={period} onChange={setPeriod} clear />
                     </Field>
-                </Filters.Cell>
+                </GridLayout.Item>
             );
         }
 
         if (id === 'amount') {
             return (
-                <Filters.Cell key={id} kind="range">
+                <GridLayout.Item key={id} col={2}>
                     <Field>
                         <Field.Label>Amount from / to</Field.Label>
                         <FieldNumberRange
@@ -709,13 +710,13 @@ const ListPageContent = () => {
                             clear
                         />
                     </Field>
-                </Filters.Cell>
+                </GridLayout.Item>
             );
         }
 
         if (id === 'payment') {
             return (
-                <Filters.Cell key={id}>
+                <GridLayout.Item key={id}>
                     <Field>
                         <Field.Label>Payment</Field.Label>
                         <FieldSelect
@@ -726,7 +727,7 @@ const ListPageContent = () => {
                             placeholder="Select payment"
                         />
                     </Field>
-                </Filters.Cell>
+                </GridLayout.Item>
             );
         }
 
@@ -937,9 +938,11 @@ const ListPageContent = () => {
             {view === 'filters' ? (
                 <>
                     <Filters>
-                        <Filters.Grid columns={2} span={{ range: 2 }}>
-                            {visibleFilters.map(filterCell)}
-                        </Filters.Grid>
+                        <Filters.Body>
+                            <GridLayout cols={2} gap={16}>
+                                {visibleFilters.map(filterCell)}
+                            </GridLayout>
+                        </Filters.Body>
                         <Filters.Footer>
                             <Button type="button" variant="secondary" onClick={() => setSettingsOpen(true)}>
                                 Filter settings

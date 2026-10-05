@@ -4,24 +4,16 @@ import { describe, expect, it } from 'vitest';
 import { Filters } from '..';
 
 describe('Filters', () => {
-    it('sets the cell column span from the kind map', () => {
+    it('renders the body as a plain content slot', () => {
         render(
             <Filters dataTestId="filters">
-                <Filters.Grid columns={4} span={{ text: 1, date: 2 }} dataTestId="grid">
-                    <Filters.Cell kind="text" dataTestId="text">
-                        Name
-                    </Filters.Cell>
-                    <Filters.Cell kind="date" dataTestId="date">
-                        Date
-                    </Filters.Cell>
-                </Filters.Grid>
+                <Filters.Body dataTestId="body">Name</Filters.Body>
             </Filters>
         );
 
         expect(screen.getByTestId('filters')).toBeInTheDocument();
-        expect(screen.getByTestId('grid')).toHaveStyle({ '--aui-filters-columns': '4' });
-        expect(screen.getByTestId('text')).toHaveStyle({ '--aui-filters-span': '1' });
-        expect(screen.getByTestId('date')).toHaveStyle({ '--aui-filters-span': '2' });
+        expect(screen.getByTestId('body')).toHaveTextContent('Name');
+        expect(screen.getByTestId('body')).not.toHaveAttribute('style');
     });
 
     it('renders footer slots', () => {

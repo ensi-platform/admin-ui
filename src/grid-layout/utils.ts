@@ -1,7 +1,7 @@
-import { type TGridCol, type TGridTrack } from './types';
+import { type TGridLayoutCol, type TGridLayoutTrack } from './types';
 
 /** Equal tracks, or an explicit list (`2` → two `1fr`, `2` inside a list → `2fr`). */
-export const toGridTemplate = (cols: number | TGridTrack[]): string => {
+export const toGridLayoutTemplate = (cols: number | TGridLayoutTrack[]): string => {
     if (typeof cols === 'number') {
         return `repeat(${cols}, minmax(0, 1fr))`;
     }
@@ -10,7 +10,7 @@ export const toGridTemplate = (cols: number | TGridTrack[]): string => {
 };
 
 /** Item span. `full` crosses every column. */
-export const toGridColumn = (col?: TGridCol): string => {
+export const toGridLayoutColumn = (col?: TGridLayoutCol): string => {
     if (col === 'full') {
         return '1 / -1';
     }

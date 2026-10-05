@@ -14,7 +14,8 @@ import { ArrangementSettings } from '@ensi-platform/admin-ui/arrangement-setting
 | Prop           | Значения                          | По умолчанию | Описание                                         |
 | -------------- | --------------------------------- | ------------ | ------------------------------------------------ |
 | `open`         | `boolean`                         | —            | открыт ли `Drawer`                               |
-| `onOpenChange` | `(open: boolean) => void`         | —            | смена открытия; отмена и закрытие без сохранения |
+| `onOpenChange`   | `(open: boolean) => void`         | —            | смена открытия; отмена и закрытие без сохранения |
+| `onExitComplete` | `() => void`                      | —            | после анимации закрытия (для `ModalHub`)         |
 | `title`        | `string`                          | —            | заголовок                                        |
 | `placement`    | `left` \| `right`                 | `left`       | сторона, с которой выезжает `Drawer`             |
 | `items`        | `{ id: string; label: string }[]` | —            | все пункты, включая скрытые                      |

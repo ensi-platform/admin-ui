@@ -14,7 +14,8 @@ import { ArrangementSettings } from '@ensi-platform/admin-ui/arrangement-setting
 | Prop           | Values                            | Default | Description                                 |
 | -------------- | --------------------------------- | ------- | ------------------------------------------- |
 | `open`         | `boolean`                         | —       | whether the `Drawer` is open                |
-| `onOpenChange` | `(open: boolean) => void`         | —       | open change; cancel and dismiss do not save |
+| `onOpenChange`   | `(open: boolean) => void`         | —       | open change; cancel and dismiss do not save |
+| `onExitComplete` | `() => void`                      | —       | after exit animation (for `ModalHub`)       |
 | `title`        | `string`                          | —       | drawer title                                |
 | `placement`    | `left` \| `right`                 | `left`  | side the `Drawer` enters from               |
 | `items`        | `{ id: string; label: string }[]` | —       | every item, including hidden ones           |

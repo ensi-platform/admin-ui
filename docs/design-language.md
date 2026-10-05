@@ -48,7 +48,7 @@ Z-order: L0+flyout (`--aui-z-chrome`) выше sticky table (`--aui-table-z-stic
 
 ## Экраны (сборка из базы)
 
-Примитивы: `CascadeMenu` / `MenuList`, `Button`, `Tag`, `Badge`, `Table`, `Tabs`, `VerticalTabs`, `Grid`, `FlexLayout`, `Field` + controls, при необходимости `Drawer`.
+Примитивы: `CascadeMenu` / `MenuList`, `Button`, `Tag`, `Badge`, `Table`, `Tabs`, `VerticalTabs`, `GridLayout`, `FlexLayout`, `Field` + controls, при необходимости `Drawer`.
 
 ### List — таблица
 
@@ -72,7 +72,7 @@ Z-order: L0+flyout (`--aui-z-chrome`) выше sticky table (`--aui-table-z-stic
 - back-link; title + `Badge` и кнопки — `FlexLayout`; `⋯` + primary «Сохранить»
 - разделы страницы — underline `Tabs` (не pill-ряд с обводкой)
 - секции внутри одной вкладки — `VerticalTabs` (колонка слева, панель справа)
-- секции: H2 + gap; поля на `page` в `Grid` — **без** card на каждую секцию
+- секции: H2 + gap; поля на `page` в `GridLayout` — **без** card на каждую секцию
 - один alert (bg+border) — единственный тяжёлый вложенный блок
 - теги в поле — tint без второй обводки поверх `Field`
 

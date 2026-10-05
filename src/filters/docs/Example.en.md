@@ -3,14 +3,16 @@
 ```tsx
 <Form initialValues={values} onSubmit={apply}>
     <Filters>
-        <Filters.Grid columns={4} span={{ text: 1, date: 2 }}>
-            <Filters.Cell kind="text">
-                <FormInput name="name" label="Name" />
-            </Filters.Cell>
-            <Filters.Cell kind="date">
-                <FormDateRangePicker name="date" label="Date" />
-            </Filters.Cell>
-        </Filters.Grid>
+        <Filters.Body>
+            <GridLayout cols={4} gap={16}>
+                <GridLayout.Item>
+                    <FormInput name="name" label="Name" />
+                </GridLayout.Item>
+                <GridLayout.Item col={2}>
+                    <FormDateRangePicker name="date" label="Date" />
+                </GridLayout.Item>
+            </GridLayout>
+        </Filters.Body>
         <Filters.Footer>
             <Button type="button">Filter settings</Button>
             <Button type="reset">Reset</Button>

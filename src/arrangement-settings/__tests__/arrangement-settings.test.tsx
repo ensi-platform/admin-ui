@@ -1,6 +1,6 @@
 import { type ReactElement, useState } from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -124,6 +124,38 @@ describe('ArrangementSettings', () => {
         render(<Harness onSave={vi.fn()} placement="right" />);
 
         expect(screen.getByRole('dialog').parentElement).toHaveClass(drawerStyles.panelRight);
+    });
+
+    it('calls onExitComplete after dismiss', async () => {
+        const user = userEvent.setup();
+        const onExitComplete = vi.fn();
+
+        const ExitHarness = () => {
+            const [open, setOpen] = useState(true);
+
+            return (
+                <AdminUiProvider>
+                    <ArrangementSettings
+                        open={open}
+                        onOpenChange={setOpen}
+                        title="Columns"
+                        items={items}
+                        value={['name', 'date']}
+                        onSave={vi.fn()}
+                        onExitComplete={onExitComplete}
+                    />
+                </AdminUiProvider>
+            );
+        };
+
+        render(<ExitHarness />);
+
+        await user.click(screen.getByRole('checkbox', { name: /Name/ }));
+        await user.keyboard('{Escape}');
+
+        await waitFor(() => {
+            expect(onExitComplete).toHaveBeenCalledTimes(1);
+        });
     });
 
     it('discards the draft on dismiss', async () => {

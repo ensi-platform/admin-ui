@@ -103,11 +103,11 @@
         "url": "https://github.com/ensi-platform/admin-ui.git"
     },
     "dependencies": {
-        "@internationalized/date": "^3.10.0",
+        "@internationalized/date": "^3.12.4",
         "class-variance-authority": "0.7.1",
         "classnames": "2.5.1",
-        "react-aria": "3.50.0",
-        "react-aria-components": "^1.19.0",
+        "react-aria": "3.52.1",
+        "react-aria-components": "^1.21.1",
         "react-fast-compare": "^3.2.2",
         "usehooks-ts": "^3.1.1"
     },
@@ -211,9 +211,9 @@
             "types": "./dist/form/index.d.ts",
             "import": "./dist/form/index.js"
         },
-        "./grid": {
-            "types": "./dist/grid/index.d.ts",
-            "import": "./dist/grid/index.js"
+        "./grid-layout": {
+            "types": "./dist/grid-layout/index.d.ts",
+            "import": "./dist/grid-layout/index.js"
         },
         "./hooks": {
             "types": "./dist/hooks/index.d.ts",

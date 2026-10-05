@@ -1,0 +1,68 @@
+.root {
+    display: grid;
+    grid-template-columns: var(--aui-grid-layout-template);
+    grid-column: var(--aui-grid-layout-col, auto);
+    gap: var(--aui-grid-layout-gap);
+    align-items: stretch;
+    min-width: 0;
+}
+
+.root[hidden] {
+    display: none;
+}
+
+.gap0 {
+    --aui-grid-layout-gap: var(--aui-grid-layout-gap-0);
+}
+
+.gap4 {
+    --aui-grid-layout-gap: var(--aui-grid-layout-gap-4);
+}
+
+.gap8 {
+    --aui-grid-layout-gap: var(--aui-grid-layout-gap-8);
+}
+
+.gap12 {
+    --aui-grid-layout-gap: var(--aui-grid-layout-gap-12);
+}
+
+.gap16 {
+    --aui-grid-layout-gap: var(--aui-grid-layout-gap-16);
+}
+
+.gap20 {
+    --aui-grid-layout-gap: var(--aui-grid-layout-gap-20);
+}
+
+.gap24 {
+    --aui-grid-layout-gap: var(--aui-grid-layout-gap-24);
+}
+
+.gap32 {
+    --aui-grid-layout-gap: var(--aui-grid-layout-gap-32);
+}
+
+.gap40 {
+    --aui-grid-layout-gap: var(--aui-grid-layout-gap-40);
+}
+
+.gap48 {
+    --aui-grid-layout-gap: var(--aui-grid-layout-gap-48);
+}
+
+.gap64 {
+    --aui-grid-layout-gap: var(--aui-grid-layout-gap-64);
+}
+
+.start {
+    align-items: start;
+}
+
+.center {
+    align-items: center;
+}
+
+.end {
+    align-items: end;
+}

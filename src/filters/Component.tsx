@@ -2,9 +2,8 @@ import cn from 'classnames';
 
 import { supportRef } from '@ds/common/support-ref';
 
-import { FiltersCell } from './components/Cell';
+import { FiltersBody } from './components/Body';
 import { FiltersFooter } from './components/Footer';
-import { FiltersGrid } from './components/Grid';
 import { type IFiltersProps } from './types';
 
 import styles from './styles.module.css';
@@ -18,7 +17,6 @@ const FiltersRoot = supportRef(({ ref, children, className, dataTestId, ...props
 FiltersRoot.displayName = 'Filters';
 
 export const Filters = Object.assign(FiltersRoot, {
-    Grid: FiltersGrid,
-    Cell: FiltersCell,
+    Body: FiltersBody,
     Footer: FiltersFooter,
 });

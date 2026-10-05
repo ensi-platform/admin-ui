@@ -10,7 +10,7 @@ import { FlexLayout } from '@ensi-platform/admin-ui/flex-layout';
 - несколько кнопок рядом
 - колонка блоков, когда равные колонки не нужны
 
-Равные колонки полей — `Grid`.
+Равные колонки полей — `GridLayout`.
 
 ## API (кратко)
 

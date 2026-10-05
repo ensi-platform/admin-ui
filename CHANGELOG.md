@@ -2,7 +2,7 @@
 
 ### Features
 - new components
-- `FlexLayout` for a row or a stack (`direction`, `gap`, `align`, `justify`, `FlexLayout.Item` `grow`). Equal field columns stay `Grid`
+- `FlexLayout` for a row or a stack (`direction`, `gap`, `align`, `justify`, `FlexLayout.Item` `grow`). Equal field columns stay `GridLayout`
 - `CopyButton` copies its text and shows a tooltip: the copied value on success, an error if the clipboard rejects. The check icon and tooltip stay for `timeout` (default 1000 ms)
 
 ## 0.7.0 - 2026-10-05
@@ -10,7 +10,7 @@
 ### Features
 - add new components
 - `VerticalTabs`: a column on the left and a panel on the right. Page sections stay `Tabs`
-- `Grid` for fields and column splits (`cols`, `gap`, `Grid.Item` with `col` or `col="full"`). List filters stay `Filters.Grid`
+- `GridLayout` for fields and column splits (`cols`, `gap`, `GridLayout.Item` with `col` or `col="full"`). List filters are `Filters` (`Body` / `Footer`); the field grid is `GridLayout`
 
 ## 0.6.0 - 2026-10-04
 

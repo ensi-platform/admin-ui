@@ -48,7 +48,7 @@ Z-order: L0+flyout (`--aui-z-chrome`) above a sticky table (`--aui-table-z-stick
 
 ## Screens (assembled from Base)
 
-Primitives: `CascadeMenu` / `MenuList`, `Button`, `Tag`, `Badge`, `Table`, `Tabs`, `VerticalTabs`, `Grid`, `FlexLayout`, `Field` + controls, and `Drawer` when needed.
+Primitives: `CascadeMenu` / `MenuList`, `Button`, `Tag`, `Badge`, `Table`, `Tabs`, `VerticalTabs`, `GridLayout`, `FlexLayout`, `Field` + controls, and `Drawer` when needed.
 
 ### List — table
 
@@ -72,7 +72,7 @@ Primitives: `CascadeMenu` / `MenuList`, `Button`, `Tag`, `Badge`, `Table`, `Tabs
 - back link; title + `Badge` and buttons — `FlexLayout`; `⋯` + primary “Save”
 - page sections — underline `Tabs` (not a pill row with a border)
 - sections inside one tab — `VerticalTabs` (column on the left, panel on the right)
-- sections: H2 + gap; fields on `page` in `Grid` — **no** card per section
+- sections: H2 + gap; fields on `page` in `GridLayout` — **no** card per section
 - one alert (bg+border) is the only heavy nested block
 - tags inside a field — tint, with no second stroke on top of `Field`
 

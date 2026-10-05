@@ -60,8 +60,8 @@ Import `@ensi-platform/admin-ui/<folder>` (`button`, `date-picker`, …). Inside
 | List chrome only: custom cells, pagination, `PageSize`. Row selection — `useTableRowSelection` | `Table` | `DataTable` when the header should sort or filter |
 | Sections of one page or entity card. Underline, not a pill row | `Tabs` | bordered segment buttons; vertical tabs inside a tab — `VerticalTabs` |
 | Vertical tabs inside one page tab: column on the left, panel on the right. Column width, gap, and selected fill are `--aui-vertical-tabs-*` | `VerticalTabs` | underline page tabs — `Tabs` |
-| Equal columns of fields, or an explicit track split (`cols` number or track list, `Grid.Item` `col="full"`). Gap is a spacing step | `Grid` | `Filters.Grid`, which is only the list-filter grid |
-| A row or a stack: page title and buttons, or a button group. `FlexLayout.Item` `grow` takes the free space. Gap is a spacing step | `FlexLayout` | equal field columns — `Grid` |
+| Equal columns of fields, or an explicit track split (`cols` number or track list, `GridLayout.Item` `col="full"`). Gap is a spacing step. List filters put it inside `Filters.Body` | `GridLayout` | `FlexLayout` for a row or a stack |
+| A row or a stack: page title and buttons, or a button group. `FlexLayout.Item` `grow` takes the free space. Gap is a spacing step | `FlexLayout` | equal field columns — `GridLayout` |
 | A short value the user copies (order id, number). Link style; tooltip shows the copied value, or that the copy failed | `CopyButton` | a plain `Button` |
 | Filters or details at the side. Long content that must not cover the viewport the way `Modal` does | `Drawer` | a nested card on the page; on mobile — `BottomSheet` |
 | The same panel on a narrow screen, dismissed with a swipe down | `BottomSheet` | a side `Drawer` |
