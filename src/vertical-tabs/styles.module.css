@@ -1,0 +1,35 @@
+.root {
+    display: grid;
+    grid-template-columns: var(--aui-vertical-tabs-col-w) minmax(0, 1fr);
+    column-gap: var(--aui-vertical-tabs-col-gap);
+    align-items: start;
+    width: 100%;
+    max-width: 100%;
+}
+
+.root > [role='tablist'] {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.root > [data-slot='panels'] {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+}
+
+.sm {
+    --_vertical-tabs-size: sm;
+}
+
+.md {
+    --_vertical-tabs-size: md;
+}
+
+.lg {
+    --_vertical-tabs-size: lg;
+}
+
+.primary {
+    color: var(--aui-vertical-tabs-fg-primary);
+}

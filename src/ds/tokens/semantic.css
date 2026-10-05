@@ -715,6 +715,44 @@
     --aui-tabs-duration-normal: var(--aui-control-duration-normal);
     --aui-tabs-ease-out: var(--aui-control-ease-out);
 
+    /* vertical-tabs — vertical tab list beside its panel */
+    --aui-vertical-tabs-fg-primary: var(--aui-page-fg-primary);
+    --aui-vertical-tabs-fg-muted: var(--aui-page-fg-muted);
+    --aui-vertical-tabs-bg-selected: var(--aui-surface-bg-muted);
+    --aui-vertical-tabs-border-focus: var(--aui-control-border-focus);
+    --aui-vertical-tabs-list-border: var(--aui-surface-border-primary);
+    --aui-vertical-tabs-item-radius: var(--aui-radius-8);
+    --aui-vertical-tabs-col-w: 12.5rem;
+    --aui-vertical-tabs-col-gap: var(--aui-spacing-24);
+    --aui-vertical-tabs-gap-sm: var(--aui-spacing-4);
+    --aui-vertical-tabs-gap-md: var(--aui-spacing-4);
+    --aui-vertical-tabs-gap-lg: var(--aui-spacing-8);
+    --aui-vertical-tabs-h-sm: var(--aui-spacing-32);
+    --aui-vertical-tabs-h-md: var(--aui-spacing-40);
+    --aui-vertical-tabs-h-lg: var(--aui-spacing-48);
+    --aui-vertical-tabs-pad-y-sm: var(--aui-spacing-4);
+    --aui-vertical-tabs-pad-x-sm: var(--aui-spacing-8);
+    --aui-vertical-tabs-pad-y-md: var(--aui-spacing-8);
+    --aui-vertical-tabs-pad-x-md: var(--aui-spacing-12);
+    --aui-vertical-tabs-pad-y-lg: var(--aui-spacing-12);
+    --aui-vertical-tabs-pad-x-lg: var(--aui-spacing-16);
+    --aui-vertical-tabs-panel-shift: var(--aui-spacing-8);
+    --aui-vertical-tabs-duration-normal: var(--aui-control-duration-normal);
+    --aui-vertical-tabs-ease-out: var(--aui-control-ease-out);
+
+    /* grid — field and split layouts */
+    --aui-grid-gap-0: 0;
+    --aui-grid-gap-4: var(--aui-spacing-4);
+    --aui-grid-gap-8: var(--aui-spacing-8);
+    --aui-grid-gap-12: var(--aui-spacing-12);
+    --aui-grid-gap-16: var(--aui-spacing-16);
+    --aui-grid-gap-20: var(--aui-spacing-20);
+    --aui-grid-gap-24: var(--aui-spacing-24);
+    --aui-grid-gap-32: var(--aui-spacing-32);
+    --aui-grid-gap-40: var(--aui-spacing-40);
+    --aui-grid-gap-48: var(--aui-spacing-48);
+    --aui-grid-gap-64: var(--aui-spacing-64);
+
     /* avatar — initials / photo circle */
     --aui-avatar-bg-primary: var(--aui-surface-bg-elevated);
     --aui-avatar-fg-primary: var(--aui-page-fg-primary);

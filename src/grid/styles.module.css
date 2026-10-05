@@ -1,0 +1,68 @@
+.root {
+    display: grid;
+    grid-template-columns: var(--aui-grid-template);
+    grid-column: var(--aui-grid-col, auto);
+    gap: var(--aui-grid-gap);
+    align-items: stretch;
+    min-width: 0;
+}
+
+.root[hidden] {
+    display: none;
+}
+
+.gap0 {
+    --aui-grid-gap: var(--aui-grid-gap-0);
+}
+
+.gap4 {
+    --aui-grid-gap: var(--aui-grid-gap-4);
+}
+
+.gap8 {
+    --aui-grid-gap: var(--aui-grid-gap-8);
+}
+
+.gap12 {
+    --aui-grid-gap: var(--aui-grid-gap-12);
+}
+
+.gap16 {
+    --aui-grid-gap: var(--aui-grid-gap-16);
+}
+
+.gap20 {
+    --aui-grid-gap: var(--aui-grid-gap-20);
+}
+
+.gap24 {
+    --aui-grid-gap: var(--aui-grid-gap-24);
+}
+
+.gap32 {
+    --aui-grid-gap: var(--aui-grid-gap-32);
+}
+
+.gap40 {
+    --aui-grid-gap: var(--aui-grid-gap-40);
+}
+
+.gap48 {
+    --aui-grid-gap: var(--aui-grid-gap-48);
+}
+
+.gap64 {
+    --aui-grid-gap: var(--aui-grid-gap-64);
+}
+
+.start {
+    align-items: start;
+}
+
+.center {
+    align-items: center;
+}
+
+.end {
+    align-items: end;
+}

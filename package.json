@@ -203,6 +203,10 @@
             "types": "./dist/form/index.d.ts",
             "import": "./dist/form/index.js"
         },
+        "./grid": {
+            "types": "./dist/grid/index.d.ts",
+            "import": "./dist/grid/index.js"
+        },
         "./hooks": {
             "types": "./dist/hooks/index.d.ts",
             "import": "./dist/hooks/index.js"
@@ -310,6 +314,10 @@
         "./tooltip": {
             "types": "./dist/tooltip/index.d.ts",
             "import": "./dist/tooltip/index.js"
+        },
+        "./vertical-tabs": {
+            "types": "./dist/vertical-tabs/index.d.ts",
+            "import": "./dist/vertical-tabs/index.js"
         },
         "./typography": {
             "types": "./dist/typography/index.d.ts",

@@ -1,0 +1,4 @@
+.root {
+    grid-column: var(--aui-grid-col, auto);
+    min-width: 0;
+}

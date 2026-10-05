@@ -58,7 +58,9 @@ Import `@ensi-platform/admin-ui/<folder>` (`button`, `date-picker`, …). Inside
 | Block clicks on a list, card, or form while data loads. On refetch the children stay mounted | `Loader` | `Toast` |
 | Entity list whose sort and column filter live in the header, plus a row action menu | `DataTable` (+ `ContextMenu`) | bare `Table` |
 | List chrome only: custom cells, pagination, `PageSize`. Row selection — `useTableRowSelection` | `Table` | `DataTable` when the header should sort or filter |
-| Sections of one page or entity card. Underline, not a pill row | `Tabs` | bordered segment buttons |
+| Sections of one page or entity card. Underline, not a pill row | `Tabs` | bordered segment buttons; vertical tabs inside a tab — `VerticalTabs` |
+| Vertical tabs inside one page tab: column on the left, panel on the right. Column width, gap, and selected fill are `--aui-vertical-tabs-*` | `VerticalTabs` | underline page tabs — `Tabs` |
+| Equal columns of fields, or an explicit track split (`cols` number or track list, `Grid.Item` `col="full"`). Gap is a spacing step | `Grid` | `Filters.Grid`, which is only the list-filter grid |
 | Filters or details at the side. Long content that must not cover the viewport the way `Modal` does | `Drawer` | a nested card on the page; on mobile — `BottomSheet` |
 | The same panel on a narrow screen, dismissed with a swipe down | `BottomSheet` | a side `Drawer` |
 | Filter form of a list page. Fields sit on the page: no card and no muted bar. A date or a range may span more columns than a short field | `Filters` | applied chips — `ActiveFilters`; which fields exist and their order — `ArrangementSettings` |

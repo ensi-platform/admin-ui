@@ -1,0 +1,13 @@
+.root {
+    display: grid;
+    min-width: 0;
+    height: var(--tab-panel-height);
+    overflow: hidden;
+    transition: height var(--aui-vertical-tabs-duration-normal) var(--aui-vertical-tabs-ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .root {
+        transition: none;
+    }
+}

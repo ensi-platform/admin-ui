@@ -1,0 +1,28 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    position: sticky;
+    top: 0;
+    margin: 0;
+    padding: 0 var(--aui-vertical-tabs-col-gap) 0 0;
+    border: none;
+    border-inline-end: 1px solid var(--aui-vertical-tabs-list-border);
+    background: transparent;
+}
+
+.sm {
+    gap: var(--aui-vertical-tabs-gap-sm);
+}
+
+.md {
+    gap: var(--aui-vertical-tabs-gap-md);
+}
+
+.lg {
+    gap: var(--aui-vertical-tabs-gap-lg);
+}
+
+.primary {
+    color: var(--aui-vertical-tabs-fg-muted);
+}

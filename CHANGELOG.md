@@ -1,18 +1,20 @@
+## 0.7.0
+
+### Features
+
+- `VerticalTabs`: a column on the left and a panel on the right. Page sections stay `Tabs`
+- `Grid` for fields and column splits (`cols`, `gap`, `Grid.Item` with `col` or `col="full"`). List filters stay `Filters.Grid`
+
 ## 0.6.0 - 2026-10-04
 
 ### Features
 - add new components + fix components and ai skills
-
-### Bug Fixes
-- fix deps
-
-## Unreleased
-
-### Features
-
 - `Form` `disabled` and `readOnly` accept a boolean or a map of exact field names
 - `readOnly` on `Input`, `TextArea`, and `NumberInput` (value stays focusable and copyable)
 - `Button` `hidden` hides only the text; the icon stays. Pass `aria-label`
+
+### Bug Fixes
+- fix deps
 
 ## 0.5.0 - 2026-10-01
 

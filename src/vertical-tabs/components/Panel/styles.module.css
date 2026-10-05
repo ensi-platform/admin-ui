@@ -1,0 +1,36 @@
+.root {
+    margin: 0;
+    outline: none;
+}
+
+.root[data-focus-visible] {
+    outline: 2px solid var(--aui-vertical-tabs-border-focus);
+    outline-offset: 2px;
+}
+
+:global([data-slot='panels']) > .root {
+    grid-area: 1 / 1;
+    min-width: 0;
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+        opacity var(--aui-vertical-tabs-duration-normal) var(--aui-vertical-tabs-ease-out),
+        transform var(--aui-vertical-tabs-duration-normal) var(--aui-vertical-tabs-ease-out);
+}
+
+:global([data-slot='panels']) > .root[data-entering],
+:global([data-slot='panels']) > .root[data-exiting] {
+    opacity: 0;
+    transform: translateY(var(--aui-vertical-tabs-panel-shift));
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :global([data-slot='panels']) > .root {
+        transition: none;
+    }
+
+    :global([data-slot='panels']) > .root[data-entering],
+    :global([data-slot='panels']) > .root[data-exiting] {
+        transform: none;
+    }
+}

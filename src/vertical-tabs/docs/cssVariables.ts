@@ -1,0 +1,25 @@
+/** Vertical tabs CSS variables from semantic tokens (--aui-vertical-tabs-*). */
+export const docsCssVariables = `/* CSS variables — VerticalTabs (--aui-vertical-tabs-*) */
+--aui-vertical-tabs-fg-primary: var(--aui-page-fg-primary); /* selected foreground */
+--aui-vertical-tabs-fg-muted: var(--aui-page-fg-muted); /* item foreground */
+--aui-vertical-tabs-bg-selected: var(--aui-surface-bg-muted); /* selected fill */
+--aui-vertical-tabs-border-focus: var(--aui-control-border-focus); /* focus border */
+--aui-vertical-tabs-list-border: var(--aui-surface-border-primary); /* list divider */
+--aui-vertical-tabs-item-radius: var(--aui-radius-8); /* item radius */
+--aui-vertical-tabs-col-w: 12.5rem; /* list width */
+--aui-vertical-tabs-col-gap: var(--aui-spacing-24); /* list to panel */
+--aui-vertical-tabs-gap-sm: var(--aui-spacing-4); /* sm item gap */
+--aui-vertical-tabs-gap-md: var(--aui-spacing-4); /* md item gap */
+--aui-vertical-tabs-gap-lg: var(--aui-spacing-8); /* lg item gap */
+--aui-vertical-tabs-h-sm: var(--aui-spacing-32); /* height sm */
+--aui-vertical-tabs-h-md: var(--aui-spacing-40); /* height md */
+--aui-vertical-tabs-h-lg: var(--aui-spacing-48); /* height lg */
+--aui-vertical-tabs-pad-y-sm: var(--aui-spacing-4); /* padding-y sm */
+--aui-vertical-tabs-pad-x-sm: var(--aui-spacing-8); /* padding-x sm */
+--aui-vertical-tabs-pad-y-md: var(--aui-spacing-8); /* padding-y md */
+--aui-vertical-tabs-pad-x-md: var(--aui-spacing-12); /* padding-x md */
+--aui-vertical-tabs-pad-y-lg: var(--aui-spacing-12); /* padding-y lg */
+--aui-vertical-tabs-pad-x-lg: var(--aui-spacing-16); /* padding-x lg */
+--aui-vertical-tabs-panel-shift: var(--aui-spacing-8); /* panel enter offset */
+--aui-vertical-tabs-duration-normal: var(--aui-control-duration-normal); /* transition duration (normal) */
+--aui-vertical-tabs-ease-out: var(--aui-control-ease-out); /* transition easing */`;

@@ -1,0 +1,16 @@
+.root {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    background: var(--aui-vertical-tabs-bg-selected);
+    transition-property: translate, width, height;
+    transition-duration: var(--aui-vertical-tabs-duration-normal);
+    transition-timing-function: var(--aui-vertical-tabs-ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .root {
+        transition: none;
+    }
+}
