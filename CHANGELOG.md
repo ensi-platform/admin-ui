@@ -1,7 +1,7 @@
-## 0.8.0
+## 0.8.0 - 2026-10-05
 
 ### Features
-
+- new components
 - `FlexLayout` for a row or a stack (`direction`, `gap`, `align`, `justify`, `FlexLayout.Item` `grow`). Equal field columns stay `Grid`
 - `CopyButton` copies its text and shows a tooltip: the copied value on success, an error if the clipboard rejects. The check icon and tooltip stay for `timeout` (default 1000 ms)
 
