@@ -175,6 +175,10 @@
             "types": "./dist/context-menu/index.d.ts",
             "import": "./dist/context-menu/index.js"
         },
+        "./copy-button": {
+            "types": "./dist/copy-button/index.d.ts",
+            "import": "./dist/copy-button/index.js"
+        },
         "./data-table": {
             "types": "./dist/data-table/index.d.ts",
             "import": "./dist/data-table/index.js"
@@ -198,6 +202,10 @@
         "./filters": {
             "types": "./dist/filters/index.d.ts",
             "import": "./dist/filters/index.js"
+        },
+        "./flex-layout": {
+            "types": "./dist/flex-layout/index.d.ts",
+            "import": "./dist/flex-layout/index.js"
         },
         "./form": {
             "types": "./dist/form/index.d.ts",

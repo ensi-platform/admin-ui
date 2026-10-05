@@ -91,6 +91,18 @@
     --aui-link-duration-fast: var(--aui-control-duration-fast);
     --aui-link-ease-out: var(--aui-control-ease-out);
 
+    /* copy-button — link that copies its text */
+    --aui-copy-button-fg: var(--aui-link-fg);
+    --aui-copy-button-fg-hover: var(--aui-link-fg-hover);
+    --aui-copy-button-fg-active: var(--aui-page-fg-primary);
+    --aui-copy-button-fg-copied: var(--aui-green-700);
+    --aui-copy-button-fg-danger: var(--aui-control-fg-danger);
+    --aui-copy-button-border-focus: var(--aui-link-border-focus);
+    --aui-copy-button-gap: var(--aui-spacing-4);
+    --aui-copy-button-icon-size: var(--aui-spacing-16);
+    --aui-copy-button-duration-fast: var(--aui-link-duration-fast);
+    --aui-copy-button-ease-out: var(--aui-link-ease-out);
+
     /* field */
     --aui-field-gap-sm: var(--aui-spacing-4);
     --aui-field-gap-md: var(--aui-spacing-8);
@@ -752,6 +764,19 @@
     --aui-grid-gap-40: var(--aui-spacing-40);
     --aui-grid-gap-48: var(--aui-spacing-48);
     --aui-grid-gap-64: var(--aui-spacing-64);
+
+    /* flex-layout — row and stack */
+    --aui-flex-layout-gap-0: 0;
+    --aui-flex-layout-gap-4: var(--aui-spacing-4);
+    --aui-flex-layout-gap-8: var(--aui-spacing-8);
+    --aui-flex-layout-gap-12: var(--aui-spacing-12);
+    --aui-flex-layout-gap-16: var(--aui-spacing-16);
+    --aui-flex-layout-gap-20: var(--aui-spacing-20);
+    --aui-flex-layout-gap-24: var(--aui-spacing-24);
+    --aui-flex-layout-gap-32: var(--aui-spacing-32);
+    --aui-flex-layout-gap-40: var(--aui-spacing-40);
+    --aui-flex-layout-gap-48: var(--aui-spacing-48);
+    --aui-flex-layout-gap-64: var(--aui-spacing-64);
 
     /* avatar — initials / photo circle */
     --aui-avatar-bg-primary: var(--aui-surface-bg-elevated);

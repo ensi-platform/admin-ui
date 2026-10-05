@@ -48,11 +48,11 @@ Z-order: L0+flyout (`--aui-z-chrome`) выше sticky table (`--aui-table-z-stic
 
 ## Экраны (сборка из базы)
 
-Примитивы: `CascadeMenu` / `MenuList`, `Button`, `Tag`, `Badge`, `Table`, `Tabs`, `VerticalTabs`, `Field` + controls, при необходимости `Drawer`.
+Примитивы: `CascadeMenu` / `MenuList`, `Button`, `Tag`, `Badge`, `Table`, `Tabs`, `VerticalTabs`, `Grid`, `FlexLayout`, `Field` + controls, при необходимости `Drawer`.
 
 ### List — таблица
 
-- title (`headingM`); `Button` secondary «Фильтры» + primary «+ Новый …»
+- title (`headingM`) и кнопки в одной строке — `FlexLayout`; `Button` secondary «Фильтры» + primary «+ Новый …»
 - активные фильтры: `ActiveFilters` (`Tag` + ссылка «Очистить») — **без** bordered bar вокруг ряда
 - `Table` flush на `page` — **без** внешней rounded card
 - статус в ячейке — `Badge` (tint only)
@@ -69,7 +69,7 @@ Z-order: L0+flyout (`--aui-z-chrome`) выше sticky table (`--aui-table-z-stic
 
 ### Detail
 
-- back-link; title + `Badge`; `⋯` + primary «Сохранить»
+- back-link; title + `Badge` и кнопки — `FlexLayout`; `⋯` + primary «Сохранить»
 - разделы страницы — underline `Tabs` (не pill-ряд с обводкой)
 - секции внутри одной вкладки — `VerticalTabs` (колонка слева, панель справа)
 - секции: H2 + gap; поля на `page` в `Grid` — **без** card на каждую секцию

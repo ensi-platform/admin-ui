@@ -183,6 +183,9 @@
     --aui-field-clear-fg-primary: var(--aui-combobox-fg-primary);
     --aui-field-clear-border-focus: var(--aui-combobox-border-focus);
 
+    /* copy-button */
+    --aui-copy-button-fg-copied: var(--aui-green-500);
+
     /* badge — soft status on dark surfaces */
     --aui-badge-bg-neutral: var(--aui-surface-bg-muted);
     --aui-badge-fg-neutral: var(--aui-page-fg-primary);

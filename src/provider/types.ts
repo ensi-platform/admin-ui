@@ -64,6 +64,12 @@ export interface IAuiLabels {
     arrangementList: string;
     /** ActiveFilters: clear the whole row. */
     clearFilters: string;
+    /** CopyButton: idle accessible name prefix. */
+    copy: string;
+    /** CopyButton: success tooltip. `{value}` is the copied text. */
+    copied: string;
+    /** CopyButton: clipboard failure tooltip. */
+    copyFailed: string;
 }
 
 export type TAuiLabels = IAuiLabels;

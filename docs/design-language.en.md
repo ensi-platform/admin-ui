@@ -48,11 +48,11 @@ Z-order: L0+flyout (`--aui-z-chrome`) above a sticky table (`--aui-table-z-stick
 
 ## Screens (assembled from Base)
 
-Primitives: `CascadeMenu` / `MenuList`, `Button`, `Tag`, `Badge`, `Table`, `Tabs`, `VerticalTabs`, `Field` + controls, and `Drawer` when needed.
+Primitives: `CascadeMenu` / `MenuList`, `Button`, `Tag`, `Badge`, `Table`, `Tabs`, `VerticalTabs`, `Grid`, `FlexLayout`, `Field` + controls, and `Drawer` when needed.
 
 ### List — table
 
-- title (`headingM`); `Button` secondary “Filters” + primary “+ New …”
+- title (`headingM`) and buttons on one line — `FlexLayout`; `Button` secondary “Filters” + primary “+ New …”
 - applied filters: `ActiveFilters` (`Tag` + a “Clear” link) — **no** bordered bar around the row
 - `Table` flush on `page` — **no** outer rounded card
 - status in a cell — `Badge` (tint only)
@@ -69,7 +69,7 @@ Primitives: `CascadeMenu` / `MenuList`, `Button`, `Tag`, `Badge`, `Table`, `Tabs
 
 ### Detail
 
-- back link; title + `Badge`; `⋯` + primary “Save”
+- back link; title + `Badge` and buttons — `FlexLayout`; `⋯` + primary “Save”
 - page sections — underline `Tabs` (not a pill row with a border)
 - sections inside one tab — `VerticalTabs` (column on the left, panel on the right)
 - sections: H2 + gap; fields on `page` in `Grid` — **no** card per section

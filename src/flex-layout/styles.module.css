@@ -1,0 +1,93 @@
+.root {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: var(--aui-flex-layout-gap);
+    align-items: stretch;
+    justify-content: flex-start;
+    min-width: 0;
+}
+
+.root[hidden] {
+    display: none;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.gap0 {
+    --aui-flex-layout-gap: var(--aui-flex-layout-gap-0);
+}
+
+.gap4 {
+    --aui-flex-layout-gap: var(--aui-flex-layout-gap-4);
+}
+
+.gap8 {
+    --aui-flex-layout-gap: var(--aui-flex-layout-gap-8);
+}
+
+.gap12 {
+    --aui-flex-layout-gap: var(--aui-flex-layout-gap-12);
+}
+
+.gap16 {
+    --aui-flex-layout-gap: var(--aui-flex-layout-gap-16);
+}
+
+.gap20 {
+    --aui-flex-layout-gap: var(--aui-flex-layout-gap-20);
+}
+
+.gap24 {
+    --aui-flex-layout-gap: var(--aui-flex-layout-gap-24);
+}
+
+.gap32 {
+    --aui-flex-layout-gap: var(--aui-flex-layout-gap-32);
+}
+
+.gap40 {
+    --aui-flex-layout-gap: var(--aui-flex-layout-gap-40);
+}
+
+.gap48 {
+    --aui-flex-layout-gap: var(--aui-flex-layout-gap-48);
+}
+
+.gap64 {
+    --aui-flex-layout-gap: var(--aui-flex-layout-gap-64);
+}
+
+.start {
+    align-items: start;
+}
+
+.center {
+    align-items: center;
+}
+
+.end {
+    align-items: end;
+}
+
+.justify-start {
+    justify-content: flex-start;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-end {
+    justify-content: flex-end;
+}
+
+.between {
+    justify-content: space-between;
+}

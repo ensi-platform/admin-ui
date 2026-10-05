@@ -36,6 +36,9 @@ export const defaultLabels: IAuiLabels = {
     save: 'Сохранить',
     arrangementList: 'Элементы',
     clearFilters: 'Очистить',
+    copy: 'Копировать',
+    copied: 'Скопировано: {value}',
+    copyFailed: 'Не удалось скопировать',
 };
 
 export const AuiContext = createContext<IAuiContextValue | null>(null);

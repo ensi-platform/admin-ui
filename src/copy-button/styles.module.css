@@ -1,0 +1,54 @@
+.root {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--aui-copy-button-gap);
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--aui-copy-button-fg);
+    text-align: start;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    cursor: pointer;
+    outline: none;
+    transition: color var(--aui-copy-button-duration-fast) var(--aui-copy-button-ease-out);
+}
+
+.root:hover:not(:disabled):not([data-copied]):not([data-failed]) {
+    color: var(--aui-copy-button-fg-hover);
+}
+
+.root:active:not(:disabled):not([data-copied]):not([data-failed]) {
+    color: var(--aui-copy-button-fg-active);
+}
+
+.root[data-copied] {
+    color: var(--aui-copy-button-fg-copied);
+}
+
+.root[data-failed] {
+    color: var(--aui-copy-button-fg-danger);
+}
+
+.root:focus-visible {
+    outline: 2px solid var(--aui-copy-button-border-focus);
+    outline-offset: 2px;
+}
+
+.root:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.icon {
+    flex-shrink: 0;
+    width: var(--aui-copy-button-icon-size);
+    height: var(--aui-copy-button-icon-size);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .root {
+        transition: none;
+    }
+}
