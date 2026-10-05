@@ -1,7 +1,7 @@
-## 0.7.0
+## 0.7.0 - 2026-10-05
 
 ### Features
-
+- add new components
 - `VerticalTabs`: a column on the left and a panel on the right. Page sections stay `Tabs`
 - `Grid` for fields and column splits (`cols`, `gap`, `Grid.Item` with `col` or `col="full"`). List filters stay `Filters.Grid`
 
