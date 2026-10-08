@@ -1,3 +1,8 @@
+## 0.8.2 - 2026-10-08
+
+- chore(deps): sync @ensi-platform/eslint-config-a11y to ^0.1.2
+- chore(deps): sync @ensi-platform/eslint-config-react to ^0.1.3
+
 ## 0.8.1 - 2026-10-05
 
 ### Bug Fixes
