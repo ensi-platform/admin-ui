@@ -1,3 +1,8 @@
+## 0.8.5 - 2026-10-12
+
+### Bug Fixes
+- fix provider
+
 ## 0.8.4 - 2026-10-12
 
 ### Bug Fixes
