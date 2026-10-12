@@ -1,3 +1,8 @@
+## 0.8.3 - 2026-10-12
+
+### Bug Fixes
+- fix provider + ai skills
+
 ## 0.8.2 - 2026-10-08
 
 - chore(deps): sync @ensi-platform/eslint-config-a11y to ^0.1.2
