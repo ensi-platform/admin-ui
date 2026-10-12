@@ -1,5 +1,7 @@
 import { type ComponentPropsWithRef, type ElementType, type ReactNode } from 'react';
 
+import { type TMergeElementProps } from '@ds/common';
+
 export type TTextDirection = 'ltr' | 'rtl';
 
 /** Built-in a11y / UI label strings. */
@@ -86,9 +88,10 @@ export interface IAuiContextValue {
     linkComponent?: TAuiLinkComponent;
 }
 
-export interface IAdminUiProviderProps extends Omit<ComponentPropsWithRef<'div'>, 'children' | 'dir'> {
+/** Own / chrome props (not from DOM). */
+export interface IAdminUiProviderOwnProps {
     children: ReactNode;
-    /** Text direction. Defaults to `ltr`. */
+    /** Text direction. Defaults to the locale direction. */
     direction?: TTextDirection;
     /** BCP 47 locale. */
     locale?: string;
@@ -97,3 +100,8 @@ export interface IAdminUiProviderProps extends Omit<ComponentPropsWithRef<'div'>
     /** Host router link for menu navigation. Defaults to `a`. */
     linkComponent?: TAuiLinkComponent;
 }
+
+export type TAdminUiProviderProps<P extends ElementType = 'div'> = {
+    /** Root element. Defaults to `div`. */
+    as?: P;
+} & Omit<TMergeElementProps<P, IAdminUiProviderOwnProps>, 'dir'>;

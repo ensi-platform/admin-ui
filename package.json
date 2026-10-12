@@ -9,15 +9,10 @@
     ],
     "files": [
         "dist",
-        "docs/skills",
         "docs/ai.md",
         "docs/architecture.md",
         "docs/README.md",
         "docs/design-language.md",
-        "scripts/consumer-root.ts",
-        "scripts/sync-skill-consumer.ts",
-        "scripts/sync-agents-consumer.ts",
-        "scripts/sync-consumer.ts",
         "src/*/docs/Description.md",
         "src/*/docs/Example.md",
         "src/*/docs/cssVariables.ts",
@@ -64,6 +59,7 @@
         "zod": "^4"
     },
     "devDependencies": {
+        "@ensi-platform/ai-sync": "^0.2.0",
         "@ensi-platform/eslint-config-a11y": "^0.1.2",
         "@ensi-platform/eslint-config-base": "^0.2.1",
         "@ensi-platform/eslint-config-react": "^0.1.3",

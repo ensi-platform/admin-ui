@@ -16,11 +16,11 @@ Storybook Docs читает оба языка (+ stories в репо). В npm д
 
 ## Skill `admin-ui`
 
-Source of truth: [`docs/skills/`](./skills/) (`SKILL.md`). Публикуется вместе с пакетом.
+Source of truth: [`ai/skills/admin-ui/SKILL.md`](../ai/skills/admin-ui/SKILL.md). Сборка (`@ensi-platform/ai-sync`) кладёт его в npm как `ai/skills/admin-ui/` и bin `admin-ui:ai`.
 
 В consumer-приложении агент читает:
 
-- skill: `node_modules/@ensi-platform/admin-ui/docs/skills/`
+- skill: `node_modules/@ensi-platform/admin-ui/ai/skills/admin-ui/`
 - контракт: `node_modules/@ensi-platform/admin-ui/src/<name>/docs/`, `…/types.ts`
 
 Skill тонкий:
@@ -31,18 +31,17 @@ Skill тонкий:
 
 ### Автосинк в consumer-приложении
 
-При установке пакета (`pnpm add` / `npm install`) `postinstall`-скрипт (`scripts/sync-consumer.ts`) синхронизирует три канала без ручной настройки:
+`postinstall` запускает `bin/ai.js` (`admin-ui:ai`). Он копирует каталог skill и дописывает маркер-блок в `AGENTS.md`. Остальной файл не трогается.
 
-- `.cursor/skills/admin-ui/SKILL.md` — Cursor;
-- `.claude/skills/admin-ui/SKILL.md` — Claude Code (тот же контент, тот же frontmatter-формат Agent Skills);
-- маркер-блок `<!-- @ensi-platform/admin-ui:start -->…:end` в `AGENTS.md` в корне consumer-репо — для агентов без концепции skills (Codex CLI, Copilot coding agent и др.), которые читают только `AGENTS.md` целиком. Блок создаётся/обновляется идемпотентно; остальной `AGENTS.md` не трогается.
+- `.cursor/skills/admin-ui/` — Cursor
+- `.claude/skills/admin-ui/` — Claude Code
+- `.agents/skills/admin-ui/` и блок `<!-- @ensi-platform/admin-ui:start -->…:end` в `AGENTS.md` — Codex
 
-Условия и ограничения:
+Условия:
 
-- корень consumer-репо ищется по ближайшему `.git` от `INIT_CWD`; не находит — тихо ничего не делает;
-- **pnpm ≥ 9** по умолчанию блокирует lifecycle-скрипты зависимостей («ignored build scripts»). Если синк не сработал сам — один раз выполнить `pnpm approve-builds @ensi-platform/admin-ui` (или добавить пакет в `pnpm.onlyBuiltDependencies` в корневом `package.json` consumer-репо), затем `pnpm install` ещё раз;
-- ручной запуск без переустановки: `node node_modules/@ensi-platform/admin-ui/scripts/sync-consumer.ts`;
-- опт-аут (отключает все три канала сразу): `ADMIN_UI_SKIP_CONSUMER_SYNC=1`;
-- в самом репозитории admin-ui `.cursor/skills/admin-ui`, `.claude/skills/admin-ui` и корневой `AGENTS.md` не трогаем — скрипт детектит dev-режим и ничего не пишет.
+- корень consumer-репо — ближайший `.git` от `INIT_CWD`; нет корня — скрипт выходит с ошибкой, `|| exit 0` не роняет `install`;
+- внутри репозитория admin-ui экспорт пропускается;
+- **pnpm ≥ 9** не запускает lifecycle-скрипты, пока не выполнить `pnpm approve-builds @ensi-platform/admin-ui` (или `pnpm.onlyBuiltDependencies`), затем снова `pnpm install`;
+- вручную: `pnpm exec admin-ui:ai` (флаги `--cursor`, `--claude`, `--codex`; без флагов — все три).
 
 См. также `.cursor/rules/component-docs.mdc` → «Канал для АП».

@@ -17,10 +17,6 @@ const sourcePackage = {
         'docs/ai.md',
         'docs/design-language.md',
         'docs/architecture.md',
-        'scripts/consumer-root.ts',
-        'scripts/sync-skill-consumer.ts',
-        'scripts/sync-agents-consumer.ts',
-        'scripts/sync-consumer.ts',
         'src/*/docs/Description.md',
         'src/*/docs/Example.md',
         'src/*/types.ts',
@@ -68,7 +64,7 @@ describe('buildPublishManifest', () => {
         });
         expect(manifest).not.toHaveProperty('engines');
         expect(manifest.scripts).toEqual({
-            postinstall: 'node --experimental-strip-types scripts/sync-consumer.ts || exit 0',
+            postinstall: 'node ./bin/ai.js || exit 0',
         });
         expect(manifest).not.toHaveProperty('devDependencies');
         expect(manifest).not.toHaveProperty('packageManager');
@@ -86,7 +82,7 @@ describe('writePublishPackage', () => {
         mkdirSync(join(packageRoot, 'dist/tokens'), { recursive: true });
         mkdirSync(join(packageRoot, 'docs'), { recursive: true });
         mkdirSync(join(packageRoot, 'src/docs/ai'), { recursive: true });
-        mkdirSync(join(packageRoot, 'scripts'), { recursive: true });
+        mkdirSync(join(packageRoot, 'ai/skills/admin-ui'), { recursive: true });
 
         writeFileSync(join(packageRoot, 'package.json'), `${JSON.stringify(sourcePackage, null, 4)}\n`);
         writeFileSync(join(packageRoot, 'src/button/index.ts'), 'export const Button = {};\n');
@@ -102,10 +98,10 @@ describe('writePublishPackage', () => {
         writeFileSync(join(packageRoot, 'docs/design-language.en.md'), '# Design language\n');
         writeFileSync(join(packageRoot, 'docs/architecture.md'), '# Архитектура\n');
         writeFileSync(join(packageRoot, 'docs/architecture.en.md'), '# Architecture\n');
-        writeFileSync(join(packageRoot, 'scripts/consumer-root.ts'), 'export const noop = true;\n');
-        writeFileSync(join(packageRoot, 'scripts/sync-skill-consumer.ts'), 'export const noop = true;\n');
-        writeFileSync(join(packageRoot, 'scripts/sync-agents-consumer.ts'), 'export const noop = true;\n');
-        writeFileSync(join(packageRoot, 'scripts/sync-consumer.ts'), 'export const noop = true;\n');
+        writeFileSync(
+            join(packageRoot, 'ai/skills/admin-ui/SKILL.md'),
+            '---\nname: admin-ui\ndescription: Pick an admin primitive.\n---\n\n# admin-ui\n'
+        );
         writeFileSync(join(packageRoot, 'docs/notes.md'), '# Notes\n');
         writeFileSync(join(packageRoot, 'dist/button/index.js'), 'export const Button = {};\n');
         writeFileSync(join(packageRoot, 'dist/tokens/OFL.txt'), 'OFL\n');
@@ -115,6 +111,9 @@ describe('writePublishPackage', () => {
         const manifest = JSON.parse(readFileSync(join(publishRoot, 'package.json'), 'utf8')) as {
             exports: Record<string, unknown>;
             engines?: unknown;
+            files: string[];
+            bin: Record<string, string>;
+            scripts: { postinstall: string };
         };
 
         expect(packages.map(pkg => pkg.name)).toEqual(['button']);
@@ -129,10 +128,11 @@ describe('writePublishPackage', () => {
         expect(readFileSync(join(publishRoot, 'docs/design-language.md'), 'utf8')).toBe('# Design language\n');
         expect(readFileSync(join(publishRoot, 'docs/architecture.md'), 'utf8')).toBe('# Architecture\n');
         expect(() => readFileSync(join(publishRoot, 'docs/design-language.en.md'), 'utf8')).toThrow();
-        expect(readFileSync(join(publishRoot, 'scripts/consumer-root.ts'), 'utf8')).toContain('noop');
-        expect(readFileSync(join(publishRoot, 'scripts/sync-skill-consumer.ts'), 'utf8')).toContain('noop');
-        expect(readFileSync(join(publishRoot, 'scripts/sync-agents-consumer.ts'), 'utf8')).toContain('noop');
-        expect(readFileSync(join(publishRoot, 'scripts/sync-consumer.ts'), 'utf8')).toContain('noop');
+        expect(manifest.files).toEqual([...sourcePackage.files, 'ai', 'bin']);
+        expect(manifest.bin).toEqual({ 'admin-ui:ai': './bin/ai.js' });
+        expect(manifest.scripts.postinstall).toBe('node ./bin/ai.js || exit 0');
+        expect(readFileSync(join(publishRoot, 'ai/skills/admin-ui/SKILL.md'), 'utf8')).toContain('name: admin-ui');
+        expect(readFileSync(join(publishRoot, 'bin/ai.js'), 'utf8')).toContain('export');
         expect(readFileSync(join(publishRoot, 'src/button/types.ts'), 'utf8')).toContain('TButton');
         expect(readFileSync(join(publishRoot, 'src/button/docs/Description.md'), 'utf8')).toBe('# Button\n');
         expect(readFileSync(join(publishRoot, 'src/button/docs/Example.md'), 'utf8')).toBe('## Example\n');

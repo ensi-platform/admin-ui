@@ -22,6 +22,7 @@ import { AdminUiProvider, useAuiLabels } from '@ensi-platform/admin-ui/provider'
 | `direction` | `ltr` \| `rtl`        | from `locale` | text direction   |
 | `labels`        | `Partial<IAuiLabels>` | Russian strings | override built-in strings                 |
 | `linkComponent` | link component        | `a`         | app router (`href` is the item URL)       |
-| `className`     | `string`              | —           | root `div`                                |
+| `as`            | HTML element          | `div`       | root element. `body` is the document body |
+| `className`     | `string`              | —           | class on the root                         |
 
 Hooks: `useAuiLabels()`, `useAuiLocale()`, `useAuiDirection()`, `useAuiLink()`.

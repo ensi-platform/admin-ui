@@ -23,25 +23,25 @@ The npm package ships English only, renamed for agents:
 
 Thin router for **consuming** the UI kit (pick a primitive, then read its Description). Authoring Description / stories — separate skill `write-component-docs`.
 
-Location in the package: `docs/skills/` (`SKILL.md`).
+Location in the package: `ai/skills/admin-ui/SKILL.md`.
 
 In a consumer app:
 
-- skill — `node_modules/@ensi-platform/admin-ui/docs/skills/`
+- skill — `node_modules/@ensi-platform/admin-ui/ai/skills/admin-ui/`
 - contract — `node_modules/@ensi-platform/admin-ui/src/<name>/docs/`, `…/types.ts` (`icons`, `hooks`, `combobox` included)
 
-`postinstall` (`scripts/sync-consumer.ts`) copies the skill and writes a pointer. No manual path setup:
+`postinstall` runs `admin-ui:ai` (`bin/ai.js`). It copies the skill directory and writes a pointer:
 
-- `.cursor/skills/admin-ui/SKILL.md`
-- `.claude/skills/admin-ui/SKILL.md` — same file
-- marker `<!-- @ensi-platform/admin-ui:start -->` … `:end` in the consumer repo `AGENTS.md` (rest of the file stays)
+- `.cursor/skills/admin-ui/`
+- `.claude/skills/admin-ui/`
+- `.agents/skills/admin-ui/` and marker `<!-- @ensi-platform/admin-ui:start -->` … `:end` in the consumer repo `AGENTS.md` (rest of the file stays)
 
 Limits:
 
-- consumer root is the nearest `.git` from `INIT_CWD`; if none, the script does nothing
+- consumer root is the nearest `.git` from `INIT_CWD`; if none, the script exits and `|| exit 0` keeps `install` green
+- export is skipped inside the admin-ui repository
 - **pnpm ≥ 9** ignores dependency lifecycle scripts until `pnpm approve-builds @ensi-platform/admin-ui` (or `pnpm.onlyBuiltDependencies`), then `pnpm install` again
-- manual run: `node node_modules/@ensi-platform/admin-ui/scripts/sync-consumer.ts`
-- opt out of all three: `ADMIN_UI_SKIP_CONSUMER_SYNC=1`
+- manual run: `pnpm exec admin-ui:ai` (`--cursor`, `--claude`, `--codex`; no flags means all three)
 
 Updating a Description does not require editing the skill.
 

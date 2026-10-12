@@ -62,6 +62,32 @@ describe('Modal', () => {
         expect(screen.getByTestId('aui-root')).toContainElement(screen.getByRole('dialog'));
     });
 
+    it('keeps the dialog inside the provider root after an update', () => {
+        const { rerender } = render(
+            <AdminUiProvider data-test-id="aui-root" locale="ru-RU">
+                <Modal open>
+                    <Modal.Header>
+                        <Modal.Title>Заголовок</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Контент</Modal.Body>
+                </Modal>
+            </AdminUiProvider>
+        );
+
+        rerender(
+            <AdminUiProvider data-test-id="aui-root" locale="en-US">
+                <Modal open>
+                    <Modal.Header>
+                        <Modal.Title>Заголовок</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Контент</Modal.Body>
+                </Modal>
+            </AdminUiProvider>
+        );
+
+        expect(screen.getByTestId('aui-root')).toContainElement(screen.getByRole('dialog'));
+    });
+
     it('renders dialog when open', () => {
         render(<ModalHarness open dataTestId="modal" />);
 

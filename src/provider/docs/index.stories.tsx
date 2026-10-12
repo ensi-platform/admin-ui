@@ -2,7 +2,7 @@ import { type ArgTypes, type Meta, type StoryObj } from '@storybook/react';
 
 import { AdminUiProvider, useAuiLabels, useAuiLocale } from '@/provider';
 
-import { type IAdminUiProviderProps } from '../types';
+import { type TAdminUiProviderProps } from '../types';
 
 import { docsCssVariables } from './cssVariables';
 import DescriptionEn from './Description.en.md';
@@ -23,7 +23,7 @@ const LabelsPreview = () => {
     );
 };
 
-const ProviderStory = (props: IAdminUiProviderProps) => (
+const ProviderStory = (props: TAdminUiProviderProps) => (
     <AdminUiProvider {...props}>
         <LabelsPreview />
     </AdminUiProvider>
@@ -31,7 +31,7 @@ const ProviderStory = (props: IAdminUiProviderProps) => (
 
 ProviderStory.displayName = 'AdminUiProvider';
 
-const DEFAULT_ARGS: Partial<IAdminUiProviderProps> = {
+const DEFAULT_ARGS: Partial<TAdminUiProviderProps> = {
     locale: 'ru-RU',
     direction: 'ltr',
     labels: {
@@ -40,7 +40,7 @@ const DEFAULT_ARGS: Partial<IAdminUiProviderProps> = {
     },
 };
 
-const DEFAULT_ARG_TYPES: ArgTypes<Partial<IAdminUiProviderProps>> = {
+const DEFAULT_ARG_TYPES: ArgTypes<Partial<TAdminUiProviderProps>> = {
     locale: { control: { type: 'text' } },
     direction: { control: { type: 'select' }, options: ['ltr', 'rtl'] },
 };
@@ -66,9 +66,9 @@ export default {
     argTypes: DEFAULT_ARG_TYPES,
 } satisfies Meta<typeof ProviderStory>;
 
-export const Default: StoryObj<IAdminUiProviderProps> = {};
+export const Default: StoryObj<TAdminUiProviderProps> = {};
 
-export const BuiltInLabels: StoryObj<IAdminUiProviderProps> = {
+export const BuiltInLabels: StoryObj<TAdminUiProviderProps> = {
     args: {
         locale: 'ru-RU',
         labels: undefined,

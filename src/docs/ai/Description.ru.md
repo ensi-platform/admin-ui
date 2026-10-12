@@ -23,25 +23,25 @@ Storybook Docs читает оба языка. API компонентов в `do
 
 Тонкий роутер для **потребления** UI-кита (выбрать примитив → прочитать Description). Авторство Description / stories — отдельный skill `write-component-docs`.
 
-В пакете: `docs/skills/` (`SKILL.md`).
+В пакете: `ai/skills/admin-ui/SKILL.md`.
 
 В consumer-приложении:
 
-- skill — `node_modules/@ensi-platform/admin-ui/docs/skills/`
+- skill — `node_modules/@ensi-platform/admin-ui/ai/skills/admin-ui/`
 - контракт — `node_modules/@ensi-platform/admin-ui/src/<name>/docs/`, `…/types.ts` (включая `icons`, `hooks`, `combobox`)
 
-`postinstall` (`scripts/sync-consumer.ts`) копирует skill и пишет указатель. Путь вручную указывать не нужно:
+`postinstall` запускает `admin-ui:ai` (`bin/ai.js`). Он копирует каталог skill и пишет указатель:
 
-- `.cursor/skills/admin-ui/SKILL.md`
-- `.claude/skills/admin-ui/SKILL.md` — тот же файл
-- маркер `<!-- @ensi-platform/admin-ui:start -->` … `:end` в `AGENTS.md` корня consumer-репо (остальной файл не трогается)
+- `.cursor/skills/admin-ui/`
+- `.claude/skills/admin-ui/`
+- `.agents/skills/admin-ui/` и маркер `<!-- @ensi-platform/admin-ui:start -->` … `:end` в `AGENTS.md` корня consumer-репо (остальной файл не трогается)
 
 Ограничения:
 
-- корень consumer-репо — ближайший `.git` от `INIT_CWD`; нет — скрипт ничего не делает
+- корень consumer-репо — ближайший `.git` от `INIT_CWD`; нет — скрипт завершается с ошибкой, `|| exit 0` не роняет `install`
+- внутри репозитория admin-ui экспорт пропускается
 - **pnpm ≥ 9** не запускает lifecycle-скрипты зависимостей, пока не выполнить `pnpm approve-builds @ensi-platform/admin-ui` (или `pnpm.onlyBuiltDependencies`), затем снова `pnpm install`
-- вручную: `node node_modules/@ensi-platform/admin-ui/scripts/sync-consumer.ts`
-- отключить все три канала: `ADMIN_UI_SKIP_CONSUMER_SYNC=1`
+- вручную: `pnpm exec admin-ui:ai` (`--cursor`, `--claude`, `--codex`; без флагов — все три)
 
 Обновление Description не требует правок skill.
 

@@ -30,15 +30,18 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1(react@19.3.0)
     devDependencies:
+      '@ensi-platform/ai-sync':
+        specifier: ^0.2.0
+        version: 0.2.0
       '@ensi-platform/eslint-config-a11y':
-        specifier: ^0.1.1
-        version: 0.1.1(@ensi-platform/eslint-config-base@0.2.1(@typescript-eslint/utils@8.71.0(eslint@9.39.5)(typescript@6.0.3))(eslint@9.39.5)(prettier@3.9.5)(typescript@6.0.3))(eslint@9.39.5)
+        specifier: ^0.1.2
+        version: 0.1.2(@ensi-platform/eslint-config-base@0.2.1(@typescript-eslint/utils@8.71.0(eslint@9.39.5)(typescript@6.0.3))(eslint@9.39.5)(prettier@3.9.5)(typescript@6.0.3))(eslint@9.39.5)
       '@ensi-platform/eslint-config-base':
         specifier: ^0.2.1
         version: 0.2.1(@typescript-eslint/utils@8.71.0(eslint@9.39.5)(typescript@6.0.3))(eslint@9.39.5)(prettier@3.9.5)(typescript@6.0.3)
       '@ensi-platform/eslint-config-react':
-        specifier: ^0.1.2
-        version: 0.1.2(@ensi-platform/eslint-config-base@0.2.1(@typescript-eslint/utils@8.71.0(eslint@9.39.5)(typescript@6.0.3))(eslint@9.39.5)(prettier@3.9.5)(typescript@6.0.3))(eslint@9.39.5)
+        specifier: ^0.1.3
+        version: 0.1.3(@ensi-platform/eslint-config-base@0.2.1(@typescript-eslint/utils@8.71.0(eslint@9.39.5)(typescript@6.0.3))(eslint@9.39.5)(prettier@3.9.5)(typescript@6.0.3))(eslint@9.39.5)
       '@ensi-platform/eslint-config-typescript':
         specifier: ^0.1.1
         version: 0.1.1(@ensi-platform/eslint-config-base@0.2.1(@typescript-eslint/utils@8.71.0(eslint@9.39.5)(typescript@6.0.3))(eslint@9.39.5)(prettier@3.9.5)(typescript@6.0.3))(eslint@9.39.5)(typescript@6.0.3)
@@ -361,12 +364,17 @@ packages:
   '@emnapi/wasi-threads@1.2.2':
     resolution: {integrity: sha512-c95qOXkHdydNKhscBTebqEC1CVAZpyqOfVfBzQ1qgzyl3gfeldUjIggDbIZgDKsHLgnsM+igH7TJ/eAasaVuMA==}
 
-  '@ensi-platform/eslint-config-a11y@0.1.1':
-    resolution: {integrity: sha512-p0t2kL7NU3mUFD7kDFOCAhLNpbJmdwyAbAyMon3pwBX2hUDux+kT3yBqWZPQhciQfAVoghI9q723aKWyjwHLDg==}
+  '@ensi-platform/ai-sync@0.2.0':
+    resolution: {integrity: sha512-EllgBGt/CS9k7cU5b6LYfp0DjUJrKoE0/26q1Vh813ShzgoRDVAIFzBG2ALgEcONQh6VCyuyzmZm4l/1wAdGkA==}
+    engines: {node: '>=22.18.0'}
+    hasBin: true
+
+  '@ensi-platform/eslint-config-a11y@0.1.2':
+    resolution: {integrity: sha512-qTRWE+cD3aWvWJqGtxezmPdxrstXWxC+vBJ6oaHuxcqgAGPKMjmNmW6KQqQk6FG0ymnnS+F/wKQARf/LfUsPHg==}
     engines: {node: '>=22.18.0'}
     peerDependencies:
       '@ensi-platform/eslint-config-base': ^0.2.1
-      eslint: ^9 || ^10
+      eslint: ^9
 
   '@ensi-platform/eslint-config-base@0.2.1':
     resolution: {integrity: sha512-qGv7rdvdOWtFUMbAn7BGDUlb2Xq4jY0ZpSGaBkVAngDooou4PwtLqyUL71E4L6WbYKM3KeSb4TINxcnWpRXVMA==}
@@ -375,12 +383,12 @@ packages:
       eslint: ^9 || ^10
       typescript: '>=5'
 
-  '@ensi-platform/eslint-config-react@0.1.2':
-    resolution: {integrity: sha512-wfdvtrc4GswimprSxhJBBAv3Z0DIqOiRGB6hrcSeZVR0+eEMe902bzsyXZYYTOBu6VeTd71u3F1R/2OSJcRbCQ==}
+  '@ensi-platform/eslint-config-react@0.1.3':
+    resolution: {integrity: sha512-w2op6chRjZuaq6JNZwIu8Wu4goxeVJKgHthJDVNCliSiYoXVhjz6UxCnAZI1opHdDeWCakAMl3YMEta08cZjIA==}
     engines: {node: '>=22.18.0'}
     peerDependencies:
       '@ensi-platform/eslint-config-base': ^0.2.1
-      eslint: ^9 || ^10
+      eslint: ^9
 
   '@ensi-platform/eslint-config-typescript@0.1.1':
     resolution: {integrity: sha512-79IOPnLW6qOOdEc1YhQVCTPiGMnc6em/xP0ehNIBSNLbLrfBWDESEssl9tT76kEMnRuI7diaMkctWlqkTyWBAA==}
@@ -3626,7 +3634,9 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
-  '@ensi-platform/eslint-config-a11y@0.1.1(@ensi-platform/eslint-config-base@0.2.1(@typescript-eslint/utils@8.71.0(eslint@9.39.5)(typescript@6.0.3))(eslint@9.39.5)(prettier@3.9.5)(typescript@6.0.3))(eslint@9.39.5)':
+  '@ensi-platform/ai-sync@0.2.0': {}
+
+  '@ensi-platform/eslint-config-a11y@0.1.2(@ensi-platform/eslint-config-base@0.2.1(@typescript-eslint/utils@8.71.0(eslint@9.39.5)(typescript@6.0.3))(eslint@9.39.5)(prettier@3.9.5)(typescript@6.0.3))(eslint@9.39.5)':
     dependencies:
       '@ensi-platform/eslint-config-base': 0.2.1(@typescript-eslint/utils@8.71.0(eslint@9.39.5)(typescript@6.0.3))(eslint@9.39.5)(prettier@3.9.5)(typescript@6.0.3)
       eslint: 9.39.5
@@ -3650,7 +3660,7 @@ snapshots:
       - prettier
       - supports-color
 
-  '@ensi-platform/eslint-config-react@0.1.2(@ensi-platform/eslint-config-base@0.2.1(@typescript-eslint/utils@8.71.0(eslint@9.39.5)(typescript@6.0.3))(eslint@9.39.5)(prettier@3.9.5)(typescript@6.0.3))(eslint@9.39.5)':
+  '@ensi-platform/eslint-config-react@0.1.3(@ensi-platform/eslint-config-base@0.2.1(@typescript-eslint/utils@8.71.0(eslint@9.39.5)(typescript@6.0.3))(eslint@9.39.5)(prettier@3.9.5)(typescript@6.0.3))(eslint@9.39.5)':
     dependencies:
       '@ensi-platform/eslint-config-base': 0.2.1(@typescript-eslint/utils@8.71.0(eslint@9.39.5)(typescript@6.0.3))(eslint@9.39.5)(prettier@3.9.5)(typescript@6.0.3)
       eslint: 9.39.5

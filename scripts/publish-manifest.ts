@@ -2,6 +2,10 @@ import { cpSync, existsSync, globSync, mkdirSync, readFileSync, rmSync, statSync
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
+// Build-time only. The published tarball embeds bin/ai.js and does not depend on this package.
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { buildHost } from '@ensi-platform/ai-sync';
+
 import { buildExports, getPublicPackages, type IPublicPackage } from './sync-package.ts';
 
 const PUBLISH_FIELDS = [
@@ -48,10 +52,9 @@ export const buildPublishManifest = (source: object, packages: IPublicPackage[])
     });
 
     manifest.exports = buildExports(packages);
-    // Mirrors the skill into `.cursor` / `.claude` and upserts an AGENTS.md block;
-    // never fails the install (see scripts/sync-consumer.ts).
+    // `ai-sync build` copies `bin/ai.js`. Install exports skills; a missing git root must not fail install.
     manifest.scripts = {
-        postinstall: 'node --experimental-strip-types scripts/sync-consumer.ts || exit 0',
+        postinstall: 'node ./bin/ai.js || exit 0',
     };
 
     return manifest;
@@ -106,6 +109,9 @@ export const writePublishPackage = (packageRoot: string): IPublicPackage[] => {
 
     const manifest = buildPublishManifest(source, packages);
     writeFileSync(join(publishRoot, 'package.json'), `${JSON.stringify(manifest, null, 4)}\n`);
+
+    const exportScriptPath = fileURLToPath(new URL('./export.js', import.meta.resolve('@ensi-platform/ai-sync')));
+    buildHost({ hostRoot: packageRoot, outDir: publishRoot, exportScriptPath });
 
     return packages;
 };

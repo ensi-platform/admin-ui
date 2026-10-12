@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState, type ElementType, type Ref } from 'react';
 
 import cn from 'classnames';
 import { UNSAFE_PortalProvider as PortalProvider } from 'react-aria';
@@ -8,39 +8,41 @@ import { supportRef } from '@ds/common/support-ref';
 import { typographyStyles } from '@ds/typography';
 
 import { AuiContext, defaultLabels } from './context';
-import { type IAdminUiProviderProps, type IAuiContextValue, type TTextDirection } from './types';
+import { type IAuiContextValue, type TAdminUiProviderProps } from './types';
 
 import styles from './styles.module.css';
 
+type TRootRef = Ref<HTMLElement>;
+
+type TAdminUiRootProps = {
+    as?: ElementType;
+    value: Omit<IAuiContextValue, 'direction'>;
+    ref?: TRootRef;
+} & Omit<TAdminUiProviderProps, 'as' | 'locale' | 'labels' | 'linkComponent' | 'ref'>;
+
 const AdminUiRoot = supportRef(
-    ({
-        children,
-        className,
-        direction: directionProp,
-        value,
-        ref,
-        ...props
-    }: {
-        children: IAdminUiProviderProps['children'];
-        className?: string;
-        direction?: TTextDirection;
-        value: Omit<IAuiContextValue, 'direction'>;
-    } & Omit<IAdminUiProviderProps, 'children' | 'direction' | 'locale' | 'labels' | 'className'>) => {
+    ({ as, children, className, direction: directionProp, value, ref, ...props }: TAdminUiRootProps) => {
+        const Root = (as ?? 'div') as ElementType;
         const { direction: localeDirection } = useLocale();
         const direction = directionProp ?? localeDirection;
-        const [portalEl, setPortalEl] = useState<HTMLDivElement | null>(null);
-        const setRootRef = (node: HTMLDivElement | null) => {
+        const [portalEl, setPortalEl] = useState<HTMLElement | null>(null);
+        const externalRef = useRef<TRootRef>(ref);
+
+        externalRef.current = ref;
+
+        const setRootRef = useCallback((node: HTMLElement | null) => {
             setPortalEl(node);
 
-            if (typeof ref === 'function') {
-                ref(node);
+            const { current } = externalRef;
+
+            if (typeof current === 'function') {
+                current(node);
+
                 return;
             }
 
-            if (ref) {
-                ref.current = node;
-            }
-        };
+            if (current) current.current = node;
+        }, []);
 
         const contextValue = useMemo<IAuiContextValue>(
             () => ({
@@ -53,14 +55,14 @@ const AdminUiRoot = supportRef(
         return (
             <AuiContext.Provider value={contextValue}>
                 <PortalProvider getContainer={() => portalEl}>
-                    <div
+                    <Root
                         {...props}
                         ref={setRootRef}
                         className={cn(styles.root, typographyStyles.bodyM, className)}
                         dir={direction}
                     >
                         {children}
-                    </div>
+                    </Root>
                 </PortalProvider>
             </AuiContext.Provider>
         );
@@ -68,7 +70,7 @@ const AdminUiRoot = supportRef(
 );
 
 export const AdminUiProvider = supportRef(
-    ({
+    <P extends ElementType = 'div'>({
         children,
         direction,
         locale = 'ru-RU',
@@ -76,7 +78,7 @@ export const AdminUiProvider = supportRef(
         linkComponent,
         className,
         ...props
-    }: IAdminUiProviderProps) => {
+    }: TAdminUiProviderProps<P>) => {
         const value = useMemo(
             () => ({
                 locale,

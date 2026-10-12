@@ -83,6 +83,37 @@ describe('AdminUiProvider', () => {
         expect(css).not.toMatch(/(^|\n)\.root \*\s*\{[^}]*margin:\s*0/s);
     });
 
+    it('renders a div root by default', () => {
+        render(
+            <AdminUiProvider data-test-id="aui-root">
+                <span>child</span>
+            </AdminUiProvider>
+        );
+
+        expect(screen.getByTestId('aui-root').tagName).toBe('DIV');
+    });
+
+    it('renders the root as the given element', () => {
+        render(
+            <AdminUiProvider as="section" data-test-id="aui-root">
+                <span>child</span>
+            </AdminUiProvider>
+        );
+
+        expect(screen.getByTestId('aui-root').tagName).toBe('SECTION');
+        expect(screen.getByTestId('aui-root')).toHaveClass(styles.root);
+    });
+
+    it('renders the root as body', () => {
+        render(
+            <AdminUiProvider as="body" data-test-id="aui-root">
+                <span>child</span>
+            </AdminUiProvider>
+        );
+
+        expect(screen.getByTestId('aui-root').tagName).toBe('BODY');
+    });
+
     it('forwards callback ref to the root', () => {
         const ref = vi.fn();
 
