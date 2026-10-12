@@ -1,6 +1,6 @@
-import { type ReactNode } from 'react';
+import { StrictMode, type ReactNode } from 'react';
 
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -141,6 +141,31 @@ describe('useModal', () => {
 
         expect(screen.getByRole('dialog')).toBeInTheDocument();
         expect(screen.getByRole('heading', { name: 'From hub' })).toBeInTheDocument();
+    });
+
+    it('keeps modal open under Strict Mode', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <StrictMode>
+                <AdminUiProvider labels={{ close: 'Закрыть' }}>
+                    <ModalProvider>
+                        <OpenButton />
+                        <ModalHub />
+                    </ModalProvider>
+                </AdminUiProvider>
+            </StrictMode>
+        );
+
+        await user.click(screen.getByRole('button', { name: 'Open' }));
+
+        await act(async () => {
+            await new Promise(resolve => {
+                setTimeout(resolve, 20);
+            });
+        });
+
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
     });
 
     it('closes modal and removes it after exit', async () => {

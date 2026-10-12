@@ -34,6 +34,19 @@ describe('MultiSelect', () => {
         expect(screen.getByRole('button', { name: /Метки/ })).toBeInTheDocument();
     });
 
+    it('marks the trigger when focus comes from the keyboard', async () => {
+        const user = userEvent.setup();
+
+        render(<MultiSelect aria-label="Метки" options={OPTIONS} />);
+
+        await user.tab();
+
+        expect(screen.getByRole('button', { name: /Метки/ }).closest(`.${triggerStyles.triggerWrap}`)).toHaveAttribute(
+            'data-focus-visible',
+            'true'
+        );
+    });
+
     it('sets data-test-id from dataTestId', () => {
         render(<MultiSelect aria-label="Метки" options={OPTIONS} dataTestId="tags-select" />);
 

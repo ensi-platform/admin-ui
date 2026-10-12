@@ -1,9 +1,10 @@
 import { type ReactElement } from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
+import triggerStyles from '@/combobox/components/MultiTrigger/styles.module.css';
 import { AdminUiProvider } from '@/provider';
 
 import { MultiAutocomplete } from '..';
@@ -81,5 +82,18 @@ describe('MultiAutocomplete', () => {
 
         expect(next).toHaveLength(1);
         expect(next).not.toContain('vip');
+    });
+
+    it('keeps the field open when focus stays inside', () => {
+        renderMulti(<MultiAutocomplete aria-label="Tags" options={OPTIONS} value={['vip']} />);
+
+        const input = screen.getByRole('combobox', { name: /Tags/ });
+        const wrap = input.closest(`.${triggerStyles.triggerWrap}`);
+
+        expect(wrap).not.toBeNull();
+
+        fireEvent.blur(wrap!, { relatedTarget: input });
+
+        expect(input).toBeInTheDocument();
     });
 });

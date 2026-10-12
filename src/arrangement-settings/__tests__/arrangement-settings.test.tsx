@@ -96,6 +96,21 @@ describe('ArrangementSettings', () => {
         expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     });
 
+    it('stops the row press from the checkbox', () => {
+        render(<Harness onSave={vi.fn()} />);
+
+        const check = document.querySelector(`.${listStyles.check}`);
+
+        expect(check).not.toBeNull();
+
+        const event = new PointerEvent('pointerdown', { bubbles: true, cancelable: true });
+        const stop = vi.spyOn(event, 'stopPropagation');
+
+        check!.dispatchEvent(event);
+
+        expect(stop).toHaveBeenCalled();
+    });
+
     it('toggles a row from a click on the label', async () => {
         const user = userEvent.setup();
         const onSave = vi.fn();
