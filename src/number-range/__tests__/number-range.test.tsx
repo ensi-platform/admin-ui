@@ -105,15 +105,31 @@ describe('NumberRange', () => {
         expect(onChange).toHaveBeenCalledWith({ from: null, to: 5 });
     });
 
-    it('disables both fields and marks them invalid', () => {
-        render(<NumberRange fromLabel="From" toLabel="To" disabled invalid value={{ from: 1, to: 2 }} />);
+    it('does not change either side when disabled', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
 
-        for (const name of ['From', 'To']) {
-            const input = screen.getByRole('textbox', { name });
+        render(<NumberRange fromLabel="From" toLabel="To" disabled value={{ from: 1, to: 2 }} onChange={onChange} />);
 
-            expect(input).toBeDisabled();
-            expect(input).toHaveAttribute('aria-invalid', 'true');
-        }
+        const from = screen.getByRole('textbox', { name: 'From' });
+        const to = screen.getByRole('textbox', { name: 'To' });
+
+        expect(from).toBeDisabled();
+        expect(to).toBeDisabled();
+
+        await user.type(from, '9');
+        await user.type(to, '9');
+
+        expect(onChange).not.toHaveBeenCalled();
+        expect(from).toHaveValue('1');
+        expect(to).toHaveValue('2');
+    });
+
+    it('marks both fields invalid', () => {
+        render(<NumberRange fromLabel="From" toLabel="To" invalid value={{ from: 1, to: 2 }} />);
+
+        expect(screen.getByRole('textbox', { name: 'From' })).toHaveAttribute('aria-invalid', 'true');
+        expect(screen.getByRole('textbox', { name: 'To' })).toHaveAttribute('aria-invalid', 'true');
     });
 
     it('does not stretch the fields when block is off', () => {
