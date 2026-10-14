@@ -1,3 +1,11 @@
+## 0.9.0 - 2026-10-14
+
+### Features
+- update tests + fixes
+
+### Bug Fixes
+- fix component
+
 ## 0.8.5 - 2026-10-12
 
 ### Bug Fixes
