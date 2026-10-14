@@ -9,7 +9,13 @@ describe('Avatar', () => {
     it('renders initials from name', () => {
         render(<Avatar name="Alex Smith" dataTestId="av" />);
 
-        expect(screen.getByTestId('av')).toHaveTextContent('AS');
+        expect(screen.getByRole('img', { name: 'Alex Smith' })).toHaveTextContent('AS');
+    });
+
+    it('uses the primary variant by default', () => {
+        render(<Avatar name="A" dataTestId="av" />);
+
+        expect(screen.getByRole('img', { name: 'A' })).toHaveClass(styles.primary);
     });
 
     it('renders explicit initials', () => {

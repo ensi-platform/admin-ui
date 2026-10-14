@@ -36,6 +36,10 @@ describe('ActiveFilters', () => {
         await user.click(screen.getByRole('button', { name: 'Remove' }));
         expect(onRemove).toHaveBeenCalledOnce();
 
+        screen.getByRole('button', { name: 'Remove' }).focus();
+        await user.keyboard('{Enter}');
+        expect(onRemove).toHaveBeenCalledTimes(2);
+
         await user.click(screen.getByRole('button', { name: 'Clear all' }));
         expect(onClear).toHaveBeenCalledOnce();
     });

@@ -1,3 +1,5 @@
+// jsdom: no layout — day-grid geometry is not real here.
+// Keyboard cases that a user can perform on DatePicker/DateRangePicker are covered in those tests.
 import { useRef, useState, type FocusEvent, type KeyboardEvent } from 'react';
 
 import { CalendarDate } from '@internationalized/date';

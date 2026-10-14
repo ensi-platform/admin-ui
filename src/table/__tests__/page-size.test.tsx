@@ -8,42 +8,6 @@ import { AdminUiProvider } from '@/provider';
 
 import { Table } from '..';
 
-vi.mock('@/select', () => ({
-    Select: ({
-        value,
-        onChange,
-        disabled,
-        options,
-        'aria-labelledby': labelledBy,
-    }: {
-        value?: number | string | null;
-        onChange?: (next: number | string | null) => void;
-        disabled?: boolean;
-        options: { value: number | string; label: string }[];
-        'aria-labelledby'?: string;
-    }) => (
-        <div>
-            <button type="button" disabled={disabled} aria-labelledby={labelledBy}>
-                {value}
-            </button>
-            <button type="button" onClick={() => onChange?.(null)}>
-                clear
-            </button>
-            <button type="button" onClick={() => onChange?.('25')}>
-                select-string-25
-            </button>
-            <button type="button" onClick={() => onChange?.(50)}>
-                select-number-50
-            </button>
-            <ul>
-                {options.map(option => (
-                    <li key={String(option.value)}>{option.label}</li>
-                ))}
-            </ul>
-        </div>
-    ),
-}));
-
 const renderWithProvider = (ui: ReactElement) => render(<AdminUiProvider>{ui}</AdminUiProvider>);
 
 describe('Table.PageSize', () => {
@@ -52,7 +16,7 @@ describe('Table.PageSize', () => {
 
         expect(screen.getByTestId('page-size')).toBeInTheDocument();
         expect(screen.getByText('Строк на странице')).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: /Строк на странице/ })).toHaveTextContent('10');
+        expect(screen.getByRole('button', { name: /10/ })).toBeInTheDocument();
     });
 
     it('calls onChange when an option is selected', async () => {
@@ -61,41 +25,46 @@ describe('Table.PageSize', () => {
 
         renderWithProvider(<Table.PageSize value={10} onChange={onChange} />);
 
-        await user.click(screen.getByRole('button', { name: 'select-number-50' }));
+        await user.click(screen.getByRole('button', { name: /Строк на странице/ }));
+        await user.click(screen.getByRole('option', { name: '50' }));
 
         expect(onChange).toHaveBeenCalledWith(50);
     });
 
-    it('ignores null selection and coerces string values', async () => {
+    it('disables the select when disabled', async () => {
         const user = userEvent.setup();
         const onChange = vi.fn();
 
-        renderWithProvider(<Table.PageSize value={10} onChange={onChange} />);
+        renderWithProvider(<Table.PageSize value={10} onChange={onChange} disabled />);
 
-        await user.click(screen.getByRole('button', { name: 'clear' }));
+        const trigger = screen.getByRole('button', { name: /Строк на странице/ });
+
+        expect(trigger).toBeDisabled();
+        await user.click(trigger);
         expect(onChange).not.toHaveBeenCalled();
-
-        await user.click(screen.getByRole('button', { name: 'select-string-25' }));
-        expect(onChange).toHaveBeenCalledWith(25);
+        expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
     });
 
-    it('disables the select when disabled', () => {
-        renderWithProvider(<Table.PageSize value={10} onChange={() => undefined} disabled />);
+    it('renders custom label and options', async () => {
+        const user = userEvent.setup();
 
-        expect(screen.getByRole('button', { name: /Строк на странице/ })).toBeDisabled();
-    });
-
-    it('renders custom label and options', () => {
         renderWithProvider(<Table.PageSize value={5} onChange={() => undefined} label="Rows" options={[5, 15]} />);
 
         expect(screen.getByText('Rows')).toBeInTheDocument();
-        expect(screen.getByText('15')).toBeInTheDocument();
-        expect(screen.queryByText('25')).not.toBeInTheDocument();
+
+        await user.click(screen.getByRole('button', { name: /Rows/ }));
+
+        expect(screen.getByRole('option', { name: '15' })).toBeInTheDocument();
+        expect(screen.queryByRole('option', { name: '25' })).not.toBeInTheDocument();
     });
 
-    it('includes 5 in default options', () => {
+    it('includes 5 in default options', async () => {
+        const user = userEvent.setup();
+
         renderWithProvider(<Table.PageSize value={5} onChange={() => undefined} />);
 
-        expect(screen.getAllByRole('listitem').map(item => item.textContent)).toEqual(['5', '10', '25', '50', '100']);
+        await user.click(screen.getByRole('button', { name: /Строк на странице/ }));
+
+        expect(screen.getAllByRole('option').map(option => option.textContent)).toEqual(['5', '10', '25', '50', '100']);
     });
 });

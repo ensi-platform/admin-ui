@@ -33,4 +33,16 @@ describe('FlexLayout', () => {
         expect(screen.getByTestId('stack')).toHaveClass(styles.column, styles.start, styles.wrap, styles.gap16);
         expect(screen.getByTestId('stack')).toHaveAttribute('hidden');
     });
+
+    it('forwards ref to the layout', () => {
+        const ref = { current: null as HTMLDivElement | null };
+
+        render(
+            <FlexLayout ref={ref} dataTestId="row">
+                Title
+            </FlexLayout>
+        );
+
+        expect(ref.current).toBe(screen.getByTestId('row'));
+    });
 });

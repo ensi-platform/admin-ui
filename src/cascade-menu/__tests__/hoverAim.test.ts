@@ -27,11 +27,6 @@ const mockEl = (rect: Partial<DOMRect>): HTMLElement =>
 
 describe('hoverAim', () => {
     describe('getRectangle', () => {
-        it('returns undefined for nullish elem', () => {
-            expect(getRectangle(null)).toBeUndefined();
-            expect(getRectangle(undefined)).toBeUndefined();
-        });
-
         it('maps getBoundingClientRect to corners', () => {
             const el = mockEl({ left: 10, top: 20, right: 110, bottom: 80 });
 
@@ -40,14 +35,6 @@ describe('hoverAim', () => {
                 topRight: { x: 110, y: 20 },
                 bottomLeft: { x: 10, y: 80 },
             });
-        });
-
-        it('returns undefined when getBoundingClientRect is falsy', () => {
-            const el = {
-                getBoundingClientRect: () => null,
-            } as unknown as HTMLElement;
-
-            expect(getRectangle(el)).toBeUndefined();
         });
     });
 

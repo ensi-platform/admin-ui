@@ -97,6 +97,16 @@ describe('TextArea', () => {
         expect(onChange).not.toHaveBeenCalled();
     });
 
+    it('follows value and does not call onChange when the prop changes', () => {
+        const onChange = vi.fn();
+        const { rerender } = render(<TextArea aria-label="Note" value="a" onChange={onChange} />);
+
+        rerender(<TextArea aria-label="Note" value="b" onChange={onChange} />);
+
+        expect(screen.getByRole('textbox', { name: 'Note' })).toHaveValue('b');
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
     it('assigns object ref', () => {
         const ref = createRef<HTMLTextAreaElement>();
 
@@ -166,4 +176,20 @@ describe('TextArea', () => {
             expect.arrayContaining([hint.id, error.id])
         );
     });
+
+    it('blocks input past maxLength and accepts paste', async () => {
+        const user = userEvent.setup();
+
+        render(<TextArea aria-label="Comment" maxLength={4} />);
+
+        const textarea = screen.getByRole('textbox', { name: 'Comment' });
+        await user.type(textarea, 'abcdef');
+        expect(textarea).toHaveValue('abcd');
+
+        await user.clear(textarea);
+        await user.paste('hi');
+        expect(textarea).toHaveValue('hi');
+    });
+
+    // n/a: Escape and Enter have no TextArea contract.
 });

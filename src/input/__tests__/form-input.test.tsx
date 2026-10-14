@@ -52,6 +52,42 @@ describe('FormInput', () => {
         expect(onSubmit).not.toHaveBeenCalled();
     });
 
+    it('clears the error after a valid value and restores the field on reset', async () => {
+        const user = userEvent.setup();
+        const onSubmit = vi.fn();
+
+        render(
+            <Form initialValues={{ email: '' }} validationSchema={schema} onSubmit={onSubmit}>
+                {({ reset }) => (
+                    <>
+                        <FormInput name="email" label="Email" />
+                        <button type="submit">Save</button>
+                        <button type="button" onClick={() => reset()}>
+                            Reset
+                        </button>
+                    </>
+                )}
+            </Form>
+        );
+
+        const email = screen.getByLabelText('Email');
+        await user.type(email, 'not-email');
+        await user.click(screen.getByRole('button', { name: 'Save' }));
+        expect(await screen.findByRole('alert')).toHaveTextContent('Некорректный email');
+
+        await user.clear(email);
+        await user.type(email, 'user@example.com');
+        expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+
+        await user.click(screen.getByRole('button', { name: 'Save' }));
+        await waitFor(() => {
+            expect(onSubmit).toHaveBeenCalledWith({ email: 'user@example.com' }, expect.anything());
+        });
+
+        await user.click(screen.getByRole('button', { name: 'Reset' }));
+        expect(screen.getByLabelText('Email')).toHaveValue('');
+    });
+
     it('disables input when Form is disabled', () => {
         render(
             <Form initialValues={{ email: '' }} disabled onSubmit={vi.fn()}>

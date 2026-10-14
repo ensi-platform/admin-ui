@@ -98,6 +98,16 @@ describe('Input', () => {
         expect(onChange).not.toHaveBeenCalled();
     });
 
+    it('follows value and does not call onChange when the prop changes', () => {
+        const onChange = vi.fn();
+        const { rerender } = render(<Input aria-label="Email" value="a" onChange={onChange} />);
+
+        rerender(<Input aria-label="Email" value="b" onChange={onChange} />);
+
+        expect(screen.getByRole('textbox', { name: 'Email' })).toHaveValue('b');
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
     it('assigns object ref', () => {
         const ref = createRef<HTMLInputElement>();
 
@@ -167,4 +177,20 @@ describe('Input', () => {
         expect(input.parentElement).toHaveClass(styles.lg);
         expect(input.getAttribute('aria-describedby')?.split(' ')).toEqual(expect.arrayContaining([hint.id, error.id]));
     });
+
+    it('blocks input past maxLength and accepts paste', async () => {
+        const user = userEvent.setup();
+
+        render(<Input aria-label="Code" maxLength={3} />);
+
+        const input = screen.getByRole('textbox', { name: 'Code' });
+        await user.type(input, 'abcd');
+        expect(input).toHaveValue('abc');
+
+        await user.clear(input);
+        await user.paste('12');
+        expect(input).toHaveValue('12');
+    });
+
+    // n/a: Escape and Enter have no Input contract. Enter only submits a parent form.
 });

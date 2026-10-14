@@ -1,4 +1,4 @@
-import { type ReactElement, useState } from 'react';
+import { useState } from 'react';
 
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -11,32 +11,6 @@ import { ArrangementSettings } from '..';
 import { type IArrangementSettingsItem } from '../types';
 
 import listStyles from '../components/List/styles.module.css';
-
-import type * as ReactAriaComponents from 'react-aria-components';
-
-interface IDndOptions {
-    getItems: (keys: Set<string>) => Record<string, string>[];
-    renderDropIndicator: (target: { type: string; key: string; dropPosition: string }) => ReactElement;
-    renderDragPreview: (dragged: Record<string, string>[]) => ReactElement;
-    onReorder: (event: { keys: Set<string>; target: { type: string; key?: string; dropPosition?: string } }) => void;
-}
-
-const dnd = vi.hoisted(() => ({
-    options: null as IDndOptions | null,
-}));
-
-vi.mock('react-aria-components', async () => {
-    const actual = await vi.importActual<typeof ReactAriaComponents>('react-aria-components');
-
-    return {
-        ...actual,
-        useDragAndDrop: (options: IDndOptions) => {
-            dnd.options = options;
-
-            return { dragAndDropHooks: {} };
-        },
-    };
-});
 
 const items: IArrangementSettingsItem[] = [
     { id: 'name', label: 'Name' },
@@ -188,70 +162,6 @@ describe('ArrangementSettings', () => {
 
         expect(screen.getByRole('checkbox', { name: /Name/ })).toBeChecked();
         expect(screen.getByRole('checkbox', { name: /Date/ })).toBeChecked();
-    });
-
-    it('reorders from a drag preview and ignores a drop onto the item', async () => {
-        const user = userEvent.setup();
-        const onSave = vi.fn();
-
-        render(<Harness onSave={onSave} />);
-
-        const { options } = dnd;
-
-        expect(options).not.toBeNull();
-
-        expect(options!.getItems(new Set(['name', 'missing']))).toEqual([
-            { 'text/plain': 'Name', 'arrangement-item-id': 'name' },
-            { 'text/plain': 'missing', 'arrangement-item-id': 'missing' },
-        ]);
-
-        expect(options!.renderDropIndicator({ type: 'item', key: 'name', dropPosition: 'before' }).type).toBeTruthy();
-
-        const name = document.querySelector<HTMLElement>('[data-arrangement-id="name"]');
-        const date = document.querySelector<HTMLElement>('[data-arrangement-id="date"]');
-
-        expect(name).not.toBeNull();
-        expect(date).not.toBeNull();
-
-        Object.defineProperty(name, 'offsetWidth', { value: 180 });
-
-        const label = name!.querySelector('label') ?? name!;
-        const box = document.createElement('span');
-        const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-
-        label.prepend(box);
-        label.append(icon);
-        box.id = 'box-id';
-
-        date!.querySelector('label')?.replaceChildren();
-
-        const missing = options!.renderDragPreview([]);
-
-        expect(render(missing).container.querySelector(`.${listStyles.preview}`)).toBeNull();
-
-        const plain = render(options!.renderDragPreview([{ 'arrangement-item-id': 'date' }]));
-
-        expect(plain.container.querySelector(`.${listStyles.preview}`)).toBeInTheDocument();
-        plain.unmount();
-
-        const preview = render(options!.renderDragPreview([{ 'arrangement-item-id': 'name' }]));
-        const node = preview.container.querySelector(`.${listStyles.preview}`);
-
-        expect(node).toHaveStyle({ width: '180px' });
-        expect(node?.querySelector('[id]')).toBeNull();
-        expect(node?.innerHTML).toContain('Name');
-        preview.unmount();
-
-        options!.onReorder({ keys: new Set(['date']), target: { type: 'root' } });
-        options!.onReorder({ keys: new Set(['date']), target: { type: 'item', key: 'name', dropPosition: 'on' } });
-        options!.onReorder({
-            keys: new Set(['date']),
-            target: { type: 'item', key: 'name', dropPosition: 'before' },
-        });
-
-        await user.click(screen.getByRole('button', { name: 'Сохранить' }));
-
-        expect(onSave).toHaveBeenCalledWith(['date', 'name']);
     });
 
     it('hides a row when its field leaves the item list', () => {

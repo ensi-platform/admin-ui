@@ -190,6 +190,14 @@
     outline: none;
 }
 
+.input:is(:-webkit-autofill, :-webkit-autofill:hover, :-webkit-autofill:focus, :-webkit-autofill:active, :autofill) {
+    -webkit-text-fill-color: currentColor;
+    caret-color: currentColor;
+    box-shadow: 0 0 0 1000px var(--aui-combobox-bg-primary) inset;
+    /* Holds the UA autofill background so the inset shadow stays the field fill. */
+    transition: background-color 86400s ease-out;
+}
+
 .input::placeholder {
     color: var(--aui-combobox-fg-muted);
 }

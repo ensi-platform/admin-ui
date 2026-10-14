@@ -1,38 +1,16 @@
-import { type ComponentProps, type Key } from 'react';
+import { type ReactElement } from 'react';
 
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { AdminUiProvider } from '@/provider';
 
 import { MonthYearSelect } from '../components/MonthYearSelect';
 
-import type * as ReactAriaComponents from 'react-aria-components';
-
-const selectionHandlers: ((key: Key | null) => void)[] = [];
-
-vi.mock('react-aria-components', async importOriginal => {
-    const actual = await importOriginal<typeof ReactAriaComponents>();
-    type TSelectProps = ComponentProps<typeof actual.Select>;
-    return {
-        ...actual,
-        Select: (props: TSelectProps) => {
-            selectionHandlers.push(props.onSelectionChange as (key: Key | null) => void);
-            return <actual.Select {...props} />;
-        },
-    };
-});
-
-const renderSelect = (ui: React.ReactElement) => render(<AdminUiProvider>{ui}</AdminUiProvider>);
-const noopChange = vi.fn();
+const renderSelect = (ui: ReactElement) => render(<AdminUiProvider>{ui}</AdminUiProvider>);
 
 describe('MonthYearSelect', () => {
-    beforeEach(() => {
-        selectionHandlers.length = 0;
-        noopChange.mockClear();
-    });
-
     it('scrolls selected option into view on open', async () => {
         const user = userEvent.setup();
         const scrollIntoView = vi.fn();
@@ -46,7 +24,7 @@ describe('MonthYearSelect', () => {
                     value={2024}
                     minValue={2020}
                     maxValue={2030}
-                    onChange={noopChange}
+                    onChange={vi.fn()}
                     aria-label="Year"
                 />
             );
@@ -65,29 +43,31 @@ describe('MonthYearSelect', () => {
         }
     });
 
-    it('ignores null selection keys', () => {
+    it('commits the chosen year', async () => {
+        const user = userEvent.setup();
         const onChange = vi.fn();
+
         renderSelect(
-            <MonthYearSelect type="month" value={6} minValue={1} maxValue={12} onChange={onChange} aria-label="Month" />
+            <MonthYearSelect
+                type="year"
+                value={2024}
+                minValue={2020}
+                maxValue={2030}
+                onChange={onChange}
+                aria-label="Year"
+            />
         );
 
-        expect(selectionHandlers.length).toBeGreaterThan(0);
-        act(() => {
-            selectionHandlers.at(-1)?.(null);
-        });
-        expect(onChange).not.toHaveBeenCalled();
+        await user.click(screen.getByRole('button', { name: /Year/ }));
+        await user.click(screen.getByRole('option', { name: '2026' }));
+
+        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onChange).toHaveBeenCalledWith(2026);
     });
 
     it('uses numeric display when month value is out of labels', () => {
         renderSelect(
-            <MonthYearSelect
-                type="month"
-                value={13}
-                minValue={1}
-                maxValue={12}
-                onChange={noopChange}
-                aria-label="Month"
-            />
+            <MonthYearSelect type="month" value={13} minValue={1} maxValue={12} onChange={vi.fn()} aria-label="Month" />
         );
         expect(screen.getByTestId('calendar-month-select-trigger')).toHaveTextContent('13');
     });
@@ -99,23 +79,10 @@ describe('MonthYearSelect', () => {
                 value={2024}
                 minValue={2025}
                 maxValue={2030}
-                onChange={noopChange}
+                onChange={vi.fn()}
                 aria-label="Year"
             />
         );
         expect(screen.getByTestId('calendar-year-select-trigger')).toHaveTextContent('2024');
-    });
-
-    it('ignores same value and non-numeric selection keys', () => {
-        const onChange = vi.fn();
-        renderSelect(
-            <MonthYearSelect type="month" value={6} minValue={1} maxValue={12} onChange={onChange} aria-label="Month" />
-        );
-
-        act(() => {
-            selectionHandlers.at(-1)?.('6');
-            selectionHandlers.at(-1)?.('abc');
-        });
-        expect(onChange).not.toHaveBeenCalled();
     });
 });

@@ -168,6 +168,23 @@ describe('ContextMenu', () => {
         expect(onClose).not.toHaveBeenCalled();
     });
 
+    it('activates the focused item with Enter', async () => {
+        const user = userEvent.setup();
+        const onClick = vi.fn();
+
+        render(
+            <ContextMenu open x={0} y={0} onClose={() => undefined}>
+                <ContextMenu.Item onClick={onClick}>Pin</ContextMenu.Item>
+                <ContextMenu.Item>Open</ContextMenu.Item>
+            </ContextMenu>
+        );
+
+        screen.getByRole('menuitem', { name: 'Pin' }).focus();
+        await user.keyboard('{Enter}');
+
+        expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
     it('calls Item onClick', async () => {
         const user = userEvent.setup();
         const onClick = vi.fn();

@@ -5,6 +5,10 @@ import { afterEach } from 'vitest';
 
 configure({ testIdAttribute: 'data-test-id' });
 
+if (typeof Element !== 'undefined' && !Element.prototype.getAnimations) {
+    Element.prototype.getAnimations = () => [];
+}
+
 if (typeof globalThis.PointerEvent === 'undefined') {
     class PointerEventPolyfill extends MouseEvent {
         readonly pointerId: number;

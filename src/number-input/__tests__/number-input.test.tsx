@@ -56,6 +56,16 @@ describe('NumberInput', () => {
         expect(screen.getByTestId('qty')).not.toHaveClass(styles.block);
     });
 
+    it('follows value and does not call onChange when the prop changes', () => {
+        const onChange = vi.fn();
+        const { rerender } = render(<NumberInput aria-label="Qty" value={1} onChange={onChange} />);
+
+        rerender(<NumberInput aria-label="Qty" value={2} onChange={onChange} />);
+
+        expect(screen.getByRole('textbox', { name: 'Qty' })).toHaveValue('2');
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
     it('calls onChange with number', async () => {
         const user = userEvent.setup();
         const onChange = vi.fn();
@@ -144,5 +154,103 @@ describe('NumberInput', () => {
         await user.tab();
 
         expect(onChange.mock.calls.at(-1)?.[0]).toBeNull();
+    });
+
+    it('clamps a typed value to max on blur', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(<NumberInput aria-label="Qty" min={0} max={10} defaultValue={1} onChange={onChange} />);
+
+        const input = screen.getByRole('textbox', { name: 'Qty' });
+        await user.clear(input);
+        await user.type(input, '25');
+        await user.tab();
+
+        expect(onChange.mock.calls.at(-1)?.[0]).toBe(10);
+        expect(input).toHaveValue('10');
+    });
+
+    it('does not step below min with ArrowDown', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(<NumberInput aria-label="Qty" min={0} max={10} defaultValue={0} onChange={onChange} />);
+
+        const input = screen.getByRole('textbox', { name: 'Qty' });
+        await user.click(input);
+        await user.keyboard('{ArrowDown}');
+
+        expect(onChange.mock.calls.at(-1)?.[0] ?? 0).toBeGreaterThanOrEqual(0);
+        expect(input).toHaveValue('0');
+    });
+
+    it('steps with ArrowUp and ignores letters', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(<NumberInput aria-label="Qty" min={0} max={10} step={2} defaultValue={2} onChange={onChange} />);
+
+        const input = screen.getByRole('textbox', { name: 'Qty' });
+        await user.click(input);
+        await user.keyboard('{ArrowUp}');
+        expect(onChange.mock.calls.at(-1)?.[0]).toBe(4);
+
+        await user.keyboard('{PageUp}');
+        const afterPageUp = onChange.mock.calls.at(-1)?.[0] as number;
+        expect(afterPageUp).toBeGreaterThan(4);
+        expect(afterPageUp).toBeLessThanOrEqual(10);
+
+        await user.keyboard('{PageDown}');
+        const afterPageDown = onChange.mock.calls.at(-1)?.[0] as number;
+        expect(afterPageDown).toBeLessThan(afterPageUp);
+        expect(afterPageDown).toBeGreaterThanOrEqual(0);
+
+        await user.type(input, 'abc');
+        const numeric = onChange.mock.calls.every(call => call[0] == null || typeof call[0] === 'number');
+        expect(numeric).toBe(true);
+    });
+
+    it('accepts zero, a negative value, and a pasted number', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(<NumberInput aria-label="Qty" defaultValue={null} onChange={onChange} />);
+
+        const input = screen.getByRole('textbox', { name: 'Qty' });
+        await user.click(input);
+        await user.keyboard('0');
+        await user.tab();
+        expect(onChange.mock.calls.at(-1)?.[0]).toBe(0);
+
+        await user.click(input);
+        await user.clear(input);
+        await user.keyboard('-3');
+        await user.tab();
+        expect(onChange.mock.calls.at(-1)?.[0]).toBe(-3);
+
+        await user.click(input);
+        await user.clear(input);
+        await user.paste('12');
+        await user.tab();
+        expect(onChange.mock.calls.at(-1)?.[0]).toBe(12);
+    });
+
+    it('parses a ru-RU decimal comma', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(
+            <AdminUiProvider locale="ru-RU">
+                <NumberInput aria-label="Qty" formatOptions={{ maximumFractionDigits: 2 }} onChange={onChange} />
+            </AdminUiProvider>
+        );
+
+        const input = screen.getByRole('textbox', { name: 'Qty' });
+        await user.click(input);
+        await user.keyboard('1,5');
+        await user.tab();
+
+        expect(onChange.mock.calls.at(-1)?.[0]).toBe(1.5);
     });
 });

@@ -114,6 +114,21 @@ Smaller set is fine, but still behavior-first:
 - unmount during pending work does not call callbacks or warn
 - rapid repeated actions: last one wins
 
+## L. User input scenarios (all input-like components)
+
+Derive from walking the source, not from the contract alone. Drive through `userEvent`.
+
+| Scenario | Examples |
+| --- | --- |
+| Contradictory values | range: `end < start` typed in either order; min > max; second field conflicts with the first |
+| Out of bounds | below `min`, above `max`, exactly on the bound (valid) |
+| Partial input | only one segment/field filled, then blur; half-typed number/date |
+| Boundary equal | `start === end`, `value === min`, single-item selection |
+| Sequences | enter A then conflicting B; blur then re-enter; clear then retype; open popup, pick, reopen |
+| Two channels | type vs pick from popup/calendar must give the same result; picking in reverse order (late day first) |
+| Rejected change | controlled parent ignores `onChange`: UI must not diverge from `value` |
+| Recovery | after invalid input + blur: value rolls back or `invalid` is shown, per contract; the form never receives the invalid value |
+
 ## K. Regression
 
 Each `fix:` in `git log -- src/<name>` → one test named after the symptom that fails without the fix.

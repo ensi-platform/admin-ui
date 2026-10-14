@@ -88,7 +88,7 @@ describe('calendar utils', () => {
         expect(getWindowMonthKeys(new CalendarDate(2024, 1, 1), 3)).toEqual(['2024-01', '2024-02', '2024-03']);
     });
 
-    it('getMonthWeekCount covers 4–6 week months (Monday start)', () => {
+    it('counts 4 to 6 weeks in a month that starts on Monday', () => {
         expect(getMonthWeekCount(new CalendarDate(2021, 2, 1), 1)).toBe(4);
         expect(getMonthWeekCount(new CalendarDate(2024, 1, 1), 1)).toBe(5);
         expect(getMonthWeekCount(new CalendarDate(2024, 12, 1), 1)).toBe(6);

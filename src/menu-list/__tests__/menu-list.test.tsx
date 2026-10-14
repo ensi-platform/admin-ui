@@ -105,6 +105,18 @@ describe('MenuList', () => {
         expect(onChange).toHaveBeenCalledWith('clients');
     });
 
+    it('activates a leaf with Enter', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        renderWithProvider(<BasicList onChange={onChange} />);
+
+        screen.getByRole('link', { name: /Clients/ }).focus();
+        await user.keyboard('{Enter}');
+
+        expect(onChange).toHaveBeenCalledWith('clients');
+    });
+
     it('does not activate a disabled item', async () => {
         const user = userEvent.setup();
         const onChange = vi.fn();

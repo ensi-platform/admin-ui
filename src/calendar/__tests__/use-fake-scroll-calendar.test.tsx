@@ -1,3 +1,5 @@
+// jsdom: no layout — wheel, snap and ResizeObserver cases need a browser/Storybook play test.
+// These tests lock the hook's arithmetic; they are not a substitute for a user scrolling the calendar.
 import { useEffect, useState } from 'react';
 
 import { CalendarDate, type DateValue } from '@internationalized/date';
@@ -302,7 +304,7 @@ describe('useFakeScrollCalendar', () => {
         expect(api!.months.some(m => m.monthKey === '2024-09')).toBe(true);
     });
 
-    it('ignores null and partial-year scrollToDate', async () => {
+    it('keeps the visible month when scrollToDate is cleared or incomplete', async () => {
         const Controlled = () => {
             const [value, setValue] = useState<DateValue | null>(new CalendarDate(2024, 6, 15));
             const api = useFakeScrollCalendar(value);
@@ -395,23 +397,6 @@ describe('useFakeScrollCalendar', () => {
         });
 
         unmount();
-    });
-
-    it('covers wheel delta 0 flush and cancels pending wheel RAF on unmount', async () => {
-        const { unmount } = render(<Harness scrollToDate={new CalendarDate(2024, 6, 15)} />);
-        const viewport = screen.getByTestId('viewport');
-
-        await act(async () => {
-            fireEvent.wheel(viewport, { deltaY: 0, deltaMode: 0 });
-            await new Promise<void>(resolve => {
-                requestAnimationFrame(() => resolve());
-            });
-        });
-
-        await act(async () => {
-            fireEvent.wheel(viewport, { deltaY: 40, deltaMode: 0 });
-            unmount();
-        });
     });
 
     it('skips ResizeObserver when unsupported', () => {

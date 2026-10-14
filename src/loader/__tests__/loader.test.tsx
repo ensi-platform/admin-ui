@@ -71,4 +71,21 @@ describe('Loader', () => {
         await user.click(screen.getByRole('status'));
         expect(onClick).not.toHaveBeenCalled();
     });
+
+    it('lets clicks reach children when inactive', async () => {
+        const user = userEvent.setup();
+        const onClick = vi.fn();
+
+        renderWithProvider(
+            <Loader active={false}>
+                <button type="button" onClick={onClick}>
+                    Action
+                </button>
+            </Loader>
+        );
+
+        await user.click(screen.getByRole('button', { name: 'Action' }));
+
+        expect(onClick).toHaveBeenCalledTimes(1);
+    });
 });

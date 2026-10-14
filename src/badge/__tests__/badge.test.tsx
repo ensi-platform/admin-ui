@@ -27,4 +27,10 @@ describe('Badge', () => {
 
         expect(screen.getByText('Оплачен')).toHaveClass(styles.sm, styles.success);
     });
+
+    it('uses md and neutral by default', () => {
+        render(<Badge>Черновик</Badge>);
+
+        expect(screen.getByText('Черновик')).toHaveClass(styles.md, styles.neutral);
+    });
 });

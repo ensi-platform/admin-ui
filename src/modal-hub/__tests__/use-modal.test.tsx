@@ -183,16 +183,19 @@ describe('useModal', () => {
         });
     });
 
-    it('closes on Escape', async () => {
+    it('closes on Escape and returns focus to the opener', async () => {
         const user = userEvent.setup();
 
         renderWithHub(<OpenButton />);
 
-        await user.click(screen.getByRole('button', { name: 'Open' }));
+        const open = screen.getByRole('button', { name: 'Open' });
+
+        await user.click(open);
         await user.keyboard('{Escape}');
 
         await waitFor(() => {
             expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+            expect(open).toHaveFocus();
         });
     });
 
@@ -255,7 +258,9 @@ describe('useModal', () => {
         await waitFor(() => {
             expect(screen.getByTestId('hub-modal-b')).toBeInTheDocument();
         });
-        expect(screen.getByTestId('hub-modal-a')).toBeInTheDocument();
+        expect(
+            screen.getAllByRole('dialog', { hidden: true }).map(dialog => dialog.getAttribute('data-test-id'))
+        ).toEqual(['hub-modal-a', 'hub-modal-b']);
 
         fireEvent.click(screen.getByTestId('hub-modal-a-close'));
 
