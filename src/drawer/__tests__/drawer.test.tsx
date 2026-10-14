@@ -1,6 +1,6 @@
 import { useState, type MouseEvent } from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -116,5 +116,82 @@ describe('Drawer', () => {
         await user.keyboard('{Escape}');
 
         expect(onOpenChange).toHaveBeenCalledWith(false);
+    });
+
+    it('does not close on Escape when keyboardDismissable is false', async () => {
+        const user = userEvent.setup();
+        const onOpenChange = vi.fn();
+
+        render(<DrawerHarness open onOpenChange={onOpenChange} keyboardDismissable={false} />);
+
+        await user.keyboard('{Escape}');
+
+        expect(onOpenChange).not.toHaveBeenCalled();
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    it('closes on outside click and stays open when dismissable is false', async () => {
+        const user = userEvent.setup();
+        const onOpenChange = vi.fn();
+
+        const { unmount } = render(<DrawerHarness open onOpenChange={onOpenChange} />);
+
+        await user.click(document.querySelector('[data-testid="underlay"]') as HTMLElement);
+
+        expect(onOpenChange).toHaveBeenCalledWith(false);
+        unmount();
+
+        onOpenChange.mockClear();
+        render(<DrawerHarness open onOpenChange={onOpenChange} dismissable={false} />);
+
+        await user.click(document.querySelector('[data-testid="underlay"]') as HTMLElement);
+
+        expect(onOpenChange).not.toHaveBeenCalled();
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    it('moves focus into the dialog and returns it to the opener', async () => {
+        const user = userEvent.setup();
+
+        const Harness = () => {
+            const [open, setOpen] = useState(false);
+
+            return (
+                <AdminUiProvider>
+                    <button type="button" onClick={() => setOpen(true)}>
+                        Open
+                    </button>
+                    <Drawer open={open} onOpenChange={setOpen}>
+                        <Drawer.Header>
+                            <Drawer.Title>Заголовок</Drawer.Title>
+                        </Drawer.Header>
+                        <Drawer.Body>
+                            <button type="button">Inside</button>
+                        </Drawer.Body>
+                    </Drawer>
+                </AdminUiProvider>
+            );
+        };
+
+        render(<Harness />);
+
+        const opener = screen.getByRole('button', { name: 'Open' });
+
+        await user.click(opener);
+
+        const dialog = screen.getByRole('dialog');
+
+        await waitFor(() => {
+            expect(dialog.contains(document.activeElement)).toBe(true);
+        });
+
+        await user.tab();
+        expect(dialog.contains(document.activeElement)).toBe(true);
+
+        await user.keyboard('{Escape}');
+
+        await waitFor(() => {
+            expect(opener).toHaveFocus();
+        });
     });
 });

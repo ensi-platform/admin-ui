@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { SelectStateContext } from 'react-aria-components';
 import { describe, expect, it, vi } from 'vitest';
@@ -289,5 +289,69 @@ describe('MultiSelect', () => {
         );
 
         expect(container.querySelector(`.${clearStyles.clear}`)).not.toBeInTheDocument();
+    });
+
+    it('shows selected tags from value and from defaultValue', () => {
+        const onChange = vi.fn();
+        const { rerender, unmount } = render(
+            <MultiSelect aria-label="Метки" options={OPTIONS} value={['vip', 'regular']} onChange={onChange} />
+        );
+
+        expect(screen.getByRole('row', { name: 'vip' })).toBeInTheDocument();
+        expect(screen.getByRole('row', { name: 'постоянный клиент' })).toBeInTheDocument();
+
+        rerender(<MultiSelect aria-label="Метки" options={OPTIONS} value={['regular']} onChange={onChange} />);
+
+        expect(screen.queryByRole('row', { name: 'vip' })).not.toBeInTheDocument();
+        expect(onChange).not.toHaveBeenCalled();
+        unmount();
+
+        render(<MultiSelect aria-label="Метки" options={OPTIONS} defaultValue={['vip']} />);
+
+        expect(screen.getByRole('row', { name: 'vip' })).toBeInTheDocument();
+    });
+
+    it('does not select a disabled option', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(<MultiSelect aria-label="Метки" options={OPTIONS} onChange={onChange} />);
+
+        await user.click(screen.getByRole('button', { name: /Метки/ }));
+
+        const blocked = screen.getByRole('option', { name: 'опт' });
+
+        expect(blocked).toHaveAttribute('aria-disabled', 'true');
+
+        await user.click(blocked);
+        expect(onChange).not.toHaveBeenCalled();
+
+        await user.click(screen.getByRole('option', { name: 'vip' }));
+        expect(onChange).toHaveBeenCalledWith(['vip']);
+    });
+
+    it('commits with the keyboard and returns focus on Escape', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(<MultiSelect aria-label="Метки" options={OPTIONS} onChange={onChange} />);
+
+        const trigger = screen.getByRole('button', { name: /Метки/ });
+
+        trigger.focus();
+        await user.keyboard('{ArrowDown}');
+
+        expect(screen.getByRole('listbox')).toBeInTheDocument();
+
+        await user.keyboard('{Escape}');
+
+        expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+        await waitFor(() => {
+            expect(trigger).toHaveFocus();
+        });
+
+        await user.keyboard('{ArrowDown}{Enter}');
+
+        expect(onChange).toHaveBeenCalledWith(['vip']);
     });
 });

@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -172,6 +172,71 @@ describe('Select', () => {
         expect(chevron).toBeTruthy();
         fireEvent.click(group, { target: chevron! });
 
+        expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    });
+
+    it('shows the selected label and keeps it when the value prop changes', () => {
+        const onChange = vi.fn();
+        const { rerender } = render(
+            <Select aria-label="Status" options={OPTIONS} value="published" onChange={onChange} />
+        );
+
+        expect(screen.getByRole('button', { name: /Опубликован/ })).toBeInTheDocument();
+
+        rerender(<Select aria-label="Status" options={OPTIONS} value="draft" onChange={onChange} />);
+
+        expect(screen.getByRole('button', { name: /Черновик/ })).toBeInTheDocument();
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it('shows the default value label', () => {
+        render(<Select aria-label="Status" options={OPTIONS} defaultValue="published" />);
+
+        expect(screen.getByRole('button', { name: /Опубликован/ })).toBeInTheDocument();
+    });
+
+    it('does not select a disabled option', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(<Select aria-label="Status" options={OPTIONS} onChange={onChange} />);
+
+        await user.click(screen.getByRole('button', { name: /Status/ }));
+
+        const archived = screen.getByRole('option', { name: 'Архив' });
+
+        expect(archived).toHaveAttribute('aria-disabled', 'true');
+
+        await user.click(archived);
+        expect(onChange).not.toHaveBeenCalled();
+
+        await user.click(screen.getByRole('option', { name: 'Черновик' }));
+        expect(onChange).toHaveBeenCalledWith('draft');
+    });
+
+    it('commits with the keyboard and returns focus on Escape', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(<Select aria-label="Status" options={OPTIONS} onChange={onChange} />);
+
+        const trigger = screen.getByRole('button', { name: /Status/ });
+
+        trigger.focus();
+        await user.keyboard('{ArrowDown}');
+
+        expect(screen.getByRole('listbox')).toBeInTheDocument();
+
+        await user.keyboard('{Escape}');
+
+        expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+        await waitFor(() => {
+            expect(trigger).toHaveFocus();
+        });
+
+        await user.keyboard('{ArrowDown}{Enter}');
+
+        expect(onChange).toHaveBeenCalledWith('draft');
         expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
     });
 

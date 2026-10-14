@@ -220,4 +220,18 @@ describe('CopyButton', () => {
         expect(screen.getByTestId('copy').querySelector('svg')).toHaveAttribute('viewBox', '0 0 256 256');
         expect(screen.getByRole('tooltip')).toHaveTextContent('Не удалось скопировать');
     });
+
+    it('copies the text when Enter is pressed', async () => {
+        const user = userEvent.setup();
+
+        writeText.mockResolvedValue(undefined);
+        Object.defineProperty(window.navigator, 'clipboard', { configurable: true, value: { writeText } });
+
+        renderButton(<CopyButton>123</CopyButton>);
+
+        screen.getByRole('button', { name: 'Копировать 123' }).focus();
+        await user.keyboard('{Enter}');
+
+        expect(writeText).toHaveBeenCalledWith('123');
+    });
 });

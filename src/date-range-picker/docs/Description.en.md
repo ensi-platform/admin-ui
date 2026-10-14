@@ -26,6 +26,8 @@ import { DateRangePicker, FormDateRangePicker } from '@ensi-platform/admin-ui/da
 | `block`              | `boolean`            | `true`    | full width                                         |
 | `dataTestId`         | `string`             | —         | `data-test-id` for tests                           |
 
+If the end date is before the start date, the dates swap on blur, Enter, or when the calendar closes. A partial range and a date outside `minValue` / `maxValue` roll back to the last valid range. A reversed range is not passed to `onChange`.
+
 ### FormDateRangePicker
 
 | Prop         | Values               | Default | Description              |

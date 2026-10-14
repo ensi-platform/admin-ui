@@ -27,6 +27,8 @@ import { TimeField, FormTimeField } from '@ensi-platform/admin-ui/time-field';
 | `block`              | `boolean`            | `true`    | full width               |
 | `dataTestId`         | `string`             | —         | `data-test-id` for tests |
 
+If the hour or minutes are cleared to a placeholder, blur restores the time from when the field was focused. The clear button sets `null`.
+
 ### FormTimeField
 
 | Prop         | Values               | Default | Description              |

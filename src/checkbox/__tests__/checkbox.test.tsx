@@ -50,6 +50,59 @@ describe('Checkbox', () => {
         expect(onChange).toHaveBeenCalledWith(true);
     });
 
+    it('toggles when the label text is clicked', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(
+            <Checkbox checked={false} onChange={onChange}>
+                Agree
+            </Checkbox>
+        );
+
+        await user.click(screen.getByText('Agree'));
+
+        expect(onChange).toHaveBeenCalledWith(true);
+    });
+
+    it('toggles with Space and keeps defaultChecked', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(
+            <Checkbox defaultChecked onChange={onChange}>
+                Agree
+            </Checkbox>
+        );
+
+        const checkbox = screen.getByRole('checkbox', { name: 'Agree' });
+
+        expect(checkbox).toBeChecked();
+        checkbox.focus();
+        await user.keyboard(' ');
+
+        expect(onChange).toHaveBeenCalledWith(false);
+        expect(checkbox).not.toBeChecked();
+    });
+
+    it('follows checked and does not call onChange when the prop changes', () => {
+        const onChange = vi.fn();
+        const { rerender } = render(
+            <Checkbox checked={false} onChange={onChange}>
+                Agree
+            </Checkbox>
+        );
+
+        rerender(
+            <Checkbox checked onChange={onChange}>
+                Agree
+            </Checkbox>
+        );
+
+        expect(screen.getByRole('checkbox', { name: 'Agree' })).toBeChecked();
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
     it('does not call onChange when disabled', async () => {
         const user = userEvent.setup();
         const onChange = vi.fn();

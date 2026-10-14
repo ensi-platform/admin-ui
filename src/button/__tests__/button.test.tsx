@@ -74,9 +74,24 @@ describe('Button', () => {
             </Button>
         );
 
-        await user.click(screen.getByRole('button', { name: 'Save' }));
+        const button = screen.getByRole('button', { name: 'Save' });
+
+        expect(button).toBeDisabled();
+        await user.click(button);
 
         expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it('activates with Enter and Space', async () => {
+        const user = userEvent.setup();
+        const onClick = vi.fn();
+
+        render(<Button onClick={onClick}>Save</Button>);
+
+        screen.getByRole('button', { name: 'Save' }).focus();
+        await user.keyboard('{Enter} ');
+
+        expect(onClick).toHaveBeenCalledTimes(2);
     });
 
     it('renders as anchor when as="a"', () => {

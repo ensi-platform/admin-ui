@@ -226,6 +226,63 @@ describe('ConfirmModal', () => {
             expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
         });
     });
+
+    it('closes on outside click and stays open when dismissable is false', async () => {
+        const user = userEvent.setup();
+        const onOpenChange = vi.fn();
+
+        const { unmount } = render(<ConfirmHarness onOpenChange={onOpenChange} />);
+
+        await user.click(document.querySelector('[data-testid="underlay"]') as HTMLElement);
+
+        expect(onOpenChange).toHaveBeenCalledWith(false);
+        unmount();
+
+        onOpenChange.mockClear();
+        render(<ConfirmHarness onOpenChange={onOpenChange} dismissable={false} />);
+
+        await user.click(document.querySelector('[data-testid="underlay"]') as HTMLElement);
+
+        expect(onOpenChange).not.toHaveBeenCalled();
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    it('moves focus into the dialog and returns it to the opener', async () => {
+        const user = userEvent.setup();
+
+        const Harness = () => {
+            const [open, setOpen] = useState(false);
+
+            return (
+                <AdminUiProvider labels={{ confirm: 'Подтвердить', cancel: 'Отмена' }}>
+                    <button type="button" onClick={() => setOpen(true)}>
+                        Open
+                    </button>
+                    <ConfirmModal open={open} onOpenChange={setOpen} title="Подтверждение" onConfirm={vi.fn()}>
+                        Описание
+                    </ConfirmModal>
+                </AdminUiProvider>
+            );
+        };
+
+        render(<Harness />);
+
+        const opener = screen.getByRole('button', { name: 'Open' });
+
+        await user.click(opener);
+
+        const dialog = screen.getByRole('dialog');
+
+        await waitFor(() => {
+            expect(dialog.contains(document.activeElement)).toBe(true);
+        });
+
+        await user.keyboard('{Escape}');
+
+        await waitFor(() => {
+            expect(opener).toHaveFocus();
+        });
+    });
 });
 
 describe('DeleteModal', () => {

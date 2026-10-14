@@ -29,22 +29,16 @@ const EmailField = () => {
     );
 };
 
-const FieldHookBranchesField = () => {
-    const { field, onChangeHandler, onBlurHandler, inputProps } = useFieldHook({ name: 'email' });
-
-    useEffect(() => {
-        onChangeHandler(undefined, 'from-val');
-        onChangeHandler();
-    }, [onChangeHandler]);
+const PresetEmailField = () => {
+    const { field, onChangeHandler, inputProps } = useFieldHook({ name: 'email' });
 
     return (
-        <input
-            {...inputProps}
-            aria-label="Email"
-            value={field.value ?? ''}
-            onChange={e => onChangeHandler(e)}
-            onBlur={e => onBlurHandler(e)}
-        />
+        <>
+            <input {...inputProps} aria-label="Email" value={field.value ?? ''} onChange={e => onChangeHandler(e)} />
+            <button type="button" onClick={() => onChangeHandler(undefined, 'a@b.c')}>
+                Choose preset
+            </button>
+        </>
     );
 };
 
@@ -360,16 +354,50 @@ describe('Form', () => {
         expect(onBlur.mock.calls[0][2]).toEqual({ email: 'a@example.com' });
     });
 
-    it('covers useFieldHook onChangeHandler val and empty event branches', async () => {
+    it('accepts a raw value from a custom control and submits it', async () => {
+        const user = userEvent.setup();
+        const onSubmit = vi.fn();
+
         render(
-            <Form initialValues={{ email: '' }} onSubmit={vi.fn()}>
-                <FieldHookBranchesField />
+            <Form initialValues={{ email: '' }} onSubmit={onSubmit}>
+                <PresetEmailField />
+                <button type="submit">Send</button>
             </Form>
         );
 
+        await user.click(screen.getByRole('button', { name: 'Choose preset' }));
+
+        expect(screen.getByLabelText('Email')).toHaveValue('a@b.c');
+
+        await user.click(screen.getByRole('button', { name: 'Send' }));
+
         await waitFor(() => {
-            expect(screen.getByLabelText('Email')).toHaveValue('from-val');
+            expect(onSubmit).toHaveBeenCalledTimes(1);
         });
+
+        expect(onSubmit.mock.calls[0][0]).toEqual({ email: 'a@b.c' });
+    });
+
+    it('disables the control and marks it read-only from Form', () => {
+        const { rerender } = render(
+            <Form initialValues={{ email: 'a@b.c' }} onSubmit={vi.fn()}>
+                <EmailField />
+            </Form>
+        );
+
+        const input = screen.getByLabelText('Email');
+
+        expect(input).toBeEnabled();
+        expect(input).not.toHaveAttribute('readOnly');
+
+        rerender(
+            <Form initialValues={{ email: 'a@b.c' }} disabled readOnly onSubmit={vi.fn()}>
+                <EmailField />
+            </Form>
+        );
+
+        expect(screen.getByLabelText('Email')).toBeDisabled();
+        expect(screen.getByLabelText('Email')).toHaveAttribute('readOnly');
     });
 });
 

@@ -67,6 +67,14 @@
     resize: none;
 }
 
+.fieldInput:is(:-webkit-autofill, :-webkit-autofill:hover, :-webkit-autofill:focus, :-webkit-autofill:active, :autofill) {
+    -webkit-text-fill-color: currentColor;
+    caret-color: currentColor;
+    box-shadow: 0 0 0 1000px var(--field-autofill-bg) inset;
+    /* Holds the UA autofill background so the inset shadow stays the field fill. */
+    transition: background-color 86400s ease-out;
+}
+
 .clear {
     display: inline-flex;
     align-items: center;
@@ -113,6 +121,7 @@
 }
 
 .primary {
+    --field-autofill-bg: var(--aui-textarea-bg-primary);
     border-color: var(--aui-textarea-border-primary);
     background: var(--aui-textarea-bg-primary);
     color: var(--aui-textarea-fg-primary);
@@ -123,6 +132,7 @@
 }
 
 .primary[data-readonly] {
+    --field-autofill-bg: var(--aui-textarea-bg-readonly);
     background: var(--aui-textarea-bg-readonly);
 }
 

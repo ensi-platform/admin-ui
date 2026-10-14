@@ -60,6 +60,20 @@ describe('Link', () => {
         expect(screen.getByRole('link', { name: 'Orders' })).toHaveClass(styles.root, styles.primary, 'extra');
     });
 
+    it('keeps an explicit target on the anchor', () => {
+        render(
+            <Link href="https://example.com" target="_blank" rel="noreferrer">
+                Docs
+            </Link>
+        );
+
+        const link = screen.getByRole('link', { name: 'Docs' });
+
+        expect(link).toHaveAttribute('href', 'https://example.com');
+        expect(link).toHaveAttribute('target', '_blank');
+        expect(link).toHaveAttribute('rel', 'noreferrer');
+    });
+
     it('renders as custom component when as is set', () => {
         render(
             <Link as={CustomLink} to="/orders">

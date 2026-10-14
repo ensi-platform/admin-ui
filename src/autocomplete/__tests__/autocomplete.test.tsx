@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -203,5 +203,73 @@ describe('Autocomplete', () => {
         );
 
         expect(screen.getByRole('combobox', { name: 'Город' })).toBeInTheDocument();
+    });
+
+    it('shows the selected label from value and from defaultValue', () => {
+        const onChange = vi.fn();
+        const { rerender, unmount } = render(
+            <Autocomplete aria-label="City" options={OPTIONS} value="msk" onChange={onChange} />
+        );
+
+        const input = screen.getByRole('combobox', { name: /City/ });
+
+        expect(input).toHaveValue('Москва');
+
+        rerender(<Autocomplete aria-label="City" options={OPTIONS} value="spb" onChange={onChange} />);
+
+        expect(input).toHaveValue('Санкт-Петербург');
+        expect(onChange).not.toHaveBeenCalled();
+        unmount();
+
+        render(<Autocomplete aria-label="City" options={OPTIONS} defaultValue="spb" />);
+
+        expect(screen.getByRole('combobox', { name: /City/ })).toHaveValue('Санкт-Петербург');
+    });
+
+    it('does not select a disabled option', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(<Autocomplete aria-label="City" options={OPTIONS} onChange={onChange} />);
+
+        const input = screen.getByRole('combobox', { name: /City/ });
+
+        await user.click(input);
+        await user.keyboard('{ArrowDown}');
+
+        const blocked = screen.getByRole('option', { name: 'Казань' });
+
+        expect(blocked).toHaveAttribute('aria-disabled', 'true');
+
+        await user.click(blocked);
+        expect(onChange).not.toHaveBeenCalled();
+
+        await user.click(screen.getByRole('option', { name: 'Москва' }));
+        expect(onChange).toHaveBeenCalledWith('msk');
+    });
+
+    it('commits a filtered option with the keyboard and closes on Escape', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(<Autocomplete aria-label="City" options={OPTIONS} onChange={onChange} />);
+
+        const input = screen.getByRole('combobox', { name: /City/ });
+
+        await user.click(input);
+        await user.type(input, 'Санкт');
+        await user.keyboard('{Escape}');
+
+        expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+        await waitFor(() => {
+            expect(input).toHaveFocus();
+        });
+        expect(onChange).not.toHaveBeenCalled();
+
+        await user.clear(input);
+        await user.type(input, 'Санкт');
+        await user.keyboard('{ArrowDown}{Enter}');
+
+        expect(onChange).toHaveBeenCalledWith('spb');
     });
 });

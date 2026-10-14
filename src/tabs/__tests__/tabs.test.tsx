@@ -20,14 +20,23 @@ const BasicTabs = ({
     onChange,
     size = 'md',
     dataTestId,
+    keyboardActivation,
 }: {
     value?: string;
     defaultValue?: string;
     onChange?: (value: string) => void;
     size?: 'sm' | 'md' | 'lg';
     dataTestId?: string;
+    keyboardActivation?: 'automatic' | 'manual';
 }) => (
-    <Tabs value={value} defaultValue={defaultValue} onChange={onChange} size={size} dataTestId={dataTestId}>
+    <Tabs
+        value={value}
+        defaultValue={defaultValue}
+        onChange={onChange}
+        size={size}
+        dataTestId={dataTestId}
+        keyboardActivation={keyboardActivation}
+    >
         <Tabs.List>
             <Tabs.Tab id="a">Общее</Tabs.Tab>
             <Tabs.Tab id="b">Товары</Tabs.Tab>
@@ -86,6 +95,70 @@ describe('Tabs', () => {
         expect(screen.getByTestId('sized-tabs')).toHaveClass(rootStyles.sm);
         expect(container.querySelector('[role="tablist"]')).toHaveClass(listStyles.sm);
         expect(screen.getByRole('tab', { name: 'Общее' })).toHaveClass(tabStyles.sm);
+    });
+
+    it('moves with ArrowRight, skips a disabled tab, and jumps with Home and End', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        renderWithProvider(<BasicTabs onChange={onChange} />);
+
+        const first = screen.getByRole('tab', { name: 'Общее' });
+
+        first.focus();
+        await user.keyboard('{ArrowRight}');
+
+        expect(onChange).toHaveBeenLastCalledWith('b');
+        expect(screen.getByRole('tab', { name: 'Товары' })).toHaveAttribute('aria-selected', 'true');
+        expect(screen.getByRole('tabpanel')).toHaveTextContent('Панель B');
+
+        await user.keyboard('{ArrowRight}');
+
+        expect(screen.getByRole('tab', { name: 'История' })).toHaveAttribute('aria-disabled', 'true');
+        expect(screen.getByRole('tab', { name: 'Общее' })).toHaveAttribute('aria-selected', 'true');
+        expect(onChange).toHaveBeenLastCalledWith('a');
+
+        await user.keyboard('{End}');
+
+        expect(screen.getByRole('tab', { name: 'Товары' })).toHaveAttribute('aria-selected', 'true');
+
+        await user.keyboard('{Home}');
+
+        expect(screen.getByRole('tab', { name: 'Общее' })).toHaveAttribute('aria-selected', 'true');
+
+        await user.keyboard('{ArrowRight}');
+        await user.keyboard('{ArrowLeft}');
+
+        expect(screen.getByRole('tab', { name: 'Общее' })).toHaveAttribute('aria-selected', 'true');
+        expect(screen.getByRole('tabpanel')).toHaveTextContent('Панель A');
+    });
+
+    it('selects a tab with Enter when activation is manual', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        renderWithProvider(<BasicTabs keyboardActivation="manual" onChange={onChange} />);
+
+        screen.getByRole('tab', { name: 'Общее' }).focus();
+        await user.keyboard('{ArrowRight}');
+
+        expect(screen.getByRole('tab', { name: 'Товары' })).toHaveFocus();
+        expect(screen.getByRole('tab', { name: 'Общее' })).toHaveAttribute('aria-selected', 'true');
+
+        await user.keyboard('{Enter}');
+
+        expect(onChange).toHaveBeenLastCalledWith('b');
+    });
+
+    it('follows the value prop and does not call onChange for it', () => {
+        const onChange = vi.fn();
+        const { rerender } = renderWithProvider(<BasicTabs value="a" onChange={onChange} />);
+
+        rerender(<BasicTabs value="b" onChange={onChange} />);
+
+        expect(screen.getByRole('tab', { name: 'Товары' })).toHaveAttribute('aria-selected', 'true');
+        expect(screen.getByRole('tabpanel')).toHaveTextContent('Панель B');
+        expect(onChange).not.toHaveBeenCalled();
     });
 
     it('throws when List is used outside Tabs', () => {

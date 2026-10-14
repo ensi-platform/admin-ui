@@ -112,6 +112,50 @@ describe('Field', () => {
         expect(screen.queryByRole('alert')).not.toBeInTheDocument();
     });
 
+    it('includes both hint and error in aria-describedby', () => {
+        render(
+            <Field invalid>
+                <Field.Label>Email</Field.Label>
+                <DemoInput />
+                <Field.Hint>Helper text</Field.Hint>
+                <Field.Error>Некорректный email</Field.Error>
+            </Field>
+        );
+
+        const input = screen.getByLabelText('Email');
+        const describedBy = input.getAttribute('aria-describedby')?.split(' ') ?? [];
+
+        expect(describedBy).toEqual([screen.getByText('Helper text').id, screen.getByRole('alert').id]);
+    });
+
+    it('marks the root invalid and disabled', () => {
+        render(
+            <Field invalid disabled dataTestId="email-field">
+                <Field.Label>Email</Field.Label>
+                <DemoInput />
+            </Field>
+        );
+
+        const root = screen.getByTestId('email-field');
+
+        expect(root).toHaveAttribute('data-invalid', 'true');
+        expect(root).toHaveAttribute('data-disabled', 'true');
+        expect(screen.getByLabelText('Email')).toBeDisabled();
+    });
+
+    it('forwards ref to the root', () => {
+        const ref = { current: null as HTMLDivElement | null };
+
+        render(
+            <Field ref={ref} dataTestId="email-field">
+                <Field.Label>Email</Field.Label>
+                <DemoInput />
+            </Field>
+        );
+
+        expect(ref.current).toBe(screen.getByTestId('email-field'));
+    });
+
     it('passes disabled through controlProps', () => {
         render(
             <Field disabled>
@@ -140,7 +184,7 @@ describe('Field', () => {
 
     it('scales Label / Hint / Error typography by size', () => {
         const { rerender } = render(
-            <Field size="md" invalid>
+            <Field size="md" invalid dataTestId="email-field">
                 <Field.Label>Email</Field.Label>
                 <DemoInput />
                 <Field.Hint>Hint</Field.Hint>
@@ -148,6 +192,7 @@ describe('Field', () => {
             </Field>
         );
 
+        expect(screen.getByTestId('email-field')).toHaveAttribute('data-size', 'md');
         expect(screen.getByText('Email').className).toMatch(/bodyS/);
         expect(screen.getByText('Hint').className).toMatch(/bodyXs/);
         expect(screen.getByRole('alert').className).toMatch(/bodyXs/);
@@ -164,6 +209,20 @@ describe('Field', () => {
         expect(screen.getByText('Email').className).toMatch(/bodyM/);
         expect(screen.getByText('Hint').className).toMatch(/bodyS/);
         expect(screen.getByRole('alert').className).toMatch(/bodyS/);
+
+        rerender(
+            <Field size="sm" invalid dataTestId="email-field">
+                <Field.Label>Email</Field.Label>
+                <DemoInput />
+                <Field.Hint>Hint</Field.Hint>
+                <Field.Error>Error</Field.Error>
+            </Field>
+        );
+
+        expect(screen.getByTestId('email-field')).toHaveAttribute('data-size', 'sm');
+        expect(screen.getByText('Email').className).toMatch(/bodyS/);
+        expect(screen.getByText('Hint').className).toMatch(/bodyXs/);
+        expect(screen.getByRole('alert').className).toMatch(/bodyXs/);
     });
 
     it('throws useField outside Field', () => {

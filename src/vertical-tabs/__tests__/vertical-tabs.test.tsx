@@ -77,6 +77,47 @@ describe('VerticalTabs', () => {
         expect(screen.getByRole('tab', { name: 'Person' })).toHaveClass(itemStyles.sm);
     });
 
+    it('moves with ArrowDown and skips a disabled item', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        renderWithProvider(<BasicTabs onChange={onChange} />);
+
+        screen.getByRole('tab', { name: 'Person' }).focus();
+        await user.keyboard('{ArrowDown}');
+
+        expect(onChange).toHaveBeenLastCalledWith('signin');
+        expect(screen.getByRole('tab', { name: 'Sign in' })).toHaveAttribute('aria-selected', 'true');
+        expect(screen.getByRole('tabpanel')).toHaveTextContent('Sign-in fields');
+
+        await user.keyboard('{ArrowDown}');
+
+        expect(screen.getByRole('tab', { name: 'Roles' })).toHaveAttribute('aria-disabled', 'true');
+        expect(screen.getByRole('tab', { name: 'Person' })).toHaveAttribute('aria-selected', 'true');
+        expect(onChange).toHaveBeenLastCalledWith('person');
+
+        await user.keyboard('{End}');
+        expect(screen.getByRole('tab', { name: 'Sign in' })).toHaveAttribute('aria-selected', 'true');
+
+        await user.keyboard('{Home}');
+        expect(screen.getByRole('tab', { name: 'Person' })).toHaveAttribute('aria-selected', 'true');
+
+        await user.keyboard('{ArrowDown}');
+        await user.keyboard('{ArrowUp}');
+        expect(screen.getByRole('tab', { name: 'Person' })).toHaveAttribute('aria-selected', 'true');
+    });
+
+    it('follows the value prop and does not call onChange for it', () => {
+        const onChange = vi.fn();
+        const { rerender } = renderWithProvider(<BasicTabs value="person" onChange={onChange} />);
+
+        rerender(<BasicTabs value="signin" onChange={onChange} />);
+
+        expect(screen.getByRole('tab', { name: 'Sign in' })).toHaveAttribute('aria-selected', 'true');
+        expect(screen.getByRole('tabpanel')).toHaveTextContent('Sign-in fields');
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
     it('throws when List is used outside VerticalTabs', () => {
         expect(() => render(<VerticalTabs.List>{null}</VerticalTabs.List>)).toThrow(
             'This component must be used within a <VerticalTabs> component'

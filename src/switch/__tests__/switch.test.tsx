@@ -50,6 +50,59 @@ describe('Switch', () => {
         expect(onChange).toHaveBeenCalledWith(true);
     });
 
+    it('toggles when the label text is clicked', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(
+            <Switch checked={false} onChange={onChange}>
+                Notifications
+            </Switch>
+        );
+
+        await user.click(screen.getByText('Notifications'));
+
+        expect(onChange).toHaveBeenCalledWith(true);
+    });
+
+    it('toggles with Space and keeps defaultChecked', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(
+            <Switch defaultChecked onChange={onChange}>
+                Notifications
+            </Switch>
+        );
+
+        const sw = screen.getByRole('switch', { name: 'Notifications' });
+
+        expect(sw).toBeChecked();
+        sw.focus();
+        await user.keyboard(' ');
+
+        expect(onChange).toHaveBeenCalledWith(false);
+        expect(sw).not.toBeChecked();
+    });
+
+    it('follows checked and does not call onChange when the prop changes', () => {
+        const onChange = vi.fn();
+        const { rerender } = render(
+            <Switch checked={false} onChange={onChange}>
+                Notifications
+            </Switch>
+        );
+
+        rerender(
+            <Switch checked onChange={onChange}>
+                Notifications
+            </Switch>
+        );
+
+        expect(screen.getByRole('switch', { name: 'Notifications' })).toBeChecked();
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
     it('does not call onChange when disabled', async () => {
         const user = userEvent.setup();
         const onChange = vi.fn();

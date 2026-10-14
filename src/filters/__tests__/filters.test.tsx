@@ -30,4 +30,16 @@ describe('Filters', () => {
         expect(screen.getByRole('button', { name: 'Reset' })).toBeInTheDocument();
         expect(screen.getByRole('button', { name: 'Apply' })).toBeInTheDocument();
     });
+
+    it('forwards ref to the section', () => {
+        const ref = { current: null as HTMLDivElement | null };
+
+        render(
+            <Filters ref={ref} dataTestId="filters">
+                <Filters.Body>Name</Filters.Body>
+            </Filters>
+        );
+
+        expect(ref.current).toBe(screen.getByTestId('filters'));
+    });
 });

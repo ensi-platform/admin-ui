@@ -26,6 +26,8 @@ import { DateRangePicker, FormDateRangePicker } from '@ensi-platform/admin-ui/da
 | `block`              | `boolean`            | `true`       | на всю ширину                                           |
 | `dataTestId`         | `string`             | —            | атрибут `data-test-id` для тестов                       |
 
+Если дата окончания раньше даты начала, при уходе с поля, по `Enter` или при закрытии календаря даты меняются местами. Неполный ввод и дата вне `minValue` / `maxValue` возвращаются к последнему допустимому диапазону. Перевёрнутый диапазон в `onChange` не попадает.
+
 ### FormDateRangePicker
 
 | Prop         | Значения             | По умолчанию | Описание                          |

@@ -27,6 +27,8 @@ import { TimeField, FormTimeField } from '@ensi-platform/admin-ui/time-field';
 | `block`              | `boolean`            | `true`       | на всю ширину                     |
 | `dataTestId`         | `string`             | —            | атрибут `data-test-id` для тестов |
 
+Если час или минуты стёрты до пустого места в сегменте, при уходе с поля возвращается время, которое было в фокусе. Кнопка очистки ставит `null`.
+
 ### FormTimeField
 
 | Prop         | Значения             | По умолчанию | Описание                          |

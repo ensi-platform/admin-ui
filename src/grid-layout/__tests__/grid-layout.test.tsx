@@ -52,4 +52,16 @@ describe('GridLayout', () => {
         });
         expect(screen.getByTestId('span')).toHaveStyle({ '--aui-grid-layout-col': 'span 2' });
     });
+
+    it('forwards ref to the grid', () => {
+        const ref = { current: null as HTMLDivElement | null };
+
+        render(
+            <GridLayout ref={ref} cols={2} dataTestId="grid">
+                Name
+            </GridLayout>
+        );
+
+        expect(ref.current).toBe(screen.getByTestId('grid'));
+    });
 });

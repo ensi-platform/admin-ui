@@ -105,6 +105,17 @@ describe('NumberRange', () => {
         expect(onChange).toHaveBeenCalledWith({ from: null, to: 5 });
     });
 
+    it('disables both fields and marks them invalid', () => {
+        render(<NumberRange fromLabel="From" toLabel="To" disabled invalid value={{ from: 1, to: 2 }} />);
+
+        for (const name of ['From', 'To']) {
+            const input = screen.getByRole('textbox', { name });
+
+            expect(input).toBeDisabled();
+            expect(input).toHaveAttribute('aria-invalid', 'true');
+        }
+    });
+
     it('does not stretch the fields when block is off', () => {
         render(<NumberRange fromLabel="From" toLabel="To" block={false} dataTestId="range" />);
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import cn from 'classnames';
 import {
@@ -47,22 +47,61 @@ export const TimeField = supportRef(
         const [uncontrolledValue, setUncontrolledValue] = useState<TimeValue | null>(() => defaultValue ?? null);
         const currentValue = isControlled ? value : uncontrolledValue;
         const showClear = clear && !disabled && hasTimeValue(currentValue);
+        const committedRef = useRef<TimeValue | null>(currentValue ?? null);
 
         const setValue = (next: TimeValue | null) => {
+            committedRef.current = next;
             if (!isControlled) {
                 setUncontrolledValue(next);
             }
             onChange?.(next);
         };
 
+        const handleChange = (next: TimeValue | null) => {
+            if (!isControlled) {
+                setUncontrolledValue(next);
+            }
+            onChange?.(next);
+        };
+
+        const handleFocus: NonNullable<ITimeFieldProps['onFocus']> = () => {
+            committedRef.current = currentValue ?? null;
+        };
+
+        const handleBlur: NonNullable<ITimeFieldProps['onBlur']> = event => {
+            const root = event.currentTarget instanceof HTMLElement ? event.currentTarget : null;
+            const incomplete = [...(root?.querySelectorAll('[role="spinbutton"]') ?? [])].some(node => {
+                const type = node.getAttribute('data-type');
+                if (type !== 'hour' && type !== 'minute' && type !== 'second') {
+                    return false;
+                }
+
+                return !/\d/.test(node.textContent ?? '');
+            });
+
+            if (!incomplete) {
+                committedRef.current = currentValue ?? null;
+                onBlur?.(event);
+                return;
+            }
+
+            const restored = committedRef.current;
+            if (!isControlled) {
+                setUncontrolledValue(restored);
+            }
+            onChange?.(restored);
+            onBlur?.(event);
+        };
+
         return (
             <RacTimeField
                 {...props}
                 value={currentValue}
-                onChange={setValue}
+                onChange={handleChange}
                 isDisabled={disabled}
                 isInvalid={invalid}
-                onBlur={onBlur}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
                 aria-label={ariaLabel}
                 aria-labelledby={ariaLabelledby}
                 aria-describedby={ariaDescribedby}

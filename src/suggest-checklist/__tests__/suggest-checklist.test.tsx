@@ -179,4 +179,44 @@ describe('SuggestChecklist', () => {
         expect(await screen.findByRole('checkbox', { name: 'Nike' })).toBeInTheDocument();
         expect(screen.queryByRole('checkbox', { name: 'ghost' })).not.toBeInTheDocument();
     });
+
+    it('checks the default value', async () => {
+        render(
+            <AdminUiProvider>
+                <SuggestChecklist
+                    aria-label="Brands"
+                    useSuggest={useStaticSuggest}
+                    debounceMs={0}
+                    defaultValue={['nike']}
+                />
+            </AdminUiProvider>
+        );
+
+        expect(await screen.findByRole('checkbox', { name: 'Nike' })).toBeChecked();
+    });
+
+    it('does not load suggestions when disabled', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(
+            <AdminUiProvider>
+                <SuggestChecklist
+                    aria-label="Brands"
+                    useSuggest={useStaticSuggest}
+                    debounceMs={0}
+                    disabled
+                    onChange={onChange}
+                />
+            </AdminUiProvider>
+        );
+
+        const input = screen.getByRole('textbox', { name: 'Brands' });
+
+        expect(input).toBeDisabled();
+        await user.click(input);
+
+        expect(onChange).not.toHaveBeenCalled();
+        expect(screen.queryByRole('checkbox', { name: 'Nike' })).not.toBeInTheDocument();
+    });
 });

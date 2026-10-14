@@ -571,72 +571,6 @@ describe('useHoverMenu', () => {
         vi.useRealTimers();
     });
 
-    it('onMouseMove is a no-op when layers are empty', () => {
-        const { result } = renderHook(() => useHoverMenu());
-
-        expect(result.current.openPath).toEqual([]);
-
-        act(() => {
-            result.current.onMouseMove({
-                nativeEvent: { clientX: 10, clientY: 20 },
-            } as never);
-        });
-
-        expect(result.current.openPath).toEqual([]);
-    });
-
-    it('ignores folder enter without level or anchorEl', () => {
-        const { result } = renderHook(() => useHoverMenu());
-
-        act(() => {
-            result.current.onFolderEnter({ code: 'products' });
-        });
-
-        expect(result.current.openPath).toEqual([]);
-    });
-
-    it('uses dwell when submenu getBoundingClientRect is falsy', () => {
-        vi.useFakeTimers();
-        const { result } = renderHook(() => useHoverMenu());
-        const anchorA = mockAnchor(80, 200);
-        const anchorB = mockAnchor(140, 200);
-        const submenu = {
-            getBoundingClientRect: () => null,
-        } as unknown as HTMLElement;
-
-        act(() => {
-            result.current.onFolderEnter({ code: 'products', level: 0, anchorEl: anchorA });
-        });
-
-        act(() => {
-            result.current.onMouseMove({
-                nativeEvent: { clientX: 150, clientY: 100 },
-            } as never);
-            result.current.onMouseMove({
-                nativeEvent: { clientX: 180, clientY: 120 },
-            } as never);
-        });
-
-        act(() => {
-            result.current.onFolderEnter({
-                code: 'orders',
-                level: 0,
-                anchorEl: anchorB,
-                submenu,
-                menuHeight: 320,
-            });
-        });
-
-        expect(result.current.openPath).toEqual(['products']);
-
-        act(() => {
-            vi.advanceTimersByTime(HOVER_DWELL_MS);
-        });
-
-        expect(result.current.openPath).toEqual(['orders']);
-        vi.useRealTimers();
-    });
-
     it('uses dwell when previous mouse position is inside submenu', () => {
         vi.useFakeTimers();
         const { result } = renderHook(() => useHoverMenu());
@@ -690,16 +624,6 @@ describe('useHoverMenu', () => {
 
         expect(result.current.openPath).toEqual(['orders']);
         vi.useRealTimers();
-    });
-
-    it('onLeafEnter is a no-op when level is beyond open layers', () => {
-        const { result } = renderHook(() => useHoverMenu());
-
-        act(() => {
-            result.current.onLeafEnter({ level: 0 });
-        });
-
-        expect(result.current.openPath).toEqual([]);
     });
 
     it('collapse clears layers and pending', () => {

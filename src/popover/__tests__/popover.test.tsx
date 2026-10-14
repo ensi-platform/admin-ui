@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { Button } from '@/button';
 
@@ -25,6 +25,123 @@ describe('Popover', () => {
 
         expect(screen.getByRole('dialog')).toHaveTextContent('Контент');
         expect(screen.getByTestId('panel')).toBeInTheDocument();
+    });
+
+    it('opens with Enter on the trigger and does not open a disabled trigger', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <>
+                <Popover>
+                    <Popover.Trigger>
+                        <Button>Open</Button>
+                    </Popover.Trigger>
+                    <Popover.Content>Контент</Popover.Content>
+                </Popover>
+                <Popover>
+                    <Popover.Trigger>
+                        <Button disabled>Closed</Button>
+                    </Popover.Trigger>
+                    <Popover.Content>Скрыто</Popover.Content>
+                </Popover>
+            </>
+        );
+
+        screen.getByRole('button', { name: 'Open' }).focus();
+        await user.keyboard('{Enter}');
+        expect(screen.getByRole('dialog')).toHaveTextContent('Контент');
+
+        await user.keyboard('{Escape}');
+        await user.click(screen.getByRole('button', { name: 'Closed' }));
+        expect(screen.queryByText('Скрыто')).not.toBeInTheDocument();
+    });
+
+    it('closes on Escape and returns focus to the trigger', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <Popover>
+                <Popover.Trigger>
+                    <Button>Open</Button>
+                </Popover.Trigger>
+                <Popover.Content>Контент</Popover.Content>
+            </Popover>
+        );
+
+        const trigger = screen.getByRole('button', { name: 'Open' });
+
+        await user.click(trigger);
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
+
+        await user.keyboard('{Escape}');
+
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+        await waitFor(() => expect(trigger).toHaveFocus());
+    });
+
+    it('keeps Tab inside the popover', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <Popover>
+                <Popover.Trigger>
+                    <Button>Open</Button>
+                </Popover.Trigger>
+                <Popover.Content>
+                    <button type="button">Inside</button>
+                </Popover.Content>
+            </Popover>
+        );
+
+        await user.click(screen.getByRole('button', { name: 'Open' }));
+        const dialog = screen.getByRole('dialog');
+        await user.tab();
+        expect(screen.getByRole('button', { name: 'Inside' })).toHaveFocus();
+
+        await user.tab();
+        expect(dialog.contains(document.activeElement)).toBe(true);
+    });
+
+    it('closes on outside click', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <>
+                <button type="button">Outside</button>
+                <Popover>
+                    <Popover.Trigger>
+                        <Button>Open</Button>
+                    </Popover.Trigger>
+                    <Popover.Content>Контент</Popover.Content>
+                </Popover>
+            </>
+        );
+
+        await user.click(screen.getByRole('button', { name: 'Open' }));
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
+
+        await user.click(screen.getByText('Outside'));
+
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+
+    it('follows the open prop and does not open when it stays closed', async () => {
+        const user = userEvent.setup();
+        const onOpenChange = vi.fn();
+
+        render(
+            <Popover isOpen={false} onOpenChange={onOpenChange}>
+                <Popover.Trigger>
+                    <Button>Open</Button>
+                </Popover.Trigger>
+                <Popover.Content>Контент</Popover.Content>
+            </Popover>
+        );
+
+        await user.click(screen.getByRole('button', { name: 'Open' }));
+
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+        expect(onOpenChange).toHaveBeenCalledWith(true);
     });
 
     it('sets data-test-id from dataTestId', async () => {

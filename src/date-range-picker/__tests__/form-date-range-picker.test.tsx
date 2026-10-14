@@ -142,4 +142,37 @@ describe('FormDateRangePicker', () => {
 
         expect(onSubmit.mock.calls[0][0]).toEqual({ period: null });
     });
+
+    it('submits a typed reversed range in chronological order', async () => {
+        const user = userEvent.setup();
+        const onSubmit = vi.fn();
+
+        renderForm(
+            <Form
+                initialValues={{
+                    period: {
+                        start: new CalendarDate(2024, 6, 1),
+                        end: new CalendarDate(2024, 6, 15),
+                    } as IRange,
+                }}
+                onSubmit={onSubmit}
+            >
+                <FormDateRangePicker name="period" label="Период" />
+                <button type="submit">Save</button>
+            </Form>
+        );
+
+        await user.click(screen.getAllByRole('spinbutton', { name: /день|day/i })[0]!);
+        await user.keyboard('20');
+        await user.click(screen.getByRole('button', { name: 'Save' }));
+
+        await waitFor(() => {
+            expect(onSubmit).toHaveBeenCalledTimes(1);
+        });
+
+        const submitted = onSubmit.mock.calls[0][0].period as { start: CalendarDate; end: CalendarDate };
+        expect(submitted.start.day).toBe(15);
+        expect(submitted.end.day).toBe(20);
+        expect(submitted.end.compare(submitted.start) > 0).toBe(true);
+    });
 });

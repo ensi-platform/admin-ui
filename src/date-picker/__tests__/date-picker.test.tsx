@@ -25,6 +25,28 @@ describe('DatePicker', () => {
         expect(screen.getByTestId('calendar-viewport')).toBeInTheDocument();
     });
 
+    it('closes the calendar on Escape and on outside click', async () => {
+        const user = userEvent.setup();
+
+        renderPicker(<DatePicker aria-label="Дата" defaultValue={new CalendarDate(2024, 6, 15)} />);
+
+        await user.click(screen.getByTestId('date-picker-calendar'));
+        expect(screen.getByTestId('calendar-viewport')).toBeInTheDocument();
+
+        await user.keyboard('{Escape}');
+        expect(screen.queryByTestId('calendar-viewport')).not.toBeInTheDocument();
+
+        await user.click(screen.getByTestId('date-picker-calendar'));
+        expect(screen.getByTestId('calendar-viewport')).toBeInTheDocument();
+
+        const underlay = document.querySelector('[data-testid="underlay"]');
+
+        expect(underlay).toBeInstanceOf(HTMLElement);
+        await user.click(underlay as HTMLElement);
+
+        expect(screen.queryByTestId('calendar-viewport')).not.toBeInTheDocument();
+    });
+
     it('does not focus a day cell on pointer open', async () => {
         const user = userEvent.setup();
         renderPicker(<DatePicker aria-label="Дата" defaultValue={new CalendarDate(2024, 6, 15)} />);
@@ -74,33 +96,19 @@ describe('DatePicker', () => {
 
     it('scrolls calendar to entered month', async () => {
         const user = userEvent.setup();
+        renderPicker(<DatePicker aria-label="Дата" defaultValue={new CalendarDate(2024, 6, 15)} />);
 
-        const Harness = () => {
-            const [value, setValue] = useState<DateValue | null>(new CalendarDate(2024, 6, 15));
-
-            return (
-                <>
-                    <button
-                        type="button"
-                        data-test-id="set-jan"
-                        onClick={() => setValue(new CalendarDate(2025, 1, 10))}
-                    >
-                        set-jan
-                    </button>
-                    <DatePicker aria-label="Дата" value={value} onChange={setValue} />
-                </>
-            );
-        };
-
-        renderPicker(<Harness />);
-        await user.click(screen.getByTestId('set-jan'));
+        await user.click(screen.getByRole('spinbutton', { name: /месяц|month/i }));
+        await user.keyboard('01');
+        await user.click(screen.getByRole('spinbutton', { name: /год|year/i }));
+        await user.keyboard('2025');
         await user.click(screen.getByTestId('date-picker-calendar'));
         await waitFor(() => {
             expect(screen.getByTestId('calendar-viewport').querySelector('[data-month-key="2025-01"]')).toBeTruthy();
         });
     });
 
-    it('syncs open calendar when value month changes', async () => {
+    it('syncs open calendar when the controlled value changes', async () => {
         const user = userEvent.setup();
         const setValueRef: { current: ((next: DateValue | null) => void) | null } = { current: null };
 
@@ -115,6 +123,7 @@ describe('DatePicker', () => {
         await user.click(screen.getByTestId('date-picker-calendar'));
         expect(screen.getByTestId('calendar-viewport').querySelector('[data-month-key="2024-06"]')).toBeTruthy();
 
+        // Background is inert while the popover is open, so this controlled update cannot be a click.
         setValueRef.current?.(new CalendarDate(2025, 1, 10));
         await waitFor(() => {
             const viewport = screen.getByTestId('calendar-viewport');
@@ -171,50 +180,101 @@ describe('DatePicker', () => {
         expect(screen.queryByRole('option', { name: '2021' })).not.toBeInTheDocument();
     });
 
-    it('restores last valid value on blur when out of bounds', async () => {
+    it('restores last valid value on blur when the year is out of bounds', async () => {
         const user = userEvent.setup();
         const onChange = vi.fn();
         const onBlur = vi.fn();
-        const setValueRef: { current: ((next: DateValue | null) => void) | null } = { current: null };
 
-        const Harness = () => {
-            const [value, setValue] = useState<DateValue | null>(new CalendarDate(2024, 6, 15));
-            const handleChange = (next: DateValue | null) => {
-                setValue(next);
-                onChange(next);
-            };
-            setValueRef.current = handleChange;
+        renderPicker(
+            <>
+                <DatePicker
+                    aria-label="Дата"
+                    defaultValue={new CalendarDate(2024, 6, 15)}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                />
+                <button type="button" data-test-id="outside">
+                    out
+                </button>
+            </>
+        );
 
-            return (
-                <>
-                    <DatePicker
-                        aria-label="Дата"
-                        value={value}
-                        onChange={handleChange}
-                        onBlur={onBlur}
-                        dataTestId="date"
-                    />
-                    <button type="button" data-test-id="outside">
-                        out
-                    </button>
-                </>
-            );
-        };
-
-        renderPicker(<Harness />);
-        const yearSegment = screen.getByRole('spinbutton', { name: /год|year/i });
-        await user.click(yearSegment);
-        setValueRef.current?.(new CalendarDate(2, 6, 15));
-        await waitFor(() => {
-            expect(document.querySelector('input[type="date"]')).toHaveValue('0002-06-15');
-        });
+        await user.click(screen.getByRole('spinbutton', { name: /год|year/i }));
+        await user.keyboard('{Control>}a{/Control}1899');
         await user.click(screen.getByTestId('outside'));
         expect(onBlur).toHaveBeenCalled();
         await waitFor(() => {
+            expect(screen.getByRole('spinbutton', { name: /год|year/i })).toHaveTextContent('2024');
+            expect(screen.getByRole('spinbutton', { name: /день|day/i })).toHaveTextContent('15');
+        });
+    });
+
+    it('restores the date on blur when the year segment is cleared', async () => {
+        const user = userEvent.setup();
+
+        renderPicker(
+            <>
+                <DatePicker aria-label="Дата" defaultValue={new CalendarDate(2024, 6, 15)} />
+                <button type="button" data-test-id="outside">
+                    out
+                </button>
+            </>
+        );
+
+        await user.click(screen.getByRole('spinbutton', { name: /год|year/i }));
+        await user.keyboard('{Backspace}{Backspace}{Backspace}{Backspace}');
+        await user.click(screen.getByTestId('outside'));
+        await waitFor(() => {
+            expect(screen.getByRole('spinbutton', { name: /год|year/i })).toHaveTextContent('2024');
+        });
+    });
+
+    it('does not keep 31 February after typing that day', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        renderPicker(
+            <>
+                <DatePicker aria-label="Дата" defaultValue={new CalendarDate(2024, 1, 15)} onChange={onChange} />
+                <button type="button" data-test-id="outside">
+                    out
+                </button>
+            </>
+        );
+
+        await user.click(screen.getByRole('spinbutton', { name: /день|day/i }));
+        await user.keyboard('31');
+        await user.keyboard('02');
+        await user.click(screen.getByTestId('outside'));
+
+        await waitFor(() => {
             const next = onChange.mock.calls.at(-1)?.[0] as CalendarDate | null;
-            expect(next?.year).toBe(2024);
-            expect(next?.month).toBe(6);
-            expect(next?.day).toBe(15);
+            const day = screen.getByRole('spinbutton', { name: /день|day/i });
+            const month = screen.getByRole('spinbutton', { name: /месяц|month/i });
+
+            expect(month).toHaveTextContent('02');
+            expect(day).not.toHaveTextContent('31');
+            expect(next?.month).toBe(2);
+            expect(next?.day).toBeGreaterThan(0);
+            expect(next?.day).toBeLessThanOrEqual(29);
+        });
+    });
+
+    it('selects a calendar day after a typed date', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+        renderPicker(<DatePicker aria-label="Дата" defaultValue={new CalendarDate(2024, 6, 15)} onChange={onChange} />);
+
+        await user.click(screen.getByRole('spinbutton', { name: /день|day/i }));
+        await user.keyboard('02');
+        await user.click(screen.getByTestId('date-picker-calendar'));
+        const day = screen.getByTestId('calendar-viewport').querySelector('[data-date="2024-06-20"]');
+        await user.click(day as HTMLElement);
+
+        await waitFor(() => {
+            const next = onChange.mock.calls.at(-1)?.[0] as CalendarDate;
+            expect(next.day).toBe(20);
+            expect(next.month).toBe(6);
         });
     });
 

@@ -66,6 +66,34 @@ describe('Slider', () => {
         expect(onChange).toHaveBeenCalledWith(41);
     });
 
+    it('jumps to the edges with Home and End and steps by page', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(<Slider aria-label="Scale" value={40} minValue={0} maxValue={100} step={1} onChange={onChange} />);
+
+        const slider = screen.getByRole('slider', { name: 'Scale' });
+        slider.focus();
+        await user.keyboard('{Home}');
+        expect(onChange).toHaveBeenCalledWith(0);
+
+        await user.keyboard('{End}');
+        expect(onChange).toHaveBeenCalledWith(100);
+
+        await user.keyboard('{PageDown}');
+        expect(onChange.mock.calls.at(-1)?.[0]).toBeLessThan(100);
+    });
+
+    it('follows value and does not call onChange when the prop changes', () => {
+        const onChange = vi.fn();
+        const { rerender } = render(<Slider aria-label="Scale" value={40} onChange={onChange} />);
+
+        rerender(<Slider aria-label="Scale" value={10} onChange={onChange} />);
+
+        expect(screen.getByRole('slider', { name: 'Scale' })).toHaveValue('10');
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
     it('does not call onChange when disabled', async () => {
         const user = userEvent.setup();
         const onChange = vi.fn();

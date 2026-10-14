@@ -28,10 +28,29 @@ This repo had 100% line / branch / function coverage and still shipped a compone
 
 Coverage is a by-product. Never write or keep a test whose reason to exist is "to hit a line/branch".
 
+## User scenarios + code walkthrough (mandatory)
+
+Contract-derived tests are not enough on their own. Two failure modes seen in this repo:
+
+- A bug lives in a case the code never handled, so a test derived from "what the code does" never exists (e.g. `DateRangePicker` accepted `end < start` typed by keyboard; tests only covered min/max bounds).
+- Tests bypass real input (force a value via a prop/ref/setter) instead of doing what the user does.
+
+So, for every component with user input:
+
+1. **Walk the source line by line** (`Component.tsx`, hooks, `utils.ts`, `FormX.tsx`). For each handler, validator, guard, and state transition ask: *what can the user do that this code does not handle?* Write the answers into the scenario list, even if the answer is "a bug".
+2. **Enumerate user scenarios** as a user would perform them: type, paste, delete, change order, blur, Escape, re-enter, switch mouse ↔ keyboard. Always include:
+    - **invalid / contradictory input** (range `end < start`, value outside `min`/`max`, partial input, non-numeric text, empty after non-empty);
+    - **boundary input** (`start === end`, exactly `min`/`max`, `0`, first/last item);
+    - **sequences** (enter A, then B that conflicts with A; enter, blur, re-enter; open, pick, reopen);
+    - **both channels** where both exist (typing into segments AND picking from the popup).
+3. **Drive tests through real input** (`userEvent.type` / `keyboard` / `click`). Do not set state through a ref/setter/prop to simulate what the user typed; a prop-driven value is only OK for the controlled-mode scenario itself.
+4. If a scenario reveals missing handling: write the failing test first (tdd.mdc), confirm it fails, fix the source. If the intended behavior is unclear (rollback vs `invalid` marker), ask the user before choosing.
+5. Report the walkthrough: list of handled / unhandled cases found in the source, and which tests cover them.
+
 ## Workflow
 
 1. **Collect the contract.** Read `types.ts`, `docs/Description.ru.md`, `docs/Example.ru.md`, `FormX.tsx` (if any), the stories, the existing tests, and `git log --grep=fix -- src/<name>` (every past fix needs a regression test).
-2. **Write the scenario list first**, before any code, using [`behavior-matrix.md`](references/behavior-matrix.md). Every documented prop and every row of the matrix is either a planned `it` or an explicit "n/a — reason". Show the list to the user if the component is non-trivial.
+2. **Walk the code and enumerate user scenarios** (section above), then **write the scenario list first**, before any code, using [`behavior-matrix.md`](references/behavior-matrix.md). Every documented prop and every row of the matrix is either a planned `it` or an explicit "n/a — reason". Show the list to the user if the component is non-trivial.
    **Probe the real DOM once** (dump `container.innerHTML` to a scratch file, check `document.activeElement`) before choosing queries. Do not assume where text, roles, or focus end up; react-aria often splits them across elements and restores focus asynchronously.
 3. **Write the tests** as user scenarios against the public API (`import … from '..'` / `'../index'`), through the real DOM and `userEvent`.
 4. **Mutation check (mandatory, manual).** For each new or rewritten test group, temporarily break the source (invert a condition, drop the `onChange` call, change a key, remove a `disabled` guard), run the test, confirm it **fails for the right reason**, then revert. A test that stays green under a plausible bug is not finished. Remove the breakage before reporting.
@@ -87,6 +106,8 @@ For every bug fix: the test is named after the observable bug («keeps focus on 
 ## Done checklist
 
 - [ ] Scenario list built from the contract; every documented prop has a behavioral test or an "n/a" reason
+- [ ] Source walked line by line; unhandled user cases listed and each has a test (or a reported bug)
+- [ ] Invalid, contradictory, boundary, and sequential input scenarios covered via real `userEvent` input (not via ref/setter shortcuts)
 - [ ] Matrix rows for this component kind covered (value, interaction + keyboard, states, a11y, Field/Form wiring, overlay lifecycle where applicable)
 - [ ] Every new test group failed under at least one deliberate source mutation, then reverted
 - [ ] No forbidden patterns (titles, mocks of RAC/own code, internals, snapshots, class-only checks)

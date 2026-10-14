@@ -1,9 +1,11 @@
 import { useState, type MouseEvent } from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
+import { Button } from '@/button';
+import { Popover } from '@/popover';
 import { AdminUiProvider } from '@/provider';
 
 import { Modal } from '../index';
@@ -96,6 +98,17 @@ describe('Modal', () => {
         expect(screen.getByRole('heading', { name: 'Заголовок' })).toBeInTheDocument();
     });
 
+    it('keeps Tab inside the dialog', async () => {
+        const user = userEvent.setup();
+        render(<ModalHarness open />);
+
+        const dialog = screen.getByRole('dialog');
+        await user.tab();
+        expect(dialog.contains(document.activeElement)).toBe(true);
+        await user.tab();
+        expect(dialog.contains(document.activeElement)).toBe(true);
+    });
+
     it('does not render dialog when closed', () => {
         render(<ModalHarness open={false} />);
 
@@ -166,6 +179,95 @@ describe('Modal', () => {
         await user.keyboard('{Escape}');
 
         expect(onOpenChange).not.toHaveBeenCalled();
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    it('closes on outside click and stays open when dismissable is false', async () => {
+        const user = userEvent.setup();
+        const onOpenChange = vi.fn();
+
+        const { unmount } = render(<ModalHarness open onOpenChange={onOpenChange} />);
+
+        await user.click(document.querySelector('[data-testid="underlay"]') as HTMLElement);
+
+        expect(onOpenChange).toHaveBeenCalledWith(false);
+        unmount();
+
+        onOpenChange.mockClear();
+        render(<ModalHarness open onOpenChange={onOpenChange} dismissable={false} />);
+
+        await user.click(document.querySelector('[data-testid="underlay"]') as HTMLElement);
+
+        expect(onOpenChange).not.toHaveBeenCalled();
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    it('moves focus into the dialog and returns it to the opener', async () => {
+        const user = userEvent.setup();
+
+        const Harness = () => {
+            const [open, setOpen] = useState(false);
+
+            return (
+                <AdminUiProvider>
+                    <button type="button" onClick={() => setOpen(true)}>
+                        Open
+                    </button>
+                    <Modal open={open} onOpenChange={setOpen}>
+                        <Modal.Header>
+                            <Modal.Title>Заголовок</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <button type="button">Inside</button>
+                        </Modal.Body>
+                    </Modal>
+                </AdminUiProvider>
+            );
+        };
+
+        render(<Harness />);
+
+        const opener = screen.getByRole('button', { name: 'Open' });
+
+        await user.click(opener);
+
+        const dialog = screen.getByRole('dialog');
+
+        await waitFor(() => {
+            expect(dialog.contains(document.activeElement)).toBe(true);
+        });
+
+        await user.keyboard('{Escape}');
+
+        await waitFor(() => {
+            expect(opener).toHaveFocus();
+        });
+    });
+
+    it('Escape closes a nested popover and leaves the modal open', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <AdminUiProvider>
+                <Modal open>
+                    <Modal.Body>
+                        <Popover>
+                            <Popover.Trigger>
+                                <Button>Open</Button>
+                            </Popover.Trigger>
+                            <Popover.Content>Внутри</Popover.Content>
+                        </Popover>
+                    </Modal.Body>
+                </Modal>
+            </AdminUiProvider>
+        );
+
+        await user.click(screen.getByRole('button', { name: 'Open' }));
+        expect(screen.getByText('Внутри')).toBeInTheDocument();
+
+        await user.keyboard('{Escape}');
+
+        expect(screen.queryByText('Внутри')).not.toBeInTheDocument();
         expect(screen.getByRole('dialog')).toBeInTheDocument();
     });
 });

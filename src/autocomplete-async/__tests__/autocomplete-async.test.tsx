@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -239,5 +239,46 @@ describe('AutocompleteAsync', () => {
         );
 
         expect(screen.getByRole('combobox', { name: /Brand/ })).toHaveValue('');
+    });
+
+    it('waits for the default debounce before loading suggestions', async () => {
+        vi.useFakeTimers();
+        const queries: string[] = [];
+        const useSuggest: IUseAutocompleteSuggest = ({ query, enabled }) => {
+            if (enabled && query.length > 0) {
+                queries.push(query);
+            }
+
+            return {
+                options: query === 'Ni' ? [{ value: 'nike', label: 'Nike' }] : [],
+                isLoading: false,
+                hasMore: false,
+            };
+        };
+
+        render(
+            <AdminUiProvider>
+                <AutocompleteAsync aria-label="Brand" useSuggest={useSuggest} />
+            </AdminUiProvider>
+        );
+
+        const input = screen.getByRole('combobox', { name: /Brand/ });
+
+        // userEvent hangs while fake timers own the debounce delay.
+        fireEvent.change(input, { target: { value: 'Ni' } });
+
+        expect(queries).not.toContain('Ni');
+
+        await act(async () => {
+            await vi.advanceTimersByTimeAsync(299);
+        });
+        expect(queries).not.toContain('Ni');
+
+        await act(async () => {
+            await vi.advanceTimersByTimeAsync(1);
+        });
+
+        expect(queries).toContain('Ni');
+        vi.useRealTimers();
     });
 });

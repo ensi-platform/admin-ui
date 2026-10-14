@@ -31,6 +31,33 @@ describe('DateRangePicker', () => {
         expect(screen.getByTestId('calendar-viewport')).toBeInTheDocument();
     });
 
+    it('closes the calendar on Escape and on outside click', async () => {
+        const user = userEvent.setup();
+
+        renderPicker(
+            <DateRangePicker
+                aria-label="Период"
+                defaultValue={{ start: new CalendarDate(2024, 6, 1), end: new CalendarDate(2024, 6, 15) }}
+            />
+        );
+
+        await user.click(screen.getByTestId('date-range-picker-calendar'));
+        expect(screen.getByTestId('calendar-viewport')).toBeInTheDocument();
+
+        await user.keyboard('{Escape}');
+        expect(screen.queryByTestId('calendar-viewport')).not.toBeInTheDocument();
+
+        await user.click(screen.getByTestId('date-range-picker-calendar'));
+        expect(screen.getByTestId('calendar-viewport')).toBeInTheDocument();
+
+        const underlay = document.querySelector('[data-testid="underlay"]');
+
+        expect(underlay).toBeInstanceOf(HTMLElement);
+        await user.click(underlay as HTMLElement);
+
+        expect(screen.queryByTestId('calendar-viewport')).not.toBeInTheDocument();
+    });
+
     it('selects a range from the calendar', async () => {
         const user = userEvent.setup();
         const onChange = vi.fn();
@@ -95,6 +122,7 @@ describe('DateRangePicker', () => {
         );
 
         await user.click(screen.getByTestId('date-range-picker-clear'));
+        expect(onChange).toHaveBeenCalledTimes(1);
         expect(onChange).toHaveBeenCalledWith(null);
     });
 
@@ -118,44 +146,249 @@ describe('DateRangePicker', () => {
         });
     });
 
-    it('restores last valid range on blur when partial', async () => {
+    it('restores the end date on blur when its year is cleared', async () => {
         const user = userEvent.setup();
         const onChange = vi.fn();
         const onBlur = vi.fn();
-        const setValueRef: {
-            current: ((next: DateRange | null) => void) | null;
-        } = { current: null };
 
-        const Harness = () => {
-            const [value, setValue] = useState<DateRange | null>({
-                start: new CalendarDate(2024, 6, 1),
-                end: new CalendarDate(2024, 6, 15),
-            });
-            const handleChange = (next: DateRange | null) => {
-                setValue(next);
-                onChange(next);
-            };
-            setValueRef.current = handleChange;
+        renderPicker(
+            <>
+                <DateRangePicker
+                    aria-label="Период"
+                    defaultValue={{ start: new CalendarDate(2024, 6, 1), end: new CalendarDate(2024, 6, 15) }}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                />
+                <button type="button" data-test-id="outside">
+                    out
+                </button>
+            </>
+        );
 
-            return (
-                <>
-                    <DateRangePicker aria-label="Период" value={value} onChange={handleChange} onBlur={onBlur} />
-                    <button type="button" data-test-id="outside">
-                        out
-                    </button>
-                </>
-            );
-        };
-
-        renderPicker(<Harness />);
-        await user.click(screen.getAllByRole('spinbutton', { name: /день|day/i })[0]!);
-        // RAC can surface a partial range while editing; force it for blur restore.
-        setValueRef.current?.({ start: new CalendarDate(2024, 6, 1), end: null } as unknown as DateRange);
+        const endYear = screen.getAllByRole('spinbutton', { name: /год|year/i })[1]!;
+        await user.click(endYear);
+        await user.keyboard('{Backspace}{Backspace}{Backspace}{Backspace}');
         await user.click(screen.getByTestId('outside'));
         expect(onBlur).toHaveBeenCalled();
         await waitFor(() => {
+            expect(screen.getAllByRole('spinbutton', { name: /год|year/i })[1]).toHaveTextContent('2024');
+            expect(screen.getAllByRole('spinbutton', { name: /день|day/i })[1]).toHaveTextContent('15');
+        });
+        const reversed = onChange.mock.calls.some(call => {
+            const next = call[0] as DateRange | null;
+            return next?.end != null && next.end.year < 1900;
+        });
+        expect(reversed).toBe(false);
+    });
+
+    it('swaps a typed range when the end date is before the start', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        renderPicker(
+            <>
+                <DateRangePicker
+                    aria-label="Период"
+                    defaultValue={{ start: new CalendarDate(2024, 6, 1), end: new CalendarDate(2024, 6, 15) }}
+                    onChange={onChange}
+                />
+                <button type="button" data-test-id="outside">
+                    out
+                </button>
+            </>
+        );
+
+        await user.click(screen.getAllByRole('spinbutton', { name: /день|day/i })[0]!);
+        await user.keyboard('1111200001112000');
+        await user.click(screen.getByTestId('outside'));
+
+        await waitFor(() => {
             const next = onChange.mock.calls.at(-1)?.[0] as DateRange | null;
-            expect(next?.end?.day).toBe(15);
+            expect(next?.start.year).toBe(2000);
+            expect(next?.start.month).toBe(11);
+            expect(next?.start.day).toBe(1);
+            expect(next?.end.year).toBe(2000);
+            expect(next?.end.month).toBe(11);
+            expect(next?.end.day).toBe(11);
+        });
+        expect(screen.getAllByRole('spinbutton', { name: /день|day/i })[0]).toHaveTextContent('01');
+        expect(screen.getAllByRole('spinbutton', { name: /день|day/i })[1]).toHaveTextContent('11');
+
+        const reversed = onChange.mock.calls.some(call => {
+            const next = call[0] as DateRange | null;
+            return next?.start != null && next.end != null && next.end.compare(next.start) < 0;
+        });
+        expect(reversed).toBe(false);
+    });
+
+    it('swaps when the start date is typed after the end date', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        renderPicker(
+            <>
+                <DateRangePicker
+                    aria-label="Период"
+                    defaultValue={{ start: new CalendarDate(2024, 6, 1), end: new CalendarDate(2024, 6, 15) }}
+                    onChange={onChange}
+                />
+                <button type="button" data-test-id="outside">
+                    out
+                </button>
+            </>
+        );
+
+        await user.click(screen.getAllByRole('spinbutton', { name: /день|day/i })[0]!);
+        await user.keyboard('20');
+        await user.click(screen.getByTestId('outside'));
+
+        await waitFor(() => {
+            const next = onChange.mock.calls.at(-1)?.[0] as DateRange;
+            expect(next.start.day).toBe(15);
+            expect(next.end.day).toBe(20);
+            expect(next.end.compare(next.start) > 0).toBe(true);
+        });
+    });
+
+    it('keeps a single-day range when start and end are equal', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        renderPicker(
+            <>
+                <DateRangePicker
+                    aria-label="Период"
+                    defaultValue={{ start: new CalendarDate(2024, 6, 1), end: new CalendarDate(2024, 6, 15) }}
+                    onChange={onChange}
+                />
+                <button type="button" data-test-id="outside">
+                    out
+                </button>
+            </>
+        );
+
+        await user.click(screen.getAllByRole('spinbutton', { name: /день|day/i })[0]!);
+        await user.keyboard('15');
+        await user.click(screen.getByTestId('outside'));
+
+        await waitFor(() => {
+            const next = onChange.mock.calls.at(-1)?.[0] as DateRange;
+            expect(next.start.day).toBe(15);
+            expect(next.end.day).toBe(15);
+            expect(next.start.compare(next.end)).toBe(0);
+        });
+    });
+
+    it('restores the start date on blur when the year is out of bounds', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        renderPicker(
+            <>
+                <DateRangePicker
+                    aria-label="Период"
+                    defaultValue={{ start: new CalendarDate(2024, 6, 1), end: new CalendarDate(2024, 6, 15) }}
+                    onChange={onChange}
+                />
+                <button type="button" data-test-id="outside">
+                    out
+                </button>
+            </>
+        );
+
+        const startYear = screen.getAllByRole('spinbutton', { name: /год|year/i })[0]!;
+        await user.click(startYear);
+        await user.keyboard('{Control>}a{/Control}1899');
+        await user.click(screen.getByTestId('outside'));
+
+        await waitFor(() => {
+            expect(screen.getAllByRole('spinbutton', { name: /год|year/i })[0]).toHaveTextContent('2024');
+        });
+        const outOfBounds = onChange.mock.calls.some(call => {
+            const next = call[0] as DateRange | null;
+            return next?.start != null && next.start.year < 1900;
+        });
+        expect(outOfBounds).toBe(false);
+    });
+
+    it('orders a range picked from the later day to the earlier day', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+        renderPicker(
+            <DateRangePicker
+                aria-label="Период"
+                defaultValue={{ start: new CalendarDate(2024, 6, 1), end: new CalendarDate(2024, 6, 15) }}
+                onChange={onChange}
+            />
+        );
+
+        await user.click(screen.getByTestId('date-range-picker-calendar'));
+        const later = screen.getByTestId('calendar-viewport').querySelector('[data-date="2024-06-18"]');
+        const earlier = screen.getByTestId('calendar-viewport').querySelector('[data-date="2024-06-10"]');
+        expect(later).toBeTruthy();
+        expect(earlier).toBeTruthy();
+        await user.click(later as HTMLElement);
+        await user.click(earlier as HTMLElement);
+
+        await waitFor(() => {
+            const next = onChange.mock.calls.at(-1)?.[0] as DateRange;
+            expect(next.start.day).toBe(10);
+            expect(next.end.day).toBe(18);
+        });
+        expect(onChange).toHaveBeenCalledTimes(1);
+    });
+
+    it('does not change the range when an unavailable day is clicked', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+        renderPicker(
+            <DateRangePicker
+                aria-label="Период"
+                defaultValue={{ start: new CalendarDate(2024, 6, 1), end: new CalendarDate(2024, 6, 15) }}
+                isDateUnavailable={date => date.day === 12}
+                onChange={onChange}
+            />
+        );
+
+        await user.click(screen.getByTestId('date-range-picker-calendar'));
+        const unavailable = screen.getByTestId('calendar-viewport').querySelector('[data-date="2024-06-12"]');
+        expect(unavailable).toBeDisabled();
+        await user.click(unavailable as HTMLElement);
+        expect(onChange).not.toHaveBeenCalled();
+
+        const availableStart = screen.getByTestId('calendar-viewport').querySelector('[data-date="2024-06-10"]');
+        const availableEnd = screen.getByTestId('calendar-viewport').querySelector('[data-date="2024-06-18"]');
+        await user.click(availableStart as HTMLElement);
+        await user.click(availableEnd as HTMLElement);
+        await waitFor(() => {
+            const next = onChange.mock.calls.at(-1)?.[0] as DateRange;
+            expect(next.start.day).toBe(10);
+            expect(next.end.day).toBe(18);
+        });
+    });
+
+    it('keeps the controlled value when the parent ignores onChange', async () => {
+        const user = userEvent.setup();
+        renderPicker(
+            <>
+                <DateRangePicker
+                    aria-label="Период"
+                    value={{ start: new CalendarDate(2024, 6, 1), end: new CalendarDate(2024, 6, 15) }}
+                    onChange={() => undefined}
+                />
+                <button type="button" data-test-id="outside">
+                    out
+                </button>
+            </>
+        );
+
+        await user.click(screen.getAllByRole('spinbutton', { name: /день|day/i })[0]!);
+        await user.keyboard('20');
+        await user.click(screen.getByTestId('outside'));
+
+        await waitFor(() => {
+            expect(screen.getAllByRole('spinbutton', { name: /день|day/i })[0]).toHaveTextContent('01');
+            expect(screen.getAllByRole('spinbutton', { name: /день|day/i })[1]).toHaveTextContent('15');
         });
     });
 
@@ -202,7 +435,7 @@ describe('DateRangePicker', () => {
         ).toBeTruthy();
     });
 
-    it('does not update lastValid for out-of-bounds range from RAC onChange', async () => {
+    it('does not publish an out-of-bounds end year', async () => {
         const user = userEvent.setup();
         const onChange = vi.fn();
         const onBlur = vi.fn();
@@ -228,11 +461,52 @@ describe('DateRangePicker', () => {
         await user.click(screen.getByTestId('outside'));
         expect(onBlur).toHaveBeenCalled();
         await waitFor(() => {
-            const restored = onChange.mock.calls.find(call => {
-                const next = call[0] as { start?: CalendarDate; end?: CalendarDate } | null;
-                return next?.end?.year === 2024 && next?.end?.day === 15;
+            expect(screen.getAllByRole('spinbutton', { name: /год|year/i })[1]).toHaveTextContent('2024');
+            expect(screen.getAllByRole('spinbutton', { name: /день|day/i })[1]).toHaveTextContent('15');
+        });
+        const outOfBounds = onChange.mock.calls.some(call => {
+            const next = call[0] as { end?: CalendarDate } | null;
+            return next?.end != null && next.end.year < 2000;
+        });
+        expect(outOfBounds).toBe(false);
+    });
+
+    it('shows a parent value that replaces the draft while the field is focused', async () => {
+        const user = userEvent.setup();
+
+        const replacement: DateRange = {
+            start: new CalendarDate(2025, 1, 2),
+            end: new CalendarDate(2025, 1, 9),
+        };
+
+        const Harness = () => {
+            const [value, setValue] = useState<DateRange | null>({
+                start: new CalendarDate(2024, 6, 1),
+                end: new CalendarDate(2024, 6, 15),
             });
-            expect(restored).toBeTruthy();
+
+            return (
+                <>
+                    <DateRangePicker aria-label="Период" value={value} onChange={setValue} />
+                    <button
+                        type="button"
+                        onMouseDown={event => event.preventDefault()}
+                        onClick={() => setValue(replacement)}
+                    >
+                        replace
+                    </button>
+                </>
+            );
+        };
+
+        renderPicker(<Harness />);
+        await user.click(screen.getAllByRole('spinbutton', { name: /день|day/i })[0]!);
+        await user.keyboard('20');
+        await user.click(screen.getByRole('button', { name: 'replace' }));
+
+        await waitFor(() => {
+            expect(screen.getAllByRole('spinbutton', { name: /день|day/i })[0]).toHaveTextContent('02');
+            expect(screen.getAllByRole('spinbutton', { name: /год|year/i })[0]).toHaveTextContent('2025');
         });
     });
 });
