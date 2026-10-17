@@ -1,12 +1,22 @@
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 
-import { Collection, ListBox, ListBoxItem, ListBoxLoadMoreItem, ListLayout, Virtualizer } from 'react-aria-components';
+import {
+    Collection,
+    ListBox,
+    ListBoxItem,
+    ListBoxLoadMoreItem,
+    ListLayout,
+    Virtualizer,
+    type Selection,
+} from 'react-aria-components';
 
 import { useAutocompleteAsyncInput, useAutocompleteAsyncSuggest } from '@/autocomplete-async/hooks/useAsyncSuggest';
 import { isAsyncSuggestLoading } from '@/autocomplete-async/utils';
-import { Checkbox } from '@/checkbox';
+import checkboxStyles from '@/checkbox/styles.module.css';
+import { checkboxVariants } from '@/checkbox/theme';
 import { ComboboxListStatus, readCssPx, useComboboxListMetrics } from '@/combobox';
 import { type IComboboxOption, type TComboboxValue } from '@/combobox/types';
+import { Check } from '@/icons';
 import { Input } from '@/input';
 import { useAuiLabels } from '@/provider';
 
@@ -35,6 +45,14 @@ const pinSelected = (
     });
 
     return [...pinned, ...options];
+};
+
+const toValueList = (keys: Selection, rows: IComboboxOption[]): TComboboxValue[] => {
+    if (keys === 'all') {
+        return rows.map(row => row.value);
+    }
+
+    return [...keys] as TComboboxValue[];
 };
 
 export const SuggestChecklist = ({
@@ -84,12 +102,6 @@ export const SuggestChecklist = ({
         }
     };
 
-    const toggle = (optionValue: TComboboxValue, checked: boolean) => {
-        const next = checked ? [...selected, optionValue] : selected.filter(item => item !== optionValue);
-
-        setSelected(next);
-    };
-
     const showStatus = rows.length === 0;
 
     return (
@@ -110,17 +122,25 @@ export const SuggestChecklist = ({
                 />
             ) : (
                 <Virtualizer layout={ListLayout} layoutOptions={{ rowSize, gap, loaderSize: rowSize }}>
-                    <ListBox className={styles.list} aria-label={ariaLabel} selectionMode="none">
+                    <ListBox
+                        aria-label={ariaLabel}
+                        className={styles.list}
+                        selectedKeys={selected}
+                        selectionMode="multiple"
+                        onSelectionChange={keys => setSelected(toValueList(keys, rows))}
+                    >
                         <Collection items={rows}>
                             {option => (
-                                <ListBoxItem id={option.value} textValue={option.label} className={styles.item}>
-                                    <Checkbox
-                                        checked={selected.includes(option.value)}
-                                        disabled={disabled}
-                                        onChange={checked => toggle(option.value, checked)}
-                                    >
-                                        {option.label}
-                                    </Checkbox>
+                                <ListBoxItem
+                                    id={option.value}
+                                    textValue={option.label}
+                                    isDisabled={disabled}
+                                    className={checkboxVariants({ size: 'md', variant: 'primary' })}
+                                >
+                                    <span className={checkboxStyles.box} aria-hidden>
+                                        <Check className={checkboxStyles.icon} />
+                                    </span>
+                                    <span className={checkboxStyles.label}>{option.label}</span>
                                 </ListBoxItem>
                             )}
                         </Collection>

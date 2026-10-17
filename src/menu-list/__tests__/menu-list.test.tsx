@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { MenuList } from '..';
 
@@ -246,5 +247,58 @@ describe('MenuList', () => {
 
         await user.hover(screen.getByTestId('orders'));
         await expect(screen.findByRole('tooltip', {}, { timeout: 500 })).rejects.toThrow();
+    });
+
+    it('renders a button when as is button', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        renderWithProvider(
+            <MenuList onChange={onChange}>
+                <MenuList.Item id="orders" as="button">
+                    Orders
+                </MenuList.Item>
+            </MenuList>
+        );
+
+        const orders = screen.getByRole('button', { name: 'Orders' });
+
+        expect(orders.tagName).toBe('BUTTON');
+
+        orders.focus();
+        await user.keyboard(' ');
+
+        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onChange).toHaveBeenCalledWith('orders');
+        expect(orders).toHaveAttribute('data-active', 'true');
+    });
+
+    it('keeps the active leaf when the parent ignores onChange', async () => {
+        const user = userEvent.setup();
+
+        renderWithProvider(<BasicList value="orders" onChange={vi.fn()} />);
+
+        await user.click(screen.getByRole('link', { name: /Clients/ }));
+
+        expect(screen.getByRole('link', { name: /Orders/ })).toHaveAttribute('data-active', 'true');
+        expect(screen.getByRole('link', { name: /Clients/ })).not.toHaveAttribute('data-active');
+    });
+
+    it('has no axe violations in the default and disabled states', async () => {
+        const enabled = renderWithProvider(<BasicList />);
+
+        expect(await axe(enabled.container)).toHaveNoViolations();
+
+        enabled.unmount();
+
+        const disabled = renderWithProvider(
+            <MenuList disabled>
+                <MenuList.Item id="orders" href="/orders">
+                    Orders
+                </MenuList.Item>
+            </MenuList>
+        );
+
+        expect(await axe(disabled.container)).toHaveNoViolations();
     });
 });

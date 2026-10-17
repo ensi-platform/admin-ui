@@ -1,4 +1,4 @@
-import { type ReactElement, useState } from 'react';
+import { createRef, type ReactElement, useState } from 'react';
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -6,6 +6,7 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { Loader } from '@/loader';
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { Table, useTableRowSelection } from '..';
 
@@ -176,6 +177,182 @@ describe('Table', () => {
         expect(onSort).toHaveBeenLastCalledWith('desc');
         await user.click(sortButton);
         expect(onSort).toHaveBeenLastCalledWith(undefined);
+    });
+
+    it('cycles sort direction from the keyboard', async () => {
+        const user = userEvent.setup();
+        const onSort = vi.fn();
+
+        const SortDemo = () => {
+            const [direction, setDirection] = useState<'asc' | 'desc' | undefined>();
+
+            return (
+                <Table>
+                    <Table.Scroll>
+                        <Table.Table>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell
+                                        sortable
+                                        sortDirection={direction}
+                                        onSort={next => {
+                                            onSort(next);
+                                            setDirection(next);
+                                        }}
+                                    >
+                                        Name
+                                    </Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+                        </Table.Table>
+                    </Table.Scroll>
+                </Table>
+            );
+        };
+
+        render(<SortDemo />);
+
+        const header = screen.getByRole('columnheader', { name: 'Name' });
+        const sortButton = screen.getByRole('button', { name: 'Name' });
+
+        sortButton.focus();
+        await user.keyboard('{Enter}');
+        expect(onSort).toHaveBeenLastCalledWith('asc');
+        expect(header).toHaveAttribute('aria-sort', 'ascending');
+
+        await user.keyboard(' ');
+        expect(onSort).toHaveBeenLastCalledWith('desc');
+        expect(header).toHaveAttribute('aria-sort', 'descending');
+
+        await user.keyboard('{Enter}');
+        expect(onSort).toHaveBeenLastCalledWith(undefined);
+        expect(header).toHaveAttribute('aria-sort', 'none');
+    });
+
+    it('keeps aria-sort when the parent ignores onSort', async () => {
+        const user = userEvent.setup();
+        const onSort = vi.fn();
+
+        render(
+            <Table>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell sortable onSort={onSort}>
+                                    Name
+                                </Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                    </Table.Table>
+                </Table.Scroll>
+            </Table>
+        );
+
+        const header = screen.getByRole('columnheader', { name: 'Name' });
+        const sortButton = screen.getByRole('button', { name: 'Name' });
+
+        await user.click(sortButton);
+        expect(onSort).toHaveBeenCalledTimes(1);
+        expect(onSort).toHaveBeenCalledWith('asc');
+        expect(header).toHaveAttribute('aria-sort', 'none');
+
+        sortButton.focus();
+        await user.keyboard('{Enter}');
+        expect(onSort).toHaveBeenCalledTimes(2);
+        expect(header).toHaveAttribute('aria-sort', 'none');
+    });
+
+    it('applies size, block, and checkbox-column classes', () => {
+        const { rerender } = render(
+            <Table size="sm" hasChecked dataTestId="table">
+                <span>rows</span>
+            </Table>
+        );
+
+        const shell = screen.getByTestId('table');
+
+        expect(shell).toHaveClass(shellStyles.sm);
+        expect(shell).toHaveClass(shellStyles.block);
+        expect(shell).toHaveClass(shellStyles.hasChecked);
+        expect(shell).toHaveAttribute('data-has-checked');
+
+        rerender(
+            <Table block={false} dataTestId="table">
+                <span>rows</span>
+            </Table>
+        );
+
+        expect(screen.getByTestId('table')).not.toHaveClass(shellStyles.block);
+        expect(screen.getByTestId('table')).not.toHaveAttribute('data-has-checked');
+    });
+
+    it('applies align and noWrap classes', () => {
+        render(
+            <Table>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell align="end" noWrap dataTestId="head">
+                                    Amount
+                                </Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                            <Table.Row>
+                                <Table.Cell align="center" noWrap dataTestId="cell">
+                                    10
+                                </Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table.Table>
+                </Table.Scroll>
+            </Table>
+        );
+
+        expect(screen.getByTestId('head')).toHaveClass(headerCellStyles.alignEnd, headerCellStyles.noWrap);
+        expect(screen.getByTestId('cell')).toHaveClass(cellStyles.alignCenter, cellStyles.noWrap);
+    });
+
+    it('sets the cell width', () => {
+        render(
+            <Table>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell width="8rem" dataTestId="head">
+                                    Name
+                                </Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                            <Table.Row>
+                                <Table.Cell width="8rem" dataTestId="cell">
+                                    Alice
+                                </Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table.Table>
+                </Table.Scroll>
+            </Table>
+        );
+
+        expect(screen.getByTestId('head')).toHaveStyle({ width: '8rem' });
+        expect(screen.getByTestId('cell')).toHaveStyle({ width: '8rem' });
+    });
+
+    it('assigns object ref', () => {
+        const ref = createRef<HTMLDivElement>();
+
+        render(
+            <Table ref={ref} dataTestId="table">
+                <span>rows</span>
+            </Table>
+        );
+
+        expect(ref.current).toBe(screen.getByTestId('table'));
     });
 
     it('collapses ActionBar overflow into kebab popover', async () => {
@@ -693,5 +870,45 @@ describe('Table', () => {
         const trigger = screen.getByRole('button', { name: 'Status' });
         expect(trigger.querySelector('[data-active]')).not.toBeNull();
         expect(trigger.querySelector('[data-trigger-chevron]')).toBeNull();
+    });
+
+    it('has no axe violations in the default state and on a disabled row', async () => {
+        const { container, unmount } = render(
+            <Table>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell>Name</Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                            <Table.Row>
+                                <Table.Cell>Alice</Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table.Table>
+                </Table.Scroll>
+            </Table>
+        );
+
+        expect(await axe(container)).toHaveNoViolations();
+        unmount();
+
+        const disabled = render(
+            <Table>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Body>
+                            <Table.Row disabled>
+                                <Table.Cell>Alice</Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table.Table>
+                </Table.Scroll>
+            </Table>
+        );
+
+        expect(await axe(disabled.container)).toHaveNoViolations();
     });
 });

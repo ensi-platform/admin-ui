@@ -4,6 +4,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
+import { axe } from '@/test/axe';
+
 import { Button } from '../index';
 
 import styles from '../styles.module.css';
@@ -201,5 +203,33 @@ describe('Button', () => {
         render(<Button icon={{ Component: TestIcon, className: 'extra' }}>Save</Button>);
 
         expect(screen.getByTestId('test-icon')).toHaveClass(styles.icon, 'extra');
+    });
+
+    it('does not activate a disabled button from the keyboard', async () => {
+        const user = userEvent.setup();
+        const onClick = vi.fn();
+
+        render(
+            <Button disabled onClick={onClick}>
+                Save
+            </Button>
+        );
+
+        screen.getByRole('button', { name: 'Save' }).focus();
+        await user.keyboard('{Enter} ');
+
+        expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it('has no axe violations in the default and disabled states', async () => {
+        const enabled = render(<Button>Save</Button>);
+
+        expect(await axe(enabled.container)).toHaveNoViolations();
+
+        enabled.unmount();
+
+        const disabled = render(<Button disabled>Save</Button>);
+
+        expect(await axe(disabled.container)).toHaveNoViolations();
     });
 });

@@ -61,7 +61,7 @@ For each of `disabled`, `readOnly`, `invalid`, `required`, `loading`, empty:
 | Field wiring | label ↔ control; `Field.Hint` and `Field.Error` text reachable via `aria-describedby`; `aria-invalid` when error is shown |
 | State attributes | `aria-expanded`, `aria-selected`, `aria-checked`, `aria-current` flip with interaction |
 | Focus | `toHaveFocus()` after open/close/clear/remove; no focus loss to `body` |
-| Automated | axe check (`vitest-axe`) once available: `expect(await axe(container)).toHaveNoViolations()` for default and key states |
+| Automated | `axe` from [`src/test/axe.ts`](../../../../src/test/axe.ts) (`color-contrast` and `region` disabled): `import { axe } from '@/test/axe'`, then `expect(await axe(container)).toHaveNoViolations()` for default and key states. Do not enable `color-contrast` in Vitest. Contrast is the Storybook Accessibility tab (`@storybook/addon-a11y`); `region` is off there too |
 
 ## F. Form integration (`FormX`)
 

@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { NumberInput } from '..';
 
@@ -252,5 +253,46 @@ describe('NumberInput', () => {
         await user.tab();
 
         expect(onChange.mock.calls.at(-1)?.[0]).toBe(1.5);
+    });
+
+    it('calls onBlur when the field loses focus', async () => {
+        const user = userEvent.setup();
+        const onBlur = vi.fn();
+
+        render(<NumberInput aria-label="Qty" onBlur={onBlur} />);
+
+        await user.click(screen.getByRole('textbox', { name: 'Qty' }));
+        await user.tab();
+
+        expect(onBlur).toHaveBeenCalledTimes(1);
+    });
+
+    it('shows the placeholder', () => {
+        render(<NumberInput aria-label="Qty" placeholder="0" />);
+
+        expect(screen.getByRole('textbox', { name: 'Qty' })).toHaveAttribute('placeholder', '0');
+    });
+
+    it('uses the sm size and primary variant classes', () => {
+        render(<NumberInput aria-label="Qty" size="sm" variant="primary" dataTestId="qty" />);
+
+        const shell = screen.getByTestId('qty');
+
+        expect(shell).toHaveClass(styles.sm);
+        expect(shell).toHaveClass(styles.primary);
+        expect(screen.getByRole('textbox', { name: 'Qty' })).toBeEnabled();
+    });
+
+    it('has no axe violations in the default, disabled, and invalid states', async () => {
+        const { container, unmount } = render(<NumberInput aria-label="Qty" />);
+        expect(await axe(container)).toHaveNoViolations();
+        unmount();
+
+        const disabled = render(<NumberInput aria-label="Qty" disabled value={1} />);
+        expect(await axe(disabled.container)).toHaveNoViolations();
+        disabled.unmount();
+
+        const invalid = render(<NumberInput aria-label="Qty" invalid value={1} />);
+        expect(await axe(invalid.container)).toHaveNoViolations();
     });
 });

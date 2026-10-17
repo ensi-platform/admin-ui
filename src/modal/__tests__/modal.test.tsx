@@ -1,12 +1,13 @@
-import { useState, type MouseEvent } from 'react';
+import { createRef, useState, type MouseEvent } from 'react';
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Button } from '@/button';
 import { Popover } from '@/popover';
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { Modal } from '../index';
 import { type IModalProps } from '../types';
@@ -269,5 +270,88 @@ describe('Modal', () => {
 
         expect(screen.queryByText('Внутри')).not.toBeInTheDocument();
         expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    it('names the close button from provider labels', () => {
+        render(<ModalHarness open />);
+
+        expect(screen.getByRole('button', { name: 'Закрыть' })).toBeInTheDocument();
+    });
+
+    it('points ref at the panel', () => {
+        const ref = createRef<HTMLDivElement>();
+
+        render(
+            <AdminUiProvider>
+                <Modal open ref={ref}>
+                    <Modal.Header>
+                        <Modal.Title>Заголовок</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Контент</Modal.Body>
+                </Modal>
+            </AdminUiProvider>
+        );
+
+        expect(ref.current).toContainElement(screen.getByRole('dialog'));
+    });
+
+    it('calls onExitComplete once after close and not while the dialog stays open', async () => {
+        const user = userEvent.setup();
+        const onExitComplete = vi.fn();
+
+        render(<ModalHarness open onExitComplete={onExitComplete} />);
+
+        await act(async () => {
+            await new Promise(resolve => {
+                setTimeout(resolve, 0);
+            });
+        });
+
+        expect(onExitComplete).not.toHaveBeenCalled();
+
+        await user.keyboard('{Escape}');
+
+        await waitFor(() => {
+            expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+        });
+        await waitFor(() => {
+            expect(onExitComplete).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    it('does not finish exit when the parent keeps the dialog open', async () => {
+        const user = userEvent.setup();
+        const onOpenChange = vi.fn();
+        const onExitComplete = vi.fn();
+
+        render(
+            <AdminUiProvider>
+                <Modal open onOpenChange={onOpenChange} onExitComplete={onExitComplete}>
+                    <Modal.Header>
+                        <Modal.Title>Заголовок</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Контент</Modal.Body>
+                </Modal>
+            </AdminUiProvider>
+        );
+
+        await user.keyboard('{Escape}');
+
+        expect(onOpenChange).toHaveBeenCalledWith(false);
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
+
+        await act(async () => {
+            await new Promise(resolve => {
+                setTimeout(resolve, 0);
+            });
+        });
+
+        expect(onExitComplete).not.toHaveBeenCalled();
+    });
+
+    it('has no axe violations when open', async () => {
+        const { container } = render(<ModalHarness open />);
+
+        expect(await axe(container)).toHaveNoViolations();
     });
 });

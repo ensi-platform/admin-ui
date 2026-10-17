@@ -1,15 +1,20 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it } from 'vitest';
+import { setInteractionModality } from 'react-aria';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { Button } from '@/button';
+import { axe } from '@/test/axe';
 
 import { Tooltip } from '..';
 
 import styles from '../styles.module.css';
 
 describe('Tooltip', () => {
-    // jsdom: no layout — hover and delay need pointer hit-testing. Focus open is covered below.
+    afterEach(() => {
+        vi.useRealTimers();
+    });
+
     it('does not show content for a disabled trigger', async () => {
         const user = userEvent.setup();
 
@@ -156,5 +161,86 @@ describe('Tooltip', () => {
         );
 
         expect(screen.getByTestId('tip').querySelector('svg')).not.toBeInTheDocument();
+    });
+
+    it('shows the tooltip on focus immediately, before the hover delay', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <Tooltip>
+                <Tooltip.Trigger>
+                    <Button>Help</Button>
+                </Tooltip.Trigger>
+                <Tooltip.Content>Подсказка</Tooltip.Content>
+            </Tooltip>
+        );
+
+        await user.tab();
+
+        expect(screen.getByRole('tooltip')).toHaveTextContent('Подсказка');
+    });
+
+    it('shows the tooltip on hover only after the default delay', async () => {
+        const user = userEvent.setup();
+        const { unmount } = render(
+            <>
+                <Tooltip>
+                    <Tooltip.Trigger>
+                        <Button>Warm</Button>
+                    </Tooltip.Trigger>
+                    <Tooltip.Content>Прогрев</Tooltip.Content>
+                </Tooltip>
+                <button type="button">Next</button>
+            </>
+        );
+
+        // Focus opens immediately and leaves RAC warmed up. Blur starts the 500ms cooldown.
+        await user.tab();
+        await user.tab();
+        unmount();
+
+        await act(async () => {
+            await new Promise(resolve => {
+                setTimeout(resolve, 550);
+            });
+        });
+
+        render(
+            <Tooltip>
+                <Tooltip.Trigger>
+                    <Button>Help</Button>
+                </Tooltip.Trigger>
+                <Tooltip.Content>Подсказка</Tooltip.Content>
+            </Tooltip>
+        );
+
+        // jsdom: userEvent.hover never sets RAC modality to pointer, so hover is ignored.
+        setInteractionModality('pointer');
+        fireEvent.pointerEnter(screen.getByRole('button', { name: 'Help' }), { pointerType: 'mouse' });
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+
+        await act(async () => {
+            await new Promise(resolve => {
+                setTimeout(resolve, 100);
+            });
+        });
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+
+        await waitFor(() => {
+            expect(screen.getByRole('tooltip')).toHaveTextContent('Подсказка');
+        });
+    });
+
+    it('has no axe violations when open', async () => {
+        const { container } = render(
+            <Tooltip isOpen>
+                <Tooltip.Trigger>
+                    <Button>Help</Button>
+                </Tooltip.Trigger>
+                <Tooltip.Content>Подсказка</Tooltip.Content>
+            </Tooltip>
+        );
+
+        expect(await axe(container)).toHaveNoViolations();
     });
 });

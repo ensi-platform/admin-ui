@@ -104,6 +104,17 @@ describe('CascadeMenu', () => {
         expect(screen.getByText('Alex S.')).toBeInTheDocument();
     });
 
+    it('opens the flyout when the pointer enters a folder', async () => {
+        const user = userEvent.setup();
+
+        renderWithProvider(<CascadeMenu items={items} />);
+
+        await user.hover(screen.getByRole('button', { name: /Products/ }));
+
+        expect(screen.getByRole('link', { name: /Catalog/ })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: /Products/ })).toHaveAttribute('data-open', 'true');
+    });
+
     it('opens flyout full-height flush to L0 column edge', () => {
         renderWithProvider(<CascadeMenu items={items} dataTestId="cascade" />);
 

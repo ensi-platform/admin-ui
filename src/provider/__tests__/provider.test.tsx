@@ -13,10 +13,18 @@ import { describe, expect, it, vi } from 'vitest';
 import { typographyStyles } from '@ds/typography';
 
 import { AdminUiProvider, useAuiDirection, useAuiLabels, useAuiLink, useAuiLocale } from '..';
+import { defaultLabels } from '../context';
+import { type IAuiLabels } from '../types';
 
 import styles from '../styles.module.css';
 
 const providerDir = dirname(fileURLToPath(import.meta.url));
+
+const LabelValue = ({ name }: { name: keyof IAuiLabels }) => {
+    const labels = useAuiLabels();
+
+    return <span data-test-id="label">{labels[name]}</span>;
+};
 
 const LabelsProbe = () => {
     const { clear, close } = useAuiLabels();
@@ -269,4 +277,27 @@ describe('AdminUiProvider', () => {
         expect(link).toHaveAttribute('href', '/orders');
         expect(screen.queryByTestId('router-link')).not.toBeInTheDocument();
     });
+
+    it.each(Object.keys(defaultLabels) as (keyof IAuiLabels)[])(
+        'shows built-in %s and replaces it with an override',
+        label => {
+            const { unmount } = render(
+                <AdminUiProvider>
+                    <LabelValue name={label} />
+                </AdminUiProvider>
+            );
+
+            expect(screen.getByTestId('label')).toHaveTextContent(defaultLabels[label]);
+
+            unmount();
+
+            render(
+                <AdminUiProvider labels={{ [label]: `Custom ${label}` }}>
+                    <LabelValue name={label} />
+                </AdminUiProvider>
+            );
+
+            expect(screen.getByTestId('label')).toHaveTextContent(`Custom ${label}`);
+        }
+    );
 });

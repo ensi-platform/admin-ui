@@ -1,10 +1,11 @@
-import { type ReactElement } from 'react';
+import { createRef, type ReactElement } from 'react';
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { VerticalTabs } from '..';
 
@@ -122,5 +123,107 @@ describe('VerticalTabs', () => {
         expect(() => render(<VerticalTabs.List>{null}</VerticalTabs.List>)).toThrow(
             'This component must be used within a <VerticalTabs> component'
         );
+    });
+
+    it('keeps the panel when the parent ignores onChange', async () => {
+        const user = userEvent.setup();
+
+        renderWithProvider(<BasicTabs value="person" onChange={vi.fn()} />);
+
+        await user.click(screen.getByRole('tab', { name: 'Sign in' }));
+
+        expect(screen.getByRole('tab', { name: 'Person' })).toHaveAttribute('aria-selected', 'true');
+        expect(screen.getByRole('tabpanel')).toHaveTextContent('Person fields');
+    });
+
+    it('does not select an item when the group is disabled', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        renderWithProvider(
+            <VerticalTabs value="person" onChange={onChange} disabled>
+                <VerticalTabs.List>
+                    <VerticalTabs.Item id="person">Person</VerticalTabs.Item>
+                    <VerticalTabs.Item id="signin">Sign in</VerticalTabs.Item>
+                </VerticalTabs.List>
+                <VerticalTabs.Panels>
+                    <VerticalTabs.Panel id="person">Person fields</VerticalTabs.Panel>
+                    <VerticalTabs.Panel id="signin">Sign-in fields</VerticalTabs.Panel>
+                </VerticalTabs.Panels>
+            </VerticalTabs>
+        );
+
+        await user.click(screen.getByRole('tab', { name: 'Sign in' }));
+
+        expect(onChange).not.toHaveBeenCalled();
+        expect(screen.getByRole('tab', { name: 'Sign in' })).toHaveAttribute('aria-disabled', 'true');
+        expect(screen.getByRole('tabpanel')).toHaveTextContent('Person fields');
+    });
+
+    it('applies the primary variant class', () => {
+        renderWithProvider(<BasicTabs dataTestId="vertical-tabs" />);
+
+        expect(screen.getByTestId('vertical-tabs')).toHaveClass(rootStyles.primary);
+        expect(screen.getByRole('tab', { name: 'Person' })).toHaveClass(itemStyles.primary);
+    });
+
+    it('puts data-test-id on the list and the item', () => {
+        renderWithProvider(
+            <VerticalTabs defaultValue="person">
+                <VerticalTabs.List dataTestId="v-list">
+                    <VerticalTabs.Item id="person" dataTestId="v-item">
+                        Person
+                    </VerticalTabs.Item>
+                </VerticalTabs.List>
+                <VerticalTabs.Panels dataTestId="v-panels">
+                    <VerticalTabs.Panel id="person" dataTestId="v-panel">
+                        Person fields
+                    </VerticalTabs.Panel>
+                </VerticalTabs.Panels>
+            </VerticalTabs>
+        );
+
+        expect(screen.getByTestId('v-list')).toHaveAttribute('role', 'tablist');
+        expect(screen.getByTestId('v-item')).toHaveAttribute('role', 'tab');
+        expect(screen.getByTestId('v-panel')).toHaveAttribute('role', 'tabpanel');
+        expect(screen.getByTestId('v-panels')).toContainElement(screen.getByTestId('v-panel'));
+    });
+
+    it('points ref at the root', () => {
+        const ref = createRef<HTMLDivElement>();
+
+        renderWithProvider(
+            <VerticalTabs ref={ref} defaultValue="person" dataTestId="vertical-tabs">
+                <VerticalTabs.List>
+                    <VerticalTabs.Item id="person">Person</VerticalTabs.Item>
+                </VerticalTabs.List>
+                <VerticalTabs.Panels>
+                    <VerticalTabs.Panel id="person">Person fields</VerticalTabs.Panel>
+                </VerticalTabs.Panels>
+            </VerticalTabs>
+        );
+
+        expect(ref.current).toBe(screen.getByTestId('vertical-tabs'));
+    });
+
+    it('has no axe violations in the default and disabled states', async () => {
+        const enabled = renderWithProvider(<BasicTabs />);
+
+        expect(await axe(enabled.container)).toHaveNoViolations();
+
+        enabled.unmount();
+
+        const disabled = renderWithProvider(
+            <VerticalTabs defaultValue="person" disabled>
+                <VerticalTabs.List>
+                    <VerticalTabs.Item id="person">Person</VerticalTabs.Item>
+                </VerticalTabs.List>
+                <VerticalTabs.Panels>
+                    <VerticalTabs.Panel id="person">Person fields</VerticalTabs.Panel>
+                </VerticalTabs.Panels>
+            </VerticalTabs>
+        );
+
+        expect(await axe(disabled.container)).toHaveNoViolations();
     });
 });

@@ -7,8 +7,11 @@ import { type DateRange } from 'react-aria-components';
 import { describe, expect, it, vi } from 'vitest';
 
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
-import { DateRangePicker } from '../Component';
+import { DateRangePicker } from '..';
+
+import styles from '../styles.module.css';
 
 const renderPicker = (ui: React.ReactElement) => render(<AdminUiProvider>{ui}</AdminUiProvider>);
 
@@ -508,5 +511,95 @@ describe('DateRangePicker', () => {
             expect(screen.getAllByRole('spinbutton', { name: /день|day/i })[0]).toHaveTextContent('02');
             expect(screen.getAllByRole('spinbutton', { name: /год|year/i })[0]).toHaveTextContent('2025');
         });
+    });
+
+    it('keeps a start date typed exactly on minValue', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        renderPicker(
+            <>
+                <DateRangePicker
+                    aria-label="Период"
+                    defaultValue={{ start: new CalendarDate(2024, 6, 1), end: new CalendarDate(2024, 6, 15) }}
+                    minValue={new CalendarDate(2000, 1, 1)}
+                    maxValue={new CalendarDate(2030, 12, 31)}
+                    onChange={onChange}
+                />
+                <button type="button" data-test-id="outside">
+                    out
+                </button>
+            </>
+        );
+
+        await user.click(screen.getAllByRole('spinbutton', { name: /день|day/i })[0]!);
+        await user.keyboard('01');
+        await user.click(screen.getAllByRole('spinbutton', { name: /месяц|month/i })[0]!);
+        await user.keyboard('01');
+        await user.click(screen.getAllByRole('spinbutton', { name: /год|year/i })[0]!);
+        await user.keyboard('{Control>}a{/Control}2000');
+        await user.click(screen.getByTestId('outside'));
+
+        await waitFor(() => {
+            const next = onChange.mock.calls.at(-1)?.[0] as DateRange;
+            expect(next.start.year).toBe(2000);
+            expect(next.start.month).toBe(1);
+            expect(next.start.day).toBe(1);
+            expect(next.end.year).toBe(2024);
+        });
+    });
+
+    it('does not open or change the range when disabled', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        renderPicker(
+            <DateRangePicker
+                aria-label="Период"
+                disabled
+                defaultValue={{ start: new CalendarDate(2024, 6, 1), end: new CalendarDate(2024, 6, 15) }}
+                onChange={onChange}
+            />
+        );
+
+        screen.getAllByRole('spinbutton').forEach(segment => {
+            expect(segment).toHaveAttribute('aria-disabled', 'true');
+        });
+
+        await user.click(screen.getByTestId('date-range-picker-calendar'));
+
+        expect(screen.queryByTestId('calendar-viewport')).not.toBeInTheDocument();
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it('marks the field invalid', () => {
+        renderPicker(<DateRangePicker aria-label="Период" invalid dataTestId="range" />);
+
+        expect(screen.getByTestId('range')).toHaveAttribute('data-invalid', 'true');
+    });
+
+    it('uses the sm size and primary variant classes', () => {
+        renderPicker(
+            <DateRangePicker aria-label="Период" size="sm" variant="primary" block={false} dataTestId="range" />
+        );
+
+        const group = screen.getByTestId('range');
+
+        expect(group).toHaveClass(styles.sm);
+        expect(group).toHaveClass(styles.primary);
+        expect(group).not.toHaveClass(styles.block);
+    });
+
+    it('has no axe violations in the default, disabled, and invalid states', async () => {
+        const { container, unmount } = renderPicker(<DateRangePicker aria-label="Период" />);
+        expect(await axe(container)).toHaveNoViolations();
+        unmount();
+
+        const disabled = renderPicker(<DateRangePicker aria-label="Период" disabled />);
+        expect(await axe(disabled.container)).toHaveNoViolations();
+        disabled.unmount();
+
+        const invalid = renderPicker(<DateRangePicker aria-label="Период" invalid />);
+        expect(await axe(invalid.container)).toHaveNoViolations();
     });
 });

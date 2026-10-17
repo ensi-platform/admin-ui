@@ -1,3 +1,5 @@
+import { createRef } from 'react';
+
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
@@ -8,6 +10,7 @@ import triggerStyles from '@/combobox/components/Trigger/styles.module.css';
 import { Field, useField } from '@/field';
 import clearStyles from '@/field-clear-button/styles.module.css';
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { Select } from '..';
 
@@ -246,5 +249,131 @@ describe('Select', () => {
         fireEvent.click(screen.getByRole('group'));
 
         expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    });
+
+    it('shows the placeholder until a value is selected', () => {
+        const { rerender } = render(
+            <Select aria-label="Status" options={OPTIONS} placeholder="Выберите…" value={null} />
+        );
+
+        expect(within(screen.getByRole('group')).getByText('Выберите…')).toBeInTheDocument();
+
+        rerender(<Select aria-label="Status" options={OPTIONS} placeholder="Выберите…" value="draft" />);
+
+        expect(within(screen.getByRole('group')).queryByText('Выберите…')).not.toBeInTheDocument();
+        expect(screen.getByRole('button', { name: /Черновик/ })).toBeInTheDocument();
+    });
+
+    it('keeps the controlled value when the parent ignores onChange', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(<Select aria-label="Status" options={OPTIONS} value="draft" onChange={onChange} />);
+
+        await user.click(screen.getByRole('button', { name: /Черновик/ }));
+        await user.click(screen.getByRole('option', { name: 'Опубликован' }));
+
+        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onChange).toHaveBeenCalledWith('published');
+        expect(screen.getByRole('button', { name: /Черновик/ })).toBeInTheDocument();
+        expect(screen.queryByRole('button', { name: /Опубликован/ })).not.toBeInTheDocument();
+    });
+
+    it('moves with ArrowUp, Home, and End, and skips a disabled option', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+        const options = [
+            { value: 'apple', label: 'Apple' },
+            { value: 'banana', label: 'Banana', disabled: true },
+            { value: 'cherry', label: 'Cherry' },
+        ];
+
+        render(<Select aria-label="Fruit" options={options} onChange={onChange} />);
+
+        const trigger = screen.getByRole('button', { name: /Fruit/ });
+
+        trigger.focus();
+        await user.keyboard('{ArrowDown}');
+
+        expect(screen.getByRole('option', { name: 'Apple' })).toHaveFocus();
+
+        await user.keyboard('{ArrowDown}');
+
+        expect(screen.getByRole('option', { name: 'Cherry' })).toHaveFocus();
+
+        await user.keyboard('{Home}');
+
+        expect(screen.getByRole('option', { name: 'Apple' })).toHaveFocus();
+
+        await user.keyboard('{End}');
+
+        expect(screen.getByRole('option', { name: 'Cherry' })).toHaveFocus();
+
+        await user.keyboard('{ArrowUp}{Enter}');
+
+        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onChange).toHaveBeenCalledWith('apple');
+    });
+
+    it('jumps to a matching option with type-ahead', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+        const options = [
+            { value: 'apple', label: 'Apple' },
+            { value: 'banana', label: 'Banana' },
+            { value: 'cherry', label: 'Cherry' },
+        ];
+
+        render(<Select aria-label="Fruit" options={options} onChange={onChange} />);
+
+        const trigger = screen.getByRole('button', { name: /Fruit/ });
+
+        trigger.focus();
+        await user.keyboard('{ArrowDown}b');
+
+        expect(screen.getByRole('option', { name: 'Banana' })).toHaveFocus();
+
+        await user.keyboard('{Enter}');
+
+        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onChange).toHaveBeenCalledWith('banana');
+    });
+
+    it('calls onBlur when focus leaves the trigger', async () => {
+        const user = userEvent.setup();
+        const onBlur = vi.fn();
+
+        render(
+            <>
+                <Select aria-label="Status" options={OPTIONS} onBlur={onBlur} />
+                <button type="button">Next</button>
+            </>
+        );
+
+        await user.tab();
+        await user.tab();
+
+        expect(onBlur).toHaveBeenCalledTimes(1);
+    });
+
+    it('assigns object ref', () => {
+        const ref = createRef<HTMLDivElement>();
+
+        render(<Select ref={ref} aria-label="Status" options={OPTIONS} />);
+
+        expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    });
+
+    it('has no axe violations in the default, disabled, and invalid states', async () => {
+        const { container, unmount } = render(<Select aria-label="Status" options={OPTIONS} />);
+        expect(await axe(container)).toHaveNoViolations();
+        unmount();
+
+        const disabled = render(<Select aria-label="Status" options={OPTIONS} disabled />);
+        expect(await axe(disabled.container)).toHaveNoViolations();
+        disabled.unmount();
+
+        const invalid = render(<Select aria-label="Status" options={OPTIONS} invalid />);
+        expect(await axe(invalid.container)).toHaveNoViolations();
     });
 });

@@ -17,4 +17,18 @@ describe('usePrevious', () => {
         rerender({ value: 'c' });
         expect(result.current).toBe('b');
     });
+
+    it('keeps 0 and null instead of treating them as missing', () => {
+        const { result, rerender } = renderHook(({ value }) => usePrevious(value), {
+            initialProps: { value: 0 as number | null },
+        });
+
+        expect(result.current).toBeUndefined();
+
+        rerender({ value: null });
+        expect(result.current).toBe(0);
+
+        rerender({ value: 1 });
+        expect(result.current).toBeNull();
+    });
 });

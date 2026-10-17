@@ -20,12 +20,6 @@
     outline: none;
 }
 
-.item {
-    display: flex;
-    align-items: center;
-    outline: none;
-}
-
 .more {
     display: flex;
     align-items: center;

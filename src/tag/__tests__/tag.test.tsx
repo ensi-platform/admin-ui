@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { Tag } from '..';
 
@@ -94,5 +95,67 @@ describe('Tag', () => {
         const button = screen.getByRole('button', { name: 'Удалить' });
 
         expect(button).toBeDisabled();
+    });
+
+    it('removes the tag with Enter and Space', async () => {
+        const user = userEvent.setup();
+        const onRemove = vi.fn();
+
+        render(
+            <AdminUiProvider>
+                <Tag onRemove={onRemove}>vip</Tag>
+            </AdminUiProvider>
+        );
+
+        const button = screen.getByRole('button', { name: 'Очистить' });
+
+        button.focus();
+        await user.keyboard('{Enter}');
+        await user.keyboard(' ');
+
+        expect(onRemove).toHaveBeenCalledTimes(2);
+    });
+
+    it('does not remove a disabled tag from click or keyboard', async () => {
+        const user = userEvent.setup();
+        const onRemove = vi.fn();
+
+        render(
+            <AdminUiProvider>
+                <Tag disabled onRemove={onRemove}>
+                    vip
+                </Tag>
+            </AdminUiProvider>
+        );
+
+        const button = screen.getByRole('button', { name: 'Очистить' });
+
+        await user.click(button);
+        button.focus();
+        await user.keyboard('{Enter} ');
+
+        expect(onRemove).not.toHaveBeenCalled();
+    });
+
+    it('has no axe violations in the default and disabled states', async () => {
+        const enabled = render(
+            <AdminUiProvider>
+                <Tag onRemove={vi.fn()}>vip</Tag>
+            </AdminUiProvider>
+        );
+
+        expect(await axe(enabled.container)).toHaveNoViolations();
+
+        enabled.unmount();
+
+        const disabled = render(
+            <AdminUiProvider>
+                <Tag disabled onRemove={vi.fn()}>
+                    vip
+                </Tag>
+            </AdminUiProvider>
+        );
+
+        expect(await axe(disabled.container)).toHaveNoViolations();
     });
 });

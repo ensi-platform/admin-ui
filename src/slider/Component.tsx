@@ -66,12 +66,23 @@ export const Slider = supportRef(
         const inputRef = useRef<HTMLInputElement>(null);
 
         useLayoutEffect(() => {
-            assignInputRef(ref, inputRef.current);
+            const input = inputRef.current;
+
+            // RAC sets aria-invalid on the range input only via deprecated `isInvalid`.
+            if (input && invalid) {
+                input.setAttribute('aria-invalid', 'true');
+            }
+
+            if (input && !invalid) {
+                input.removeAttribute('aria-invalid');
+            }
+
+            assignInputRef(ref, input);
 
             return () => {
                 assignInputRef(ref, null);
             };
-        }, [ref]);
+        }, [invalid, ref]);
 
         return (
             <AriaSlider

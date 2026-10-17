@@ -6,6 +6,7 @@ import { describe, expect, it, vi } from 'vitest';
 
 import drawerStyles from '@/drawer/styles.module.css';
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { ArrangementSettings } from '..';
 import { type IArrangementSettingsItem } from '../types';
@@ -173,5 +174,62 @@ describe('ArrangementSettings', () => {
         rerender(<Harness onSave={onSave} fields={[{ id: 'name', label: 'Name' }]} />);
 
         expect(screen.queryByRole('checkbox', { name: /Date/ })).not.toBeInTheDocument();
+    });
+
+    it('saves visible ids in list order and drops unknown ids', async () => {
+        const user = userEvent.setup();
+        const onSave = vi.fn();
+
+        render(<Harness onSave={onSave} initial={['date', 'ghost', 'name']} />);
+
+        await user.click(screen.getByRole('button', { name: 'Сохранить' }));
+
+        expect(onSave).toHaveBeenCalledTimes(1);
+        expect(onSave).toHaveBeenCalledWith(['date', 'name']);
+    });
+
+    it('toggles a checkbox once with Space', async () => {
+        const user = userEvent.setup();
+        const onSave = vi.fn();
+
+        render(<Harness onSave={onSave} />);
+
+        const name = screen.getByRole('checkbox', { name: /Name/ });
+
+        name.focus();
+        await user.keyboard(' ');
+        await user.click(screen.getByRole('button', { name: 'Сохранить' }));
+
+        expect(name).not.toBeChecked();
+        expect(onSave).toHaveBeenCalledWith(['date']);
+    });
+
+    it('opens from the left by default', () => {
+        render(<Harness onSave={vi.fn()} />);
+
+        expect(screen.getByRole('dialog').parentElement).toHaveClass(drawerStyles.panelLeft);
+    });
+
+    it('puts data-test-id on the dialog', () => {
+        render(<Harness onSave={vi.fn()} />);
+
+        expect(screen.getByRole('dialog')).toHaveAttribute('data-test-id', 'settings');
+    });
+
+    it('uses overridden save and list labels', () => {
+        render(
+            <AdminUiProvider labels={{ save: 'Apply', arrangementList: 'Fields' }}>
+                <ArrangementSettings open title="Columns" items={items} value={['name', 'date']} onSave={vi.fn()} />
+            </AdminUiProvider>
+        );
+
+        expect(screen.getByRole('button', { name: 'Apply' })).toBeInTheDocument();
+        expect(screen.getByRole('grid', { name: 'Fields' })).toBeInTheDocument();
+    });
+
+    it('has no axe violations when open', async () => {
+        const { baseElement } = render(<Harness onSave={vi.fn()} />);
+
+        expect(await axe(baseElement)).toHaveNoViolations();
     });
 });

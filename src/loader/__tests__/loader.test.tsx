@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { Loader } from '..';
 
@@ -87,5 +88,37 @@ describe('Loader', () => {
         await user.click(screen.getByRole('button', { name: 'Action' }));
 
         expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('uses an overridden loading label', () => {
+        render(
+            <AdminUiProvider labels={{ loading: 'Loading' }}>
+                <Loader active>
+                    <span>Content</span>
+                </Loader>
+            </AdminUiProvider>
+        );
+
+        expect(screen.getByRole('status', { name: 'Loading' })).toBeInTheDocument();
+    });
+
+    it('has no axe violations when idle and active', async () => {
+        const idle = renderWithProvider(
+            <Loader>
+                <span>Content</span>
+            </Loader>
+        );
+
+        expect(await axe(idle.container)).toHaveNoViolations();
+
+        idle.unmount();
+
+        const active = renderWithProvider(
+            <Loader active>
+                <span>Content</span>
+            </Loader>
+        );
+
+        expect(await axe(active.container)).toHaveNoViolations();
     });
 });

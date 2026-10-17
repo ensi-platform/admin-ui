@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
+import { axe } from '@/test/axe';
+
 import { FlexLayout } from '..';
 
 import itemStyles from '../components/Item/styles.module.css';
@@ -44,5 +46,15 @@ describe('FlexLayout', () => {
         );
 
         expect(ref.current).toBe(screen.getByTestId('row'));
+    });
+
+    it('has no axe violations', async () => {
+        const { container } = render(
+            <FlexLayout dataTestId="row">
+                <FlexLayout.Item>Title</FlexLayout.Item>
+            </FlexLayout>
+        );
+
+        expect(await axe(container)).toHaveNoViolations();
     });
 });

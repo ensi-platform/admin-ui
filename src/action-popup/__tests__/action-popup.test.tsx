@@ -1,11 +1,12 @@
 import { useState } from 'react';
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import buttonStyles from '@/button/styles.module.css';
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { ActionPopup, ConfirmModal, DeleteModal } from '../index';
 import { type IActionPopupProps, type TConfirmModalProps } from '../types';
@@ -94,9 +95,10 @@ const ActionPopupHarness = (props: Omit<IActionPopupProps, 'open' | 'onOpenChang
 
 describe('ConfirmModal', () => {
     it('renders title, body and label buttons', () => {
-        render(<ConfirmHarness />);
+        render(<ConfirmHarness dataTestId="confirm-dialog" />);
 
         expect(screen.getByRole('dialog')).toBeInTheDocument();
+        expect(screen.getByTestId('confirm-dialog')).toBeInTheDocument();
         expect(screen.getByRole('heading', { name: 'Подтверждение' })).toBeInTheDocument();
         expect(screen.getByText('Описание')).toBeInTheDocument();
         expect(screen.getByRole('button', { name: 'Отмена' })).toBeInTheDocument();
@@ -282,6 +284,62 @@ describe('ConfirmModal', () => {
         await waitFor(() => {
             expect(opener).toHaveFocus();
         });
+    });
+
+    it('calls onExitComplete once after cancel and not while the dialog stays open', async () => {
+        const user = userEvent.setup();
+        const onExitComplete = vi.fn();
+
+        render(<ConfirmHarness onExitComplete={onExitComplete} />);
+
+        await act(async () => {
+            await new Promise(resolve => {
+                setTimeout(resolve, 0);
+            });
+        });
+
+        expect(onExitComplete).not.toHaveBeenCalled();
+
+        await user.click(screen.getByRole('button', { name: 'Отмена' }));
+
+        await waitFor(() => {
+            expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+        });
+        await waitFor(() => {
+            expect(onExitComplete).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    it('does not close on outside click while confirm is pending', async () => {
+        const user = userEvent.setup();
+        const onOpenChange = vi.fn();
+        let resolveConfirm: (() => void) | undefined;
+        const onConfirm = vi.fn(
+            () =>
+                new Promise<void>(resolve => {
+                    resolveConfirm = resolve;
+                })
+        );
+
+        render(<ConfirmHarness onConfirm={onConfirm} onOpenChange={onOpenChange} />);
+
+        await user.click(screen.getByRole('button', { name: 'Подтвердить' }));
+        await user.click(document.querySelector('[data-testid="underlay"]') as HTMLElement);
+
+        expect(onOpenChange).not.toHaveBeenCalled();
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
+
+        resolveConfirm?.();
+
+        await waitFor(() => {
+            expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+        });
+    });
+
+    it('has no axe violations when open', async () => {
+        const { container } = render(<ConfirmHarness />);
+
+        expect(await axe(container)).toHaveNoViolations();
     });
 });
 

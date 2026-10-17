@@ -6,6 +6,7 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { Field, useField } from '@/field';
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { Input } from '..';
 
@@ -190,6 +191,64 @@ describe('Input', () => {
         await user.clear(input);
         await user.paste('12');
         expect(input).toHaveValue('12');
+    });
+
+    it('replaces the selected text', async () => {
+        const user = userEvent.setup();
+
+        render(<Input aria-label="Email" defaultValue="abcd" />);
+
+        const input = screen.getByRole('textbox', { name: 'Email' });
+        await user.click(input);
+        await user.keyboard('{Control>}a{/Control}z');
+
+        expect(input).toHaveValue('z');
+    });
+
+    it('shows the placeholder and calls onBlur', async () => {
+        const user = userEvent.setup();
+        const onBlur = vi.fn();
+
+        render(<Input aria-label="Email" placeholder="name@example.com" onBlur={onBlur} />);
+
+        const input = screen.getByRole('textbox', { name: 'Email' });
+
+        expect(input).toHaveAttribute('placeholder', 'name@example.com');
+
+        await user.click(input);
+        await user.tab();
+
+        expect(onBlur).toHaveBeenCalledTimes(1);
+    });
+
+    it('keeps the controlled value when the parent ignores onChange', async () => {
+        const user = userEvent.setup();
+
+        render(<Input aria-label="Email" value="keep" onChange={() => undefined} />);
+
+        const input = screen.getByRole('textbox', { name: 'Email' });
+        await user.type(input, 'x');
+
+        expect(input).toHaveValue('keep');
+    });
+
+    it('sets the native type', () => {
+        render(<Input aria-label="Email" type="email" />);
+
+        expect(screen.getByRole('textbox', { name: 'Email' })).toHaveAttribute('type', 'email');
+    });
+
+    it('has no axe violations in the default, disabled, and invalid states', async () => {
+        const { container, unmount } = render(<Input aria-label="Email" />);
+        expect(await axe(container)).toHaveNoViolations();
+        unmount();
+
+        const disabled = render(<Input aria-label="Email" disabled value="a" />);
+        expect(await axe(disabled.container)).toHaveNoViolations();
+        disabled.unmount();
+
+        const invalid = render(<Input aria-label="Email" invalid value="a" />);
+        expect(await axe(invalid.container)).toHaveNoViolations();
     });
 
     // n/a: Escape and Enter have no Input contract. Enter only submits a parent form.

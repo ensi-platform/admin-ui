@@ -1,9 +1,10 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import { type IUseAutocompleteSuggest } from '@/autocomplete-async/types';
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { SuggestChecklist } from '..';
 
@@ -48,8 +49,8 @@ describe('SuggestChecklist', () => {
 
         await user.type(screen.getByRole('textbox', { name: 'Brands' }), 'Ni');
 
-        const nike = await screen.findByRole('checkbox', { name: 'Nike' });
-        expect(screen.queryByRole('checkbox', { name: 'Adidas' })).not.toBeInTheDocument();
+        const nike = await screen.findByRole('option', { name: 'Nike' });
+        expect(screen.queryByRole('option', { name: 'Adidas' })).not.toBeInTheDocument();
 
         await user.click(nike);
 
@@ -82,11 +83,11 @@ describe('SuggestChecklist', () => {
             </AdminUiProvider>
         );
 
-        expect(await screen.findByRole('checkbox', { name: 'Nike' })).toBeInTheDocument();
+        expect(await screen.findByRole('option', { name: 'Nike' })).toBeInTheDocument();
 
         await user.type(screen.getByRole('textbox', { name: 'Brands' }), 'zz');
 
-        expect(await screen.findByRole('checkbox', { name: 'Nike' })).toBeInTheDocument();
+        expect(await screen.findByRole('option', { name: 'Nike' })).toBeInTheDocument();
     });
 
     it('unchecks a controlled value', async () => {
@@ -105,7 +106,7 @@ describe('SuggestChecklist', () => {
             </AdminUiProvider>
         );
 
-        await user.click(await screen.findByRole('checkbox', { name: 'Nike' }));
+        await user.click(await screen.findByRole('option', { name: 'Nike' }));
 
         expect(onChange).toHaveBeenCalledWith([]);
     });
@@ -148,7 +149,7 @@ describe('SuggestChecklist', () => {
             </AdminUiProvider>
         );
 
-        expect(await screen.findByRole('checkbox', { name: 'Nike' })).toBeInTheDocument();
+        expect(await screen.findByRole('option', { name: 'Nike' })).toBeInTheDocument();
         expect(await screen.findByText('Загрузка подсказок')).toBeInTheDocument();
     });
 
@@ -176,8 +177,8 @@ describe('SuggestChecklist', () => {
             </AdminUiProvider>
         );
 
-        expect(await screen.findByRole('checkbox', { name: 'Nike' })).toBeInTheDocument();
-        expect(screen.queryByRole('checkbox', { name: 'ghost' })).not.toBeInTheDocument();
+        expect(await screen.findByRole('option', { name: 'Nike' })).toBeInTheDocument();
+        expect(screen.queryByRole('option', { name: 'ghost' })).not.toBeInTheDocument();
     });
 
     it('checks the default value', async () => {
@@ -192,7 +193,7 @@ describe('SuggestChecklist', () => {
             </AdminUiProvider>
         );
 
-        expect(await screen.findByRole('checkbox', { name: 'Nike' })).toBeChecked();
+        expect(await screen.findByRole('option', { name: 'Nike' })).toHaveAttribute('aria-selected', 'true');
     });
 
     it('does not load suggestions when disabled', async () => {
@@ -217,6 +218,105 @@ describe('SuggestChecklist', () => {
         await user.click(input);
 
         expect(onChange).not.toHaveBeenCalled();
-        expect(screen.queryByRole('checkbox', { name: 'Nike' })).not.toBeInTheDocument();
+        expect(screen.queryByRole('option', { name: 'Nike' })).not.toBeInTheDocument();
+    });
+
+    it('checks a suggestion with Space', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(
+            <AdminUiProvider>
+                <SuggestChecklist
+                    aria-label="Brands"
+                    useSuggest={useStaticSuggest}
+                    debounceMs={0}
+                    onChange={onChange}
+                />
+            </AdminUiProvider>
+        );
+
+        await user.type(screen.getByRole('textbox', { name: 'Brands' }), 'Ni');
+
+        const nike = await screen.findByRole('option', { name: 'Nike' });
+
+        nike.focus();
+        await user.keyboard(' ');
+
+        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onChange).toHaveBeenCalledWith(['nike']);
+    });
+
+    it('waits for minLength and shows the placeholder', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <AdminUiProvider>
+                <SuggestChecklist
+                    aria-label="Brands"
+                    useSuggest={useStaticSuggest}
+                    debounceMs={0}
+                    minLength={2}
+                    placeholder="Поиск"
+                />
+            </AdminUiProvider>
+        );
+
+        const input = screen.getByRole('textbox', { name: 'Brands' });
+
+        expect(input).toHaveAttribute('placeholder', 'Поиск');
+
+        await user.type(input, 'N');
+        await act(async () => {
+            await new Promise<void>(resolve => {
+                setTimeout(resolve, 30);
+            });
+        });
+
+        expect(screen.queryByRole('option', { name: 'Nike' })).not.toBeInTheDocument();
+
+        await user.type(input, 'i');
+
+        expect(await screen.findByRole('option', { name: 'Nike' })).toBeInTheDocument();
+        expect(screen.queryByRole('option', { name: 'Adidas' })).not.toBeInTheDocument();
+    });
+
+    it('keeps a controlled selection when the parent ignores onChange', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(
+            <AdminUiProvider>
+                <SuggestChecklist
+                    aria-label="Brands"
+                    useSuggest={useStaticSuggest}
+                    debounceMs={0}
+                    value={[]}
+                    onChange={onChange}
+                />
+            </AdminUiProvider>
+        );
+
+        await user.click(await screen.findByRole('option', { name: 'Nike' }));
+
+        expect(onChange).toHaveBeenCalledWith(['nike']);
+        expect(screen.getByRole('option', { name: 'Nike' })).toHaveAttribute('aria-selected', 'false');
+    });
+
+    it('has no axe violations in the default and disabled states', async () => {
+        const { container, unmount } = render(
+            <AdminUiProvider>
+                <SuggestChecklist aria-label="Brands" useSuggest={useStaticSuggest} debounceMs={0} />
+            </AdminUiProvider>
+        );
+        expect(await axe(container)).toHaveNoViolations();
+        unmount();
+
+        const disabled = render(
+            <AdminUiProvider>
+                <SuggestChecklist aria-label="Brands" useSuggest={useStaticSuggest} debounceMs={0} disabled />
+            </AdminUiProvider>
+        );
+        expect(await axe(disabled.container)).toHaveNoViolations();
     });
 });

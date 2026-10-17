@@ -97,7 +97,7 @@ Decide explicitly, do not just make it green:
 
 ## Layout-dependent behavior (jsdom has no layout)
 
-Tag overflow, popover flip/position, scroll/virtualization, swipe distances, sticky columns, `focus-visible` heuristics cannot be truly verified in jsdom. Do **not** fake geometry with mocks just to execute the branch. Instead: test the logic that is independent of geometry, mark the rest in the report as "needs browser/Storybook play test", and leave a `// jsdom: no layout — see <story>` comment where a stub is unavoidable.
+Tag overflow, popover flip/position, scroll/virtualization, swipe distances, sticky columns, `focus-visible` heuristics, and `color-contrast` cannot be truly verified in jsdom. Do **not** fake geometry with mocks just to execute the branch, and do not enable `color-contrast` in `src/test/axe.ts`. Contrast is the Storybook Accessibility tab (`@storybook/addon-a11y`); the `region` rule is disabled both there and in `src/test/axe.ts`. For the rest: test the logic that is independent of geometry, mark it in the report as "needs browser/Storybook play test", and leave a `// jsdom: no layout — see <story>` comment where a stub is unavoidable.
 
 ## Regression tests
 

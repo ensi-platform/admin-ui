@@ -7,6 +7,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { type IUseAutocompleteSuggest } from '@/autocomplete-async/types';
 import { AdminUiProvider } from '@/provider';
 import { type TComboboxValue } from '@/select/types';
+import { axe } from '@/test/axe';
 
 import { AutocompleteAsync } from '..';
 
@@ -143,49 +144,65 @@ describe('AutocompleteAsync', () => {
         expect(input).toHaveValue('');
     });
 
-    it('keeps cached label when option leaves the list', async () => {
+    it('keeps the cached label when the option is renamed and then leaves the list', async () => {
         const user = userEvent.setup();
-        let queryGate = '';
-        const useGatedSuggest: IUseAutocompleteSuggest = ({ query, enabled }) => {
-            if (!enabled) {
-                return { options: [], isLoading: false, hasMore: false };
-            }
 
-            queryGate = query;
+        const Harness = () => {
+            const [value, setValue] = useState<TComboboxValue | null>('nike');
+            const [phase, setPhase] = useState<'initial' | 'renamed' | 'gone'>('initial');
+            const useSuggest: IUseAutocompleteSuggest = () => {
+                if (phase === 'gone') {
+                    return { options: [], isLoading: false, hasMore: false };
+                }
 
-            return {
-                options: OPTIONS.filter(item => item.label.toLowerCase().includes(query.toLowerCase())),
-                isLoading: false,
-                hasMore: false,
+                if (phase === 'renamed') {
+                    return { options: [{ value: 'nike', label: 'Nike Inc' }], isLoading: false, hasMore: false };
+                }
+
+                return { options: [{ value: 'nike', label: 'Nike' }], isLoading: false, hasMore: false };
             };
-        };
 
-        const onChange = vi.fn();
+            return (
+                <>
+                    <AutocompleteAsync
+                        aria-label="Brand"
+                        useSuggest={useSuggest}
+                        debounceMs={0}
+                        value={value}
+                        onChange={setValue}
+                    />
+                    <button type="button" onClick={() => setPhase('renamed')}>
+                        Rename
+                    </button>
+                    <button type="button" onClick={() => setPhase('gone')}>
+                        Drop
+                    </button>
+                </>
+            );
+        };
 
         render(
             <AdminUiProvider>
-                <AutocompleteAsync aria-label="Brand" useSuggest={useGatedSuggest} debounceMs={0} onChange={onChange} />
+                <Harness />
             </AdminUiProvider>
         );
 
         const input = screen.getByRole('combobox', { name: /Brand/ });
 
-        await user.click(input);
-        await user.type(input, 'Nike');
         await waitFor(() => {
-            expect(screen.getByRole('option', { name: 'Nike' })).toBeInTheDocument();
+            expect(input).toHaveValue('Nike');
         });
-        await user.click(screen.getByRole('option', { name: 'Nike' }));
-        expect(onChange).toHaveBeenCalledWith('nike');
-        expect(input).toHaveValue('Nike');
 
-        // Retype filter so current options no longer include Nike, then re-select via controlled path
-        await user.clear(input);
-        await user.type(input, 'zzz');
+        await user.click(screen.getByRole('button', { name: 'Rename' }));
+
         await waitFor(() => {
-            expect(queryGate).toBe('zzz');
+            expect(input).toHaveValue('Nike Inc');
         });
-        expect(input).toHaveValue('zzz');
+
+        await user.click(screen.getByRole('button', { name: 'Drop' }));
+
+        expect(input).toHaveValue('Nike Inc');
+        expect(screen.queryByRole('option', { name: 'Nike' })).not.toBeInTheDocument();
     });
 
     it('clears input when controlled value becomes null', async () => {
@@ -280,5 +297,130 @@ describe('AutocompleteAsync', () => {
 
         expect(queries).toContain('Ni');
         vi.useRealTimers();
+    });
+
+    it('commits a suggestion with the keyboard', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(
+            <AdminUiProvider>
+                <AutocompleteAsync
+                    aria-label="Brand"
+                    useSuggest={useStaticSuggest}
+                    debounceMs={0}
+                    onChange={onChange}
+                />
+            </AdminUiProvider>
+        );
+
+        const input = screen.getByRole('combobox', { name: /Brand/ });
+
+        await user.click(input);
+        await user.type(input, 'Ni');
+        await screen.findByRole('option', { name: 'Nike' });
+        await user.keyboard('{ArrowDown}{Enter}');
+
+        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onChange).toHaveBeenCalledWith('nike');
+        expect(input).toHaveValue('Nike');
+    });
+
+    it('shows an error status when suggest fails', async () => {
+        const user = userEvent.setup();
+        const useError: IUseAutocompleteSuggest = () => ({
+            options: [],
+            isLoading: false,
+            isError: true,
+            hasMore: false,
+        });
+
+        render(
+            <AdminUiProvider>
+                <AutocompleteAsync aria-label="Brand" useSuggest={useError} debounceMs={0} />
+            </AdminUiProvider>
+        );
+
+        await user.click(screen.getByRole('button', { name: /предложени|Show suggestions|suggestions/i }));
+
+        expect(await screen.findByRole('status')).toHaveTextContent('Не удалось загрузить подсказки');
+    });
+
+    it('does not show the previous page while a newer query is loading', async () => {
+        const user = userEvent.setup();
+        const useStaleSuggest: IUseAutocompleteSuggest = ({ query, enabled }) => {
+            if (!enabled || query.length === 0) {
+                return { options: [], isLoading: false, hasMore: false };
+            }
+
+            if (query === 'Ni') {
+                return { options: [{ value: 'nike', label: 'Nike' }], isLoading: false, hasMore: false };
+            }
+
+            return {
+                options: [{ value: 'nike', label: 'Nike' }],
+                isLoading: true,
+                hasMore: false,
+            };
+        };
+
+        render(
+            <AdminUiProvider>
+                <AutocompleteAsync aria-label="Brand" useSuggest={useStaleSuggest} debounceMs={0} />
+            </AdminUiProvider>
+        );
+
+        const input = screen.getByRole('combobox', { name: /Brand/ });
+
+        await user.click(input);
+        await user.type(input, 'Ni');
+        expect(await screen.findByRole('option', { name: 'Nike' })).toBeInTheDocument();
+
+        await user.type(input, 'z');
+
+        expect(await screen.findByRole('status', { name: 'Загрузка подсказок' })).toBeInTheDocument();
+        expect(screen.queryByRole('option', { name: 'Nike' })).not.toBeInTheDocument();
+    });
+
+    it('does not load suggestions when disabled', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(
+            <AdminUiProvider>
+                <AutocompleteAsync
+                    aria-label="Brand"
+                    useSuggest={useStaticSuggest}
+                    debounceMs={0}
+                    disabled
+                    onChange={onChange}
+                />
+            </AdminUiProvider>
+        );
+
+        const input = screen.getByRole('combobox', { name: /Brand/ });
+
+        expect(input).toBeDisabled();
+        await user.click(input);
+
+        expect(onChange).not.toHaveBeenCalled();
+        expect(screen.queryByRole('option', { name: 'Nike' })).not.toBeInTheDocument();
+    });
+
+    it('has no axe violations in the default and disabled states', async () => {
+        const { container, unmount } = render(
+            <AdminUiProvider>
+                <AutocompleteAsync aria-label="Brand" useSuggest={useStaticSuggest} debounceMs={0} />
+            </AdminUiProvider>
+        );
+        expect(await axe(container)).toHaveNoViolations();
+        unmount();
+
+        const disabled = render(
+            <AdminUiProvider>
+                <AutocompleteAsync aria-label="Brand" useSuggest={useStaticSuggest} debounceMs={0} disabled />
+            </AdminUiProvider>
+        );
+        expect(await axe(disabled.container)).toHaveNoViolations();
     });
 });

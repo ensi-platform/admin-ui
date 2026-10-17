@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { DEFAULT_MAX_VISIBLE_TOASTS } from '../constants';
 import { ToastProvider, ToastRegion, useToast } from '../index';
@@ -544,5 +545,34 @@ describe('Toast', () => {
         });
 
         expect(screen.queryByText('Focus pause')).not.toBeInTheDocument();
+    });
+
+    it('closes the toast from the close button with Enter', async () => {
+        const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+
+        render(<ToastHarness />);
+
+        act(() => {
+            appendToast({ title: 'Клавиатура' }, { timeout: 0 });
+        });
+
+        await user.tab();
+        await user.tab();
+
+        expect(screen.getByRole('button', { name: CLOSE_LABEL })).toHaveFocus();
+
+        await user.keyboard('{Enter}');
+
+        expect(screen.queryByText('Клавиатура')).not.toBeInTheDocument();
+    });
+
+    it('has no axe violations when a toast is visible', async () => {
+        const { container } = render(<ToastHarness />);
+
+        act(() => {
+            appendToast({ title: 'Доступность', description: 'Текст' }, { timeout: 0 });
+        });
+
+        expect(await axe(container)).toHaveNoViolations();
     });
 });

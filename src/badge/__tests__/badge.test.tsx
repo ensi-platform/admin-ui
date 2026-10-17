@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
+import { axe } from '@/test/axe';
+
 import { Badge } from '..';
 
 import styles from '../styles.module.css';
@@ -32,5 +34,12 @@ describe('Badge', () => {
         render(<Badge>Черновик</Badge>);
 
         expect(screen.getByText('Черновик')).toHaveClass(styles.md, styles.neutral);
+    });
+
+    it('has no axe violations', async () => {
+        const { container } = render(<Badge variant="danger">Ошибка</Badge>);
+
+        expect(screen.getByText('Ошибка')).toHaveClass(styles.danger);
+        expect(await axe(container)).toHaveNoViolations();
     });
 });

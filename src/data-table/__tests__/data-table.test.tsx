@@ -6,8 +6,10 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { ContextMenu } from '@/context-menu';
 import { AdminUiProvider } from '@/provider';
+import { useTableRowSelection } from '@/table';
+import { axe } from '@/test/axe';
 
-import { DataTable } from '../Component';
+import { DataTable } from '..';
 import { type IDataTableSort } from '../types';
 
 const renderWithProvider = (ui: ReactElement) => render(<AdminUiProvider>{ui}</AdminUiProvider>);
@@ -58,6 +60,132 @@ describe('DataTable', () => {
 
         await user.click(screen.getByRole('button', { name: 'Name' }));
         expect(screen.getByRole('columnheader', { name: 'Name' })).toHaveAttribute('aria-sort', 'none');
+    });
+
+    it('reports direction for the sorted column', async () => {
+        const user = userEvent.setup();
+        const onSortChange = vi.fn();
+
+        const SortDemo = () => {
+            const [sort, setSort] = useState<IDataTableSort>();
+
+            return (
+                <DataTable
+                    sort={sort}
+                    onSortChange={next => {
+                        onSortChange(next);
+                        setSort(next);
+                    }}
+                >
+                    <DataTable.Header>
+                        <DataTable.Row>
+                            <DataTable.HeaderCell column="city" sortable>
+                                City
+                            </DataTable.HeaderCell>
+                        </DataTable.Row>
+                    </DataTable.Header>
+                </DataTable>
+            );
+        };
+
+        render(<SortDemo />);
+
+        const header = screen.getByRole('columnheader', { name: 'City' });
+
+        await user.click(screen.getByRole('button', { name: 'City' }));
+        expect(onSortChange).toHaveBeenLastCalledWith({ column: 'city', direction: 'asc' });
+        expect(header).toHaveAttribute('aria-sort', 'ascending');
+
+        await user.click(screen.getByRole('button', { name: 'City' }));
+        expect(onSortChange).toHaveBeenLastCalledWith({ column: 'city', direction: 'desc' });
+        expect(header).toHaveAttribute('aria-sort', 'descending');
+
+        await user.click(screen.getByRole('button', { name: 'City' }));
+        expect(onSortChange).toHaveBeenLastCalledWith(undefined);
+        expect(header).toHaveAttribute('aria-sort', 'none');
+    });
+
+    it('reports direction when sort is committed from the keyboard', async () => {
+        const user = userEvent.setup();
+        const onSortChange = vi.fn();
+
+        const SortDemo = () => {
+            const [sort, setSort] = useState<IDataTableSort>();
+
+            return (
+                <DataTable
+                    sort={sort}
+                    onSortChange={next => {
+                        onSortChange(next);
+                        setSort(next);
+                    }}
+                >
+                    <DataTable.Header>
+                        <DataTable.Row>
+                            <DataTable.HeaderCell column="city" sortable>
+                                City
+                            </DataTable.HeaderCell>
+                        </DataTable.Row>
+                    </DataTable.Header>
+                </DataTable>
+            );
+        };
+
+        render(<SortDemo />);
+
+        screen.getByRole('button', { name: 'City' }).focus();
+        await user.keyboard('{Enter}');
+
+        expect(onSortChange).toHaveBeenCalledTimes(1);
+        expect(onSortChange).toHaveBeenCalledWith({ column: 'city', direction: 'asc' });
+        expect(screen.getByRole('columnheader', { name: 'City' })).toHaveAttribute('aria-sort', 'ascending');
+    });
+
+    it('sets direction from the filter sort rows', async () => {
+        const user = userEvent.setup();
+        const onSortChange = vi.fn();
+
+        const SortDemo = () => {
+            const [sort, setSort] = useState<IDataTableSort>();
+
+            return (
+                <DataTable
+                    sort={sort}
+                    onSortChange={next => {
+                        onSortChange(next);
+                        setSort(next);
+                    }}
+                >
+                    <DataTable.Header>
+                        <DataTable.Row>
+                            <DataTable.HeaderCell column="city" sortable>
+                                City
+                                <DataTable.Filter>
+                                    <span>Query</span>
+                                </DataTable.Filter>
+                            </DataTable.HeaderCell>
+                        </DataTable.Row>
+                    </DataTable.Header>
+                </DataTable>
+            );
+        };
+
+        renderWithProvider(<SortDemo />);
+
+        await user.click(screen.getByRole('button', { name: 'City' }));
+        await user.click(screen.getByRole('button', { name: 'По возрастанию' }));
+        expect(onSortChange).toHaveBeenLastCalledWith({ column: 'city', direction: 'asc' });
+        expect(screen.getByRole('columnheader', { hidden: true, name: 'City' })).toHaveAttribute(
+            'aria-sort',
+            'ascending'
+        );
+
+        await user.click(screen.getByRole('button', { name: 'По убыванию' }));
+        expect(onSortChange).toHaveBeenLastCalledWith({ column: 'city', direction: 'desc' });
+        expect(screen.getByRole('columnheader', { hidden: true, name: 'City' })).toHaveAttribute(
+            'aria-sort',
+            'descending'
+        );
     });
 
     it('ignores sort when the column id or the handler is missing', async () => {
@@ -295,5 +423,111 @@ describe('DataTable', () => {
         expect(onRowContextMenu).toHaveBeenCalledTimes(1);
         await user.click(screen.getByRole('menuitem', { name: 'Open' }));
         expect(onOpen).toHaveBeenCalledTimes(1);
+    });
+
+    it('uses the actions label as the accessible name', async () => {
+        const user = userEvent.setup();
+        const onClick = vi.fn();
+
+        renderWithProvider(
+            <DataTable>
+                <DataTable.Body>
+                    <DataTable.Row>
+                        <DataTable.Cell>
+                            <DataTable.Actions label="Row actions" onClick={onClick} />
+                        </DataTable.Cell>
+                    </DataTable.Row>
+                </DataTable.Body>
+            </DataTable>
+        );
+
+        const button = screen.getByRole('button', { name: 'Row actions' });
+
+        expect(screen.queryByRole('button', { name: 'Ещё действия' })).not.toBeInTheDocument();
+
+        await user.click(button);
+        expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('selects a row from the cell and skips the actions button', async () => {
+        const user = userEvent.setup();
+        const onActions = vi.fn();
+
+        const SelectionDemo = () => {
+            const ids = ['alice', 'bob'];
+            const { isSelected, toggle, isAllSelected, isIndeterminate, setAllOnPage } = useTableRowSelection(ids);
+
+            return (
+                <DataTable hasChecked>
+                    <DataTable.Header>
+                        <DataTable.Row>
+                            <DataTable.HeaderCheckboxCell
+                                checked={isAllSelected}
+                                indeterminate={isIndeterminate}
+                                onChange={setAllOnPage}
+                                aria-label="Select all"
+                            />
+                            <DataTable.HeaderCell>Name</DataTable.HeaderCell>
+                        </DataTable.Row>
+                    </DataTable.Header>
+                    <DataTable.Body>
+                        <DataTable.Row checked={isSelected('alice')}>
+                            <DataTable.CheckboxCell
+                                checked={isSelected('alice')}
+                                onChange={() => toggle('alice')}
+                                aria-label="Select Alice"
+                            />
+                            <DataTable.Cell>Alice</DataTable.Cell>
+                            <DataTable.Cell>
+                                <DataTable.Actions label="Alice actions" onClick={onActions} />
+                            </DataTable.Cell>
+                        </DataTable.Row>
+                        <DataTable.Row checked={isSelected('bob')}>
+                            <DataTable.CheckboxCell
+                                checked={isSelected('bob')}
+                                onChange={() => toggle('bob')}
+                                aria-label="Select Bob"
+                            />
+                            <DataTable.Cell>Bob</DataTable.Cell>
+                        </DataTable.Row>
+                    </DataTable.Body>
+                </DataTable>
+            );
+        };
+
+        renderWithProvider(<SelectionDemo />);
+
+        await user.click(screen.getByText('Alice'));
+        expect(screen.getByRole('checkbox', { name: 'Select Alice' })).toBeChecked();
+        expect(screen.getByRole('checkbox', { name: 'Select Bob' })).not.toBeChecked();
+        expect(screen.getByRole('checkbox', { name: 'Select all' })).toBePartiallyChecked();
+
+        await user.click(screen.getByRole('button', { name: 'Alice actions' }));
+        expect(onActions).toHaveBeenCalledTimes(1);
+        expect(screen.getByRole('checkbox', { name: 'Select Alice' })).toBeChecked();
+
+        await user.click(screen.getByRole('checkbox', { name: 'Select all' }));
+        expect(screen.getByRole('checkbox', { name: 'Select Alice' })).toBeChecked();
+        expect(screen.getByRole('checkbox', { name: 'Select Bob' })).toBeChecked();
+        expect(screen.getByRole('checkbox', { name: 'Select all' })).toBeChecked();
+    });
+
+    it('has no axe violations in the default state', async () => {
+        const { container } = renderWithProvider(
+            <DataTable>
+                <DataTable.Header>
+                    <DataTable.Row>
+                        <DataTable.HeaderCell>Name</DataTable.HeaderCell>
+                    </DataTable.Row>
+                </DataTable.Header>
+                <DataTable.Body>
+                    <DataTable.Row>
+                        <DataTable.Cell>Alice</DataTable.Cell>
+                    </DataTable.Row>
+                </DataTable.Body>
+            </DataTable>
+        );
+
+        expect(await axe(container)).toHaveNoViolations();
     });
 });

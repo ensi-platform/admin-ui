@@ -5,6 +5,8 @@ import { describe, expect, it } from 'vitest';
 
 import { typographyStyles } from '@ds/typography';
 
+import { axe } from '@/test/axe';
+
 import { Link } from '../index';
 
 import styles from '../styles.module.css';
@@ -86,5 +88,11 @@ describe('Link', () => {
         expect(link).toHaveAttribute('href', '/orders');
         expect(link).toHaveAttribute('data-custom', 'true');
         expect(link).toHaveClass(styles.root, styles.primary);
+    });
+
+    it('has no axe violations', async () => {
+        const { container } = render(<Link href="/orders">Orders</Link>);
+
+        expect(await axe(container)).toHaveNoViolations();
     });
 });

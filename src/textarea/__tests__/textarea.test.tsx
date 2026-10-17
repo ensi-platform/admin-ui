@@ -6,6 +6,7 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { Field, useField } from '@/field';
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { TextArea } from '..';
 
@@ -191,5 +192,112 @@ describe('TextArea', () => {
         expect(textarea).toHaveValue('hi');
     });
 
-    // n/a: Escape and Enter have no TextArea contract.
+    it('replaces the selected text', async () => {
+        const user = userEvent.setup();
+
+        render(<TextArea aria-label="Comment" defaultValue="abcd" />);
+
+        const textarea = screen.getByRole('textbox', { name: 'Comment' });
+        await user.click(textarea);
+        await user.keyboard('{Control>}a{/Control}z');
+
+        expect(textarea).toHaveValue('z');
+    });
+
+    it('shows the placeholder and calls onBlur', async () => {
+        const user = userEvent.setup();
+        const onBlur = vi.fn();
+
+        render(<TextArea aria-label="Comment" placeholder="Write a note" onBlur={onBlur} />);
+
+        const textarea = screen.getByRole('textbox', { name: 'Comment' });
+
+        expect(textarea).toHaveAttribute('placeholder', 'Write a note');
+
+        await user.click(textarea);
+        await user.tab();
+
+        expect(onBlur).toHaveBeenCalledTimes(1);
+    });
+
+    it('inserts a newline on Enter', async () => {
+        const user = userEvent.setup();
+
+        render(<TextArea aria-label="Comment" defaultValue="a" />);
+
+        const textarea = screen.getByRole('textbox', { name: 'Comment' });
+        await user.click(textarea);
+        await user.keyboard('{Enter}b');
+
+        expect(textarea).toHaveValue('a\nb');
+    });
+
+    it('sets the rows attribute', () => {
+        render(<TextArea aria-label="Comment" rows={6} />);
+
+        expect(screen.getByRole('textbox', { name: 'Comment' })).toHaveAttribute('rows', '6');
+    });
+
+    it('keeps the controlled value when the parent ignores onChange', async () => {
+        const user = userEvent.setup();
+
+        render(<TextArea aria-label="Comment" value="keep" onChange={() => undefined} />);
+
+        const textarea = screen.getByRole('textbox', { name: 'Comment' });
+        await user.type(textarea, 'x');
+
+        expect(textarea).toHaveValue('keep');
+    });
+
+    it('keeps focus on the textarea after clear', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <AdminUiProvider labels={{ clear: 'Очистить' }}>
+                <TextArea aria-label="Comment" defaultValue="Hello" clear />
+            </AdminUiProvider>
+        );
+
+        const textarea = screen.getByRole('textbox', { name: 'Comment' });
+        await user.click(textarea);
+        await user.click(screen.getByRole('button', { name: 'Очистить' }));
+
+        expect(textarea).toHaveFocus();
+        expect(textarea).toHaveValue('');
+    });
+
+    it('hides the clear button when the value is empty', () => {
+        render(
+            <AdminUiProvider labels={{ clear: 'Clear' }}>
+                <TextArea aria-label="Comment" clear />
+            </AdminUiProvider>
+        );
+
+        expect(screen.queryByRole('button', { name: 'Clear' })).not.toBeInTheDocument();
+    });
+
+    it('hides the clear button when disabled', () => {
+        render(
+            <AdminUiProvider labels={{ clear: 'Clear' }}>
+                <TextArea aria-label="Comment" value="keep" disabled clear />
+            </AdminUiProvider>
+        );
+
+        expect(screen.queryByRole('button', { name: 'Clear' })).not.toBeInTheDocument();
+    });
+
+    it('has no axe violations in the default, disabled, and invalid states', async () => {
+        const { container, unmount } = render(<TextArea aria-label="Comment" />);
+        expect(await axe(container)).toHaveNoViolations();
+        unmount();
+
+        const disabled = render(<TextArea aria-label="Comment" disabled value="a" />);
+        expect(await axe(disabled.container)).toHaveNoViolations();
+        disabled.unmount();
+
+        const invalid = render(<TextArea aria-label="Comment" invalid value="a" />);
+        expect(await axe(invalid.container)).toHaveNoViolations();
+    });
+
+    // n/a: Escape has no TextArea action.
 });

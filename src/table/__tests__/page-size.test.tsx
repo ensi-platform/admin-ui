@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { Table } from '..';
 
@@ -66,5 +67,43 @@ describe('Table.PageSize', () => {
         await user.click(screen.getByRole('button', { name: /Строк на странице/ }));
 
         expect(screen.getAllByRole('option').map(option => option.textContent)).toEqual(['5', '10', '25', '50', '100']);
+    });
+
+    it('changes the page size from the keyboard', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        renderWithProvider(<Table.PageSize value={10} onChange={onChange} />);
+
+        screen.getByRole('button', { name: /Строк на странице/ }).focus();
+        await user.keyboard('{ArrowDown}{ArrowDown}{Enter}');
+
+        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onChange).toHaveBeenCalledWith(25);
+    });
+
+    it('keeps the page size when the parent ignores onChange', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        renderWithProvider(<Table.PageSize value={10} onChange={onChange} />);
+
+        await user.click(screen.getByRole('button', { name: /Строк на странице/ }));
+        await user.click(screen.getByRole('option', { name: '50' }));
+
+        expect(onChange).toHaveBeenCalledWith(50);
+        expect(screen.getByRole('button', { name: /Строк на странице/ })).toHaveAccessibleName(/10/);
+        expect(screen.queryByRole('button', { name: /50/ })).not.toBeInTheDocument();
+    });
+
+    it('has no axe violations in the default and disabled states', async () => {
+        const { container, unmount } = renderWithProvider(<Table.PageSize value={10} onChange={() => undefined} />);
+
+        expect(await axe(container)).toHaveNoViolations();
+        unmount();
+
+        const disabled = renderWithProvider(<Table.PageSize value={10} onChange={() => undefined} disabled />);
+
+        expect(await axe(disabled.container)).toHaveNoViolations();
     });
 });

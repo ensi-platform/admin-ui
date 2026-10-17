@@ -8,7 +8,7 @@ const config: StorybookConfig = {
     stories: ['../src/**/*.stories.@(ts|tsx)'],
     framework: '@storybook/react-vite',
     staticDirs: ['./static'],
-    addons: ['@storybook/addon-docs', '@storybook/addon-themes'],
+    addons: ['@storybook/addon-docs', '@storybook/addon-themes', '@storybook/addon-a11y'],
     managerHead: head => `${head}
 <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
 <style>

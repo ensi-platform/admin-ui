@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Button } from '@/button';
+import { axe } from '@/test/axe';
 
 import { Popover } from '..';
 
@@ -47,13 +48,37 @@ describe('Popover', () => {
             </>
         );
 
-        screen.getByRole('button', { name: 'Open' }).focus();
+        await user.tab();
+        expect(screen.getByRole('button', { name: 'Open' })).toHaveFocus();
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+
         await user.keyboard('{Enter}');
         expect(screen.getByRole('dialog')).toHaveTextContent('Контент');
 
         await user.keyboard('{Escape}');
         await user.click(screen.getByRole('button', { name: 'Closed' }));
         expect(screen.queryByText('Скрыто')).not.toBeInTheDocument();
+    });
+
+    it('does not open on hover and opens on click', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <Popover>
+                <Popover.Trigger>
+                    <Button>Open</Button>
+                </Popover.Trigger>
+                <Popover.Content>Контент</Popover.Content>
+            </Popover>
+        );
+
+        const trigger = screen.getByRole('button', { name: 'Open' });
+
+        await user.hover(trigger);
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+
+        await user.click(trigger);
+        expect(screen.getByRole('dialog')).toHaveTextContent('Контент');
     });
 
     it('closes on Escape and returns focus to the trigger', async () => {
@@ -216,5 +241,21 @@ describe('Popover', () => {
         await user.click(screen.getByRole('button', { name: 'Open' }));
 
         expect(screen.getByTestId('panel').querySelector('svg')).not.toBeInTheDocument();
+    });
+
+    it('has no axe violations when open', async () => {
+        const user = userEvent.setup();
+        const { container } = render(
+            <Popover>
+                <Popover.Trigger>
+                    <Button>Open</Button>
+                </Popover.Trigger>
+                <Popover.Content>Контент</Popover.Content>
+            </Popover>
+        );
+
+        await user.click(screen.getByRole('button', { name: 'Open' }));
+
+        expect(await axe(container)).toHaveNoViolations();
     });
 });

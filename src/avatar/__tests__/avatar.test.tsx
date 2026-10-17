@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
+import { axe } from '@/test/axe';
+
 import { Avatar } from '..';
 
 import styles from '../styles.module.css';
@@ -68,5 +70,26 @@ describe('Avatar', () => {
         rerender(<Avatar name="   " dataTestId="av" />);
 
         expect(screen.getByTestId('av')).toHaveTextContent('');
+    });
+
+    it('points ref at the avatar', () => {
+        const ref = { current: null as HTMLSpanElement | null };
+
+        render(<Avatar ref={ref} name="A" dataTestId="av" />);
+
+        expect(ref.current).toBe(screen.getByTestId('av'));
+    });
+
+    it('has no axe violations for initials and an image', async () => {
+        const initials = render(<Avatar name="Alex Smith" />);
+
+        expect(await axe(initials.container)).toHaveNoViolations();
+
+        initials.unmount();
+
+        const image = render(<Avatar src="/a.png" name="Alex" />);
+
+        expect(screen.getByRole('img', { name: 'Alex' })).toHaveAttribute('src', '/a.png');
+        expect(await axe(image.container)).toHaveNoViolations();
     });
 });

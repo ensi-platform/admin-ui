@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
+import { axe } from '@/test/axe';
+
 import { GridLayout } from '..';
 
 import styles from '../styles.module.css';
@@ -63,5 +65,25 @@ describe('GridLayout', () => {
         );
 
         expect(ref.current).toBe(screen.getByTestId('grid'));
+    });
+
+    it('aligns items to the center', () => {
+        render(
+            <GridLayout cols={2} align="center" dataTestId="grid">
+                Name
+            </GridLayout>
+        );
+
+        expect(screen.getByTestId('grid')).toHaveClass(styles.center);
+    });
+
+    it('has no axe violations', async () => {
+        const { container } = render(
+            <GridLayout cols={2} dataTestId="grid">
+                Name
+            </GridLayout>
+        );
+
+        expect(await axe(container)).toHaveNoViolations();
     });
 });

@@ -1,11 +1,17 @@
+import { useState } from 'react';
+
 import { Time } from '@internationalized/date';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { type TimeValue } from 'react-aria-components';
 import { describe, expect, it, vi } from 'vitest';
 
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
-import { TimeField } from '../Component';
+import { TimeField } from '..';
+
+import styles from '../styles.module.css';
 
 const renderField = (ui: React.ReactElement) => render(<AdminUiProvider>{ui}</AdminUiProvider>);
 
@@ -177,5 +183,76 @@ describe('TimeField', () => {
         await user.click(screen.getByRole('button', { name: 'out' }));
 
         expect(screen.getAllByRole('spinbutton')[1]).toHaveTextContent('30');
+    });
+
+    it('restores seconds on blur when the second segment is cleared', async () => {
+        const user = userEvent.setup();
+
+        renderField(
+            <>
+                <TimeField aria-label="Время" granularity="second" defaultValue={new Time(14, 30, 45)} />
+                <button type="button">out</button>
+            </>
+        );
+
+        const second = screen.getAllByRole('spinbutton')[2]!;
+        second.focus();
+        await user.keyboard('{Backspace}{Backspace}');
+        await user.click(screen.getByRole('button', { name: 'out' }));
+
+        expect(screen.getAllByRole('spinbutton')[2]).toHaveTextContent('45');
+    });
+
+    it('restores the focused time when the hour is cleared after an external update', async () => {
+        const user = userEvent.setup();
+
+        const Harness = () => {
+            const [value, setValue] = useState<TimeValue | null>(new Time(10, 0));
+
+            return (
+                <>
+                    <button type="button" onClick={() => setValue(new Time(18, 30))}>
+                        shift
+                    </button>
+                    <TimeField aria-label="Время" value={value} onChange={setValue} />
+                    <button type="button">out</button>
+                </>
+            );
+        };
+
+        renderField(<Harness />);
+
+        await user.click(screen.getByRole('button', { name: 'shift' }));
+        expect(screen.getAllByRole('spinbutton')[0]).toHaveTextContent('18');
+
+        const hour = screen.getAllByRole('spinbutton')[0]!;
+        hour.focus();
+        await user.keyboard('{Backspace}{Backspace}');
+        await user.click(screen.getByRole('button', { name: 'out' }));
+
+        expect(screen.getAllByRole('spinbutton')[0]).toHaveTextContent('18');
+        expect(screen.getAllByRole('spinbutton')[1]).toHaveTextContent('30');
+    });
+
+    it('uses the sm size and primary variant classes', () => {
+        renderField(<TimeField aria-label="Время" size="sm" variant="primary" block={false} dataTestId="time" />);
+
+        const hour = screen.getAllByRole('spinbutton')[0]!;
+
+        expect(hour.closest(`.${styles.sm}`)).toHaveClass(styles.primary);
+        expect(screen.getByTestId('time')).not.toHaveClass(styles.block);
+    });
+
+    it('has no axe violations in the default, disabled, and invalid states', async () => {
+        const { container, unmount } = renderField(<TimeField aria-label="Время" />);
+        expect(await axe(container)).toHaveNoViolations();
+        unmount();
+
+        const disabled = renderField(<TimeField aria-label="Время" disabled />);
+        expect(await axe(disabled.container)).toHaveNoViolations();
+        disabled.unmount();
+
+        const invalid = renderField(<TimeField aria-label="Время" invalid />);
+        expect(await axe(invalid.container)).toHaveNoViolations();
     });
 });

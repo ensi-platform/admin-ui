@@ -1,3 +1,5 @@
+import { createRef } from 'react';
+
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { SelectStateContext } from 'react-aria-components';
@@ -10,6 +12,7 @@ import { Field, useField } from '@/field';
 import { FieldMultiSelectClearButton } from '@/field-clear-button';
 import clearStyles from '@/field-clear-button/styles.module.css';
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { MultiSelect } from '..';
 
@@ -353,5 +356,62 @@ describe('MultiSelect', () => {
         await user.keyboard('{ArrowDown}{Enter}');
 
         expect(onChange).toHaveBeenCalledWith(['vip']);
+    });
+
+    it('removes the focused tag with Backspace', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(
+            <AdminUiProvider>
+                <MultiSelect aria-label="Метки" options={OPTIONS} value={['vip', 'regular']} onChange={onChange} />
+            </AdminUiProvider>
+        );
+
+        const vip = screen.getByRole('row', { name: 'vip' });
+
+        vip.focus();
+        await user.keyboard('{Backspace}');
+
+        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onChange).toHaveBeenCalledWith(['regular']);
+    });
+
+    it('does not add the same option twice', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(<MultiSelect aria-label="Метки" options={OPTIONS} onChange={onChange} />);
+
+        await user.click(screen.getByRole('button', { name: /Метки/ }));
+        await user.click(screen.getByRole('option', { name: 'vip' }));
+        await user.click(screen.getByRole('option', { name: 'vip' }));
+
+        expect(onChange).toHaveBeenNthCalledWith(1, ['vip']);
+        expect(onChange).toHaveBeenLastCalledWith([]);
+        expect(
+            onChange.mock.calls.every(call => new Set(call[0] as string[]).size === (call[0] as string[]).length)
+        ).toBe(true);
+    });
+
+    it('assigns object ref', () => {
+        const ref = createRef<HTMLDivElement>();
+
+        render(<MultiSelect ref={ref} aria-label="Метки" options={OPTIONS} />);
+
+        expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    });
+
+    it('has no axe violations in the default, disabled, and invalid states', async () => {
+        const { container, unmount } = render(<MultiSelect aria-label="Метки" options={OPTIONS} />);
+        expect(await axe(container)).toHaveNoViolations();
+        unmount();
+
+        const disabled = render(<MultiSelect aria-label="Метки" options={OPTIONS} disabled />);
+        expect(await axe(disabled.container)).toHaveNoViolations();
+        disabled.unmount();
+
+        const invalid = render(<MultiSelect aria-label="Метки" options={OPTIONS} invalid />);
+        expect(await axe(invalid.container)).toHaveNoViolations();
     });
 });

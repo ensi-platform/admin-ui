@@ -6,8 +6,11 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
-import { DatePicker } from '../Component';
+import { DatePicker } from '..';
+
+import styles from '../styles.module.css';
 
 const renderPicker = (ui: React.ReactElement) => render(<AdminUiProvider>{ui}</AdminUiProvider>);
 
@@ -342,5 +345,52 @@ describe('DatePicker', () => {
 
         await user.keyboard('{Enter}');
         expect(onChange).toHaveBeenCalled();
+    });
+
+    it('does not open or change the date when disabled', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        renderPicker(
+            <DatePicker aria-label="Дата" disabled defaultValue={new CalendarDate(2024, 6, 15)} onChange={onChange} />
+        );
+
+        screen.getAllByRole('spinbutton').forEach(segment => {
+            expect(segment).toHaveAttribute('aria-disabled', 'true');
+        });
+
+        await user.click(screen.getByTestId('date-picker-calendar'));
+
+        expect(screen.queryByTestId('calendar-viewport')).not.toBeInTheDocument();
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it('marks the field invalid', () => {
+        renderPicker(<DatePicker aria-label="Дата" invalid dataTestId="date" />);
+
+        expect(screen.getByTestId('date')).toHaveAttribute('data-invalid', 'true');
+    });
+
+    it('uses the sm size and primary variant classes', () => {
+        renderPicker(<DatePicker aria-label="Дата" size="sm" variant="primary" block={false} dataTestId="date" />);
+
+        const group = screen.getByTestId('date');
+
+        expect(group).toHaveClass(styles.sm);
+        expect(group).toHaveClass(styles.primary);
+        expect(group).not.toHaveClass(styles.block);
+    });
+
+    it('has no axe violations in the default, disabled, and invalid states', async () => {
+        const { container, unmount } = renderPicker(<DatePicker aria-label="Дата" />);
+        expect(await axe(container)).toHaveNoViolations();
+        unmount();
+
+        const disabled = renderPicker(<DatePicker aria-label="Дата" disabled />);
+        expect(await axe(disabled.container)).toHaveNoViolations();
+        disabled.unmount();
+
+        const invalid = renderPicker(<DatePicker aria-label="Дата" invalid />);
+        expect(await axe(invalid.container)).toHaveNoViolations();
     });
 });

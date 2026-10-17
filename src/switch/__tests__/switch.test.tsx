@@ -1,6 +1,10 @@
+import { createRef } from 'react';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
+
+import { axe } from '@/test/axe';
 
 import { Switch } from '..';
 
@@ -85,6 +89,35 @@ describe('Switch', () => {
         expect(sw).not.toBeChecked();
     });
 
+    it('does not toggle on Enter', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(<Switch onChange={onChange}>Notifications</Switch>);
+
+        const sw = screen.getByRole('switch', { name: 'Notifications' });
+        sw.focus();
+        await user.keyboard('{Enter}');
+
+        expect(onChange).not.toHaveBeenCalled();
+        expect(sw).not.toBeChecked();
+    });
+
+    it('keeps the controlled state when the parent ignores onChange', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <Switch checked={false} onChange={() => undefined}>
+                Notifications
+            </Switch>
+        );
+
+        const sw = screen.getByRole('switch', { name: 'Notifications' });
+        await user.click(sw);
+
+        expect(sw).not.toBeChecked();
+    });
+
     it('follows checked and does not call onChange when the prop changes', () => {
         const onChange = vi.fn();
         const { rerender } = render(
@@ -117,18 +150,30 @@ describe('Switch', () => {
 
         expect(sw).toBeDisabled();
         await user.click(sw);
+        sw.focus();
+        await user.keyboard(' ');
 
         expect(onChange).not.toHaveBeenCalled();
+        expect(sw).not.toBeChecked();
     });
 
-    it('applies invalid class when invalid', () => {
+    it('sets aria-invalid when invalid', () => {
         render(
             <Switch invalid dataTestId="invalid-sw">
                 Notifications
             </Switch>
         );
 
+        expect(screen.getByRole('switch', { name: 'Notifications' })).toHaveAttribute('aria-invalid', 'true');
         expect(screen.getByTestId('invalid-sw')).toHaveClass(styles.invalid);
+    });
+
+    it('assigns object ref', () => {
+        const ref = createRef<HTMLLabelElement>();
+
+        render(<Switch ref={ref}>Notifications</Switch>);
+
+        expect(ref.current).toBeInstanceOf(HTMLLabelElement);
     });
 
     it('renders without label when children are omitted', () => {
@@ -136,5 +181,18 @@ describe('Switch', () => {
 
         expect(screen.getByRole('switch', { name: 'Notifications' })).toBeInTheDocument();
         expect(screen.getByTestId('no-label').querySelector(`.${styles.label}`)).not.toBeInTheDocument();
+    });
+
+    it('has no axe violations in the default, disabled, and invalid states', async () => {
+        const { container, unmount } = render(<Switch>Notifications</Switch>);
+        expect(await axe(container)).toHaveNoViolations();
+        unmount();
+
+        const disabled = render(<Switch disabled>Notifications</Switch>);
+        expect(await axe(disabled.container)).toHaveNoViolations();
+        disabled.unmount();
+
+        const invalid = render(<Switch invalid>Notifications</Switch>);
+        expect(await axe(invalid.container)).toHaveNoViolations();
     });
 });

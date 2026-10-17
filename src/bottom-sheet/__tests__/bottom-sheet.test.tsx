@@ -1,12 +1,15 @@
 import { createRef, useState, type MouseEvent } from 'react';
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import { supportRef } from '@ds/common/support-ref';
 
+import { Button } from '@/button';
+import { Popover } from '@/popover';
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { BottomSheet } from '../index';
 import { type IBottomSheetProps } from '../types';
@@ -289,6 +292,99 @@ describe('BottomSheet', () => {
         dispatchPointer(handle, 'pointerup', { clientY: 200, timeStamp: 2000 });
 
         expect(onOpenChange).toHaveBeenCalledWith(false);
+    });
+
+    it('names the close button from provider labels', () => {
+        render(<BottomSheetHarness open />);
+
+        expect(screen.getByRole('button', { name: 'Закрыть' })).toBeInTheDocument();
+    });
+
+    it('Escape closes a nested popover and leaves the sheet open', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <AdminUiProvider>
+                <BottomSheet open>
+                    <BottomSheet.Body>
+                        <Popover>
+                            <Popover.Trigger>
+                                <Button>Open</Button>
+                            </Popover.Trigger>
+                            <Popover.Content>Внутри</Popover.Content>
+                        </Popover>
+                    </BottomSheet.Body>
+                </BottomSheet>
+            </AdminUiProvider>
+        );
+
+        await user.click(screen.getByRole('button', { name: 'Open' }));
+        expect(screen.getByText('Внутри')).toBeInTheDocument();
+
+        await user.keyboard('{Escape}');
+
+        expect(screen.queryByText('Внутри')).not.toBeInTheDocument();
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    it('calls onExitComplete once after close and not while the sheet stays open', async () => {
+        const user = userEvent.setup();
+        const onExitComplete = vi.fn();
+
+        render(<BottomSheetHarness open onExitComplete={onExitComplete} />);
+
+        await act(async () => {
+            await new Promise(resolve => {
+                setTimeout(resolve, 0);
+            });
+        });
+
+        expect(onExitComplete).not.toHaveBeenCalled();
+
+        await user.keyboard('{Escape}');
+
+        await waitFor(() => {
+            expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+        });
+        await waitFor(() => {
+            expect(onExitComplete).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    it('does not finish exit when the parent keeps the sheet open', async () => {
+        const user = userEvent.setup();
+        const onOpenChange = vi.fn();
+        const onExitComplete = vi.fn();
+
+        render(
+            <AdminUiProvider>
+                <BottomSheet open onOpenChange={onOpenChange} onExitComplete={onExitComplete}>
+                    <BottomSheet.Header>
+                        <BottomSheet.Title>Заголовок</BottomSheet.Title>
+                    </BottomSheet.Header>
+                    <BottomSheet.Body>Контент</BottomSheet.Body>
+                </BottomSheet>
+            </AdminUiProvider>
+        );
+
+        await user.keyboard('{Escape}');
+
+        expect(onOpenChange).toHaveBeenCalledWith(false);
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
+
+        await act(async () => {
+            await new Promise(resolve => {
+                setTimeout(resolve, 0);
+            });
+        });
+
+        expect(onExitComplete).not.toHaveBeenCalled();
+    });
+
+    it('has no axe violations when open', async () => {
+        const { container } = render(<BottomSheetHarness open />);
+
+        expect(await axe(container)).toHaveNoViolations();
     });
 });
 

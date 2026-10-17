@@ -1,3 +1,5 @@
+import { createRef } from 'react';
+
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
@@ -7,6 +9,7 @@ import triggerStyles from '@/combobox/components/Trigger/styles.module.css';
 import { Field, useField } from '@/field';
 import clearStyles from '@/field-clear-button/styles.module.css';
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { Autocomplete } from '..';
 
@@ -271,5 +274,101 @@ describe('Autocomplete', () => {
         await user.keyboard('{ArrowDown}{Enter}');
 
         expect(onChange).toHaveBeenCalledWith('spb');
+    });
+
+    it('moves to the previous option with ArrowUp and commits it', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(<Autocomplete aria-label="City" options={OPTIONS} onChange={onChange} />);
+
+        const input = screen.getByRole('combobox', { name: /City/ });
+
+        await user.click(input);
+        await user.keyboard('{ArrowDown}{ArrowDown}{ArrowUp}{Enter}');
+
+        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onChange).toHaveBeenCalledWith('msk');
+    });
+
+    it('shows the placeholder', () => {
+        render(<Autocomplete aria-label="City" options={OPTIONS} placeholder="Город…" />);
+
+        expect(screen.getByRole('combobox', { name: /City/ })).toHaveAttribute('placeholder', 'Город…');
+    });
+
+    it('reports typed text and keeps a controlled inputValue', async () => {
+        const user = userEvent.setup();
+        const onInputChange = vi.fn();
+
+        render(<Autocomplete aria-label="City" options={OPTIONS} inputValue="" onInputChange={onInputChange} />);
+
+        const input = screen.getByRole('combobox', { name: /City/ });
+
+        await user.type(input, 'М');
+
+        expect(onInputChange).toHaveBeenCalledWith('М');
+        expect(input).toHaveValue('');
+    });
+
+    it('shows defaultInputValue', () => {
+        render(<Autocomplete aria-label="City" options={OPTIONS} defaultInputValue="Мос" />);
+
+        expect(screen.getByRole('combobox', { name: /City/ })).toHaveValue('Мос');
+    });
+
+    it('keeps the controlled value when the parent ignores onChange', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(<Autocomplete aria-label="City" options={OPTIONS} value="msk" onChange={onChange} />);
+
+        const input = screen.getByRole('combobox', { name: /City/ });
+
+        await user.click(input);
+        await user.keyboard('{ArrowDown}');
+        await user.click(await screen.findByRole('option', { name: 'Санкт-Петербург' }));
+
+        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onChange).toHaveBeenCalledWith('spb');
+        expect(input).toHaveValue('Москва');
+    });
+
+    it('calls onBlur when focus leaves the field', async () => {
+        const user = userEvent.setup();
+        const onBlur = vi.fn();
+
+        render(
+            <>
+                <Autocomplete aria-label="City" options={OPTIONS} onBlur={onBlur} />
+                <button type="button">Next</button>
+            </>
+        );
+
+        await user.tab();
+        await user.tab();
+
+        expect(onBlur).toHaveBeenCalledTimes(1);
+    });
+
+    it('assigns object ref', () => {
+        const ref = createRef<HTMLDivElement>();
+
+        render(<Autocomplete ref={ref} aria-label="City" options={OPTIONS} />);
+
+        expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    });
+
+    it('has no axe violations in the default, disabled, and invalid states', async () => {
+        const { container, unmount } = render(<Autocomplete aria-label="City" options={OPTIONS} />);
+        expect(await axe(container)).toHaveNoViolations();
+        unmount();
+
+        const disabled = render(<Autocomplete aria-label="City" options={OPTIONS} disabled />);
+        expect(await axe(disabled.container)).toHaveNoViolations();
+        disabled.unmount();
+
+        const invalid = render(<Autocomplete aria-label="City" options={OPTIONS} invalid />);
+        expect(await axe(invalid.container)).toHaveNoViolations();
     });
 });

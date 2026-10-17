@@ -1,10 +1,11 @@
-import { type ReactElement } from 'react';
+import { createRef, type ReactElement } from 'react';
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { Tabs } from '..';
 
@@ -165,5 +166,98 @@ describe('Tabs', () => {
         expect(() => render(<Tabs.List>{null}</Tabs.List>)).toThrow(
             'This component must be used within a <Tabs> component'
         );
+    });
+
+    it('keeps the panel when the parent ignores onChange', async () => {
+        const user = userEvent.setup();
+
+        renderWithProvider(<BasicTabs value="a" onChange={vi.fn()} />);
+
+        await user.click(screen.getByRole('tab', { name: 'Товары' }));
+
+        expect(screen.getByRole('tab', { name: 'Общее' })).toHaveAttribute('aria-selected', 'true');
+        expect(screen.getByRole('tabpanel')).toHaveTextContent('Панель A');
+    });
+
+    it('does not select a tab when the group is disabled', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        renderWithProvider(
+            <Tabs value="a" onChange={onChange} disabled>
+                <Tabs.List>
+                    <Tabs.Tab id="a">Общее</Tabs.Tab>
+                    <Tabs.Tab id="b">Товары</Tabs.Tab>
+                </Tabs.List>
+                <Tabs.Panel id="a">Панель A</Tabs.Panel>
+                <Tabs.Panel id="b">Панель B</Tabs.Panel>
+            </Tabs>
+        );
+
+        await user.click(screen.getByRole('tab', { name: 'Товары' }));
+
+        expect(onChange).not.toHaveBeenCalled();
+        expect(screen.getByRole('tab', { name: 'Товары' })).toHaveAttribute('aria-disabled', 'true');
+        expect(screen.getByRole('tabpanel')).toHaveTextContent('Панель A');
+    });
+
+    it('applies the primary variant class', () => {
+        renderWithProvider(<BasicTabs dataTestId="tabs" />);
+
+        expect(screen.getByTestId('tabs')).toHaveClass(rootStyles.primary);
+        expect(screen.getByRole('tab', { name: 'Общее' })).toHaveClass(tabStyles.primary);
+    });
+
+    it('puts data-test-id on the list and the tab', () => {
+        renderWithProvider(
+            <Tabs defaultValue="a">
+                <Tabs.List dataTestId="tab-list">
+                    <Tabs.Tab id="a" dataTestId="tab-a">
+                        Общее
+                    </Tabs.Tab>
+                </Tabs.List>
+                <Tabs.Panel id="a" dataTestId="panel-a">
+                    Панель A
+                </Tabs.Panel>
+            </Tabs>
+        );
+
+        expect(screen.getByTestId('tab-list')).toHaveAttribute('role', 'tablist');
+        expect(screen.getByTestId('tab-a')).toHaveAttribute('role', 'tab');
+        expect(screen.getByTestId('panel-a')).toHaveAttribute('role', 'tabpanel');
+    });
+
+    it('points ref at the tabs root', () => {
+        const ref = createRef<HTMLDivElement>();
+
+        renderWithProvider(
+            <Tabs ref={ref} defaultValue="a" dataTestId="tabs">
+                <Tabs.List>
+                    <Tabs.Tab id="a">Общее</Tabs.Tab>
+                </Tabs.List>
+                <Tabs.Panel id="a">Панель A</Tabs.Panel>
+            </Tabs>
+        );
+
+        expect(ref.current).toBe(screen.getByTestId('tabs'));
+    });
+
+    it('has no axe violations in the default and disabled states', async () => {
+        const enabled = renderWithProvider(<BasicTabs />);
+
+        expect(await axe(enabled.container)).toHaveNoViolations();
+
+        enabled.unmount();
+
+        const disabled = renderWithProvider(
+            <Tabs defaultValue="a" disabled>
+                <Tabs.List>
+                    <Tabs.Tab id="a">Общее</Tabs.Tab>
+                </Tabs.List>
+                <Tabs.Panel id="a">Панель A</Tabs.Panel>
+            </Tabs>
+        );
+
+        expect(await axe(disabled.container)).toHaveNoViolations();
     });
 });

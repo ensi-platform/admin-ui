@@ -1,4 +1,4 @@
-import { type ReactElement } from 'react';
+import { type ReactElement, createRef } from 'react';
 
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -6,6 +6,7 @@ import { describe, expect, it, vi } from 'vitest';
 
 import triggerStyles from '@/combobox/components/MultiTrigger/styles.module.css';
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { MultiAutocomplete } from '..';
 
@@ -160,5 +161,133 @@ describe('MultiAutocomplete', () => {
         await user.keyboard('{ArrowDown}{Enter}');
 
         expect(onChange).toHaveBeenCalledWith(['vip']);
+    });
+
+    it('filters locally and keeps the full list when clientFilter is off', async () => {
+        const user = userEvent.setup();
+        const { unmount } = renderMulti(<MultiAutocomplete aria-label="Tags" options={OPTIONS} />);
+
+        const input = screen.getByRole('combobox', { name: /Tags/ });
+
+        await user.click(input);
+        await user.type(input, 'vip');
+
+        expect(await screen.findByRole('option', { name: 'vip' })).toBeInTheDocument();
+        expect(screen.queryByRole('option', { name: 'новый' })).not.toBeInTheDocument();
+        unmount();
+
+        renderMulti(<MultiAutocomplete aria-label="Tags" options={OPTIONS} clientFilter={false} />);
+
+        const open = screen.getByRole('combobox', { name: /Tags/ });
+
+        await user.click(open);
+        await user.type(open, 'zzz');
+
+        expect(await screen.findByRole('option', { name: 'vip' })).toBeInTheDocument();
+        expect(screen.getByRole('option', { name: 'новый' })).toBeInTheDocument();
+    });
+
+    it('calls onLoadMore when the sentinel is reached and shows the page loader', async () => {
+        const user = userEvent.setup();
+        const onLoadMore = vi.fn();
+
+        vi.stubGlobal(
+            'IntersectionObserver',
+            class {
+                constructor(private callback: IntersectionObserverCallback) {}
+
+                observe() {
+                    this.callback(
+                        [{ isIntersecting: true } as IntersectionObserverEntry],
+                        this as unknown as IntersectionObserver
+                    );
+                }
+
+                unobserve() {
+                    return undefined;
+                }
+
+                disconnect() {
+                    return undefined;
+                }
+
+                takeRecords() {
+                    return [];
+                }
+            }
+        );
+
+        renderMulti(
+            <MultiAutocomplete
+                aria-label="Tags"
+                options={OPTIONS}
+                clientFilter={false}
+                hasMore
+                onLoadMore={onLoadMore}
+            />
+        );
+
+        await user.click(screen.getByRole('combobox', { name: /Tags/ }));
+        await user.keyboard('{ArrowDown}');
+
+        await waitFor(() => {
+            expect(onLoadMore).toHaveBeenCalled();
+        });
+        expect(screen.getByRole('option', { name: 'vip' })).toBeInTheDocument();
+        expect(screen.queryByRole('option', { name: 'Загрузка подсказок' })).not.toBeInTheDocument();
+
+        renderMulti(
+            <MultiAutocomplete
+                aria-label="Tags"
+                options={OPTIONS}
+                clientFilter={false}
+                hasMore
+                isLoadingMore
+                onLoadMore={() => undefined}
+            />
+        );
+
+        const loadingInput = screen.getAllByRole('combobox', { name: /Tags/ }).at(-1)!;
+
+        await user.click(loadingInput);
+        await user.keyboard('{ArrowDown}');
+
+        expect(await screen.findByRole('option', { name: 'Загрузка подсказок' })).toBeInTheDocument();
+    });
+
+    it('moves to the previous option with ArrowUp', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        renderMulti(<MultiAutocomplete aria-label="Tags" options={OPTIONS} onChange={onChange} />);
+
+        const input = screen.getByRole('combobox', { name: /Tags/ });
+
+        await user.click(input);
+        await user.keyboard('{ArrowDown}{ArrowDown}{ArrowUp}{Enter}');
+
+        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onChange).toHaveBeenCalledWith(['vip']);
+    });
+
+    it('assigns object ref', () => {
+        const ref = createRef<HTMLDivElement>();
+
+        renderMulti(<MultiAutocomplete ref={ref} aria-label="Tags" options={OPTIONS} />);
+
+        expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    });
+
+    it('has no axe violations in the default, disabled, and invalid states', async () => {
+        const { container, unmount } = renderMulti(<MultiAutocomplete aria-label="Tags" options={OPTIONS} />);
+        expect(await axe(container)).toHaveNoViolations();
+        unmount();
+
+        const disabled = renderMulti(<MultiAutocomplete aria-label="Tags" options={OPTIONS} disabled />);
+        expect(await axe(disabled.container)).toHaveNoViolations();
+        disabled.unmount();
+
+        const invalid = renderMulti(<MultiAutocomplete aria-label="Tags" options={OPTIONS} invalid />);
+        expect(await axe(invalid.container)).toHaveNoViolations();
     });
 });

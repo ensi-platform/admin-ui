@@ -1,6 +1,10 @@
+import { createRef } from 'react';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
+
+import { axe } from '@/test/axe';
 
 import { Checkbox } from '..';
 
@@ -85,6 +89,35 @@ describe('Checkbox', () => {
         expect(checkbox).not.toBeChecked();
     });
 
+    it('does not toggle on Enter', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(<Checkbox onChange={onChange}>Agree</Checkbox>);
+
+        const checkbox = screen.getByRole('checkbox', { name: 'Agree' });
+        checkbox.focus();
+        await user.keyboard('{Enter}');
+
+        expect(onChange).not.toHaveBeenCalled();
+        expect(checkbox).not.toBeChecked();
+    });
+
+    it('keeps the controlled state when the parent ignores onChange', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <Checkbox checked={false} onChange={() => undefined}>
+                Agree
+            </Checkbox>
+        );
+
+        const checkbox = screen.getByRole('checkbox', { name: 'Agree' });
+        await user.click(checkbox);
+
+        expect(checkbox).not.toBeChecked();
+    });
+
     it('follows checked and does not call onChange when the prop changes', () => {
         const onChange = vi.fn();
         const { rerender } = render(
@@ -117,28 +150,41 @@ describe('Checkbox', () => {
 
         expect(checkbox).toBeDisabled();
         await user.click(checkbox);
+        checkbox.focus();
+        await user.keyboard(' ');
 
         expect(onChange).not.toHaveBeenCalled();
+        expect(checkbox).not.toBeChecked();
     });
 
-    it('sets data-invalid when invalid', () => {
+    it('sets aria-invalid when invalid', () => {
         render(
             <Checkbox invalid dataTestId="invalid-box">
                 Agree
             </Checkbox>
         );
 
+        expect(screen.getByRole('checkbox', { name: 'Agree' })).toHaveAttribute('aria-invalid', 'true');
         expect(screen.getByTestId('invalid-box')).toHaveAttribute('data-invalid');
     });
 
-    it('sets data-indeterminate when indeterminate', () => {
+    it('exposes mixed when indeterminate', () => {
         render(
             <Checkbox indeterminate dataTestId="indet-box">
                 All
             </Checkbox>
         );
 
+        expect(screen.getByRole('checkbox', { name: 'All' })).toBePartiallyChecked();
         expect(screen.getByTestId('indet-box')).toHaveAttribute('data-indeterminate');
+    });
+
+    it('assigns object ref', () => {
+        const ref = createRef<HTMLLabelElement>();
+
+        render(<Checkbox ref={ref}>Agree</Checkbox>);
+
+        expect(ref.current).toBeInstanceOf(HTMLLabelElement);
     });
 
     it('renders without label when children are omitted', () => {
@@ -148,13 +194,16 @@ describe('Checkbox', () => {
         expect(screen.getByTestId('no-label').querySelector(`.${styles.label}`)).not.toBeInTheDocument();
     });
 
-    it('applies compact field class on CheckboxField without label', () => {
-        const { container } = render(<Checkbox aria-label="Agree" dataTestId="compact" />);
+    it('has no axe violations in the default, disabled, and invalid states', async () => {
+        const { container, unmount } = render(<Checkbox>Agree</Checkbox>);
+        expect(await axe(container)).toHaveNoViolations();
+        unmount();
 
-        const field = container.querySelector(`.${styles.field}`);
+        const disabled = render(<Checkbox disabled>Agree</Checkbox>);
+        expect(await axe(disabled.container)).toHaveNoViolations();
+        disabled.unmount();
 
-        expect(field).toBeTruthy();
-        expect(field).toHaveClass(styles.field);
-        expect(screen.getByTestId('compact').querySelector(`.${styles.box}`)).toBeTruthy();
+        const invalid = render(<Checkbox invalid>Agree</Checkbox>);
+        expect(await axe(invalid.container)).toHaveNoViolations();
     });
 });
