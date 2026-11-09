@@ -1,3 +1,8 @@
+## 0.11.0 - 2026-11-09
+
+### Features
+- add dropzone + color-picker
+
 ## 0.10.0 - 2026-10-17
 
 ### Features
