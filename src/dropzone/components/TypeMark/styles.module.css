@@ -1,0 +1,6 @@
+.typeIcon {
+    width: var(--aui-dropzone-icon-size);
+    height: var(--aui-dropzone-icon-size);
+    flex-shrink: 0;
+    color: var(--aui-dropzone-fg-muted);
+}

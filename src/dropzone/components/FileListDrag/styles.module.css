@@ -1,0 +1,18 @@
+.indicator {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    border: 0;
+    background: transparent;
+}
+
+.dragPreview {
+    pointer-events: none;
+    border: 1px solid var(--aui-dropzone-border-primary);
+    border-radius: var(--aui-dropzone-radius-md);
+    background: var(--aui-dropzone-bg-primary);
+}

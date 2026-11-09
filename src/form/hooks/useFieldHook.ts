@@ -1,19 +1,23 @@
 import { type FocusEvent, type SyntheticEvent, useCallback } from 'react';
 
-import { type NativeFieldValue, useController, useFormContext } from 'react-hook-form';
+import { type NativeFieldValue, type UseControllerProps, useController, useFormContext } from 'react-hook-form';
 
 import { useAuiForm } from '../context';
 import { type IFormFieldComponent } from '../types';
 import { resolveFieldFlag } from '../utils';
 
 /** Builds controlled field wiring by `name` for FormInput / FormSelect / …. */
-export const useFieldHook = <TElement extends HTMLElement = HTMLElement>({ name }: IFormFieldComponent) => {
+export const useFieldHook = <TElement extends HTMLElement = HTMLElement>({
+    name,
+    rules,
+}: IFormFieldComponent & { rules?: UseControllerProps['rules'] }) => {
     const { onChange, onBlur: onFormBlur, disabled, readOnly } = useAuiForm();
     const { control, setValue } = useFormContext();
 
     const { field, fieldState } = useController({
         name,
         control,
+        rules,
     });
 
     const onBlurHandler = useCallback(

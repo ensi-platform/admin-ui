@@ -132,6 +132,38 @@
     --aui-input-duration-fast: var(--aui-control-duration-fast);
     --aui-input-ease-out: var(--aui-control-ease-out);
 
+    /* dropzone */
+    --aui-dropzone-bg-primary: var(--aui-input-bg-primary);
+    --aui-dropzone-bg-target: var(--aui-surface-bg-muted);
+    --aui-dropzone-bg-selected: var(--aui-surface-bg-muted-hover);
+    --aui-dropzone-fg-primary: var(--aui-input-fg-primary);
+    --aui-dropzone-fg-muted: var(--aui-input-fg-muted);
+    --aui-dropzone-fg-danger: var(--aui-field-error-fg);
+    --aui-dropzone-border-primary: var(--aui-input-border-primary);
+    --aui-dropzone-border-focus: var(--aui-input-border-focus);
+    --aui-dropzone-border-selected: var(--aui-dropzone-border-focus);
+    --aui-dropzone-fg-selected: var(--aui-dropzone-border-focus);
+    --aui-dropzone-border-danger: var(--aui-input-border-danger);
+    --aui-dropzone-radius-sm: var(--aui-control-radius-sm);
+    --aui-dropzone-radius-md: var(--aui-input-radius-md);
+    --aui-dropzone-pad-sm: var(--aui-spacing-12);
+    --aui-dropzone-pad-md: var(--aui-spacing-16);
+    --aui-dropzone-pad-lg: var(--aui-spacing-24);
+    --aui-dropzone-gap: var(--aui-spacing-8);
+    --aui-dropzone-icon-size: var(--aui-spacing-20);
+    --aui-dropzone-tile-size: var(--aui-spacing-32);
+    --aui-dropzone-mark-size: var(--aui-spacing-32);
+    --aui-dropzone-hit: var(--aui-spacing-24);
+    --aui-dropzone-row-h-sm: calc(var(--aui-spacing) * 11);
+    --aui-dropzone-row-h-md: calc(var(--aui-spacing) * 14);
+    --aui-dropzone-row-h-lg: calc(var(--aui-spacing) * 18);
+    --aui-dropzone-preview-w: calc(var(--aui-spacing) * 28);
+    --aui-dropzone-preview-h: var(--aui-dropzone-preview-w);
+    --aui-dropzone-progress-h: var(--aui-spacing-4);
+    --aui-dropzone-duration-fast: var(--aui-input-duration-fast);
+    --aui-dropzone-duration-normal: var(--aui-duration-normal);
+    --aui-dropzone-ease-out: var(--aui-input-ease-out);
+
     /* textarea — aliases input + min-h / pad-y */
     --aui-textarea-bg-primary: var(--aui-input-bg-primary);
     --aui-textarea-bg-readonly: var(--aui-input-bg-readonly);
@@ -302,6 +334,46 @@
     --aui-date-picker-popover-z: var(--aui-z-dropdown);
     --aui-date-picker-duration-fast: var(--aui-control-duration-fast);
     --aui-date-picker-ease-out: var(--aui-control-ease-out);
+
+    /* color-picker — field + popover */
+    --aui-color-picker-bg-primary: var(--aui-input-bg-primary);
+    --aui-color-picker-fg-primary: var(--aui-input-fg-primary);
+    --aui-color-picker-fg-muted: var(--aui-input-fg-muted);
+    --aui-color-picker-border-primary: var(--aui-input-border-primary);
+    --aui-color-picker-border-focus: var(--aui-input-border-focus);
+    --aui-color-picker-border-danger: var(--aui-input-border-danger);
+    --aui-color-picker-radius-md: var(--aui-input-radius-md);
+    --aui-color-picker-h-sm: var(--aui-input-h-sm);
+    --aui-color-picker-h-md: var(--aui-input-h-md);
+    --aui-color-picker-h-lg: var(--aui-input-h-lg);
+    --aui-color-picker-pad-x-sm: var(--aui-input-pad-x-sm);
+    --aui-color-picker-pad-x-md: var(--aui-input-pad-x-md);
+    --aui-color-picker-pad-x-lg: var(--aui-input-pad-x-lg);
+    --aui-color-picker-gap-md: var(--aui-spacing-8);
+    --aui-color-picker-icon-size: var(--aui-spacing-16);
+    --aui-color-picker-icon-hit: var(--aui-spacing-24);
+    --aui-color-picker-clear-radius: var(--aui-control-radius-sm);
+    --aui-color-picker-swatch-sm: var(--aui-spacing-16);
+    --aui-color-picker-swatch-md: var(--aui-spacing-20);
+    --aui-color-picker-swatch-lg: var(--aui-spacing-24);
+    --aui-color-picker-swatch-radius: var(--aui-control-radius-sm);
+    --aui-color-picker-area: calc(var(--aui-spacing) * 48);
+    --aui-color-picker-slider-h: var(--aui-spacing-16);
+    --aui-color-picker-thumb: var(--aui-spacing-16);
+    --aui-color-picker-thumb-ring: 2px;
+    --aui-color-picker-empty-inset: 3px;
+    --aui-color-picker-thumb-border: var(--aui-surface-bg-elevated);
+    --aui-color-picker-preset: var(--aui-spacing-24);
+    --aui-color-picker-popover-bg: var(--aui-surface-bg-elevated);
+    --aui-color-picker-popover-border: var(--aui-surface-border-primary);
+    --aui-color-picker-popover-radius: var(--aui-control-radius-md);
+    --aui-color-picker-popover-pad: var(--aui-spacing-12);
+    --aui-color-picker-popover-border-w: 1px;
+    --aui-color-picker-popover-w: calc(var(--aui-color-picker-area) + 2 * var(--aui-color-picker-popover-pad) + 2 * var(--aui-color-picker-popover-border-w));
+    --aui-color-picker-popover-shadow: var(--aui-shadow-sm);
+    --aui-color-picker-popover-z: var(--aui-z-dropdown);
+    --aui-color-picker-duration-fast: var(--aui-control-duration-fast);
+    --aui-color-picker-ease-out: var(--aui-control-ease-out);
 
     /* date-range-picker — aliases date-picker */
     --aui-date-range-picker-bg-primary: var(--aui-date-picker-bg-primary);

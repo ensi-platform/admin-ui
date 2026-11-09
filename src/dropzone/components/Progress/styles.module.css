@@ -1,0 +1,42 @@
+.progress {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: auto;
+    height: var(--aui-dropzone-progress-h);
+    margin: 0;
+    overflow: hidden;
+    border-radius: 0;
+    background: var(--aui-dropzone-bg-target);
+}
+
+.progress > span {
+    display: block;
+    height: 100%;
+    background: var(--aui-dropzone-border-focus);
+}
+
+.indeterminate > span {
+    width: 40%;
+    animation: dropzone-indeterminate calc(var(--aui-dropzone-duration-normal) * 6) linear infinite;
+}
+
+@keyframes dropzone-indeterminate {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(250%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .indeterminate > span {
+        width: 100%;
+        transform: none;
+        animation: none;
+        opacity: 0.45;
+    }
+}

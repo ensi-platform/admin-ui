@@ -1,0 +1,15 @@
+.preview {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    aspect-ratio: 1;
+    box-sizing: border-box;
+    border: 2px solid var(--aui-dropzone-border-primary);
+    border-radius: var(--aui-dropzone-radius-md);
+    background: var(--aui-dropzone-bg-target);
+}
+
+img.preview {
+    display: block;
+    object-fit: cover;
+}

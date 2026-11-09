@@ -106,6 +106,7 @@
         "classnames": "2.5.1",
         "react-aria": "3.52.1",
         "react-aria-components": "^1.21.1",
+        "react-dropzone": "^20.1.4",
         "react-fast-compare": "^3.2.2",
         "usehooks-ts": "^3.1.1"
     },
@@ -165,6 +166,10 @@
             "types": "./dist/checkbox-group/index.d.ts",
             "import": "./dist/checkbox-group/index.js"
         },
+        "./color-picker": {
+            "types": "./dist/color-picker/index.d.ts",
+            "import": "./dist/color-picker/index.js"
+        },
         "./combobox": {
             "types": "./dist/combobox/index.d.ts",
             "import": "./dist/combobox/index.js"
@@ -192,6 +197,10 @@
         "./drawer": {
             "types": "./dist/drawer/index.d.ts",
             "import": "./dist/drawer/index.js"
+        },
+        "./dropzone": {
+            "types": "./dist/dropzone/index.d.ts",
+            "import": "./dist/dropzone/index.js"
         },
         "./field": {
             "types": "./dist/field/index.d.ts",

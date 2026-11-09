@@ -1,0 +1,83 @@
+.action {
+    position: relative;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    box-sizing: border-box;
+    width: var(--aui-dropzone-hit);
+    height: var(--aui-dropzone-hit);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--aui-dropzone-radius-md);
+    background: transparent;
+    color: var(--aui-dropzone-fg-muted);
+    font: inherit;
+    line-height: 0;
+    cursor: pointer;
+}
+
+.action:hover {
+    background: color-mix(in srgb, var(--aui-dropzone-fg-muted) 16%, transparent);
+}
+
+.action:focus-visible {
+    outline: 1px solid var(--aui-dropzone-border-focus);
+    outline-offset: 2px;
+}
+
+.action:disabled {
+    cursor: default;
+}
+
+.text {
+    width: auto;
+    height: auto;
+    padding-block: calc(var(--aui-dropzone-gap) / 2);
+    padding-inline: var(--aui-dropzone-gap);
+    color: var(--aui-dropzone-fg-primary);
+    line-height: inherit;
+    transition: background-color var(--aui-dropzone-duration-fast) var(--aui-dropzone-ease-out);
+}
+
+.action.text:hover:not(:disabled) {
+    background: var(--aui-dropzone-bg-target);
+}
+
+.action.text:active:not(:disabled) {
+    background: var(--aui-dropzone-bg-selected);
+}
+
+.action[data-dropzone-remove]:hover {
+    color: var(--aui-dropzone-fg-danger);
+}
+
+.actionIcon {
+    width: calc(var(--aui-dropzone-hit) - var(--aui-dropzone-gap));
+    height: calc(var(--aui-dropzone-hit) - var(--aui-dropzone-gap));
+}
+
+.actionLabel {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    border: 0;
+    white-space: nowrap;
+}
+
+@media (pointer: coarse) {
+    .action {
+        min-width: 44px;
+        min-height: 44px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .text {
+        transition: none;
+    }
+}

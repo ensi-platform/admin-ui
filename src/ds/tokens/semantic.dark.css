@@ -66,6 +66,19 @@
     --aui-input-border-focus: var(--aui-control-border-focus);
     --aui-input-border-danger: var(--aui-control-border-danger);
 
+    /* dropzone — aliases input/surface (same as light) */
+    --aui-dropzone-bg-primary: var(--aui-input-bg-primary);
+    --aui-dropzone-bg-target: var(--aui-surface-bg-muted);
+    --aui-dropzone-bg-selected: var(--aui-surface-bg-elevated);
+    --aui-dropzone-fg-primary: var(--aui-input-fg-primary);
+    --aui-dropzone-fg-muted: var(--aui-input-fg-muted);
+    --aui-dropzone-fg-danger: var(--aui-field-error-fg);
+    --aui-dropzone-border-primary: var(--aui-input-border-primary);
+    --aui-dropzone-border-focus: var(--aui-input-border-focus);
+    --aui-dropzone-border-selected: var(--aui-surface-border-primary);
+    --aui-dropzone-fg-selected: var(--aui-page-fg-primary);
+    --aui-dropzone-border-danger: var(--aui-input-border-danger);
+
     /* textarea — aliases input (same as light) */
     --aui-textarea-bg-primary: var(--aui-input-bg-primary);
     --aui-textarea-fg-primary: var(--aui-input-fg-primary);
@@ -122,6 +135,17 @@
     --aui-date-picker-segment-fg-focused: var(--aui-control-fg-brand);
     --aui-date-picker-popover-bg-primary: var(--aui-surface-bg-elevated);
     --aui-date-picker-popover-border-primary: var(--aui-surface-border-primary);
+
+    /* color-picker — aliases input/surface (same as light) */
+    --aui-color-picker-bg-primary: var(--aui-input-bg-primary);
+    --aui-color-picker-fg-primary: var(--aui-input-fg-primary);
+    --aui-color-picker-fg-muted: var(--aui-input-fg-muted);
+    --aui-color-picker-border-primary: var(--aui-input-border-primary);
+    --aui-color-picker-border-focus: var(--aui-input-border-focus);
+    --aui-color-picker-border-danger: var(--aui-input-border-danger);
+    --aui-color-picker-thumb-border: var(--aui-white);
+    --aui-color-picker-popover-bg: var(--aui-input-bg-primary);
+    --aui-color-picker-popover-border: var(--aui-surface-border-primary);
 
     /* date-range-picker — aliases date-picker (same as light) */
     --aui-date-range-picker-bg-primary: var(--aui-date-picker-bg-primary);

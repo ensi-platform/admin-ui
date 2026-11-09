@@ -1,0 +1,40 @@
+/* CSS variables — ColorPicker (--aui-color-picker-*) */
+export const docsCssVariables = `--aui-color-picker-bg-primary: var(--aui-input-bg-primary); /* field fill */
+--aui-color-picker-fg-primary: var(--aui-input-fg-primary); /* field foreground */
+--aui-color-picker-fg-muted: var(--aui-input-fg-muted); /* placeholder and empty mark */
+--aui-color-picker-border-primary: var(--aui-input-border-primary); /* field border */
+--aui-color-picker-border-focus: var(--aui-input-border-focus); /* focus border */
+--aui-color-picker-border-danger: var(--aui-input-border-danger); /* invalid border */
+--aui-color-picker-radius-md: var(--aui-input-radius-md); /* field and area radius */
+--aui-color-picker-h-sm: var(--aui-input-h-sm); /* height sm */
+--aui-color-picker-h-md: var(--aui-input-h-md); /* height md */
+--aui-color-picker-h-lg: var(--aui-input-h-lg); /* height lg */
+--aui-color-picker-pad-x-sm: var(--aui-input-pad-x-sm); /* padding-x sm */
+--aui-color-picker-pad-x-md: var(--aui-input-pad-x-md); /* padding-x md */
+--aui-color-picker-pad-x-lg: var(--aui-input-pad-x-lg); /* padding-x lg */
+--aui-color-picker-gap-md: var(--aui-spacing-8); /* gap inside the field and the panel */
+--aui-color-picker-icon-size: var(--aui-spacing-16); /* clear icon size */
+--aui-color-picker-icon-hit: var(--aui-spacing-24); /* clear icon hit area */
+--aui-color-picker-clear-radius: var(--aui-control-radius-sm); /* clear button radius */
+--aui-color-picker-swatch-sm: var(--aui-spacing-16); /* trigger swatch sm */
+--aui-color-picker-swatch-md: var(--aui-spacing-20); /* trigger swatch md */
+--aui-color-picker-swatch-lg: var(--aui-spacing-24); /* trigger swatch lg */
+--aui-color-picker-swatch-radius: var(--aui-control-radius-sm); /* swatch radius */
+--aui-color-picker-area: calc(var(--aui-spacing) * 48); /* saturation area size */
+--aui-color-picker-slider-h: var(--aui-spacing-16); /* hue slider height */
+--aui-color-picker-thumb: var(--aui-spacing-16); /* thumb size */
+--aui-color-picker-thumb-ring: 2px; /* thumb ring width */
+--aui-color-picker-empty-inset: 3px; /* empty swatch slash inset */
+--aui-color-picker-thumb-border: var(--aui-surface-bg-elevated); /* thumb ring */
+--aui-color-picker-preset: var(--aui-spacing-24); /* preset swatch size */
+--aui-color-picker-popover-bg: var(--aui-surface-bg-elevated); /* panel fill */
+--aui-color-picker-popover-border: var(--aui-surface-border-primary); /* panel border */
+--aui-color-picker-popover-radius: var(--aui-control-radius-md); /* panel radius */
+--aui-color-picker-popover-pad: var(--aui-spacing-12); /* panel padding */
+--aui-color-picker-popover-border-w: 1px; /* panel border width */
+--aui-color-picker-popover-w: calc(var(--aui-color-picker-area) + 2 * var(--aui-color-picker-popover-pad) + 2 * var(--aui-color-picker-popover-border-w)); /* panel width, flush with the area */
+--aui-color-picker-popover-shadow: var(--aui-shadow-sm); /* panel shadow */
+--aui-color-picker-popover-z: var(--aui-z-dropdown); /* panel z-index */
+--aui-color-picker-duration-fast: var(--aui-control-duration-fast); /* transition duration */
+--aui-color-picker-ease-out: var(--aui-control-ease-out); /* transition easing */
+`;

@@ -33,7 +33,7 @@ export const Example = () => (
 ```
 
 1. Import tokens **once** in the app entry.
-2. Mount `AdminUiProvider` at the UI root (locale, portals, Russian chrome strings). Pass `labels` only to override a key.
+2. Mount `AdminUiProvider` at the UI root (locale, portals, Russian chrome strings). Pass `labels` only to override a key of `IAuiLabels` (`src/provider/types.ts`; defaults in `src/provider/context.ts`). `dropzoneUploading` is the form message while a file is still uploading. `dropzoneByte`, `dropzoneKilobyte`, and `dropzoneMegabyte` format file sizes (`{size}`).
 3. Import only via subpaths (no package root barrel):
 
 ```tsx

@@ -1,0 +1,101 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    gap: var(--aui-dropzone-gap);
+    min-width: 0;
+    max-width: 100%;
+}
+
+.block {
+    width: 100%;
+}
+
+.primary {
+    color: var(--aui-dropzone-fg-primary);
+}
+
+.heading,
+.description {
+    margin: 0;
+}
+
+.description {
+    color: var(--aui-dropzone-fg-muted);
+}
+
+.rejection {
+    color: var(--aui-dropzone-fg-danger);
+}
+
+.quota {
+    display: flex;
+    flex-direction: column;
+    gap: var(--aui-dropzone-gap);
+    color: var(--aui-dropzone-fg-muted);
+}
+
+.quota[data-full] {
+    color: var(--aui-dropzone-fg-danger);
+}
+
+.quotaText {
+    margin: 0;
+}
+
+.meter {
+    width: 100%;
+    height: var(--aui-dropzone-progress-h);
+    overflow: hidden;
+    border-radius: var(--aui-dropzone-radius-md);
+    background: var(--aui-dropzone-bg-target);
+}
+
+.meter > span {
+    display: block;
+    height: 100%;
+    background: var(--aui-dropzone-border-focus);
+}
+
+.meter[data-full] > span {
+    background: var(--aui-dropzone-fg-danger);
+}
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--aui-dropzone-gap);
+}
+
+.toolbarActions {
+    --aui-button-h-sm: var(--aui-dropzone-hit);
+    --aui-button-pad-y-sm: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--aui-dropzone-gap);
+}
+
+.hint {
+    margin: 0;
+    color: var(--aui-dropzone-fg-muted);
+}
+
+.files {
+    display: flex;
+    flex-direction: column;
+    gap: var(--aui-dropzone-gap);
+    min-width: 0;
+}
+
+.live {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    border: 0;
+}

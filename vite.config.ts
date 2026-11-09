@@ -99,6 +99,7 @@ export default defineConfig({
                 'classnames',
                 'react-aria',
                 'react-aria-components',
+                'react-dropzone',
                 'react-hook-form',
                 'react-fast-compare',
                 'usehooks-ts',

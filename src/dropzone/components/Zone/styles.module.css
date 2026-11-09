@@ -1,0 +1,113 @@
+.zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--aui-dropzone-gap);
+    box-sizing: border-box;
+    border: 1px solid var(--aui-dropzone-border-primary);
+    border-radius: var(--aui-dropzone-radius-md);
+    background: var(--aui-dropzone-bg-target);
+    color: var(--aui-dropzone-fg-primary);
+    text-align: center;
+    cursor: pointer;
+    transition:
+        background-color var(--aui-dropzone-duration-fast) var(--aui-dropzone-ease-out),
+        border-color var(--aui-dropzone-duration-fast) var(--aui-dropzone-ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .zone,
+    .mark {
+        transition: none;
+    }
+
+    .zone[data-drop-target] .mark {
+        transform: none;
+    }
+}
+
+.zone:focus-visible,
+.zone:focus-within {
+    border-color: var(--aui-dropzone-border-focus);
+    outline: 1px solid var(--aui-dropzone-border-focus);
+    outline-offset: 2px;
+}
+
+.zone[data-blocked]:focus-visible,
+.zone[data-blocked]:focus-within,
+.zone[data-disabled]:focus-visible,
+.zone[data-disabled]:focus-within {
+    border-color: var(--aui-dropzone-border-primary);
+    outline: none;
+}
+
+.sm {
+    padding: var(--aui-dropzone-pad-sm);
+}
+
+.md {
+    padding: var(--aui-dropzone-pad-lg);
+}
+
+.lg {
+    padding: var(--aui-dropzone-pad-lg);
+}
+
+.primary:hover:not([data-blocked]):not([data-disabled]) {
+    border-color: var(--aui-dropzone-border-focus);
+}
+
+.primary[data-blocked],
+.primary[data-blocked]:hover,
+.zone[data-disabled],
+.zone[data-disabled]:hover {
+    cursor: not-allowed;
+}
+
+.primary[data-blocked],
+.primary[data-blocked]:hover {
+    background: var(--aui-dropzone-bg-primary);
+}
+
+.zone[data-drop-target] {
+    background: var(--aui-dropzone-bg-target);
+    border-color: var(--aui-dropzone-border-focus);
+}
+
+.zone[data-invalid],
+.zone[data-blocked][data-invalid]:focus-visible,
+.zone[data-blocked][data-invalid]:focus-within,
+.zone[data-disabled][data-invalid]:focus-visible,
+.zone[data-disabled][data-invalid]:focus-within {
+    border-color: var(--aui-dropzone-border-danger);
+}
+
+.zone[data-disabled] {
+    opacity: 0.5;
+}
+
+.zone input {
+    cursor: inherit;
+}
+
+.mark {
+    width: var(--aui-dropzone-mark-size);
+    height: var(--aui-dropzone-mark-size);
+    flex-shrink: 0;
+    transition: transform var(--aui-dropzone-duration-fast) var(--aui-dropzone-ease-out);
+}
+
+.zone[data-drop-target] .mark {
+    transform: scale(1.12);
+}
+
+.prompt {
+    margin: 0;
+    color: var(--aui-dropzone-fg-muted);
+}
+
+.limits {
+    margin: 0;
+    color: var(--aui-dropzone-fg-muted);
+}

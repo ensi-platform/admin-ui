@@ -1,0 +1,18 @@
+.mark {
+    flex-shrink: 0;
+    width: var(--aui-dropzone-mark-size);
+    height: var(--aui-dropzone-mark-size);
+    border-radius: var(--aui-dropzone-radius-md);
+    background: var(--aui-dropzone-bg-target);
+}
+
+.line {
+    width: 42%;
+    height: calc(var(--aui-spacing) * 2);
+    border-radius: var(--aui-dropzone-radius-sm);
+    background: var(--aui-dropzone-bg-target);
+}
+
+.line[data-short] {
+    width: 24%;
+}

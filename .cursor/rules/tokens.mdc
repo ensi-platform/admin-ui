@@ -126,6 +126,7 @@ Light brand = neutral (`neutral-800` = `#171717`, fg `neutral-50`). Dark brand =
 | active-filters    | `active-filters-gap-md`, `active-filters-border-hover`, `active-filters-border-focus`, `active-filters-icon-size-md`, `active-filters-icon-fg`, `active-filters-icon-fg-hover`, `active-filters-icon-gap`, `active-filters-list-gap`, `active-filters-panel-max-w`, `active-filters-panel-max-h`, `active-filters-clear-fg-hover` (applied chip row; chip chrome is `Tag`) |
 | arrangement-settings   | `arrangement-settings-gap-md`, `arrangement-settings-item-pad-x/y-md`, `arrangement-settings-item-radius-md`, `arrangement-settings-item-fg`, `arrangement-settings-item-bg-hover`, `arrangement-settings-grip-w/h-md`, `arrangement-settings-indicator`, `arrangement-settings-indicator-h`, `arrangement-settings-preview-bg`, `arrangement-settings-preview-shadow` |
 | date-picker       | field + popover: `date-picker-bg/fg-primary`, `date-picker-fg-muted`, `date-picker-border-primary/focus/danger`, `date-picker-radius-md`, `date-picker-h-sm\|md\|lg`, `date-picker-pad-x-*`, `date-picker-gap-md`, `date-picker-icon-*`, `date-picker-popover-*` (incl. `popover-w`)                                                                                                                                        |
+| color-picker      | field + popover: `color-picker-bg/fg-primary`, `color-picker-fg-muted`, `color-picker-border-primary/focus/danger`, `color-picker-radius-md`, `color-picker-h-sm\|md\|lg`, `color-picker-pad-x-*`, `color-picker-gap-md`, `color-picker-swatch-sm|md|lg`, `color-picker-area`, `color-picker-slider-h`, `color-picker-thumb-ring`, `color-picker-empty-inset`, `color-picker-popover-*` |
 | date-range-picker | aliases date-picker place (`date-range-picker-*`)                                                                                                                                                                                                                                                                                                                                                                           |
 | time-field        | `time-field-bg/fg-primary`, `time-field-fg-muted`, `time-field-border-primary/focus/danger`, `time-field-radius-md`, `time-field-h-sm\|md\|lg`, `time-field-pad-x-*`, `time-field-gap-md`, `time-field-icon-*`                                                                                                                                                                                                              |
 | calendar          | vertical scroll grid: `calendar-bg/fg-primary`, `calendar-fg-muted/selected`, `calendar-bg-selected/hover/range/today`, `calendar-border-today/focus`, `calendar-max-h`, `calendar-pad/gap-*`, `calendar-cell-size/radius-md`, `calendar-heading-pad-y-md`, `calendar-popover-w`                                                                                                                                            |
@@ -226,6 +227,37 @@ input-h-sm | md | lg
 input-pad-x-sm | md | lg
 ```
 
+### Dropzone (semantic place)
+
+```
+dropzone-bg-primary | dropzone-bg-target | dropzone-bg-selected
+dropzone-fg-primary | dropzone-fg-muted | dropzone-fg-danger | dropzone-fg-selected
+dropzone-border-primary | focus | selected | danger
+dropzone-radius-sm | md
+dropzone-pad-sm | md | lg
+dropzone-gap
+dropzone-icon-size | dropzone-tile-size | dropzone-mark-size | dropzone-hit
+dropzone-row-h-sm | md | lg
+dropzone-preview-w | dropzone-preview-h | dropzone-progress-h
+dropzone-duration-fast | dropzone-duration-normal | dropzone-ease-out
+```
+
+### Color picker (semantic place)
+
+```
+color-picker-bg/fg-primary | color-picker-fg-muted
+color-picker-border-primary | focus | danger
+color-picker-radius-md
+color-picker-h-sm | md | lg
+color-picker-pad-x-sm | md | lg
+color-picker-gap-md
+color-picker-icon-size | color-picker-icon-hit | color-picker-clear-radius
+color-picker-swatch-sm | md | lg | color-picker-swatch-radius | color-picker-preset
+color-picker-area | color-picker-slider-h | color-picker-thumb | color-picker-thumb-border
+color-picker-popover-bg | border | radius | pad | w | shadow | z
+color-picker-duration-fast | color-picker-ease-out
+```
+
 ### Textarea (semantic place)
 
 ```
@@ -294,7 +326,7 @@ Place-алиасы (CSS Module читает только свой place):
 {place}-duration-fast | {place}-ease-out
 ```
 
-Places с motion: `button`, `input`, `textarea`, `number-input`, `date-picker`, `date-range-picker`, `time-field`, `calendar`, `checkbox`, `switch`, `combobox`, `field-clear`, `tooltip`, `popover`, `modal`, `drawer`, `bottom-sheet`, `tabs`, `vertical-tabs`, `copy-button`, `table`.
+Places с motion: `button`, `input`, `dropzone`, `textarea`, `number-input`, `date-picker`, `date-range-picker`, `time-field`, `color-picker`, `calendar`, `checkbox`, `switch`, `combobox`, `field-clear`, `tooltip`, `popover`, `modal`, `drawer`, `bottom-sheet`, `tabs`, `vertical-tabs`, `copy-button`, `table`.
 
 В CSS Module — только `var(--aui-{place}-duration-*)` / `var(--aui-{place}-ease-*)`, не primitive и не `--aui-control-*` напрямую. Всегда `prefers-reduced-motion: reduce` → `transition: none`.
 

@@ -70,6 +70,7 @@ export default [
             'vitest.config.ts',
             'src/test/**/*.{ts,tsx}',
             'src/**/*.test.{ts,tsx}',
+            'src/**/__tests__/**/*.{ts,tsx}',
             '.storybook/**/*.{ts,tsx}',
         ],
         rules: {

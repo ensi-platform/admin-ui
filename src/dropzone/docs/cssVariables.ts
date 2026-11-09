@@ -1,0 +1,32 @@
+/** Dropzone CSS variables from semantic tokens (--aui-dropzone-*). */
+export const docsCssVariables = `/* CSS variables — Dropzone (--aui-dropzone-*) */
+--aui-dropzone-bg-primary: var(--aui-input-bg-primary); /* zone fill */
+--aui-dropzone-bg-target: var(--aui-surface-bg-muted); /* drop target, quota track */
+--aui-dropzone-bg-selected: var(--aui-surface-bg-muted-hover); /* selected row */
+--aui-dropzone-fg-primary: var(--aui-input-fg-primary); /* primary foreground */
+--aui-dropzone-fg-muted: var(--aui-input-fg-muted); /* muted foreground */
+--aui-dropzone-fg-danger: var(--aui-field-error-fg); /* rejection foreground */
+--aui-dropzone-border-primary: var(--aui-input-border-primary); /* zone border */
+--aui-dropzone-border-focus: var(--aui-input-border-focus); /* focus border */
+--aui-dropzone-border-selected: var(--aui-dropzone-border-focus); /* selected row border */
+--aui-dropzone-fg-selected: var(--aui-dropzone-border-focus); /* selection check */
+--aui-dropzone-border-danger: var(--aui-input-border-danger); /* invalid border */
+--aui-dropzone-radius-sm: var(--aui-control-radius-sm); /* check inner corners */
+--aui-dropzone-radius-md: var(--aui-input-radius-md); /* zone radius */
+--aui-dropzone-pad-sm: var(--aui-spacing-12); /* padding sm */
+--aui-dropzone-pad-md: var(--aui-spacing-16); /* padding md */
+--aui-dropzone-pad-lg: var(--aui-spacing-24); /* padding lg */
+--aui-dropzone-gap: var(--aui-spacing-8); /* gap between zone, list, and rejection */
+--aui-dropzone-icon-size: var(--aui-spacing-20); /* row icon size */
+--aui-dropzone-tile-size: var(--aui-spacing-32); /* file type tile */
+--aui-dropzone-mark-size: var(--aui-spacing-32); /* zone upload icon size */
+--aui-dropzone-hit: var(--aui-spacing-24); /* icon button hit target */
+--aui-dropzone-row-h-sm: calc(var(--aui-spacing) * 11); /* file row height sm */
+--aui-dropzone-row-h-md: calc(var(--aui-spacing) * 14); /* file row height md */
+--aui-dropzone-row-h-lg: calc(var(--aui-spacing) * 18); /* file row height lg */
+--aui-dropzone-preview-w: calc(var(--aui-spacing) * 28); /* image preview width */
+--aui-dropzone-preview-h: var(--aui-dropzone-preview-w); /* image preview height */
+--aui-dropzone-progress-h: var(--aui-spacing-4); /* upload progress height */
+--aui-dropzone-duration-fast: var(--aui-input-duration-fast); /* transition duration (fast) */
+--aui-dropzone-duration-normal: var(--aui-duration-normal); /* row move duration */
+--aui-dropzone-ease-out: var(--aui-input-ease-out); /* transition easing */`;

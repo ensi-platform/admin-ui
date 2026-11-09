@@ -24,6 +24,16 @@ export interface IAuiLabels {
     moreSelected: string;
     /** DatePicker / DateRangePicker: open calendar button. */
     openCalendar: string;
+    /** ColorPicker: open the palette. */
+    openPalette: string;
+    /** ColorPicker: hex field accessible name. */
+    colorCode: string;
+    /** ColorPicker: hue slider accessible name. */
+    colorHue: string;
+    /** ColorPicker: palette dialog accessible name. */
+    colorPalette: string;
+    /** ColorPicker: preset swatch list accessible name. */
+    colorPresets: string;
     /** Table.PageSize: label before the select. */
     pageSize: string;
     /** Table.Pagination: previous-page control label. */
@@ -72,6 +82,72 @@ export interface IAuiLabels {
     copied: string;
     /** CopyButton: clipboard failure tooltip. */
     copyFailed: string;
+    /** Dropzone: zone instruction while the list is empty. */
+    dropzonePrompt: string;
+    /** Dropzone: kept for label overrides. The zone uses `dropzonePrompt`. */
+    dropzoneAdd: string;
+    /** Dropzone: remove-file button. */
+    dropzoneRemove: string;
+    /** Dropzone: file list accessible name. */
+    dropzoneList: string;
+    /** Dropzone: reorder handle. */
+    dropzoneReorder: string;
+    /** Dropzone: file exceeds `maxSize`. `{size}` is the limit. */
+    dropzoneTooBig: string;
+    /** Dropzone: size below 1 KB. `{size}` is a byte count. */
+    dropzoneByte: string;
+    /** Dropzone: size in kilobytes. `{size}` is the number. */
+    dropzoneKilobyte: string;
+    /** Dropzone: size in megabytes. `{size}` is the number. */
+    dropzoneMegabyte: string;
+    /** Dropzone: file type is outside `accept`. */
+    dropzoneBadType: string;
+    /** Dropzone: list is already at `maxFiles`. `{count}` is the limit. */
+    dropzoneTooMany: string;
+    /** Dropzone: file name is longer than `maxFileNameLength`. `{count}` is the limit. */
+    dropzoneNameLength: string;
+    /** Dropzone: a file with the same name is already in the list. */
+    dropzoneDuplicate: string;
+    /** Dropzone: rejection that has no specific copy. */
+    dropzoneRejected: string;
+    /** Dropzone: upload request failed. */
+    dropzoneUploadFailed: string;
+    /** Dropzone: retry a failed upload. */
+    dropzoneRetry: string;
+    /** Dropzone: hint under a multi-file list before the first selection. */
+    dropzoneSelectHint: string;
+    /** Dropzone: toolbar count. `{count}` selected, `{total}` in the list. */
+    dropzoneSelected: string;
+    /** Dropzone: select every settled file. */
+    dropzoneSelectAll: string;
+    /** Dropzone: remove the selection. */
+    dropzoneDeleteSelected: string;
+    /** Dropzone: live announcement. `{count}` is how many files left. */
+    dropzoneDeleted: string;
+    /** Dropzone: zone copy when `maxFiles` is 1 and a file is present. */
+    dropzoneReplace: string;
+    /** Dropzone: zone copy while a replacement is dragged. `{name}` is the current file. */
+    dropzoneReplaceDrop: string;
+    /** Dropzone: mark on the file a replacement upload will swap out. */
+    dropzoneReplacing: string;
+    /** Dropzone: file that a dragged file will replace. */
+    dropzoneWillReplace: string;
+    /** Dropzone: prefix when a replacement was refused. `{reason}` follows. */
+    dropzoneNotReplaced: string;
+    /** Dropzone: cancel an in-flight upload. */
+    dropzoneCancel: string;
+    /** Dropzone: file count quota. `{count}` used, `{max}` allowed. */
+    dropzoneQuotaCount: string;
+    /** Dropzone: byte quota. `{size}` and `{max}` are formatted. */
+    dropzoneQuotaBytes: string;
+    /** Dropzone: per-file ceiling. `{size}` is formatted. */
+    dropzonePerFile: string;
+    /** Dropzone: file does not fit `maxTotalSize`. `{name}`, `{size}` is the room left. */
+    dropzoneTotalTooBig: string;
+    /** Dropzone: the list is full. `{count}` and `{max}` are file counts. */
+    dropzoneLimitReached: string;
+    /** Dropzone: form message while a file is still uploading. */
+    dropzoneUploading: string;
 }
 
 export type TAuiLabels = IAuiLabels;
