@@ -103,6 +103,8 @@ export default defineConfig({
                 'react-hook-form',
                 'react-fast-compare',
                 'usehooks-ts',
+                'imask',
+                'react-imask',
                 'zod',
                 /^@hookform\//,
                 /^@react-aria\//,

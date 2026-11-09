@@ -5,20 +5,20 @@ import { z } from 'zod';
 
 import { Form } from '@/form';
 
-import { FormColorPicker } from '..';
+import { FormColorField } from '..';
 
 const schema = z.object({
     color: z.string().min(1, 'Укажите цвет'),
 });
 
-describe('FormColorPicker', () => {
+describe('FormColorField', () => {
     it('submits the hex typed in the field', async () => {
         const user = userEvent.setup();
         const onSubmit = vi.fn();
 
         render(
             <Form initialValues={{ color: '' }} validationSchema={schema} onSubmit={onSubmit}>
-                <FormColorPicker name="color" label="Цвет" />
+                <FormColorField name="color" label="Цвет" />
                 <button type="submit">Save</button>
             </Form>
         );
@@ -38,7 +38,7 @@ describe('FormColorPicker', () => {
 
         render(
             <Form initialValues={{ color: '' }} validationSchema={schema} onSubmit={onSubmit}>
-                <FormColorPicker name="color" label="Цвет" />
+                <FormColorField name="color" label="Цвет" />
                 <button type="submit">Save</button>
             </Form>
         );
@@ -54,7 +54,7 @@ describe('FormColorPicker', () => {
 
         render(
             <Form initialValues={{ color: '' }} validationSchema={schema} onSubmit={vi.fn()}>
-                <FormColorPicker name="color" label="Цвет" />
+                <FormColorField name="color" label="Цвет" />
                 <button type="submit">Save</button>
             </Form>
         );
@@ -66,20 +66,20 @@ describe('FormColorPicker', () => {
         });
     });
 
-    it('disables the picker when Form is disabled', () => {
+    it('disables the field when Form is disabled', () => {
         render(
             <Form initialValues={{ color: '#ff0000' }} disabled onSubmit={vi.fn()}>
-                <FormColorPicker name="color" label="Цвет" />
+                <FormColorField name="color" label="Цвет" />
             </Form>
         );
 
-        expect(screen.getByTestId('color-picker-trigger')).toBeDisabled();
+        expect(screen.getByTestId('color-field-trigger')).toBeDisabled();
     });
 
     it('sets data-test-id on the Field root', () => {
         render(
             <Form initialValues={{ color: '' }} onSubmit={vi.fn()}>
-                <FormColorPicker name="color" label="Цвет" dataTestId="color-field" />
+                <FormColorField name="color" label="Цвет" dataTestId="color-field" />
             </Form>
         );
 

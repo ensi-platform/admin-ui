@@ -1,4 +1,5 @@
 .root {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -28,11 +29,48 @@
     .root {
         transition: none;
     }
+
+    .spinner {
+        animation: none;
+    }
+}
+
+@keyframes aui-button-spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .root:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+.root[data-loading] {
+    opacity: 1;
+    cursor: wait;
+}
+
+.labelHidden {
+    display: inline-flex;
+    align-items: center;
+    gap: inherit;
+    opacity: 0;
+}
+
+.spinner {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    box-sizing: border-box;
+    width: 1em;
+    height: 1em;
+    margin-block-start: -0.5em;
+    margin-inline-start: -0.5em;
+    border: 2px solid currentColor;
+    border-inline-end-color: transparent;
+    border-radius: 50%;
+    animation: aui-button-spin var(--aui-button-duration-spin) linear infinite;
 }
 
 .root:focus-visible {

@@ -5,7 +5,7 @@ import { typographyStyles } from '@ds/typography';
 
 import styles from './styles.module.css';
 
-export const colorPickerGroupVariants = cva(styles.group, {
+export const colorFieldGroupVariants = cva(styles.group, {
     variants: {
         size: {
             sm: cn(styles.sm, typographyStyles.bodyS),

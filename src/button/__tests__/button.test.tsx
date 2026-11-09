@@ -205,6 +205,56 @@ describe('Button', () => {
         expect(screen.getByTestId('test-icon')).toHaveClass(styles.icon, 'extra');
     });
 
+    it('hides the label and does not activate while loading', async () => {
+        const user = userEvent.setup();
+        const onClick = vi.fn();
+
+        render(
+            <Button loading onClick={onClick}>
+                Save
+            </Button>
+        );
+
+        const button = screen.getByRole('button', { name: 'Save' });
+
+        expect(screen.getByText('Save')).toHaveClass(styles.labelHidden);
+        expect(button).toHaveAttribute('data-loading', 'true');
+        expect(button).toHaveAttribute('aria-busy', 'true');
+        expect(button).toBeDisabled();
+
+        await user.click(button);
+        button.focus();
+        await user.keyboard('{Enter} ');
+
+        expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it('does not activate a loading link', async () => {
+        const user = userEvent.setup();
+        const onClick = vi.fn();
+
+        render(
+            <Button as="a" href="/orders" loading onClick={onClick}>
+                Orders
+            </Button>
+        );
+
+        const link = screen.getByText('Orders').closest('a') as HTMLAnchorElement;
+
+        expect(screen.getByText('Orders')).toHaveClass(styles.labelHidden);
+        expect(link).toHaveAttribute('aria-disabled', 'true');
+        expect(link).not.toHaveAttribute('disabled');
+        expect(link).not.toHaveAttribute('href');
+        expect(link).toHaveAttribute('tabindex', '-1');
+
+        await user.click(link);
+        await user.tab();
+
+        expect(link).not.toHaveFocus();
+
+        expect(onClick).not.toHaveBeenCalled();
+    });
+
     it('does not activate a disabled button from the keyboard', async () => {
         const user = userEvent.setup();
         const onClick = vi.fn();
@@ -221,7 +271,7 @@ describe('Button', () => {
         expect(onClick).not.toHaveBeenCalled();
     });
 
-    it('has no axe violations in the default and disabled states', async () => {
+    it('has no axe violations in the default, disabled, and loading states', async () => {
         const enabled = render(<Button>Save</Button>);
 
         expect(await axe(enabled.container)).toHaveNoViolations();
@@ -231,5 +281,11 @@ describe('Button', () => {
         const disabled = render(<Button disabled>Save</Button>);
 
         expect(await axe(disabled.container)).toHaveNoViolations();
+
+        disabled.unmount();
+
+        const loading = render(<Button loading>Save</Button>);
+
+        expect(await axe(loading.container)).toHaveNoViolations();
     });
 });

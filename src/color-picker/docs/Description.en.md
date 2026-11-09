@@ -1,45 +1,26 @@
-A color field: the swatch opens a palette, and the hex sits beside it.
+A palette: saturation area, hue slider, and preset swatches. The hex field is `ColorField`.
 
 ```tsx
-import { ColorPicker, FormColorPicker } from '@ensi-platform/admin-ui/color-picker';
+import { ColorPicker } from '@ensi-platform/admin-ui/color-picker';
 ```
 
 ## When to use
 
-- one opaque color: a badge, a status, a product attribute
-- the code is already known — type it without opening the palette
-- a short list of allowed colors — the `presets` prop
-- a date or a time — see `DatePicker` and `TimeField`
+- the color is chosen on the area, without a code field
+- a short set of allowed colors sits next to the area — the `presets` prop
+- the code must be typed or shown next to a swatch — see `ColorField`
 
 ## API (short)
 
-### ColorPicker
+| Prop                 | Values     | Default | Description                                                                                     |
+| -------------------- | ---------- | ------- | ----------------------------------------------------------------------------------------------- |
+| `value` / `onChange` | `string`   | —       | `#rrggbb`. An empty string shows a gray draft and is not published until the palette is touched |
+| `defaultValue`       | `string`   | `''`    | initial value without external state                                                            |
+| `onPreview`          | `function` | —       | live `#rrggbb` while the pointer is down. This is not a commit                                  |
+| `presets`            | `string[]` | —       | preset swatches. Strings that are not colors are dropped                                        |
+| `hue`                | `number`   | —       | hue of a gray color, in degrees. The field keeps it across opens                                |
+| `onHueChange`        | `function` | —       | next hue after a palette move. Pair of `hue`                                                    |
+| `disabled`           | `boolean`  | `false` | disabled                                                                                        |
+| `dataTestId`         | `string`   | —       | `data-test-id` attribute                                                                        |
 
-| Prop                 | Values               | Default   | Description                                                          |
-| -------------------- | -------------------- | --------- | -------------------------------------------------------------------- |
-| `value` / `onChange` | `string`             | —         | `''` or `#rrggbb`. The color object stays inside                     |
-| `defaultValue`       | `string`             | `''`      | initial value without external state                                 |
-| `presets`            | `string[]`           | —         | swatches in the panel. Strings that are not colors are dropped       |
-| `clear`              | `boolean`            | `false`   | clear button                                                         |
-| `size`               | `sm` \| `md` \| `lg` | `md`      | size                                                                 |
-| `variant`            | `primary`            | `primary` | visual variant                                                       |
-| `invalid`            | `boolean`            | `false`   | error. An unrecognized `value` marks the field too                   |
-| `disabled`           | `boolean`            | `false`   | disabled                                                             |
-| `block`              | `boolean`            | `true`    | full width                                                           |
-| `dataTestId`         | `string`             | —         | `data-test-id` attribute                                             |
-
-Six digits are published immediately. Three digits (`#abc`) expand to `#aabbcc` on blur or Enter. Enter does not submit the form. A drag on the area publishes when the pointer is released; arrow keys on the hue slider publish on each step.
-
-### FormColorPicker
-
-| Prop       | Values               | Default   | Description        |
-| ---------- | -------------------- | --------- | ------------------ |
-| `name`     | `string`             | —         | field name in `Form` |
-| `label`    | `ReactNode`          | —         | label              |
-| `hint`     | `ReactNode`          | —         | hint               |
-| `clear`    | `boolean`            | —         | clear button       |
-| `presets`  | `string[]`           | —         | preset swatches    |
-| `size`     | `sm` \| `md` \| `lg` | `md`      | size               |
-| `variant`  | `primary`            | `primary` | visual variant     |
-| `disabled` | `boolean`            | —         | disabled           |
-| `block`    | `boolean`            | `true`    | full width         |
+A drag publishes when the pointer is released. Arrow keys on the hue slider publish on each step. The first hue move on an empty value publishes gray `#808080`.

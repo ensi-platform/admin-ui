@@ -2,19 +2,19 @@ import { Field, useField } from '@/field';
 import { useFieldHook } from '@/form/hooks/useFieldHook';
 import { getError } from '@/form/utils';
 
-import { ColorPicker } from './Component';
-import { type IColorPickerProps, type IFormColorPickerProps } from './types';
+import { ColorField } from './Component';
+import { type IColorFieldProps, type IFormColorFieldProps } from './types';
 
-type TFormColorPickerControlProps = Omit<IColorPickerProps, 'size' | 'invalid' | 'disabled' | 'value' | 'onChange'> & {
+type TFormColorFieldControlProps = Omit<IColorFieldProps, 'size' | 'invalid' | 'disabled' | 'value' | 'onChange'> & {
     value: string;
     onChange: (value: string) => void;
 };
 
-const FormColorPickerControl = ({ value, onChange, onBlur, ...props }: TFormColorPickerControlProps) => {
+const FormColorFieldControl = ({ value, onChange, onBlur, ...props }: TFormColorFieldControlProps) => {
     const { controlProps, size, invalid, disabled } = useField();
 
     return (
-        <ColorPicker
+        <ColorField
             {...controlProps}
             {...props}
             size={size}
@@ -27,9 +27,9 @@ const FormColorPickerControl = ({ value, onChange, onBlur, ...props }: TFormColo
     );
 };
 
-FormColorPickerControl.displayName = 'FormColorPickerControl';
+FormColorFieldControl.displayName = 'FormColorFieldControl';
 
-export const FormColorPicker = ({
+export const FormColorField = ({
     name,
     label,
     hint,
@@ -39,7 +39,7 @@ export const FormColorPicker = ({
     className,
     dataTestId,
     ...inputProps
-}: IFormColorPickerProps) => {
+}: IFormColorFieldProps) => {
     const { field, fieldState, inputProps: rhfInputProps, onChange, onBlurHandler } = useFieldHook({ name });
     const error = getError(fieldState.error)?.message;
     const isDisabled = disabled ?? rhfInputProps.disabled;
@@ -54,7 +54,7 @@ export const FormColorPicker = ({
             dataTestId={dataTestId}
         >
             {label ? <Field.Label>{label}</Field.Label> : null}
-            <FormColorPickerControl
+            <FormColorFieldControl
                 {...inputProps}
                 block={block}
                 inputRef={field.ref}
@@ -71,4 +71,4 @@ export const FormColorPicker = ({
     );
 };
 
-FormColorPicker.displayName = 'FormColorPicker';
+FormColorField.displayName = 'FormColorField';

@@ -38,4 +38,5 @@ export const docsCssVariables = `/* CSS variables — Button (--aui-button-*) */
 --aui-button-pad-x-lg: var(--aui-spacing-24); /* padding-x lg */
 
 --aui-button-duration-fast: var(--aui-control-duration-fast); /* transition duration */
+--aui-button-duration-spin: 0.8s; /* loading spinner turn */
 --aui-button-ease-out: var(--aui-control-ease-out); /* transition easing */`;

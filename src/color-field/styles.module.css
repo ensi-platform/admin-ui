@@ -1,0 +1,180 @@
+.root {
+    display: inline-flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.block {
+    width: 100%;
+}
+
+.group {
+    display: flex;
+    align-items: center;
+    gap: var(--aui-color-field-gap-md);
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    border-radius: var(--aui-color-field-radius-md);
+    background: var(--aui-color-field-bg-primary);
+    color: var(--aui-color-field-fg-primary);
+    transition: border-color var(--aui-color-field-duration-fast) var(--aui-color-field-ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .group,
+    .swatch,
+    .clear {
+        transition: none;
+    }
+}
+
+.sm {
+    height: var(--aui-color-field-h-sm);
+    padding-inline: var(--aui-color-field-pad-x-sm);
+}
+
+.md {
+    height: var(--aui-color-field-h-md);
+    padding-inline: var(--aui-color-field-pad-x-md);
+}
+
+.lg {
+    height: var(--aui-color-field-h-lg);
+    padding-inline: var(--aui-color-field-pad-x-lg);
+}
+
+.sm .swatch {
+    width: var(--aui-color-field-swatch-sm);
+    height: var(--aui-color-field-swatch-sm);
+}
+
+.lg .swatch {
+    width: var(--aui-color-field-swatch-lg);
+    height: var(--aui-color-field-swatch-lg);
+}
+
+.primary {
+    border-color: var(--aui-color-field-border-primary);
+}
+
+.primary[data-focus-within]:not([data-disabled]) {
+    border-color: var(--aui-color-field-border-focus);
+}
+
+.primary[data-invalid] {
+    border-color: var(--aui-color-field-border-danger);
+}
+
+.group[data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.swatch,
+.clear {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--aui-color-field-fg-muted);
+    cursor: pointer;
+}
+
+.swatch {
+    position: relative;
+    width: var(--aui-color-field-swatch-md);
+    height: var(--aui-color-field-swatch-md);
+    border: 1px solid var(--aui-color-field-border-primary);
+    border-radius: var(--aui-color-field-swatch-radius);
+    background: var(--aui-color-field-bg-primary);
+    overflow: hidden;
+}
+
+.swatch[data-empty]::after {
+    content: '';
+    position: absolute;
+    inset: var(--aui-color-field-empty-inset);
+    background: linear-gradient(
+        to bottom right,
+        transparent calc(50% - 1px),
+        var(--aui-color-field-fg-muted) calc(50% - 1px),
+        var(--aui-color-field-fg-muted) calc(50% + 1px),
+        transparent calc(50% + 1px)
+    );
+}
+
+.swatch:focus,
+.clear:focus {
+    outline: none;
+}
+
+.swatch:focus-visible,
+.clear:focus-visible {
+    outline: 2px solid var(--aui-color-field-border-focus);
+    outline-offset: 0;
+}
+
+.swatchColor {
+    width: 100%;
+    height: 100%;
+}
+
+.hex {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--aui-color-field-fg-primary);
+    font: inherit;
+}
+
+.hex::placeholder {
+    color: var(--aui-color-field-fg-muted);
+}
+
+.hex:disabled {
+    cursor: not-allowed;
+}
+
+.clear {
+    width: var(--aui-color-field-icon-hit);
+    height: var(--aui-color-field-icon-hit);
+    border-radius: var(--aui-color-field-clear-radius);
+}
+
+.clear:hover {
+    color: var(--aui-color-field-fg-primary);
+}
+
+.icon {
+    display: block;
+    width: var(--aui-color-field-icon-size);
+    height: var(--aui-color-field-icon-size);
+}
+
+.popover {
+    box-sizing: border-box;
+    width: var(--aui-color-field-popover-w);
+    min-width: var(--aui-color-field-popover-w);
+    max-width: var(--aui-color-field-popover-w);
+    padding: var(--aui-color-field-popover-pad);
+    border: var(--aui-color-field-popover-border-w) solid var(--aui-color-field-popover-border);
+    border-radius: var(--aui-color-field-popover-radius);
+    background: var(--aui-color-field-popover-bg);
+    box-shadow: var(--aui-color-field-popover-shadow);
+    z-index: var(--aui-color-field-popover-z);
+}
+
+.dialog {
+    width: 100%;
+    outline: none;
+}

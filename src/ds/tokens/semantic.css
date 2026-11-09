@@ -82,6 +82,7 @@
     --aui-button-pad-y-lg: var(--aui-spacing-12);
     --aui-button-pad-x-lg: var(--aui-spacing-24);
     --aui-button-duration-fast: var(--aui-control-duration-fast);
+    --aui-button-duration-spin: 0.8s;
     --aui-button-ease-out: var(--aui-control-ease-out);
 
     /* link */
@@ -335,45 +336,54 @@
     --aui-date-picker-duration-fast: var(--aui-control-duration-fast);
     --aui-date-picker-ease-out: var(--aui-control-ease-out);
 
-    /* color-picker — field + popover */
-    --aui-color-picker-bg-primary: var(--aui-input-bg-primary);
-    --aui-color-picker-fg-primary: var(--aui-input-fg-primary);
-    --aui-color-picker-fg-muted: var(--aui-input-fg-muted);
-    --aui-color-picker-border-primary: var(--aui-input-border-primary);
-    --aui-color-picker-border-focus: var(--aui-input-border-focus);
-    --aui-color-picker-border-danger: var(--aui-input-border-danger);
-    --aui-color-picker-radius-md: var(--aui-input-radius-md);
-    --aui-color-picker-h-sm: var(--aui-input-h-sm);
-    --aui-color-picker-h-md: var(--aui-input-h-md);
-    --aui-color-picker-h-lg: var(--aui-input-h-lg);
-    --aui-color-picker-pad-x-sm: var(--aui-input-pad-x-sm);
-    --aui-color-picker-pad-x-md: var(--aui-input-pad-x-md);
-    --aui-color-picker-pad-x-lg: var(--aui-input-pad-x-lg);
+    /* color-field — hex field + popover */
+    --aui-color-field-bg-primary: var(--aui-input-bg-primary);
+    --aui-color-field-fg-primary: var(--aui-input-fg-primary);
+    --aui-color-field-fg-muted: var(--aui-input-fg-muted);
+    --aui-color-field-border-primary: var(--aui-input-border-primary);
+    --aui-color-field-border-focus: var(--aui-input-border-focus);
+    --aui-color-field-border-danger: var(--aui-input-border-danger);
+    --aui-color-field-radius-md: var(--aui-input-radius-md);
+    --aui-color-field-h-sm: var(--aui-input-h-sm);
+    --aui-color-field-h-md: var(--aui-input-h-md);
+    --aui-color-field-h-lg: var(--aui-input-h-lg);
+    --aui-color-field-pad-x-sm: var(--aui-input-pad-x-sm);
+    --aui-color-field-pad-x-md: var(--aui-input-pad-x-md);
+    --aui-color-field-pad-x-lg: var(--aui-input-pad-x-lg);
+    --aui-color-field-gap-md: var(--aui-spacing-8);
+    --aui-color-field-icon-size: var(--aui-spacing-16);
+    --aui-color-field-icon-hit: var(--aui-spacing-24);
+    --aui-color-field-clear-radius: var(--aui-control-radius-sm);
+    --aui-color-field-swatch-sm: var(--aui-spacing-16);
+    --aui-color-field-swatch-md: var(--aui-spacing-20);
+    --aui-color-field-swatch-lg: var(--aui-spacing-24);
+    --aui-color-field-swatch-radius: var(--aui-control-radius-sm);
+    --aui-color-field-empty-inset: 3px;
+    --aui-color-field-popover-bg: var(--aui-surface-bg-elevated);
+    --aui-color-field-popover-border: var(--aui-surface-border-primary);
+    --aui-color-field-popover-radius: var(--aui-control-radius-md);
+    --aui-color-field-popover-pad: var(--aui-spacing-12);
+    --aui-color-field-popover-border-w: 1px;
+    --aui-color-field-popover-w: calc(
+        var(--aui-color-picker-area) + 2 * var(--aui-color-field-popover-pad) + 2 *
+            var(--aui-color-field-popover-border-w)
+    );
+    --aui-color-field-popover-shadow: var(--aui-shadow-sm);
+    --aui-color-field-popover-z: var(--aui-z-dropdown);
+    --aui-color-field-duration-fast: var(--aui-control-duration-fast);
+    --aui-color-field-ease-out: var(--aui-control-ease-out);
+
+    /* color-picker — palette */
     --aui-color-picker-gap-md: var(--aui-spacing-8);
-    --aui-color-picker-icon-size: var(--aui-spacing-16);
-    --aui-color-picker-icon-hit: var(--aui-spacing-24);
-    --aui-color-picker-clear-radius: var(--aui-control-radius-sm);
-    --aui-color-picker-swatch-sm: var(--aui-spacing-16);
-    --aui-color-picker-swatch-md: var(--aui-spacing-20);
-    --aui-color-picker-swatch-lg: var(--aui-spacing-24);
+    --aui-color-picker-radius-md: var(--aui-control-radius-md);
     --aui-color-picker-swatch-radius: var(--aui-control-radius-sm);
     --aui-color-picker-area: calc(var(--aui-spacing) * 48);
     --aui-color-picker-slider-h: var(--aui-spacing-16);
     --aui-color-picker-thumb: var(--aui-spacing-16);
     --aui-color-picker-thumb-ring: 2px;
-    --aui-color-picker-empty-inset: 3px;
     --aui-color-picker-thumb-border: var(--aui-surface-bg-elevated);
     --aui-color-picker-preset: var(--aui-spacing-24);
-    --aui-color-picker-popover-bg: var(--aui-surface-bg-elevated);
-    --aui-color-picker-popover-border: var(--aui-surface-border-primary);
-    --aui-color-picker-popover-radius: var(--aui-control-radius-md);
-    --aui-color-picker-popover-pad: var(--aui-spacing-12);
-    --aui-color-picker-popover-border-w: 1px;
-    --aui-color-picker-popover-w: calc(var(--aui-color-picker-area) + 2 * var(--aui-color-picker-popover-pad) + 2 * var(--aui-color-picker-popover-border-w));
-    --aui-color-picker-popover-shadow: var(--aui-shadow-sm);
-    --aui-color-picker-popover-z: var(--aui-z-dropdown);
-    --aui-color-picker-duration-fast: var(--aui-control-duration-fast);
-    --aui-color-picker-ease-out: var(--aui-control-ease-out);
+    --aui-color-picker-shadow: var(--aui-shadow-sm);
 
     /* date-range-picker — aliases date-picker */
     --aui-date-range-picker-bg-primary: var(--aui-date-picker-bg-primary);

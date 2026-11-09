@@ -1,15 +1,26 @@
 import { type Color, parseColor } from 'react-aria-components';
 
-/** Draft shown in the panel when the field is empty. Never emitted. */
+/** Draft shown in the panel when the value is empty. Never emitted. */
 export const IDLE_DRAFT = '#808080';
 
 /** HSB color for the RAC picker, so hue survives gray values. */
 export const toDraftColor = (hex: string): Color => parseColor(hex).toFormat('hsb');
 
-const HEX_BODY = /^[0-9a-fA-F]+$/;
-const COMPLETE_CSS = /^(rgb|rgba|hsl|hsla|hsb|hsba)\([^)]+\)$/i;
+export const hexOf = (color: Color) => color.toString('hex').toLowerCase();
 
-export type TCommitMode = 'live' | 'settle';
+/**
+ * Gray hex has no hue. Keep a hue the field stored across a remount.
+ * Chromatic colors already encode hue, so the stored value is ignored.
+ */
+export const withStoredHue = (color: Color, hue: number | undefined): Color => {
+    if (hue == null || color.getChannelValue('saturation') !== 0) return color;
+
+    if (color.getChannelValue('hue') === hue) return color;
+
+    return color.withChannelValue('hue', hue);
+};
+
+const HEX_BODY = /^[0-9a-fA-F]+$/;
 
 const readHex = (candidate: string): string | null => {
     try {
@@ -28,54 +39,6 @@ export const toHexColor = (value: string): string | null => {
     if (HEX_BODY.test(trimmed)) return readHex(`#${trimmed}`);
 
     return readHex(trimmed);
-};
-
-/**
- * Hex to publish.
- * `''` clears on settle. `null` means "keep typing" or "not a color".
- * Three-digit hex expands only on settle, so `#abcdef` can be typed.
- */
-export const commitHexInput = (raw: string, mode: TCommitMode): string | null => {
-    const trimmed = raw.trim();
-
-    if (!trimmed) return mode === 'settle' ? '' : null;
-
-    const body = trimmed.startsWith('#') ? trimmed.slice(1) : trimmed;
-
-    if (HEX_BODY.test(body)) {
-        if (body.length === 6) return `#${body.toLowerCase()}`;
-
-        if (mode === 'settle' && body.length === 3) {
-            const [red, green, blue] = body.toLowerCase();
-
-            return `#${red}${red}${green}${green}${blue}${blue}`;
-        }
-
-        return null;
-    }
-
-    const parsed = toHexColor(trimmed);
-
-    if (!parsed) return null;
-
-    if (mode === 'live' && !COMPLETE_CSS.test(trimmed)) return null;
-
-    return parsed;
-};
-
-/** How a stored string should look in the field before the user edits it. */
-export const describeColorValue = (
-    value: string | null | undefined
-): { text: string; hex: string | null; unrecognized: boolean } => {
-    if (value == null || value.trim() === '') {
-        return { text: '', hex: null, unrecognized: false };
-    }
-
-    const hex = toHexColor(value);
-
-    if (!hex) return { text: '', hex: null, unrecognized: true };
-
-    return { text: hex, hex, unrecognized: false };
 };
 
 /** Preset list as unique `#rrggbb`. Drops values that are not colors. */

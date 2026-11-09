@@ -45,6 +45,7 @@ Import `@ensi-platform/admin-ui/<folder>` (`button`, `date-picker`, …). Inside
 | Removable chip: a `MultiSelect` value or one applied filter | `Tag` | `Badge` |
 | Applied filters on a list: one chip per value, remove, and a clear link. Several values of one field collapse into a count chip | `ActiveFilters` | `Filters` (the form), `Badge` |
 | Free single-line text: name, email, search | `Input` / `FormInput` | multiline — `TextArea`; a number — `NumberInput` |
+| Text in a fixed format: phone, tax id, code. The app passes the IMask pattern in `opts` (keep the object stable); the value is the string as shown, with mask literals | `Mask` / `FormMask` | free text — `Input`; a date — `DatePicker`; a number — `NumberInput` |
 | Free multiline text: comment, description, address | `TextArea` / `FormTextArea` | `Input` |
 | One value from a dictionary or enum, no typing | `Select` / `FormSelect` | several values — `MultiSelect`; typing — `Autocomplete` |
 | Several values from a dictionary or enum, no typing | `MultiSelect` / `FormMultiSelect` | `Select`; a status in a cell — `Badge` |

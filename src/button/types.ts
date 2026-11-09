@@ -40,6 +40,8 @@ export interface IButtonOwnProps extends IDataTestIdProps {
     block?: boolean;
     /** Hide only the text (children); the icon stays. Provide aria-label for the accessible name. */
     hidden?: boolean;
+    /** Hide the label, show a spinner, and ignore activation. */
+    loading?: boolean;
 }
 
 export interface IButtonBaseProps extends IButtonThemeProps, IButtonOwnProps {}

@@ -110,7 +110,7 @@ Light brand = neutral (`neutral-800` = `#171717`, fg `neutral-50`). Dark brand =
 | surface           | `surface-bg-primary`, `surface-bg-muted`, `surface-bg-muted-hover`, `surface-bg-muted-active`, `surface-bg-elevated`, `surface-border-primary`, `surface-border-muted`                                                                                                                                                                                                                                                      |
 | overlay           | `overlay-bg-primary` (shared backdrop; place UI aliases only)                                                                                                                                                                                                                                                                                                                                                               |
 | control           | `control-bg-brand`, `control-bg-brand-hover`, `control-bg-brand-active`, `control-bg-danger`, `control-bg-danger-hover`, `control-bg-danger-active`, `control-bg-success`, `control-bg-warning`, `control-fg-brand`, `control-fg-danger`, `control-border-focus`, `control-border-danger`                                                                                                                                   |
-| button            | `button-bg/fg-primary[-hover\|-active]`, `button-bg/fg-secondary[-hover\|-active]`, `button-bg/fg-danger[-hover\|-active]`, `button-bg/fg-tertiary[-hover\|-active]`, `button-border-tertiary`, `button-border-focus`, `button-radius-md`, `button-gap-md`, `button-line-height`, `button-h-sm\|md\|lg`, `button-pad-y/x-sm\|md\|lg`                                                                                        |
+| button            | `button-bg/fg-primary[-hover\|-active]`, `button-bg/fg-secondary[-hover\|-active]`, `button-bg/fg-danger[-hover\|-active]`, `button-bg/fg-tertiary[-hover\|-active]`, `button-border-tertiary`, `button-border-focus`, `button-radius-md`, `button-gap-md`, `button-line-height`, `button-h-sm\|md\|lg`, `button-pad-y/x-sm\|md\|lg`, `button-duration-fast`, `button-duration-spin`, `button-ease-out`                                                                                        |
 | link              | `link-fg`, `link-fg-hover`, `link-border-focus`, `link-duration-fast`, `link-ease-out`                                                                                                                                                                                                                                                                                                                                      |
 | copy-button       | `copy-button-fg`, `copy-button-fg-hover`, `copy-button-fg-active`, `copy-button-fg-copied`, `copy-button-fg-danger`, `copy-button-border-focus`, `copy-button-gap`, `copy-button-icon-size`, `copy-button-duration-fast`, `copy-button-ease-out`                                                                                                                                                                             |
 | input             | `input-bg-primary`, `input-fg-primary`, `input-fg-muted`, `input-border-primary`, `input-border-focus`, `input-border-danger`, `input-radius-md`, `input-h-sm\|md\|lg`, `input-pad-x-sm\|md\|lg`                                                                                                                                                                                                                            |
@@ -126,7 +126,8 @@ Light brand = neutral (`neutral-800` = `#171717`, fg `neutral-50`). Dark brand =
 | active-filters    | `active-filters-gap-md`, `active-filters-border-hover`, `active-filters-border-focus`, `active-filters-icon-size-md`, `active-filters-icon-fg`, `active-filters-icon-fg-hover`, `active-filters-icon-gap`, `active-filters-list-gap`, `active-filters-panel-max-w`, `active-filters-panel-max-h`, `active-filters-clear-fg-hover` (applied chip row; chip chrome is `Tag`) |
 | arrangement-settings   | `arrangement-settings-gap-md`, `arrangement-settings-item-pad-x/y-md`, `arrangement-settings-item-radius-md`, `arrangement-settings-item-fg`, `arrangement-settings-item-bg-hover`, `arrangement-settings-grip-w/h-md`, `arrangement-settings-indicator`, `arrangement-settings-indicator-h`, `arrangement-settings-preview-bg`, `arrangement-settings-preview-shadow` |
 | date-picker       | field + popover: `date-picker-bg/fg-primary`, `date-picker-fg-muted`, `date-picker-border-primary/focus/danger`, `date-picker-radius-md`, `date-picker-h-sm\|md\|lg`, `date-picker-pad-x-*`, `date-picker-gap-md`, `date-picker-icon-*`, `date-picker-popover-*` (incl. `popover-w`)                                                                                                                                        |
-| color-picker      | field + popover: `color-picker-bg/fg-primary`, `color-picker-fg-muted`, `color-picker-border-primary/focus/danger`, `color-picker-radius-md`, `color-picker-h-sm\|md\|lg`, `color-picker-pad-x-*`, `color-picker-gap-md`, `color-picker-swatch-sm|md|lg`, `color-picker-area`, `color-picker-slider-h`, `color-picker-thumb-ring`, `color-picker-empty-inset`, `color-picker-popover-*` |
+| color-field       | hex field + popover: `color-field-bg/fg-primary`, `color-field-fg-muted`, `color-field-border-primary/focus/danger`, `color-field-radius-md`, `color-field-h-sm\|md\|lg`, `color-field-pad-x-*`, `color-field-gap-md`, `color-field-swatch-sm\|md\|lg`, `color-field-popover-*` |
+| color-picker      | palette: `color-picker-gap-md`, `color-picker-radius-md`, `color-picker-area`, `color-picker-slider-h`, `color-picker-thumb`, `color-picker-preset`, `color-picker-shadow` |
 | date-range-picker | aliases date-picker place (`date-range-picker-*`)                                                                                                                                                                                                                                                                                                                                                                           |
 | time-field        | `time-field-bg/fg-primary`, `time-field-fg-muted`, `time-field-border-primary/focus/danger`, `time-field-radius-md`, `time-field-h-sm\|md\|lg`, `time-field-pad-x-*`, `time-field-gap-md`, `time-field-icon-*`                                                                                                                                                                                                              |
 | calendar          | vertical scroll grid: `calendar-bg/fg-primary`, `calendar-fg-muted/selected`, `calendar-bg-selected/hover/range/today`, `calendar-border-today/focus`, `calendar-max-h`, `calendar-pad/gap-*`, `calendar-cell-size/radius-md`, `calendar-heading-pad-y-md`, `calendar-popover-w`                                                                                                                                            |
@@ -245,17 +246,19 @@ dropzone-duration-fast | dropzone-duration-normal | dropzone-ease-out
 ### Color picker (semantic place)
 
 ```
-color-picker-bg/fg-primary | color-picker-fg-muted
-color-picker-border-primary | focus | danger
-color-picker-radius-md
-color-picker-h-sm | md | lg
-color-picker-pad-x-sm | md | lg
-color-picker-gap-md
-color-picker-icon-size | color-picker-icon-hit | color-picker-clear-radius
-color-picker-swatch-sm | md | lg | color-picker-swatch-radius | color-picker-preset
-color-picker-area | color-picker-slider-h | color-picker-thumb | color-picker-thumb-border
-color-picker-popover-bg | border | radius | pad | w | shadow | z
-color-picker-duration-fast | color-picker-ease-out
+color-field-bg/fg-primary | color-field-fg-muted
+color-field-border-primary | focus | danger
+color-field-radius-md
+color-field-h-sm | md | lg
+color-field-pad-x-sm | md | lg
+color-field-gap-md
+color-field-icon-size | color-field-icon-hit | color-field-clear-radius
+color-field-swatch-sm | md | lg | color-field-swatch-radius | color-field-empty-inset
+color-field-popover-bg | border | radius | pad | w | shadow | z
+color-field-duration-fast | color-field-ease-out
+color-picker-gap-md | color-picker-radius-md | color-picker-swatch-radius
+color-picker-area | color-picker-slider-h | color-picker-thumb | color-picker-thumb-border | color-picker-thumb-ring
+color-picker-preset | color-picker-shadow
 ```
 
 ### Textarea (semantic place)
@@ -326,7 +329,7 @@ Place-алиасы (CSS Module читает только свой place):
 {place}-duration-fast | {place}-ease-out
 ```
 
-Places с motion: `button`, `input`, `dropzone`, `textarea`, `number-input`, `date-picker`, `date-range-picker`, `time-field`, `color-picker`, `calendar`, `checkbox`, `switch`, `combobox`, `field-clear`, `tooltip`, `popover`, `modal`, `drawer`, `bottom-sheet`, `tabs`, `vertical-tabs`, `copy-button`, `table`.
+Places с motion: `button`, `input`, `dropzone`, `textarea`, `number-input`, `date-picker`, `date-range-picker`, `time-field`, `color-field`, `calendar`, `checkbox`, `switch`, `combobox`, `field-clear`, `tooltip`, `popover`, `modal`, `drawer`, `bottom-sheet`, `tabs`, `vertical-tabs`, `copy-button`, `table`.
 
 В CSS Module — только `var(--aui-{place}-duration-*)` / `var(--aui-{place}-ease-*)`, не primitive и не `--aui-control-*` напрямую. Всегда `prefers-reduced-motion: reduce` → `transition: none`.
 

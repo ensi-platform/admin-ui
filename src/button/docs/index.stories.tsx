@@ -23,6 +23,7 @@ const DEFAULT_ARG_TYPES: ArgTypes<Partial<IButtonBaseProps>> = {
     size: { control: { type: 'select' } },
     variant: { control: { type: 'select' } },
     block: { control: { type: 'boolean' } },
+    loading: { control: { type: 'boolean' } },
 };
 
 export default {
@@ -45,6 +46,7 @@ export default {
     args: {
         ...DEFAULT_ARGS,
         disabled: false,
+        loading: false,
     },
     argTypes: DEFAULT_ARG_TYPES,
 } satisfies Meta<typeof ButtonStoryComponent>;
@@ -54,6 +56,12 @@ export const Default: StoryObj<TButtonProps> = {};
 export const Disabled: StoryObj<TButtonProps> = {
     args: {
         disabled: true,
+    },
+};
+
+export const Loading: StoryObj<TButtonProps> = {
+    args: {
+        loading: true,
     },
 };
 

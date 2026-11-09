@@ -104,10 +104,12 @@
         "@internationalized/date": "^3.12.4",
         "class-variance-authority": "0.7.1",
         "classnames": "2.5.1",
+        "imask": "7.6.1",
         "react-aria": "3.52.1",
         "react-aria-components": "^1.21.1",
         "react-dropzone": "^20.1.4",
         "react-fast-compare": "^3.2.2",
+        "react-imask": "7.6.1",
         "usehooks-ts": "^3.1.1"
     },
     "publishConfig": {
@@ -165,6 +167,10 @@
         "./checkbox-group": {
             "types": "./dist/checkbox-group/index.d.ts",
             "import": "./dist/checkbox-group/index.js"
+        },
+        "./color-field": {
+            "types": "./dist/color-field/index.d.ts",
+            "import": "./dist/color-field/index.js"
         },
         "./color-picker": {
             "types": "./dist/color-picker/index.d.ts",
@@ -241,6 +247,10 @@
         "./loader": {
             "types": "./dist/loader/index.d.ts",
             "import": "./dist/loader/index.js"
+        },
+        "./mask": {
+            "types": "./dist/mask/index.d.ts",
+            "import": "./dist/mask/index.js"
         },
         "./menu-list": {
             "types": "./dist/menu-list/index.d.ts",

@@ -1,0 +1,34 @@
+/* CSS variables — ColorField (--aui-color-field-*) */
+export const docsCssVariables = `--aui-color-field-bg-primary: var(--aui-input-bg-primary); /* field fill */
+--aui-color-field-fg-primary: var(--aui-input-fg-primary); /* field foreground */
+--aui-color-field-fg-muted: var(--aui-input-fg-muted); /* placeholder and empty mark */
+--aui-color-field-border-primary: var(--aui-input-border-primary); /* field border */
+--aui-color-field-border-focus: var(--aui-input-border-focus); /* focus border */
+--aui-color-field-border-danger: var(--aui-input-border-danger); /* invalid border */
+--aui-color-field-radius-md: var(--aui-input-radius-md); /* field radius */
+--aui-color-field-h-sm: var(--aui-input-h-sm); /* height sm */
+--aui-color-field-h-md: var(--aui-input-h-md); /* height md */
+--aui-color-field-h-lg: var(--aui-input-h-lg); /* height lg */
+--aui-color-field-pad-x-sm: var(--aui-input-pad-x-sm); /* padding-x sm */
+--aui-color-field-pad-x-md: var(--aui-input-pad-x-md); /* padding-x md */
+--aui-color-field-pad-x-lg: var(--aui-input-pad-x-lg); /* padding-x lg */
+--aui-color-field-gap-md: var(--aui-spacing-8); /* gap inside the field */
+--aui-color-field-icon-size: var(--aui-spacing-16); /* clear icon size */
+--aui-color-field-icon-hit: var(--aui-spacing-24); /* clear icon hit area */
+--aui-color-field-clear-radius: var(--aui-control-radius-sm); /* clear button radius */
+--aui-color-field-swatch-sm: var(--aui-spacing-16); /* trigger swatch sm */
+--aui-color-field-swatch-md: var(--aui-spacing-20); /* trigger swatch md */
+--aui-color-field-swatch-lg: var(--aui-spacing-24); /* trigger swatch lg */
+--aui-color-field-swatch-radius: var(--aui-control-radius-sm); /* trigger swatch radius */
+--aui-color-field-empty-inset: 3px; /* empty swatch slash inset */
+--aui-color-field-popover-bg: var(--aui-surface-bg-elevated); /* panel fill */
+--aui-color-field-popover-border: var(--aui-surface-border-primary); /* panel border */
+--aui-color-field-popover-radius: var(--aui-control-radius-md); /* panel radius */
+--aui-color-field-popover-pad: var(--aui-spacing-12); /* panel padding */
+--aui-color-field-popover-border-w: 1px; /* panel border width */
+--aui-color-field-popover-w: calc(var(--aui-color-picker-area) + 2 * var(--aui-color-field-popover-pad) + 2 * var(--aui-color-field-popover-border-w)); /* panel width, flush with the area */
+--aui-color-field-popover-shadow: var(--aui-shadow-sm); /* panel shadow */
+--aui-color-field-popover-z: var(--aui-z-dropdown); /* panel z-index */
+--aui-color-field-duration-fast: var(--aui-control-duration-fast); /* transition duration */
+--aui-color-field-ease-out: var(--aui-control-ease-out); /* transition easing */
+`;

@@ -110,6 +110,7 @@ Shared chrome: `IDataTestIdProps` / `TMergeElementProps` в `@ds/common`.
 - `Badge` — semantic `variant`, не `primary`
 - `Tag` — Theme + Own (+ `onRemove`), без Form
 - `Icon` / `Provider` / `Form` — не chrome-control
+- `ColorPicker` — headless-палитра без `size` / `variant` / Form; chrome-поле — `ColorField`
 
 ## Base props inheritance
 

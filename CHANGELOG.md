@@ -1,3 +1,13 @@
+## Unreleased
+
+### BREAKING CHANGES
+- `ColorPicker` is now a headless palette (no `size`, `variant`, `invalid`, `clear`, `onBlur`, `inputRef`, `id`, `aria-*` field props); `FormColorPicker` and `TColorPickerSize` are removed. Use `ColorField` / `FormColorField` for the hex field.
+
+### Features
+- add `ColorField` / `FormColorField`
+- add `Mask` / `FormMask` (IMask)
+- add `Button` `loading`
+
 ## 0.11.0 - 2026-11-09
 
 ### Features
