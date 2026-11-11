@@ -50,6 +50,8 @@ interface IUseAutocompleteSuggest {
 | `block`        | `boolean`                                   | —            | на всю ширину                     |
 | `dataTestId`   | `string`                                    | —            | атрибут `data-test-id` для тестов |
 
+Правка текста не сбрасывает `value`. Blur возвращает подпись выбранного пункта.
+
 Без внешних `options` / `isLoading`.
 
 ### FormAutocompleteAsync

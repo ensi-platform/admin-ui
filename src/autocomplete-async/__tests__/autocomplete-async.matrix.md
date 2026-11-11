@@ -8,6 +8,7 @@
 | Cached label follows a rename and stays after the option leaves the list | `it('keeps the cached label when the option is renamed and then leaves the list')` |
 | Value with no matching option stays empty | `it('ignores controlled value with no matching option')` |
 | Clear emits `null` and empties the field | `it('clears selection and input')` |
+| Full erase keeps the selected key; blur restores the label | `it('keeps the selected value when the input is cleared and restores the label on blur')` |
 | Controlled `null` clears the field | `it('clears input when controlled value becomes null')` |
 | `minLength` | `it('respects minLength before enabling suggest')` |
 | `debounceMs` default 300 | `it('waits for the default debounce before loading suggestions')` |

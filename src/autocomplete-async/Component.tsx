@@ -17,10 +17,18 @@ export const AutocompleteAsync = supportRef(
         disabled = false,
         value,
         onChange,
+        onBlur,
         ...props
     }: IAutocompleteAsyncProps) => {
         const { inputValue, setInputValue, debouncedQuery } = useAutocompleteAsyncInput(debounceMs);
         const selectedRef = useRef<IComboboxOption | null>(null);
+        const editedRef = useRef(false);
+        const valueRef = useRef(value);
+
+        if (valueRef.current !== value) {
+            valueRef.current = value;
+            editedRef.current = false;
+        }
         const enabled = !disabled && debouncedQuery.length >= minLength;
         const { options, isLoading, isLoadingMore, isError, hasMore, loadMore } = useAutocompleteAsyncSuggest({
             useSuggest,
@@ -56,6 +64,33 @@ export const AutocompleteAsync = supportRef(
             onChange?.(next);
         };
 
+        const handleInputChange = (next: string) => {
+            const selected = selectedRef.current;
+            const selectedLabel = selected != null && selected.value === value ? selected.label : undefined;
+
+            if (value != null && value !== '' && next !== selectedLabel) {
+                editedRef.current = true;
+            }
+
+            setInputValue(next);
+        };
+
+        const handleBlur = () => {
+            editedRef.current = false;
+
+            if (value != null && value !== '') {
+                const fromOptions = options.find(item => item.value === value);
+                const cached = selectedRef.current?.value === value ? selectedRef.current : null;
+                const option = fromOptions ?? cached;
+
+                if (option != null && inputValue !== option.label) {
+                    setInputValue(option.label);
+                }
+            }
+
+            onBlur?.();
+        };
+
         useEffect(() => {
             // Uncontrolled value — selection display is owned by handleChange only.
             if (value === undefined) {
@@ -89,11 +124,11 @@ export const AutocompleteAsync = supportRef(
             }
 
             const previousLabel = cached?.label;
-            const shouldSyncEmpty = inputValue === '';
+            const shouldSyncEmpty = inputValue === '' && !editedRef.current;
             const shouldSyncRenamedLabel =
                 previousLabel != null && inputValue === previousLabel && inputValue !== option.label;
 
-            // Sync empty display or label rename; do not overwrite in-progress typing.
+            // Sync the label before the user edits, or after a rename. Blur restores a cleared field.
             if (shouldSyncEmpty || shouldSyncRenamedLabel) {
                 setInputValue(option.label);
             }
@@ -119,7 +154,8 @@ export const AutocompleteAsync = supportRef(
                 onLoadMore={loadMore}
                 isLoadingMore={isLoadingMore}
                 inputValue={inputValue}
-                onInputChange={setInputValue}
+                onInputChange={handleInputChange}
+                onBlur={handleBlur}
             />
         );
     }

@@ -50,6 +50,8 @@ Pass a stable module hook reference (not inline or conditional).
 | `block`        | `boolean`                                   | —       | full width                                 |
 | `dataTestId`   | `string`                                    | —       | `data-test-id` for tests                   |
 
+Editing the text does not clear `value`. Blur restores the selected label.
+
 No external `options` / `isLoading`.
 
 ### FormAutocompleteAsync

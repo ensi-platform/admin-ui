@@ -243,6 +243,40 @@ describe('AutocompleteAsync', () => {
         });
     });
 
+    it('keeps the selected value when the input is cleared and restores the label on blur', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(
+            <AdminUiProvider>
+                <AutocompleteAsync
+                    aria-label="Brand"
+                    useSuggest={useStaticSuggest}
+                    debounceMs={0}
+                    value="nike"
+                    onChange={onChange}
+                />
+            </AdminUiProvider>
+        );
+
+        const input = screen.getByRole('combobox', { name: /Brand/ });
+
+        await waitFor(() => {
+            expect(input).toHaveValue('Nike');
+        });
+
+        await user.clear(input);
+
+        expect(input).toHaveValue('');
+        expect(onChange).not.toHaveBeenCalled();
+
+        await user.click(document.body);
+
+        expect(input).toHaveValue('Nike');
+        // RAC re-emits the current key when a controlled combobox blurs with a mismatched input.
+        expect(onChange.mock.calls.every(call => call[0] === 'nike')).toBe(true);
+    });
+
     it('ignores controlled value with no matching option', async () => {
         render(
             <AdminUiProvider>

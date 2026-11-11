@@ -208,11 +208,20 @@
 
 .triggerWrap:not([data-disabled]) .triggerCombobox[data-focus-within] {
     border-color: var(--aui-combobox-border-focus);
+}
+
+/* Group only. The input's data-focus-visible also turns on while typing. */
+.triggerWrap:not([data-disabled]) .triggerCombobox[data-focus-visible] {
+    border-color: var(--aui-combobox-border-focus);
     outline: 2px solid var(--aui-combobox-border-focus);
     outline-offset: 0;
 }
 
 .triggerWrap[data-invalid]:not([data-disabled]) .triggerCombobox[data-focus-within] {
+    border-color: var(--aui-combobox-border-danger);
+}
+
+.triggerWrap[data-invalid]:not([data-disabled]) .triggerCombobox[data-focus-visible] {
     border-color: var(--aui-combobox-border-danger);
     outline: 2px solid var(--aui-combobox-border-danger);
     outline-offset: 0;
