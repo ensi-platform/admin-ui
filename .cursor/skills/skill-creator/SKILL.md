@@ -29,6 +29,43 @@ Then after the skill is done (but again, the order is flexible), you can also ru
 
 Cool? Cool.
 
+## Detect the environment
+
+Do this before drafting, running evals, asking interview questions, or optimizing a description. The steps below were written for Claude Code. This table is what makes the same steps work in Cursor, Claude.ai, Cowork, Codex, and other agents. Record the capabilities this session actually has, then follow the matching row even when the product name suggests a different tool set.
+
+Check these four signals:
+
+1. **Subagents** — a `Task` tool, or another tool that runs a separate agent.
+2. **`claude` CLI** — `claude` is on `PATH` (`which claude`, or `shutil.which("claude")` inside the scripts).
+3. **Display and browser** — you can open a local URL or an HTML file for the user.
+4. **`AskQuestion`** — a tool that asks batched multiple-choice questions.
+
+**Done when:** you have recorded yes or no for each of the four signals, chosen one row in the environment table, and every later step follows that row.
+
+### Environment table
+
+| Environment | Typical signals | What to do |
+| --- | --- | --- |
+| **Cursor** | `Task`, `AskQuestion`, and a browser. The `claude` CLI is often absent. | Send with-skill and baseline through `Task`, both in the same turn. A skill that writes under `src` runs in a separate git worktree through best-of-n-runner, so the user's working tree stays untouched. Ask questions with `AskQuestion`. Open the viewer in the browser. No `claude` CLI: use the manual trigger check in the capability branches. |
+| **Claude Code** | Subagents, a display, and the `claude` CLI. No `AskQuestion`. | With-skill and baseline in parallel, both in the same turn. Viewer in the browser. Description optimization through `run_loop.py`. Questions one at a time as plain text, each with a recommendation. |
+| **Claude.ai** | No subagents, often no display, no `claude` CLI, no `AskQuestion`. | Run test cases one after another in this chat (no-subagent branch). Show results in the conversation. Manual trigger check. Questions as text, one at a time, with a recommendation. Updating an installed skill: keep the directory name and the `name` frontmatter; copy the skill to a writable path such as `/tmp/<skill-name>/` before editing; package from that copy; if you package by hand, stage in `/tmp/` first. |
+| **Cowork** | Subagents, no display, `claude` CLI. | With-skill and baseline in parallel in one turn. If subagent timeouts get in the way, run the prompts in series. Viewer via `generate_review.py --static <output_path>`, then give the user a link. "Submit All Reviews" downloads `feedback.json`; read that file (request access if needed). Run `run_loop.py` only after the user agrees the skill is in good shape. Updating an existing skill: same as the Claude.ai row. Generate the viewer before you grade the outputs yourself. |
+| **Codex and other agents** | Whichever of the four signals this session actually has. | Follow the capability branches that match those signals. Do not call a tool this session does not have. |
+
+### Capability branches
+
+The environment rows use these rules. Later sections point here; they do not restate them.
+
+- **Subagents present.** For each test case, start the with-skill run and the baseline run in the same turn. See "Step 1: Spawn all runs".
+- **Subagents absent** (Claude.ai, and some other agents). For each test case, read the skill and carry out the prompt yourself, one at a time, in this chat. Skip baseline runs. Skip quantitative benchmarking and blind comparison — both need a separate baseline agent. Still ask the user to review the outputs.
+- **Display present.** Launch the browser viewer with `eval-viewer/generate_review.py` (no `--static`).
+- **Display absent.** Run `generate_review.py --static <output_path>` and give the user the HTML file. If you cannot write that file either, paste each prompt and its output into the chat and ask what they would change. Generate that review before you revise the skill yourself.
+- **`claude` CLI present.** Optimize the description with `python -m scripts.run_loop`, as in "Description Optimization".
+- **`claude` CLI absent.** `run_eval.py`, `improve_description.py`, and `run_loop.py` exit 0 and print `description is checked manually in this environment`. Read that exit as this branch, then check the trigger by hand: give a subagent — or yourself, when there is no subagent — the skill's `description` and a list of realistic user phrases, and have it answer, for each phrase, whether it would open the skill.
+- **`AskQuestion` present.** Ask interview questions in batches with that tool.
+- **`AskQuestion` absent.** Ask one question at a time in plain text, and include a recommendation in the same message.
+- **`present_files` present.** Run "Package and Present". Absent: skip that step. `package_skill.py` itself only needs Python and a filesystem, in any environment.
+
 ## Communicating with the user
 
 The skill creator is liable to be used by people across a wide range of familiarity with coding jargon. If you haven't heard (and how could you, it's only very recently that it started), there's a trend now where the power of Claude is inspiring plumbers to open up their terminals, parents and grandparents to google "how to install npm". On the other hand, the bulk of users are probably fairly computer-literate.
@@ -55,7 +92,7 @@ Start by understanding the user's intent. The current conversation might already
 
 ### Interview and Research
 
-Proactively ask questions about edge cases, input/output formats, example files, success criteria, and dependencies. Wait to write test prompts until you've got this part ironed out.
+Proactively ask questions about edge cases, input/output formats, example files, success criteria, and dependencies. How you ask follows the environment table: with `AskQuestion`, batch them; without it, one question at a time in plain text, each with a recommendation. Wait to write test prompts until you've got this part ironed out.
 
 Check available MCPs - if useful for research (searching docs, finding similar skills, looking up best practices), research in parallel via subagents if available, otherwise inline. Come prepared with context to reduce burden on the user.
 
@@ -67,6 +104,10 @@ Based on the user interview, fill in these components:
 - **description**: When to trigger, what it does. This is the primary triggering mechanism - include both what the skill does AND specific contexts for when to use it. All "when to use" info goes here, not in the body. Note: currently Claude has a tendency to "undertrigger" skills -- to not use them when they'd be useful. To combat this, please make the skill descriptions a little bit "pushy". So for instance, instead of "How to build a simple fast dashboard to display internal Anthropic data.", you might write "How to build a simple fast dashboard to display internal Anthropic data. Make sure to use this skill whenever the user mentions dashboards, data visualization, internal metrics, or wants to display any kind of company data, even if they don't explicitly ask for a 'dashboard.'"
 - **compatibility**: Required tools, dependencies (optional, rarely needed)
 - **the rest of the skill :)**
+
+While writing the draft, read `references/skill-checklist.md` and apply all eight checks to this `SKILL.md` and to any `references/*.md` you add. Open it at this step, not after the eval loop.
+
+**Done when:** each checklist item either already holds or the draft was edited so it holds.
 
 ### Skill Writing Guide
 
@@ -163,6 +204,8 @@ See `references/schemas.md` for the full schema (including the `assertions` fiel
 ## Running and evaluating test cases
 
 This section is one continuous sequence — don't stop partway through. Do NOT use `/skill-test` or any other testing skill.
+
+How the runs are launched follows the environment table. Subagents present: Step 1, with-skill and baseline in parallel, both in the same turn. Subagents absent: the no-subagent branch — one test case at a time in this chat, no baseline. Display absent: `generate_review.py --static` instead of the browser server in Step 4.
 
 Put results in `<skill-name>-workspace/` as a sibling to the skill directory. Within the workspace, organize results by iteration (`iteration-1/`, `iteration-2/`, etc.) and within that, each test case gets a directory (`eval-0/`, `eval-1/`, etc.). Don't create all of this upfront — just create directories as you go.
 
@@ -332,7 +375,9 @@ This is optional, requires subagents, and most users won't need it. The human re
 
 ## Description Optimization
 
-The description field in SKILL.md frontmatter is the primary mechanism that determines whether Claude invokes a skill. After creating or improving a skill, offer to optimize the description for better triggering accuracy.
+The description field in SKILL.md frontmatter is the primary mechanism that determines whether the agent invokes a skill. After creating or improving a skill, offer to optimize the description for better triggering accuracy.
+
+Run the loop below only when the `claude` CLI is on `PATH`. Without it, follow the manual trigger check in the environment table. `run_loop.py`, `run_eval.py`, and `improve_description.py` exit 0 and print `description is checked manually in this environment` when `claude` is missing.
 
 ### Step 1: Generate trigger eval queries
 
@@ -345,7 +390,7 @@ Create 20 eval queries — a mix of should-trigger and should-not-trigger. Save 
 ]
 ```
 
-The queries must be realistic and something a Claude Code or Claude.ai user would actually type. Not abstract requests, but requests that are concrete and specific and have a good amount of detail. For instance, file paths, personal context about the user's job or situation, column names and values, company names, URLs. A little bit of backstory. Some might be in lowercase or contain abbreviations or typos or casual speech. Use a mix of different lengths, and focus on edge cases rather than making them clear-cut (the user will get a chance to sign off on them).
+The queries must be realistic and something a real user of your agent would actually type. Not abstract requests, but requests that are concrete and specific and have a good amount of detail. For instance, file paths, personal context about the user's job or situation, column names and values, company names, URLs. A little bit of backstory. Some might be in lowercase or contain abbreviations or typos or casual speech. Use a mix of different lengths, and focus on edge cases rather than making them clear-cut (the user will get a chance to sign off on them).
 
 Bad: `"Format this data"`, `"Extract text from PDF"`, `"Create a chart"`
 
@@ -419,40 +464,13 @@ After packaging, direct the user to the resulting `.skill` file path so they can
 
 ## Claude.ai-specific instructions
 
-In Claude.ai, the core workflow is the same (draft → test → review → improve → repeat), but because Claude.ai doesn't have subagents, some mechanics change. Here's what to adapt:
-
-**Running test cases**: No subagents means no parallel execution. For each test case, read the skill's SKILL.md, then follow its instructions to accomplish the test prompt yourself. Do them one at a time. This is less rigorous than independent subagents (you wrote the skill and you're also running it, so you have full context), but it's a useful sanity check — and the human review step compensates. Skip the baseline runs — just use the skill to complete the task as requested.
-
-**Reviewing results**: If you can't open a browser (e.g., Claude.ai's VM has no display, or you're on a remote server), skip the browser reviewer entirely. Instead, present results directly in the conversation. For each test case, show the prompt and the output. If the output is a file the user needs to see (like a .docx or .xlsx), save it to the filesystem and tell them where it is so they can download and inspect it. Ask for feedback inline: "How does this look? Anything you'd change?"
-
-**Benchmarking**: Skip the quantitative benchmarking — it relies on baseline comparisons which aren't meaningful without subagents. Focus on qualitative feedback from the user.
-
-**The iteration loop**: Same as before — improve the skill, rerun the test cases, ask for feedback — just without the browser reviewer in the middle. You can still organize results into iteration directories on the filesystem if you have one.
-
-**Description optimization**: This section requires the `claude` CLI tool (specifically `claude -p`) which is only available in Claude Code. Skip it if you're on Claude.ai.
-
-**Blind comparison**: Requires subagents. Skip it.
-
-**Packaging**: The `package_skill.py` script works anywhere with Python and a filesystem. On Claude.ai, you can run it and the user can download the resulting `.skill` file.
-
-**Updating an existing skill**: The user might be asking you to update an existing skill, not create a new one. In this case:
-- **Preserve the original name.** Note the skill's directory name and `name` frontmatter field -- use them unchanged. E.g., if the installed skill is `research-helper`, output `research-helper.skill` (not `research-helper-v2`).
-- **Copy to a writeable location before editing.** The installed skill path may be read-only. Copy to `/tmp/skill-name/`, edit there, and package from the copy.
-- **If packaging manually, stage in `/tmp/` first**, then copy to the output directory -- direct writes may fail due to permissions.
+Use the **Claude.ai** row in the environment table, and the capability branches it names (no subagents, no display, no `claude` CLI, no `AskQuestion`). Those rows are the Claude.ai rules, including how to update an installed skill. Leave this section as a pointer to that row.
 
 ---
 
 ## Cowork-Specific Instructions
 
-If you're in Cowork, the main things to know are:
-
-- You have subagents, so the main workflow (spawn test cases in parallel, run baselines, grade, etc.) all works. (However, if you run into severe problems with timeouts, it's OK to run the test prompts in series rather than parallel.)
-- You don't have a browser or display, so when generating the eval viewer, use `--static <output_path>` to write a standalone HTML file instead of starting a server. Then proffer a link that the user can click to open the HTML in their browser.
-- For whatever reason, the Cowork setup seems to disincline Claude from generating the eval viewer after running the tests, so just to reiterate: whether you're in Cowork or in Claude Code, after running tests, you should always generate the eval viewer for the human to look at examples before revising the skill yourself and trying to make corrections, using `generate_review.py` (not writing your own boutique html code). Sorry in advance but I'm gonna go all caps here: GENERATE THE EVAL VIEWER *BEFORE* evaluating inputs yourself. You want to get them in front of the human ASAP!
-- Feedback works differently: since there's no running server, the viewer's "Submit All Reviews" button will download `feedback.json` as a file. You can then read it from there (you may have to request access first).
-- Packaging works — `package_skill.py` just needs Python and a filesystem.
-- Description optimization (`run_loop.py` / `run_eval.py`) should work in Cowork just fine since it uses `claude -p` via subprocess, not a browser, but please save it until you've fully finished making the skill and the user agrees it's in good shape.
-- **Updating an existing skill**: The user might be asking you to update an existing skill, not create a new one. Follow the update guidance in the claude.ai section above.
+Use the **Cowork** row in the environment table, and the capability branches it names (subagents, no display, `claude` CLI). Those rows are the Cowork rules, including the `--static` viewer, downloaded `feedback.json`, when to run `run_loop.py`, and generating the viewer before you grade outputs yourself. Leave this section as a pointer to that row.
 
 ---
 
@@ -466,6 +484,7 @@ The agents/ directory contains instructions for specialized subagents. Read them
 
 The references/ directory has additional documentation:
 - `references/schemas.md` — JSON structures for evals.json, grading.json, etc.
+- `references/skill-checklist.md` — eight checks to apply while writing a skill. Open it from "Write the SKILL.md".
 
 ---
 
@@ -480,6 +499,6 @@ Repeating one more time the core loop here for emphasis:
 - Repeat until you and the user are satisfied
 - Package the final skill and return it to the user.
 
-Please add steps to your TodoList, if you have such a thing, to make sure you don't forget. If you're in Cowork, please specifically put "Create evals JSON and run `eval-viewer/generate_review.py` so human can review test cases" in your TodoList to make sure it happens.
+Please add steps to your TodoList, if you have such a thing, to make sure you don't forget. On the Cowork row, include "Create evals JSON and run `eval-viewer/generate_review.py` so the human can review test cases" in that list.
 
 Good luck!

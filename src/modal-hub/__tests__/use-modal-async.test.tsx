@@ -7,10 +7,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { Modal } from '@/modal';
 import { AdminUiProvider } from '@/provider';
 
-import { ModalHub } from '../ModalHub';
-import { ModalProvider } from '../ModalProvider';
-import { type IModalHubItemProps } from '../types';
-import { useModalAsync } from '../useModalAsync';
+import { ModalHub, ModalProvider, useModalAsync, type IModalHubItemProps } from '../index';
 
 type TAsyncModalProps = IModalHubItemProps & { title?: string };
 

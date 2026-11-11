@@ -12,7 +12,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--aui-spacing-8);
+    gap: var(--aui-cascade-menu-gap-md);
     min-height: 1.75rem;
 }
 
@@ -42,7 +42,7 @@
 .brandLockup {
     display: inline-flex;
     align-items: center;
-    gap: var(--aui-spacing-8);
+    gap: var(--aui-cascade-menu-gap-md);
     min-width: 0;
     max-width: 100%;
 }
@@ -63,7 +63,7 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: var(--aui-cascade-menu-gap-brand-md);
-    padding-inline: var(--aui-spacing-8);
+    padding-inline: var(--aui-cascade-menu-pad-x-sm);
 }
 
 .collapsed .brandRow {
@@ -91,7 +91,7 @@
 
 .collapsed .actions {
     flex-direction: column;
-    margin-top: var(--aui-spacing-4);
+    margin-top: var(--aui-cascade-menu-gap-sm);
     margin-inline-end: 0;
 }
 

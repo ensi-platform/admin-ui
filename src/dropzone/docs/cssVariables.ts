@@ -27,6 +27,7 @@ export const docsCssVariables = `/* CSS variables — Dropzone (--aui-dropzone-*
 --aui-dropzone-preview-w: calc(var(--aui-spacing) * 28); /* image preview width */
 --aui-dropzone-preview-h: var(--aui-dropzone-preview-w); /* image preview height */
 --aui-dropzone-progress-h: var(--aui-spacing-4); /* upload progress height */
+--aui-dropzone-skeleton-line-h: var(--aui-spacing-8); /* skeleton text line height */
 --aui-dropzone-duration-fast: var(--aui-input-duration-fast); /* transition duration (fast) */
 --aui-dropzone-duration-normal: var(--aui-duration-normal); /* row move duration */
 --aui-dropzone-ease-out: var(--aui-input-ease-out); /* transition easing */`;

@@ -6,6 +6,7 @@ import { type IDataTestIdProps } from '@ds/common';
 
 import { type IFieldStateProps } from '@/field/types';
 import { type IFormFieldLayoutProps } from '@/form/types';
+import { type IControlAddonProps } from '@/input';
 
 export type TTextAreaSize = 'sm' | 'md' | 'lg';
 
@@ -20,7 +21,7 @@ export interface ITextAreaThemeProps {
 }
 
 /** Own / chrome props (not from RAC). */
-export interface ITextAreaOwnProps extends IDataTestIdProps {
+export interface ITextAreaOwnProps extends IDataTestIdProps, IControlAddonProps {
     /** Clear button for the current value. */
     clear?: boolean;
     /** Visible and copyable, but not editable. Not `disabled`. */
@@ -47,7 +48,7 @@ export type TTextAreaFormRacOmit =
     | 'name'
     | 'className';
 
-export interface ITextAreaContentProps extends Omit<RacTextAreaProps, TTextAreaFormRacOmit> {
+export interface ITextAreaContentProps extends Omit<RacTextAreaProps, TTextAreaFormRacOmit>, IControlAddonProps {
     clear?: boolean;
     /** Visible and copyable, but not editable. Not `disabled`. */
     readOnly?: boolean;

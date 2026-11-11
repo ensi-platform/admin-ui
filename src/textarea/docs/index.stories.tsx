@@ -119,6 +119,14 @@ export const Invalid: StoryObj<ITextAreaProps> = {
     render: Default.render,
 };
 
+export const WithAddons: StoryObj<ITextAreaProps> = {
+    render: () => (
+        <div style={{ maxWidth: 320 }}>
+            <TextAreaStoryComponent aria-label="Comment" leftAddon="Note" rightAddon="md" />
+        </div>
+    ),
+};
+
 export const WithField: StoryObj<ITextAreaProps> = {
     render: () => (
         <div style={{ maxWidth: 320 }}>

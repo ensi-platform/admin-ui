@@ -26,10 +26,3 @@ import { typographyStyles } from '@ensi-platform/admin-ui/typography';
 Tokens: `--aui-font-family`, `--aui-font-size-xs…2xl`, `--aui-font-weight-regular|medium|semibold`, `--aui-line-height-xs…2xl|tight|normal`.
 
 `label*` — later.
-
-## Example
-
-```tsx
-<h1 className={typographyStyles.headingM}>Orders</h1>
-<p className={typographyStyles.bodyM}>Interface text</p>
-```

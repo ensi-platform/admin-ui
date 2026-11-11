@@ -1,4 +1,4 @@
-export { ModalHub } from './ModalHub';
+export * from './Component';
 export { ModalProvider, useModalHubContext } from './ModalProvider';
 export type {
     IModalHubContextValue,

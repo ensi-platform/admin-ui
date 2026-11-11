@@ -34,6 +34,10 @@ export interface IAuiLabels {
     colorPalette: string;
     /** ColorPicker: preset swatch list accessible name. */
     colorPresets: string;
+    /** Password: reveal the value. */
+    showPassword: string;
+    /** Password: hide the value. */
+    hidePassword: string;
     /** Table.PageSize: label before the select. */
     pageSize: string;
     /** Table.Pagination: previous-page control label. */

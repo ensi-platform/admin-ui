@@ -6,21 +6,21 @@
     width: 100%;
     height: 100%;
     margin: 0;
-    padding: var(--aui-table-pad-y-utility) var(--aui-table-pad-x-utility);
+    padding: var(--aui-data-table-pad-y-utility) var(--aui-data-table-pad-x-utility);
     border: none;
     background: transparent;
-    color: var(--aui-table-fg-muted);
+    color: var(--aui-data-table-fg-muted);
     cursor: pointer;
-    transition: color var(--aui-table-duration-fast) var(--aui-table-ease-out);
+    transition: color var(--aui-data-table-duration-fast) var(--aui-data-table-ease-out);
 }
 
 .trigger:hover,
 .trigger:focus-visible {
-    color: var(--aui-table-fg-primary);
+    color: var(--aui-data-table-fg-primary);
 }
 
 .trigger:focus-visible {
-    outline: 2px solid var(--aui-table-border-focus);
+    outline: 2px solid var(--aui-data-table-border-focus);
     outline-offset: -2px;
 }
 

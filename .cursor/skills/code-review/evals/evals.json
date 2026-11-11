@@ -1,0 +1,32 @@
+{
+  "skill_name": "code-review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Review the task diff. The request was: add a data-badge-kind attribute on Badge equal to variant. Nothing else. The task file list is only src/badge/Component.tsx. Setup, as the subject of the review and not as a fix: apply .cursor/skills/code-review/evals/fixtures/badge-review.patch with git apply, then append a line `// unrelated scratch` to src/checkbox/Component.tsx. That checkbox edit is someone else's work and is not on the list. Review, and do not fix the findings. Do not commit.",
+      "expected_output": "Separate Standards and Spec reports. Standards cites the English-only comment rule. Spec quotes the request and flags the console.log and getKind as extra. Checkbox is not reviewed. The planted badge diff is still present after the review. No combined verdict.",
+      "files": [".cursor/skills/code-review/evals/fixtures/badge-review.patch"],
+      "expectations": [
+        "The reply has two separate sections, Standards and Spec, and does not pick a single winner across them.",
+        "Standards cites .cursor/skills/code-comments/SKILL.md for the Russian comment.",
+        "Spec quotes the request and reports console.log and getKind as extra.",
+        "The reply does not review the checkbox scratch.",
+        "src/badge/Component.tsx still contains console.log and getKind after the review.",
+        "No commit was created."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Review src/badge/Component.tsx. I have no spec and no request for a behavior change. Setup: apply .cursor/skills/code-review/evals/fixtures/badge-review.patch. The file list is only that file. Do not invent requirements. Do not fix. Do not commit.",
+      "expected_output": "Standards report plus a Spec section that says no spec. No invented requirements. Planted diff unchanged. No combined verdict.",
+      "files": [".cursor/skills/code-review/evals/fixtures/badge-review.patch"],
+      "expectations": [
+        "The reply has a Standards section and a Spec section.",
+        "Spec says no spec and does not invent requirements.",
+        "src/badge/Component.tsx still contains console.log and getKind after the review.",
+        "The reply does not pick a single winner across the two axes.",
+        "No commit was created."
+      ]
+    }
+  ]
+}

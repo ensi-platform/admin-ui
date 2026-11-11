@@ -6,7 +6,7 @@ import { type IDataTestIdProps } from '@ds/common';
 
 import { type IFieldStateProps } from '@/field/types';
 import { type IFormFieldLayoutProps } from '@/form/types';
-import { type IComboboxOption, type TComboboxSize, type TComboboxValue, type TComboboxVariant } from '@/select/types';
+import { type IComboboxOption, type TComboboxSize, type TComboboxValue, type TComboboxVariant } from '@/combobox/types';
 
 export type { IComboboxOption, TComboboxSize, TComboboxValue, TComboboxVariant };
 

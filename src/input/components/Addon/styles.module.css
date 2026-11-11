@@ -1,0 +1,58 @@
+.addon {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    min-width: 0;
+    color: var(--aui-input-fg-muted);
+}
+
+.start {
+    align-items: flex-start;
+}
+
+.addon[data-disabled] {
+    pointer-events: none;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: var(--aui-input-icon-hit-md);
+    height: var(--aui-input-icon-hit-md);
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--aui-input-fg-muted);
+    cursor: pointer;
+    border-radius: var(--aui-input-clear-radius-md);
+    transition: color var(--aui-input-duration-fast) var(--aui-input-ease-out);
+}
+
+.button svg {
+    width: var(--aui-input-icon-size-md);
+    height: var(--aui-input-icon-size-md);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .button {
+        transition: none;
+    }
+}
+
+.button:hover {
+    color: var(--aui-input-fg-primary);
+}
+
+.button:focus {
+    outline: none;
+}
+
+.button:focus-visible {
+    outline: 2px solid var(--aui-input-border-focus);
+    outline-offset: 0;
+    color: var(--aui-input-fg-primary);
+}

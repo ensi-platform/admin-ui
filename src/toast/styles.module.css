@@ -22,6 +22,7 @@
     padding: var(--aui-toast-pad-y) var(--aui-toast-pad-x);
     border-radius: var(--aui-toast-radius);
     border-inline-start: var(--aui-toast-accent-w) solid var(--aui-toast-accent);
+    --aui-toast-close-fg-hover: color-mix(in srgb, var(--aui-toast-accent) 65%, var(--aui-toast-fg-title));
     box-shadow: var(--aui-toast-shadow);
     pointer-events: auto;
     view-transition-class: aui-toast;

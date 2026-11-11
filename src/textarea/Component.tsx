@@ -6,6 +6,7 @@ import { Group, TextArea as RacTextArea } from 'react-aria-components';
 import { supportRef } from '@ds/common/support-ref';
 
 import { Clear } from '@/icons';
+import { AddonButton, ControlAddon } from '@/input/components/Addon';
 import { useAuiLabels } from '@/provider';
 
 import { textAreaVariants } from './theme';
@@ -50,7 +51,7 @@ const TextAreaClearButton = ({ onClear }: { onClear: () => void }) => {
     );
 };
 
-export const TextArea = supportRef(
+const TextAreaRoot = supportRef(
     ({
         ref,
         size = 'md',
@@ -60,6 +61,8 @@ export const TextArea = supportRef(
         disabled = false,
         readOnly = false,
         clear = false,
+        leftAddon,
+        rightAddon,
         className,
         dataTestId,
         value,
@@ -102,6 +105,11 @@ export const TextArea = supportRef(
                 isDisabled={disabled}
                 isReadOnly={readOnly}
             >
+                {leftAddon ? (
+                    <ControlAddon align="start" disabled={disabled} onFocusControl={() => textAreaRef.current?.focus()}>
+                        {leftAddon}
+                    </ControlAddon>
+                ) : null}
                 <RacTextArea
                     {...props}
                     readOnly={readOnly}
@@ -117,9 +125,16 @@ export const TextArea = supportRef(
                     className={styles.fieldInput}
                 />
                 {showClear ? <TextAreaClearButton onClear={emitEmptyChange} /> : null}
+                {rightAddon ? (
+                    <ControlAddon align="start" disabled={disabled} onFocusControl={() => textAreaRef.current?.focus()}>
+                        {rightAddon}
+                    </ControlAddon>
+                ) : null}
             </Group>
         );
     }
 );
 
-TextArea.displayName = 'TextArea';
+TextAreaRoot.displayName = 'TextArea';
+
+export const TextArea = Object.assign(TextAreaRoot, { AddonButton });

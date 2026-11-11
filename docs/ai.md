@@ -44,4 +44,4 @@ Skill тонкий:
 - **pnpm ≥ 9** не запускает lifecycle-скрипты, пока не выполнить `pnpm approve-builds @ensi-platform/admin-ui` (или `pnpm.onlyBuiltDependencies`), затем снова `pnpm install`;
 - вручную: `pnpm exec admin-ui:ai` (флаги `--cursor`, `--claude`, `--codex`; без флагов — все три).
 
-См. также `.cursor/rules/component-docs.mdc` → «Канал для АП».
+См. также `.cursor/skills/write-component-docs/references/description.md` → «Consumer channel».

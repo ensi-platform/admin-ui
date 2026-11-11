@@ -7,10 +7,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { Modal } from '@/modal';
 import { AdminUiProvider } from '@/provider';
 
-import { ModalHub } from '../ModalHub';
-import { ModalProvider, useModalHubContext } from '../ModalProvider';
-import { type IModalHubItemProps } from '../types';
-import { useModal } from '../useModal';
+import { ModalHub, ModalProvider, useModal, useModalHubContext, type IModalHubItemProps } from '../index';
 
 const HarnessModal = ({
     open,

@@ -35,6 +35,8 @@ export const docsCssVariables = `/* CSS variables — Table (--aui-table-*) */
 
 --aui-table-action-gap: var(--aui-spacing-4); /* row actions gap */
 
+--aui-table-filter-min-w: 22rem; /* header filter panel: two range fields */
+--aui-table-filter-sort-gap: var(--aui-spacing-12); /* filter fields to sort actions */
 --aui-table-sort-gap: var(--aui-spacing-4); /* sort gap */
 --aui-table-sort-bg-hover: var(--aui-surface-bg-muted); /* sort item hover */
 --aui-table-sort-bg-active: var(--aui-surface-bg-muted-hover); /* sort item pressed */
@@ -51,6 +53,7 @@ export const docsCssVariables = `/* CSS variables — Table (--aui-table-*) */
 --aui-table-pagination-current-bg: var(--aui-surface-bg-muted); /* pagination current bg */
 
 --aui-table-page-size-gap: var(--aui-spacing-8); /* page-size gap */
+--aui-table-page-size-min: var(--aui-spacing-64); /* page-size select min width */
 
 --aui-table-z-sticky: 2; /* z-index */
 

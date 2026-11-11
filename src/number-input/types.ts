@@ -1,4 +1,4 @@
-import { type FocusEventHandler, type ReactNode, type Ref } from 'react';
+import { type FocusEventHandler, type Ref } from 'react';
 
 import { type NumberFieldProps as RacNumberFieldProps } from 'react-aria-components';
 
@@ -6,6 +6,7 @@ import { type IDataTestIdProps } from '@ds/common';
 
 import { type IFieldStateProps } from '@/field/types';
 import { type IFormFieldLayoutProps } from '@/form/types';
+import { type IControlAddonProps } from '@/input';
 
 export type TNumberInputSize = 'sm' | 'md' | 'lg';
 
@@ -37,11 +38,7 @@ export interface INumberInputControlProps {
 }
 
 /** Own / chrome props (not from RAC). */
-export interface INumberInputOwnProps extends IDataTestIdProps {
-    /** Content before the input. */
-    prefix?: ReactNode;
-    /** Content after the input (currency, unit, …). */
-    suffix?: ReactNode;
+export interface INumberInputOwnProps extends IDataTestIdProps, IControlAddonProps {
     /** Clear button for the current value. */
     clear?: boolean;
     /** Visible and copyable, but not editable. Not `disabled`. */
@@ -59,9 +56,7 @@ export interface INumberInputOwnProps extends IDataTestIdProps {
 }
 
 /** Content slice for FormNumberInput. */
-export interface INumberInputContentProps {
-    prefix?: ReactNode;
-    suffix?: ReactNode;
+export interface INumberInputContentProps extends IControlAddonProps {
     clear?: boolean;
     /** Visible and copyable, but not editable. Not `disabled`. */
     readOnly?: boolean;

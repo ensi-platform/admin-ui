@@ -22,5 +22,6 @@ import { ColorPicker } from '@ensi-platform/admin-ui/color-picker';
 | `onHueChange`        | `function` | —       | next hue after a palette move. Pair of `hue`                                                    |
 | `disabled`           | `boolean`  | `false` | disabled                                                                                        |
 | `dataTestId`         | `string`   | —       | `data-test-id` attribute                                                                        |
+| `toHexColor`         | `function` | —       | `#rrggbb` or `null`. Imported next to `ColorPicker`                                             |
 
 A drag publishes when the pointer is released. Arrow keys on the hue slider publish on each step. The first hue move on an empty value publishes gray `#808080`.

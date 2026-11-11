@@ -1,0 +1,17 @@
+{
+  "skill_name": "grill",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "NumberInput: the user types a value above max and blurs. Description lists min, max, and invalid, and does not say whether the value rolls back or the field becomes invalid. /grill that decision. Show the first batch only; I will answer later. Do not write code.",
+      "expected_output": "One batch of questions about the silent rollback-versus-invalid decision, with a recommended option. No source edits. No question whose answer is already in the Description.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Button's render already defaults type to button. /grill whether the default should be submit or button. Show the first batch only. Do not write code.",
+      "expected_output": "No question about the default. The reply cites the implementation that already sets type to button.",
+      "files": []
+    }
+  ]
+}

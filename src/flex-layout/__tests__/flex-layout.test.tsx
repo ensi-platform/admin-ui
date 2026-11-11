@@ -25,15 +25,14 @@ describe('FlexLayout', () => {
         expect(screen.getByTestId('title')).toHaveTextContent('Title');
     });
 
-    it('stacks items, wraps, and can leave the layout', () => {
+    it('stacks items and wraps them', () => {
         render(
-            <FlexLayout direction="column" align="start" wrap hidden dataTestId="stack">
+            <FlexLayout direction="column" align="start" wrap dataTestId="stack">
                 Block
             </FlexLayout>
         );
 
         expect(screen.getByTestId('stack')).toHaveClass(styles.column, styles.start, styles.wrap, styles.gap16);
-        expect(screen.getByTestId('stack')).toHaveAttribute('hidden');
     });
 
     it('forwards ref to the layout', () => {

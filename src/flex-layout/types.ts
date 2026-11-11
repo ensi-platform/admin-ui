@@ -27,8 +27,6 @@ export interface IFlexLayoutOwnProps extends IDataTestIdProps {
     justify?: TFlexLayoutJustify;
     /** Wrap items onto the next line. */
     wrap?: boolean;
-    /** Removes the layout from the page. */
-    hidden?: boolean;
     /** Ref to the layout (React 19 prop). */
     ref?: Ref<HTMLDivElement>;
 }

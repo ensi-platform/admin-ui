@@ -21,8 +21,8 @@
 
 .overflowTrigger {
     min-width: unset;
-    padding-left: var(--aui-spacing-8);
-    padding-right: var(--aui-spacing-8);
+    padding-left: var(--aui-table-pad-x-sm);
+    padding-right: var(--aui-table-pad-x-sm);
 }
 
 .visuallyHidden {

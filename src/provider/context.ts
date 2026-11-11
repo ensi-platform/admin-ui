@@ -20,6 +20,8 @@ export const defaultLabels: IAuiLabels = {
     colorHue: 'Оттенок',
     colorPalette: 'Палитра цветов',
     colorPresets: 'Готовые цвета',
+    showPassword: 'Показать пароль',
+    hidePassword: 'Скрыть пароль',
     pageSize: 'Строк на странице',
     paginationPrev: 'Назад',
     paginationNext: 'Далее',

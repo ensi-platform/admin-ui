@@ -10,7 +10,7 @@
 ```
 
 ```tsx
-import { useToast } from '@ensi-platform/admin-ui';
+import { useToast } from '@ensi-platform/admin-ui/toast';
 
 const { appendToast, closeToast } = useToast();
 

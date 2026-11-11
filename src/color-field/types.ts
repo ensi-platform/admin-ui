@@ -1,4 +1,4 @@
-import { type Ref } from 'react';
+import { type ComponentPropsWithRef, type Ref } from 'react';
 
 import { type IDataTestIdProps } from '@ds/common';
 
@@ -28,8 +28,6 @@ export interface IColorFieldOwnProps extends IDataTestIdProps {
      * Values that are not colors are dropped. No row when empty.
      */
     presets?: string[];
-    /** Class name on the root. */
-    className?: string;
     /** Ref to the field group (React 19 prop). */
     ref?: Ref<HTMLDivElement>;
     /** Ref to the hex input (React 19 prop). */
@@ -55,7 +53,8 @@ export interface IColorFieldControlProps {
 export interface IColorFieldBaseProps
     extends IColorFieldThemeProps, IFieldStateProps, IColorFieldOwnProps, IColorFieldControlProps {}
 
-export interface IColorFieldProps extends IColorFieldBaseProps {}
+export interface IColorFieldProps
+    extends Omit<ComponentPropsWithRef<'div'>, keyof IColorFieldBaseProps | 'children'>, IColorFieldBaseProps {}
 
 /** Content slice for FormColorField. */
 export interface IColorFieldContentProps {

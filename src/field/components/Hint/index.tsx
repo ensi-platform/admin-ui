@@ -14,7 +14,8 @@ export const FieldHint = ({ children, className, ...props }: IFieldHintProps) =>
             {...props}
             id={hintId}
             slot="description"
-            className={cn(fieldHintVariants({ size, disabled: Boolean(disabled) }), className)}
+            className={cn(fieldHintVariants({ size }), className)}
+            data-disabled={disabled || undefined}
         >
             {children}
         </Text>

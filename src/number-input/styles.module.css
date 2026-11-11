@@ -43,10 +43,6 @@
     padding: 0 var(--aui-number-input-pad-x-lg);
 }
 
-.addon {
-    flex-shrink: 0;
-}
-
 .fieldInput {
     flex: 1 1 0;
     width: 0;
@@ -167,10 +163,6 @@
     border-color: var(--aui-number-input-border-danger);
     outline: 2px solid var(--aui-number-input-border-danger);
     outline-offset: 0;
-}
-
-.primary .addon {
-    color: var(--aui-number-input-fg-muted);
 }
 
 .primary .fieldInput::placeholder {

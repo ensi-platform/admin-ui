@@ -13,6 +13,8 @@ export * from './ChevronRight';
 export * from './Clear';
 export * from './Copy';
 export * from './Download';
+export * from './Eye';
+export * from './EyeOff';
 export * from './ExternalLink';
 export * from './File';
 export * from './Funnel';

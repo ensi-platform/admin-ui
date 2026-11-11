@@ -8,6 +8,7 @@ import { supportRef } from '@ds/common/support-ref';
 import { Clear } from '@/icons';
 import { useAuiLabels } from '@/provider';
 
+import { AddonButton, ControlAddon } from './components/Addon';
 import { inputVariants } from './theme';
 import { type IInputProps } from './types';
 import { clearInputElementValue, toEmptyInputChangeEvent } from './utils';
@@ -50,7 +51,7 @@ const InputClearButton = ({ onClear }: { onClear: () => void }) => {
     );
 };
 
-export const Input = supportRef(
+const InputRoot = supportRef(
     ({
         ref,
         size = 'md',
@@ -60,6 +61,8 @@ export const Input = supportRef(
         disabled = false,
         readOnly = false,
         clear = false,
+        leftAddon,
+        rightAddon,
         className,
         dataTestId,
         value,
@@ -102,6 +105,11 @@ export const Input = supportRef(
                 isDisabled={disabled}
                 isReadOnly={readOnly}
             >
+                {leftAddon ? (
+                    <ControlAddon disabled={disabled} onFocusControl={() => inputRef.current?.focus()}>
+                        {leftAddon}
+                    </ControlAddon>
+                ) : null}
                 <RacInput
                     {...props}
                     readOnly={readOnly}
@@ -117,9 +125,16 @@ export const Input = supportRef(
                     className={styles.fieldInput}
                 />
                 {showClear ? <InputClearButton onClear={emitEmptyChange} /> : null}
+                {rightAddon ? (
+                    <ControlAddon disabled={disabled} onFocusControl={() => inputRef.current?.focus()}>
+                        {rightAddon}
+                    </ControlAddon>
+                ) : null}
             </Group>
         );
     }
 );
 
-Input.displayName = 'Input';
+InputRoot.displayName = 'Input';
+
+export const Input = Object.assign(InputRoot, { AddonButton });

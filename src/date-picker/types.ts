@@ -20,18 +20,13 @@ export interface IDatePickerThemeProps {
     size?: TDatePickerSize;
     /** Visual variant. */
     variant?: TDatePickerVariant;
-    /**
-     * Stretch to container width.
-     * @default true
-     */
-    block?: boolean;
 }
 
 /** Own / chrome props (not from RAC). */
 export interface IDatePickerOwnProps extends IDataTestIdProps {
     /** Clear button for the current value. */
     clear?: boolean;
-    /** Class name on the DatePicker root. */
+    /** Class name string. RAC `className` may be a function, which `cn` cannot join. */
     className?: string;
     /** Ref to the group element (React 19 prop). */
     ref?: Ref<HTMLDivElement>;

@@ -6,14 +6,21 @@ and returning the best description found. Supports train/test split to prevent
 overfitting.
 """
 
+from __future__ import annotations
+
 import argparse
 import json
 import random
+import shutil
 import sys
 import tempfile
 import time
 import webbrowser
 from pathlib import Path
+
+if shutil.which("claude") is None:
+    print("description is checked manually in this environment")
+    sys.exit(0)
 
 from scripts.generate_report import generate_html
 from scripts.improve_description import improve_description

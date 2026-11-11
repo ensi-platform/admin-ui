@@ -14,7 +14,7 @@ import { Select } from '@ensi-platform/admin-ui/select';
 
 ## API (кратко)
 
-Пропсов для кода приложения нет.
+Пропсов для кода приложения нет. Внутри пакета: `readCssPx`, `useComboboxListMetrics`, `isInteractiveTarget`, `resolveSelectedOptions`, `toKeyList`.
 
 | Примитив                 | Импорт                                             |
 | ------------------------ | -------------------------------------------------- |

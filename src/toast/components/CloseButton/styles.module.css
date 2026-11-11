@@ -19,8 +19,8 @@
 }
 
 .root:hover:not(:disabled) {
-    color: color-mix(in srgb, var(--aui-toast-accent) 65%, var(--aui-page-fg-primary));
-    border-color: color-mix(in srgb, var(--aui-toast-accent) 65%, var(--aui-page-fg-primary));
+    color: var(--aui-toast-close-fg-hover);
+    border-color: var(--aui-toast-close-fg-hover);
 }
 
 .root:focus {
@@ -30,8 +30,14 @@
 .root:focus-visible {
     outline: 2px solid var(--aui-toast-close-border-focus);
     outline-offset: 0;
-    color: color-mix(in srgb, var(--aui-toast-accent) 65%, var(--aui-page-fg-primary));
-    border-color: color-mix(in srgb, var(--aui-toast-accent) 65%, var(--aui-page-fg-primary));
+    color: var(--aui-toast-close-fg-hover);
+    border-color: var(--aui-toast-close-fg-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .root {
+        transition: none;
+    }
 }
 
 .icon {

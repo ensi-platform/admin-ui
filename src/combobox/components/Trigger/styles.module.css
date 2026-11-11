@@ -60,7 +60,7 @@
     border: none;
     background: transparent;
     cursor: pointer;
-    border-radius: var(var(--aui-field-clear-radius-md));
+    border-radius: var(--aui-field-clear-radius-md);
 }
 
 .chevronButton:disabled {

@@ -124,6 +124,7 @@
     --aui-input-h-sm: var(--aui-control-h-sm);
     --aui-input-h-md: var(--aui-control-h-md);
     --aui-input-h-lg: var(--aui-control-h-lg);
+    --aui-input-gap-md: var(--aui-spacing-8);
     --aui-input-pad-x-sm: var(--aui-spacing-8);
     --aui-input-pad-x-md: var(--aui-spacing-12);
     --aui-input-pad-x-lg: var(--aui-spacing-16);
@@ -161,6 +162,7 @@
     --aui-dropzone-preview-w: calc(var(--aui-spacing) * 28);
     --aui-dropzone-preview-h: var(--aui-dropzone-preview-w);
     --aui-dropzone-progress-h: var(--aui-spacing-4);
+    --aui-dropzone-skeleton-line-h: var(--aui-spacing-8);
     --aui-dropzone-duration-fast: var(--aui-input-duration-fast);
     --aui-dropzone-duration-normal: var(--aui-duration-normal);
     --aui-dropzone-ease-out: var(--aui-input-ease-out);
@@ -180,6 +182,7 @@
     --aui-textarea-pad-x-sm: var(--aui-input-pad-x-sm);
     --aui-textarea-pad-x-md: var(--aui-input-pad-x-md);
     --aui-textarea-pad-x-lg: var(--aui-input-pad-x-lg);
+    --aui-textarea-gap-md: var(--aui-spacing-8);
     --aui-textarea-pad-y-sm: var(--aui-spacing-4);
     --aui-textarea-pad-y-md: var(--aui-spacing-8);
     --aui-textarea-pad-y-lg: var(--aui-spacing-12);
@@ -696,6 +699,7 @@
     --aui-toast-close-size: var(--aui-spacing-16);
     --aui-toast-close-hit: var(--aui-spacing-24);
     --aui-toast-close-border-focus: var(--aui-control-border-focus);
+    --aui-toast-close-fg-hover: color-mix(in srgb, var(--aui-toast-accent) 65%, var(--aui-toast-fg-title));
     --aui-toast-z: 1050;
     --aui-toast-duration-motion: 200ms;
     --aui-toast-ease-out: var(--aui-control-ease-out);
@@ -778,10 +782,20 @@
     --aui-table-pagination-chevron-size: var(--aui-spacing-16);
     --aui-table-pagination-current-bg: var(--aui-surface-bg-muted);
     --aui-table-page-size-gap: var(--aui-spacing-8);
+    --aui-table-page-size-min: var(--aui-spacing-64);
     --aui-table-z-sticky: 2;
     --aui-table-shadow-sticky: 0 1px 0 var(--aui-table-border-primary);
     --aui-table-duration-fast: var(--aui-control-duration-fast);
     --aui-table-ease-out: var(--aui-control-ease-out);
+
+    /* data-table — aliases the table place for the actions cell */
+    --aui-data-table-pad-y-utility: var(--aui-table-pad-y-utility);
+    --aui-data-table-pad-x-utility: var(--aui-table-pad-x-utility);
+    --aui-data-table-fg-muted: var(--aui-table-fg-muted);
+    --aui-data-table-fg-primary: var(--aui-table-fg-primary);
+    --aui-data-table-border-focus: var(--aui-table-border-focus);
+    --aui-data-table-duration-fast: var(--aui-table-duration-fast);
+    --aui-data-table-ease-out: var(--aui-table-ease-out);
 
     /* tabs — underline + sliding indicator */
     --aui-tabs-fg-primary: var(--aui-page-fg-primary);
@@ -903,8 +917,13 @@
     --aui-cascade-menu-w-md: 280px;
     --aui-cascade-menu-w-collapsed: 64px;
     --aui-cascade-menu-radius-md: var(--aui-radius-4);
+    --aui-cascade-menu-gap-sm: var(--aui-spacing-4);
+    --aui-cascade-menu-gap-md: var(--aui-spacing-8);
+    --aui-cascade-menu-pad-x-sm: var(--aui-spacing-8);
     --aui-cascade-menu-pad-x-md: var(--aui-spacing-12);
+    --aui-cascade-menu-pad-y-sm: var(--aui-spacing-4);
     --aui-cascade-menu-pad-y-md: var(--aui-spacing-12);
+    --aui-cascade-menu-flyout-gap: var(--aui-spacing-4);
     --aui-cascade-menu-flyout-header-mb: var(--aui-spacing-4);
     --aui-cascade-menu-gap-brand-md: var(--aui-spacing-12);
     --aui-cascade-menu-user-pad-y-md: var(--aui-spacing-12);

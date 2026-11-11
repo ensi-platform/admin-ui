@@ -9,7 +9,12 @@ export const docsCssVariables = `/* CSS variables — CascadeMenu (--aui-cascade
 --aui-cascade-menu-w-md: 280px; /* default L0 width token (resize 200–400) */
 --aui-cascade-menu-w-collapsed: 64px; /* collapsed rail width */
 --aui-cascade-menu-radius-md: var(--aui-radius-4); /* item / control soft pill radius */
+--aui-cascade-menu-gap-sm: var(--aui-spacing-4); /* tight chrome gap */
+--aui-cascade-menu-gap-md: var(--aui-spacing-8); /* brand row and pinned label gap */
+--aui-cascade-menu-pad-x-sm: var(--aui-spacing-8); /* collapsed brand inline pad */
 --aui-cascade-menu-pad-x-md: var(--aui-spacing-12); /* column pad x */
+--aui-cascade-menu-pad-y-sm: var(--aui-spacing-4); /* pinned label and flyout header pad */
+--aui-cascade-menu-flyout-gap: var(--aui-spacing-4); /* flyout item gap override */
 --aui-cascade-menu-pad-y-md: var(--aui-spacing-12); /* column pad y */
 --aui-cascade-menu-flyout-header-mb: var(--aui-spacing-4); /* flyout section title margin below */
 --aui-cascade-menu-gap-brand-md: var(--aui-spacing-12); /* brand to body gap */

@@ -26,9 +26,9 @@ describe('GridLayout', () => {
         expect(screen.getByTestId('cell')).toHaveTextContent('Name');
     });
 
-    it('accepts explicit tracks and hides the grid', () => {
+    it('accepts explicit tracks', () => {
         render(
-            <GridLayout cols={['minmax(0, 1fr)', '16.25rem']} gap={0} hidden dataTestId="split">
+            <GridLayout cols={['minmax(0, 1fr)', '16.25rem']} gap={0} dataTestId="split">
                 Main
             </GridLayout>
         );
@@ -36,7 +36,6 @@ describe('GridLayout', () => {
         expect(screen.getByTestId('split')).toHaveStyle({
             '--aui-grid-layout-template': 'minmax(0, 1fr) 16.25rem',
         });
-        expect(screen.getByTestId('split')).toHaveAttribute('hidden');
     });
 
     it('spans a set number of columns and accepts fr tracks', () => {

@@ -3,6 +3,8 @@ import { type InputHTMLAttributes } from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
+import { axe } from '@/test/axe';
+
 import { Field, useField } from '..';
 
 import styles from '../styles.module.css';
@@ -227,5 +229,16 @@ describe('Field', () => {
 
     it('throws useField outside Field', () => {
         expect(() => render(<DemoInput />)).toThrow('This component must be used within a <Field> component');
+    });
+
+    it('has no axe violations', async () => {
+        const { container } = render(
+            <Field>
+                <Field.Label>Email</Field.Label>
+                <DemoInput />
+            </Field>
+        );
+
+        expect(await axe(container)).toHaveNoViolations();
     });
 });

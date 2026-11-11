@@ -14,14 +14,14 @@ import { Select } from '@ensi-platform/admin-ui/select';
 
 ## API (short)
 
-No props for app code.
+No props for app code. Inside the package: `readCssPx`, `useComboboxListMetrics`, `isInteractiveTarget`, `resolveSelectedOptions`, `toKeyList`.
 
-| Primitive                  | Import                                              |
-| -------------------------- | --------------------------------------------------- |
-| `Select`                   | `@ensi-platform/admin-ui/select`                    |
-| `MultiSelect`              | `@ensi-platform/admin-ui/multi-select`              |
-| `Autocomplete`             | `@ensi-platform/admin-ui/autocomplete`              |
-| `MultiAutocomplete`        | `@ensi-platform/admin-ui/multi-autocomplete`        |
-| `AutocompleteAsync`        | `@ensi-platform/admin-ui/autocomplete-async`        |
-| `MultiAutocompleteAsync`   | `@ensi-platform/admin-ui/multi-autocomplete-async`  |
-| `SuggestChecklist`         | `@ensi-platform/admin-ui/suggest-checklist`         |
+| Primitive                | Import                                             |
+| ------------------------ | -------------------------------------------------- |
+| `Select`                 | `@ensi-platform/admin-ui/select`                   |
+| `MultiSelect`            | `@ensi-platform/admin-ui/multi-select`             |
+| `Autocomplete`           | `@ensi-platform/admin-ui/autocomplete`             |
+| `MultiAutocomplete`      | `@ensi-platform/admin-ui/multi-autocomplete`       |
+| `AutocompleteAsync`      | `@ensi-platform/admin-ui/autocomplete-async`       |
+| `MultiAutocompleteAsync` | `@ensi-platform/admin-ui/multi-autocomplete-async` |
+| `SuggestChecklist`       | `@ensi-platform/admin-ui/suggest-checklist`        |

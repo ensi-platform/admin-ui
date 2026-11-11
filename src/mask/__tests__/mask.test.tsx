@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { Mask } from '..';
 
@@ -309,5 +310,11 @@ describe('Mask', () => {
         render(<Mask aria-label="Phone" opts={phoneOpts} ref={ref} />);
 
         expect(ref.current).toBeInstanceOf(HTMLInputElement);
+    });
+
+    it('has no axe violations', async () => {
+        const { container } = render(<Mask aria-label="Phone" opts={phoneOpts} />);
+
+        expect(await axe(container)).toHaveNoViolations();
     });
 });

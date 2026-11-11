@@ -19,7 +19,6 @@ import { GridLayout } from '@ensi-platform/admin-ui/grid-layout';
 | `gap`        | `0` \| `4` \| `8` \| `12` \| `16` \| … \| `64` | `16`         | зазор, шаг шкалы отступов         |
 | `col`        | `number` \| `full`                             | —            | span, если сетка лежит в другой   |
 | `align`      | `start` \| `center` \| `end` \| `stretch`      | `stretch`    | выравнивание по поперечной оси    |
-| `hidden`     | `boolean`                                      | `false`      | убирает сетку из вёрстки          |
 | `dataTestId` | `string`                                       | —            | атрибут `data-test-id` для тестов |
 
 `GridLayout.Item`: `col` — сколько колонок занять. `full` тянется на всю сетку. Число в `cols` даёт равные колонки `minmax(0, 1fr)`. Число внутри списка дорожек — это `Nfr`, строка пишется как есть (`minmax(0, 1fr)`).

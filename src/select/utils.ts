@@ -13,12 +13,3 @@ export const toSelectedKey = (value: TComboboxValue | null | undefined): Key | n
 
     return value;
 };
-
-/** True when click originated from nested button chrome (clear / chevron). */
-export const isInteractiveTarget = (target: EventTarget | null) => {
-    if (!(target instanceof HTMLElement)) {
-        return false;
-    }
-
-    return Boolean(target.closest('button'));
-};

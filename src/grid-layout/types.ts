@@ -25,8 +25,6 @@ export interface IGridLayoutOwnProps extends IDataTestIdProps {
     col?: TGridLayoutCol;
     /** Cross-axis alignment. */
     align?: TGridLayoutAlign;
-    /** Removes the grid from the layout. */
-    hidden?: boolean;
     /** Ref to the grid (React 19 prop). */
     ref?: Ref<HTMLDivElement>;
 }

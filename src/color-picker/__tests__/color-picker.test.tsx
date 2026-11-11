@@ -4,6 +4,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
+import { axe } from '@/test/axe';
+
 import { ColorPicker } from '..';
 
 const Harness = ({
@@ -211,5 +213,11 @@ describe('ColorPicker', () => {
 
         expect(onChange).not.toHaveBeenCalled();
         expect(hue.getAttribute('aria-valuenow')).toBe(before);
+    });
+
+    it('has no axe violations', async () => {
+        const { container } = render(<ColorPicker aria-label="Color" />);
+
+        expect(await axe(container)).toHaveNoViolations();
     });
 });

@@ -1,7 +1,7 @@
 Transient-уведомления на RAC `UNSTABLE_Toast*`.
 
 ```tsx
-import { ToastProvider, ToastRegion, useToast } from '@ensi-platform/admin-ui';
+import { ToastProvider, ToastRegion, useToast } from '@ensi-platform/admin-ui/toast';
 ```
 
 ## Когда использовать

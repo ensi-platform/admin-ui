@@ -15,7 +15,7 @@
 | `readOnly` focusable, unchanged, no clear                             | `it('keeps a read-only value focusable and unchanged')`, `it('hides the clear button when read-only')` |
 | `disabled`                                                            | `it('disables input when disabled')`                                                                   |
 | `invalid`                                                             | `it('sets invalid state')`                                                                             |
-| `prefix` / `suffix`                                                   | `it('renders prefix')`, `it('renders suffix')`                                                         |
+| `leftAddon` / `rightAddon`                                            | `it('renders the left addon')`, `it('places the clear button before the right addon')`                 |
 | `size` / `variant` (no extra behavior)                                | `it('uses the sm size and primary variant classes')`                                                   |
 | `block`                                                               | `it('applies block class by default')`, `it('omits block class when block={false}')`                   |
 | `dataTestId`                                                          | `it('renders textbox')`                                                                                |

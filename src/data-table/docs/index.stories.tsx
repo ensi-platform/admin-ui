@@ -7,6 +7,7 @@ import { Select } from '@/select';
 
 import { DataTable, type IDataTableProps, type IDataTableSort } from '..';
 
+import { docsCssVariables } from './cssVariables';
 import DescriptionEn from './Description.en.md';
 import DescriptionRu from './Description.ru.md';
 import ExampleEn from './Example.en.md';
@@ -77,6 +78,7 @@ export default {
             ru: ExampleRu,
             en: ExampleEn,
         },
+        docsCssVariables,
         controls: {
             expanded: true,
         },

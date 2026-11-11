@@ -37,6 +37,7 @@ export const ColorField = supportRef(
         'aria-labelledby': ariaLabelledby,
         'aria-describedby': ariaDescribedby,
         'aria-invalid': ariaInvalid,
+        ...domProps
     }: IColorFieldProps) => {
         const { clear: clearLabel, openPalette, colorCode, colorPalette } = useAuiLabels();
         const isControlled = value !== undefined;
@@ -137,7 +138,7 @@ export const ColorField = supportRef(
         };
 
         return (
-            <div className={cn(styles.root, block && styles.block, className)}>
+            <div {...domProps} className={cn(styles.root, block && styles.block, className)}>
                 <div
                     ref={setGroupRef}
                     className={colorFieldGroupVariants({ size, variant, block })}

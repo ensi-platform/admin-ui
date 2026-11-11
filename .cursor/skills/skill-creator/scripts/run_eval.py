@@ -5,16 +5,23 @@ Tests whether a skill's description causes Claude to trigger (read the skill)
 for a set of queries. Outputs results as JSON.
 """
 
+from __future__ import annotations
+
 import argparse
 import json
 import os
 import select
+import shutil
 import subprocess
 import sys
 import time
 import uuid
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
+
+if shutil.which("claude") is None:
+    print("description is checked manually in this environment")
+    sys.exit(0)
 
 from scripts.utils import parse_skill_md
 

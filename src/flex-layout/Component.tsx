@@ -44,7 +44,6 @@ const FlexLayoutRoot = supportRef(
         align = 'stretch',
         justify = 'start',
         wrap = false,
-        hidden = false,
         className,
         dataTestId,
         ...props
@@ -52,7 +51,6 @@ const FlexLayoutRoot = supportRef(
         <div
             {...props}
             ref={ref}
-            hidden={hidden}
             className={cn(
                 styles.root,
                 direction === 'column' && styles.column,

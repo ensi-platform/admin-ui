@@ -41,6 +41,7 @@ export const ColorPicker = supportRef(
         className,
         dataTestId,
         'aria-label': ariaLabel,
+        ...domProps
     }: IColorPickerProps) => {
         const { colorHue, colorPresets } = useAuiLabels();
         const isControlled = value !== undefined;
@@ -115,6 +116,7 @@ export const ColorPicker = supportRef(
         return (
             <RacColorPicker value={draft} onChange={onPickerChange}>
                 <div
+                    {...domProps}
                     ref={ref}
                     className={cn(styles.root, className)}
                     data-test-id={dataTestId}

@@ -1,4 +1,4 @@
-import { type Ref } from 'react';
+import { type ComponentPropsWithRef, type Ref } from 'react';
 
 import { type IDataTestIdProps } from '@ds/common';
 
@@ -14,8 +14,6 @@ export interface IColorPickerOwnProps extends IDataTestIdProps {
      * The field keeps it so the slider survives a closed popover.
      */
     hue?: number;
-    /** Class name on the palette root. */
-    className?: string;
     /** Ref to the palette root (React 19 prop). */
     ref?: Ref<HTMLDivElement>;
     'aria-label'?: string;
@@ -36,4 +34,8 @@ export interface IColorPickerControlProps {
     disabled?: boolean;
 }
 
-export interface IColorPickerProps extends IColorPickerOwnProps, IColorPickerControlProps {}
+export interface IColorPickerProps
+    extends
+        Omit<ComponentPropsWithRef<'div'>, keyof IColorPickerOwnProps | keyof IColorPickerControlProps | 'children'>,
+        IColorPickerOwnProps,
+        IColorPickerControlProps {}

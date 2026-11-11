@@ -19,7 +19,7 @@ import { NumberInput, FormNumberInput } from '@ensi-platform/admin-ui/number-inp
 | `value` / `onChange`   | `number \| null`           | —            | управляемое значение; `null` — пусто |
 | `defaultValue`         | `number \| null`           | —            | начальное значение                   |
 | `min` / `max` / `step` | `number`                   | —            | границы и шаг                        |
-| `prefix` / `suffix`    | `ReactNode`                | —            | контент до/после поля                |
+| `leftAddon` / `rightAddon` | `ReactNode`                | —            | слот до поля и после очистки         |
 | `clear`                | `boolean`                  | `false`      | очистка → `onChange(null)`           |
 | `size`                 | `sm` \| `md` \| `lg`       | `md`         | размер                               |
 | `invalid`              | `boolean`                  | `false`      | ошибка                               |
@@ -43,6 +43,6 @@ Stepper в v1 нет.
 | `disabled`             | `boolean`                  | —            | недоступен                           |
 | `readOnly`             | `boolean`                  | —            | видно и можно скопировать, изменить нельзя |
 | `min` / `max` / `step` | `number`                   | —            | границы и шаг                        |
-| `prefix` / `suffix`    | `ReactNode`                | —            | контент до/после поля                |
+| `leftAddon` / `rightAddon` | `ReactNode`                | —            | слот до поля и после очистки         |
 | `formatOptions`        | `Intl.NumberFormatOptions` | —            | отображение/парс                     |
 | `dataTestId`           | `string`                   | —            | атрибут `data-test-id` для тестов    |

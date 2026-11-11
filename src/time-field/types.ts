@@ -19,18 +19,13 @@ export interface ITimeFieldThemeProps {
     size?: TTimeFieldSize;
     /** Visual variant. */
     variant?: TTimeFieldVariant;
-    /**
-     * Stretch to container width.
-     * @default true
-     */
-    block?: boolean;
 }
 
 /** Own / chrome props (not from RAC). */
 export interface ITimeFieldOwnProps extends IDataTestIdProps {
     /** Clear button for the current value. */
     clear?: boolean;
-    /** Class name on the TimeField root. */
+    /** Class name string. RAC `className` may be a function, which `cn` cannot join. */
     className?: string;
     /** Ref to the group element (React 19 prop). */
     ref?: Ref<HTMLDivElement>;

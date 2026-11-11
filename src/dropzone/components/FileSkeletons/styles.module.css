@@ -40,7 +40,7 @@
 .line {
     display: block;
     width: 72%;
-    height: calc(var(--aui-spacing) * 2);
+    height: var(--aui-dropzone-skeleton-line-h);
     border-radius: var(--aui-dropzone-radius-sm);
     background: var(--aui-dropzone-bg-target);
 }

@@ -7,6 +7,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { typographyStyles } from '@ds/typography';
 
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { CopyButton } from '../index';
 
@@ -233,5 +234,11 @@ describe('CopyButton', () => {
         await user.keyboard('{Enter}');
 
         expect(writeText).toHaveBeenCalledWith('123');
+    });
+
+    it('has no axe violations', async () => {
+        const { container } = renderButton(<CopyButton>123</CopyButton>);
+
+        expect(await axe(container)).toHaveNoViolations();
     });
 });

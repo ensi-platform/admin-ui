@@ -21,23 +21,25 @@ import { Input, FormInput } from '@ensi-platform/admin-ui/input';
 | `disabled`    | `boolean`            | `false`      | недоступен (нет фокуса и выделения)         |
 | `readOnly`    | `boolean`            | `false`      | видно и можно скопировать, изменить нельзя  |
 | `clear`       | `boolean`            | `false`      | кнопка очистки → `onChange` с `''`          |
+| `leftAddon`   | `ReactNode`          | —            | слот слева; клик фокусирует поле            |
+| `rightAddon`  | `ReactNode`          | —            | слот справа, после очистки                  |
 | `placeholder` | `string`             | —            | плейсхолдер                                 |
 | `type`        | HTML `type`          | —            | тип input                                   |
 | `dataTestId`  | `string`             | —            | атрибут `data-test-id` для тестов           |
 
-Без `as` / prefix/suffix.
+`Input.AddonButton` — кнопка внутри слота (`type="button"`). При `disabled` слоты видны, но не нажимаются.
 
 ### FormInput
 
-| Prop         | Значения             | По умолчанию | Описание                          |
-| ------------ | -------------------- | ------------ | --------------------------------- |
-| `name`       | `string`             | —            | имя поля в `Form`                 |
-| `label`      | `ReactNode`          | —            | подпись (`Field.Label`)           |
-| `hint`       | `ReactNode`          | —            | подсказка                         |
-| `clear`      | `boolean`            | —            | кнопка очистки                    |
-| `size`       | `sm` \| `md` \| `lg` | `md`         | размер (на Field)                 |
-| `disabled`   | `boolean`            | —            | недоступен                        |
+| Prop         | Значения             | По умолчанию | Описание                                   |
+| ------------ | -------------------- | ------------ | ------------------------------------------ |
+| `name`       | `string`             | —            | имя поля в `Form`                          |
+| `label`      | `ReactNode`          | —            | подпись (`Field.Label`)                    |
+| `hint`       | `ReactNode`          | —            | подсказка                                  |
+| `clear`      | `boolean`            | —            | кнопка очистки                             |
+| `size`       | `sm` \| `md` \| `lg` | `md`         | размер (на Field)                          |
+| `disabled`   | `boolean`            | —            | недоступен                                 |
 | `readOnly`   | `boolean`            | —            | видно и можно скопировать, изменить нельзя |
-| `dataTestId` | `string`             | —            | атрибут `data-test-id` для тестов |
+| `dataTestId` | `string`             | —            | атрибут `data-test-id` для тестов          |
 
 value / onChange / onBlur / валидность — из `Form`.

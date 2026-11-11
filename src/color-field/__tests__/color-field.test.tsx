@@ -4,6 +4,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
+import { axe } from '@/test/axe';
+
 import { ColorField } from '..';
 
 const Harness = ({
@@ -315,5 +317,11 @@ describe('ColorField', () => {
 
         expect(onChange).toHaveBeenCalledTimes(1);
         expect(onChange.mock.calls[0][0]).toMatch(/^#[0-9a-f]{6}$/);
+    });
+
+    it('has no axe violations', async () => {
+        const { container } = render(<ColorField aria-label="Color" />);
+
+        expect(await axe(container)).toHaveNoViolations();
     });
 });

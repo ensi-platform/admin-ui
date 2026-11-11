@@ -5,6 +5,7 @@ import { Button } from '@/button';
 import { Field, useField } from '@/field';
 import { Form } from '@/form';
 
+import { Input } from '../Component';
 import { FormInput } from '../FormInput';
 import { type IInputProps } from '../types';
 
@@ -117,6 +118,22 @@ export const Invalid: StoryObj<IInputProps> = {
         defaultValue: 'not-an-email',
     },
     render: Default.render,
+};
+
+export const WithAddons: StoryObj<IInputProps> = {
+    render: () => (
+        <div style={{ maxWidth: 320 }}>
+            <InputStoryComponent
+                aria-label="Weight"
+                leftAddon="https://"
+                rightAddon={
+                    <Input.AddonButton aria-label="Find" onClick={() => undefined}>
+                        go
+                    </Input.AddonButton>
+                }
+            />
+        </div>
+    ),
 };
 
 export const WithField: StoryObj<IInputProps> = {

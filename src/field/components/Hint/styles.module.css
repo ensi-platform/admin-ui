@@ -2,6 +2,6 @@
     color: var(--aui-field-hint-fg);
 }
 
-.disabled {
+.root[data-disabled] {
     opacity: 0.5;
 }

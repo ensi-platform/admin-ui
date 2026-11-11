@@ -8,14 +8,20 @@ import { type IComboboxOption, type TComboboxSize, type TComboboxValue, type TCo
 import { type IFieldStateProps } from '@/field/types';
 import { type IFormFieldLayoutProps } from '@/form/types';
 
-export type { IComboboxOption, TComboboxSize, TComboboxValue, TComboboxVariant };
+/** Select size. */
+export type TSelectSize = TComboboxSize;
+
+/** Visual variant. */
+export type TSelectVariant = TComboboxVariant;
+
+export type { IComboboxOption, TComboboxValue };
 
 /** Theme inputs. */
 export interface ISelectThemeProps {
     /** Select size. */
-    size?: TComboboxSize;
+    size?: TSelectSize;
     /** Visual variant. */
-    variant?: TComboboxVariant;
+    variant?: TSelectVariant;
 }
 
 /** Control state (our names, not RAC). */

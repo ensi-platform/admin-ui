@@ -1,0 +1,22 @@
+diff --git a/src/badge/Component.tsx b/src/badge/Component.tsx
+--- a/src/badge/Component.tsx	2026-09-25 11:50:47
++++ b/src/badge/Component.tsx	2026-11-11 13:11:25
+@@ -5,13 +5,18 @@
+ import { badgeVariants } from './theme';
+ import { type IBadgeProps } from './types';
+ 
++const getKind = (variant: IBadgeProps['variant']) => variant;
++
+ export const Badge = supportRef(
+     ({ ref, children, size = 'md', variant = 'neutral', className, dataTestId, ...props }: IBadgeProps) => (
++        // пишем kind в атрибут для отладки
++        console.log(variant),
+         <span
+             {...props}
+             ref={ref}
+             className={cn(badgeVariants({ size, variant }), className)}
+             data-test-id={dataTestId}
++            data-badge-kind={getKind(variant)}
+         >
+             {children}
+         </span>

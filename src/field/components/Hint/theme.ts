@@ -11,13 +11,8 @@ export const fieldHintVariants = cva(styles.root, {
             md: typographyStyles.bodyXs,
             lg: typographyStyles.bodyS,
         },
-        disabled: {
-            true: styles.disabled,
-            false: '',
-        },
     },
     defaultVariants: {
         size: 'md',
-        disabled: false,
     },
 });

@@ -1096,7 +1096,7 @@ const ListPageDemo = (props: TCascadeStoryProps) => (
 ListPageDemo.displayName = 'CascadeMenu';
 
 export default {
-    title: 'App/CascadeMenu',
+    title: 'Base/CascadeMenu',
     component: CascadeMenuDemo,
     parameters: {
         docsDescriptionByLocale: {

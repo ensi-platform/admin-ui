@@ -284,6 +284,10 @@
             "types": "./dist/number-range/index.d.ts",
             "import": "./dist/number-range/index.js"
         },
+        "./password": {
+            "types": "./dist/password/index.d.ts",
+            "import": "./dist/password/index.js"
+        },
         "./popover": {
             "types": "./dist/popover/index.d.ts",
             "import": "./dist/popover/index.js"

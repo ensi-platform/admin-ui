@@ -103,5 +103,5 @@ const [width, setWidth] = useState(280);
         }
     />
     <main style={{ flex: 1, padding: 24 }}>Контент</main>
-</div>
+</div>;
 ```

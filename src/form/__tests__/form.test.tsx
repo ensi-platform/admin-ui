@@ -5,6 +5,8 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import { z } from 'zod';
 
+import { axe } from '@/test/axe';
+
 import { Form, getError, useAuiForm, useFieldHook } from '..';
 
 const schema = z.object({
@@ -398,6 +400,16 @@ describe('Form', () => {
 
         expect(screen.getByLabelText('Email')).toBeDisabled();
         expect(screen.getByLabelText('Email')).toHaveAttribute('readOnly');
+    });
+
+    it('has no axe violations', async () => {
+        const { container } = render(
+            <Form initialValues={{ email: '' }} onSubmit={vi.fn()}>
+                <EmailField />
+            </Form>
+        );
+
+        expect(await axe(container)).toHaveNoViolations();
     });
 });
 

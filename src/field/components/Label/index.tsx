@@ -14,7 +14,8 @@ export const FieldLabel = ({ children, className, ...props }: IFieldLabelProps) 
             {...props}
             id={labelId}
             htmlFor={id}
-            className={cn(fieldLabelVariants({ size, disabled: Boolean(disabled) }), className)}
+            className={cn(fieldLabelVariants({ size }), className)}
+            data-disabled={disabled || undefined}
         >
             {children}
         </Label>

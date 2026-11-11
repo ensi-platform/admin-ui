@@ -1,0 +1,22 @@
+.root {
+    isolation: isolate;
+    background: var(--aui-page-bg-primary);
+    color: var(--aui-page-fg-primary);
+    min-height: 100%;
+}
+
+/* Beats bodyM on this node. 1rem follows html, so font: inherit scales with it. */
+.root.root {
+    font-size: 1rem;
+}
+
+.root,
+.root *,
+.root *::before,
+.root *::after {
+    box-sizing: border-box;
+}
+
+.root * {
+    margin: 0;
+}

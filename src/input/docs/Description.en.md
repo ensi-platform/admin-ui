@@ -21,23 +21,25 @@ import { Input, FormInput } from '@ensi-platform/admin-ui/input';
 | `disabled`    | `boolean`            | `false` | disabled (no focus, no selection)        |
 | `readOnly`    | `boolean`            | `false` | visible and copyable, not editable       |
 | `clear`       | `boolean`            | `false` | clear button → `onChange` with `''`      |
+| `leftAddon`   | `ReactNode`          | —       | slot before the field; click focuses it  |
+| `rightAddon`  | `ReactNode`          | —       | slot after the clear button              |
 | `placeholder` | `string`             | —       | placeholder                              |
 | `type`        | HTML `type`          | —       | input type                               |
 | `dataTestId`  | `string`             | —       | `data-test-id` for tests                 |
 
-No `as` / prefix/suffix.
+`Input.AddonButton` is the in-slot button (`type="button"`). When `disabled`, slots stay visible but ignore clicks.
 
 ### FormInput
 
-| Prop         | Values               | Default | Description              |
-| ------------ | -------------------- | ------- | ------------------------ |
-| `name`       | `string`             | —       | field name in `Form`     |
-| `label`      | `ReactNode`          | —       | label (`Field.Label`)    |
-| `hint`       | `ReactNode`          | —       | hint                     |
-| `clear`      | `boolean`            | —       | clear button             |
-| `size`       | `sm` \| `md` \| `lg` | `md`    | size (on Field)          |
-| `disabled`   | `boolean`            | —       | disabled                 |
+| Prop         | Values               | Default | Description                        |
+| ------------ | -------------------- | ------- | ---------------------------------- |
+| `name`       | `string`             | —       | field name in `Form`               |
+| `label`      | `ReactNode`          | —       | label (`Field.Label`)              |
+| `hint`       | `ReactNode`          | —       | hint                               |
+| `clear`      | `boolean`            | —       | clear button                       |
+| `size`       | `sm` \| `md` \| `lg` | `md`    | size (on Field)                    |
+| `disabled`   | `boolean`            | —       | disabled                           |
 | `readOnly`   | `boolean`            | —       | visible and copyable, not editable |
-| `dataTestId` | `string`             | —       | `data-test-id` for tests |
+| `dataTestId` | `string`             | —       | `data-test-id` for tests           |
 
 value / onChange / onBlur / validity come from `Form`.

@@ -238,6 +238,81 @@ describe('Input', () => {
         expect(screen.getByRole('textbox', { name: 'Email' })).toHaveAttribute('type', 'email');
     });
 
+    it('places the clear button before the right addon', () => {
+        render(
+            <AdminUiProvider labels={{ clear: 'Clear' }}>
+                <Input
+                    aria-label="Weight"
+                    value="1"
+                    clear
+                    leftAddon="https://"
+                    rightAddon="kg"
+                    onChange={() => undefined}
+                />
+            </AdminUiProvider>
+        );
+
+        const left = screen.getByText('https://');
+        const input = screen.getByRole('textbox', { name: 'Weight' });
+        const clear = screen.getByRole('button', { name: 'Clear' });
+        const right = screen.getByText('kg');
+
+        const indexOf = (node: Element) => Array.from(node.parentElement?.children ?? []).indexOf(node);
+
+        expect(indexOf(left)).toBeLessThan(indexOf(input));
+        expect(indexOf(input)).toBeLessThan(indexOf(clear));
+        expect(indexOf(clear)).toBeLessThan(indexOf(right));
+    });
+
+    it('focuses the field when the left addon is clicked', async () => {
+        const user = userEvent.setup();
+
+        render(<Input aria-label="Weight" leftAddon="https://" />);
+
+        await user.click(screen.getByText('https://'));
+
+        expect(screen.getByRole('textbox', { name: 'Weight' })).toHaveFocus();
+    });
+
+    it('does not focus a disabled field from the addon', async () => {
+        const user = userEvent.setup();
+
+        render(<Input aria-label="Weight" leftAddon="https://" disabled />);
+
+        await user.click(screen.getByText('https://'));
+
+        expect(screen.getByRole('textbox', { name: 'Weight' })).not.toHaveFocus();
+    });
+
+    it('runs the addon button without submitting the form', async () => {
+        const user = userEvent.setup();
+        const onClick = vi.fn();
+        const onSubmit = vi.fn((event: { preventDefault: () => void }) => event.preventDefault());
+
+        render(
+            <form onSubmit={onSubmit}>
+                <Input
+                    aria-label="Search"
+                    rightAddon={
+                        <Input.AddonButton aria-label="Find" onClick={onClick}>
+                            go
+                        </Input.AddonButton>
+                    }
+                />
+                <button type="submit">Save</button>
+            </form>
+        );
+
+        const addon = screen.getByRole('button', { name: 'Find' });
+
+        expect(addon).toHaveAttribute('type', 'button');
+
+        await user.click(addon);
+
+        expect(onClick).toHaveBeenCalledTimes(1);
+        expect(onSubmit).not.toHaveBeenCalled();
+    });
+
     it('has no axe violations in the default, disabled, and invalid states', async () => {
         const { container, unmount } = render(<Input aria-label="Email" />);
         expect(await axe(container)).toHaveNoViolations();

@@ -4,7 +4,7 @@
     box-sizing: border-box;
     min-width: 0;
     max-width: 100%;
-    gap: var(--aui-spacing-8);
+    gap: var(--aui-input-gap-md);
     border: 1px solid transparent;
     border-radius: var(--aui-input-radius-md);
     transition: border-color var(--aui-input-duration-fast) var(--aui-input-ease-out);
@@ -69,7 +69,13 @@
     cursor: inherit;
 }
 
-.fieldInput:is(:-webkit-autofill, :-webkit-autofill:hover, :-webkit-autofill:focus, :-webkit-autofill:active, :autofill) {
+.fieldInput:is(
+    :-webkit-autofill,
+    :-webkit-autofill:hover,
+    :-webkit-autofill:focus,
+    :-webkit-autofill:active,
+    :autofill
+) {
     -webkit-text-fill-color: currentColor;
     caret-color: currentColor;
     box-shadow: 0 0 0 1000px var(--field-autofill-bg) inset;

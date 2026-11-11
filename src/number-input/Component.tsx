@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import cn from 'classnames';
 import { Group, Input as RacInput, NumberField } from 'react-aria-components';
@@ -6,6 +6,7 @@ import { Group, Input as RacInput, NumberField } from 'react-aria-components';
 import { supportRef } from '@ds/common/support-ref';
 
 import { Clear } from '@/icons';
+import { AddonButton, ControlAddon } from '@/input/components/Addon';
 import { useAuiLabels } from '@/provider';
 
 import { numberInputGroupVariants } from './theme';
@@ -40,7 +41,7 @@ const NumberInputClearButton = ({ onClear }: { onClear: () => void }) => {
     );
 };
 
-export const NumberInput = supportRef(
+const NumberInputRoot = supportRef(
     ({
         ref,
         size = 'md',
@@ -57,8 +58,8 @@ export const NumberInput = supportRef(
         min,
         max,
         step,
-        prefix,
-        suffix,
+        leftAddon,
+        rightAddon,
         placeholder,
         name,
         id,
@@ -69,6 +70,7 @@ export const NumberInput = supportRef(
         'aria-describedby': ariaDescribedby,
         ...props
     }: INumberInputProps) => {
+        const inputRef = useRef<HTMLInputElement | null>(null);
         const isControlled = value !== undefined;
         const [uncontrolledValue, setUncontrolledValue] = useState<number | null>(() =>
             defaultValue === undefined || Number.isNaN(defaultValue) ? null : defaultValue
@@ -111,9 +113,22 @@ export const NumberInput = supportRef(
                     isDisabled={disabled}
                     isReadOnly={readOnly}
                 >
-                    {prefix ? <span className={styles.addon}>{prefix}</span> : null}
+                    {leftAddon ? (
+                        <ControlAddon disabled={disabled} onFocusControl={() => inputRef.current?.focus()}>
+                            {leftAddon}
+                        </ControlAddon>
+                    ) : null}
                     <RacInput
-                        ref={ref}
+                        ref={node => {
+                            inputRef.current = node;
+
+                            if (typeof ref === 'function') {
+                                ref(node);
+                                return;
+                            }
+
+                            if (ref) ref.current = node;
+                        }}
                         name={name}
                         id={id}
                         placeholder={placeholder}
@@ -135,11 +150,17 @@ export const NumberInput = supportRef(
                             }}
                         />
                     ) : null}
-                    {suffix ? <span className={styles.addon}>{suffix}</span> : null}
+                    {rightAddon ? (
+                        <ControlAddon disabled={disabled} onFocusControl={() => inputRef.current?.focus()}>
+                            {rightAddon}
+                        </ControlAddon>
+                    ) : null}
                 </Group>
             </NumberField>
         );
     }
 );
 
-NumberInput.displayName = 'NumberInput';
+NumberInputRoot.displayName = 'NumberInput';
+
+export const NumberInput = Object.assign(NumberInputRoot, { AddonButton });

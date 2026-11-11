@@ -17,7 +17,6 @@ const DEFAULT_ARGS: TFlexLayoutStoryProps = {
     align: 'stretch',
     justify: 'start',
     wrap: false,
-    hidden: false,
 };
 
 const DEFAULT_ARG_TYPES: ArgTypes<Partial<TFlexLayoutStoryProps>> = {
@@ -26,7 +25,6 @@ const DEFAULT_ARG_TYPES: ArgTypes<Partial<TFlexLayoutStoryProps>> = {
     align: { control: { type: 'select' } },
     justify: { control: { type: 'select' } },
     wrap: { control: { type: 'boolean' } },
-    hidden: { control: { type: 'boolean' } },
 };
 
 const FlexLayoutDemo = (props: TFlexLayoutStoryProps) => (

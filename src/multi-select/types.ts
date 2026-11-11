@@ -4,18 +4,24 @@ import { type SelectProps as RacSelectProps } from 'react-aria-components';
 
 import { type IDataTestIdProps } from '@ds/common';
 
+import { type IComboboxOption, type TComboboxSize, type TComboboxValue, type TComboboxVariant } from '@/combobox/types';
 import { type IFieldStateProps } from '@/field/types';
 import { type IFormFieldLayoutProps } from '@/form/types';
-import { type IComboboxOption, type TComboboxSize, type TComboboxValue, type TComboboxVariant } from '@/select/types';
 
-export type { IComboboxOption, TComboboxSize, TComboboxValue, TComboboxVariant };
+/** MultiSelect size. */
+export type TMultiSelectSize = TComboboxSize;
+
+/** Visual variant. */
+export type TMultiSelectVariant = TComboboxVariant;
+
+export type { IComboboxOption, TComboboxValue };
 
 /** Theme inputs. */
 export interface IMultiSelectThemeProps {
     /** MultiSelect size. */
-    size?: TComboboxSize;
+    size?: TMultiSelectSize;
     /** Visual variant. */
-    variant?: TComboboxVariant;
+    variant?: TMultiSelectVariant;
 }
 
 /** Control state (our names, not RAC). */

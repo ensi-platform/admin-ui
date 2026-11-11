@@ -81,10 +81,30 @@ describe('NumberInput', () => {
         expect(onChange.mock.calls.at(-1)?.[0]).toBe(12);
     });
 
-    it('renders suffix', () => {
-        render(<NumberInput aria-label="Price" suffix="₽" />);
+    it('places the clear button before the right addon', () => {
+        render(
+            <AdminUiProvider labels={{ clear: 'Очистить' }}>
+                <NumberInput
+                    aria-label="Price"
+                    value={1}
+                    clear
+                    leftAddon="$"
+                    rightAddon="₽"
+                    onChange={() => undefined}
+                />
+            </AdminUiProvider>
+        );
 
-        expect(screen.getByText('₽')).toBeInTheDocument();
+        const left = screen.getByText('$');
+        const input = screen.getByRole('textbox', { name: 'Price' });
+        const clear = screen.getByRole('button', { name: 'Очистить' });
+        const right = screen.getByText('₽');
+
+        const indexOf = (node: Element) => Array.from(node.parentElement?.children ?? []).indexOf(node);
+
+        expect(indexOf(left)).toBeLessThan(indexOf(input));
+        expect(indexOf(input)).toBeLessThan(indexOf(clear));
+        expect(indexOf(clear)).toBeLessThan(indexOf(right));
     });
 
     it('disables input when disabled', () => {
@@ -138,8 +158,8 @@ describe('NumberInput', () => {
         expect(screen.getByRole('textbox', { name: 'Qty' })).toHaveValue('');
     });
 
-    it('renders prefix', () => {
-        render(<NumberInput aria-label="Price" prefix="$" />);
+    it('renders the left addon', () => {
+        render(<NumberInput aria-label="Price" leftAddon="$" />);
 
         expect(screen.getByText('$')).toBeInTheDocument();
     });

@@ -8,6 +8,7 @@ import { supportRef } from '@ds/common/support-ref';
 
 import { Cart, LogoEnsi, Package } from '@/icons';
 import { AdminUiProvider } from '@/provider';
+import { axe } from '@/test/axe';
 
 import { CascadeMenu } from '..';
 import { useSearchTrigger } from '../components/Search/context';
@@ -102,6 +103,14 @@ describe('CascadeMenu', () => {
         expect(screen.getByRole('button', { name: /Products/ })).toBeInTheDocument();
         expect(screen.queryByRole('link', { name: /Catalog/ })).not.toBeInTheDocument();
         expect(screen.getByText('Alex S.')).toBeInTheDocument();
+    });
+
+    it('has no axe violations', async () => {
+        const { container } = renderWithProvider(
+            <CascadeMenu items={[{ text: 'Products', code: 'products' }]} dataTestId="cascade" />
+        );
+
+        expect(await axe(container)).toHaveNoViolations();
     });
 
     it('opens the flyout when the pointer enters a folder', async () => {

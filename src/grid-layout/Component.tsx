@@ -37,7 +37,6 @@ const GridLayoutRoot = supportRef(
         gap = 16,
         col,
         align = 'stretch',
-        hidden = false,
         className,
         dataTestId,
         style,
@@ -53,7 +52,6 @@ const GridLayoutRoot = supportRef(
             <div
                 {...props}
                 ref={ref}
-                hidden={hidden}
                 className={cn(styles.root, gapClass[gap], alignClass[align], className)}
                 style={gridStyle}
                 data-test-id={dataTestId}

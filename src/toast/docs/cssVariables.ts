@@ -25,6 +25,7 @@ export const docsCssVariables = `/* CSS variables — Toast (--aui-toast-*) */
 --aui-toast-close-size: var(--aui-spacing-16); /* close button icon size */
 --aui-toast-close-hit: var(--aui-spacing-24); /* close button hit area */
 --aui-toast-close-border-focus: var(--aui-control-border-focus); /* close button focus border */
+--aui-toast-close-fg-hover: color-mix(in srgb, var(--aui-toast-accent) 65%, var(--aui-toast-fg-title)); /* close hover, mixed on the toast */
 --aui-toast-z: 1050; /* z-index */
 --aui-toast-duration-motion: 200ms; /* motion duration */
 --aui-toast-ease-out: var(--aui-control-ease-out); /* motion easing */`;

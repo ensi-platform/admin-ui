@@ -3,7 +3,7 @@
     display: flex;
     flex-shrink: 0;
     flex-direction: column;
-    gap: var(--aui-spacing-8);
+    gap: var(--aui-cascade-menu-gap-md);
     margin-top: auto;
     padding: var(--aui-cascade-menu-user-pad-y-md) var(--aui-cascade-menu-pad-x-md) 0;
     width: 100%;

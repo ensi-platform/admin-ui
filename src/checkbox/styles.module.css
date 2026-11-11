@@ -1,20 +1,26 @@
 .field {
     display: inline-flex;
     width: max-content;
+    max-width: 100%;
+    min-width: 0;
     height: fit-content;
     line-height: 0;
 }
 
 .root {
     display: inline-flex;
-    align-items: center;
+    align-items: flex-start;
+    max-width: 100%;
+    min-width: 0;
     gap: var(--aui-checkbox-gap-md);
     cursor: pointer;
     line-height: 0;
 }
 
 .label {
+    min-width: 0;
     line-height: var(--aui-line-height-normal);
+    overflow-wrap: break-word;
 }
 
 .root:disabled,
@@ -75,6 +81,7 @@
     height: var(--aui-checkbox-box-sm);
     min-width: var(--aui-checkbox-box-sm);
     min-height: var(--aui-checkbox-box-sm);
+    margin-block-start: calc((1em * var(--aui-line-height-normal) - var(--aui-checkbox-box-sm)) / 2);
 }
 
 .sm .icon {
@@ -87,6 +94,7 @@
     height: var(--aui-checkbox-box-md);
     min-width: var(--aui-checkbox-box-md);
     min-height: var(--aui-checkbox-box-md);
+    margin-block-start: calc((1em * var(--aui-line-height-normal) - var(--aui-checkbox-box-md)) / 2);
 }
 
 .md .icon {
@@ -99,6 +107,7 @@
     height: var(--aui-checkbox-box-lg);
     min-width: var(--aui-checkbox-box-lg);
     min-height: var(--aui-checkbox-box-lg);
+    margin-block-start: calc((1em * var(--aui-line-height-normal) - var(--aui-checkbox-box-lg)) / 2);
 }
 
 .lg .icon {

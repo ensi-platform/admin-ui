@@ -15,14 +15,12 @@ const DEFAULT_ARGS: TGridLayoutStoryProps = {
     cols: 2,
     gap: 16,
     align: 'stretch',
-    hidden: false,
 };
 
 const DEFAULT_ARG_TYPES: ArgTypes<Partial<TGridLayoutStoryProps>> = {
     cols: { control: { type: 'number' } },
     gap: { control: { type: 'select' }, options: [0, 4, 8, 12, 16, 20, 24, 32, 40, 48, 64] },
     align: { control: { type: 'select' } },
-    hidden: { control: { type: 'boolean' } },
 };
 
 const GridLayoutDemo = ({ cols, ...props }: TGridLayoutStoryProps) => (

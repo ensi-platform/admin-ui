@@ -19,7 +19,7 @@ import { NumberInput, FormNumberInput } from '@ensi-platform/admin-ui/number-inp
 | `value` / `onChange`   | `number \| null`           | —       | controlled; `null` means empty |
 | `defaultValue`         | `number \| null`           | —       | uncontrolled initial           |
 | `min` / `max` / `step` | `number`                   | —       | bounds and step                |
-| `prefix` / `suffix`    | `ReactNode`                | —       | content before/after the field |
+| `leftAddon` / `rightAddon` | `ReactNode`                | —       | slot before the field and after clear |
 | `clear`                | `boolean`                  | `false` | clear → `onChange(null)`       |
 | `size`                 | `sm` \| `md` \| `lg`       | `md`    | size                           |
 | `invalid`              | `boolean`                  | `false` | invalid state                  |
@@ -43,6 +43,6 @@ No stepper in v1.
 | `disabled`             | `boolean`                  | —       | disabled                                |
 | `readOnly`             | `boolean`                  | —       | visible and copyable, not editable      |
 | `min` / `max` / `step` | `number`                   | —       | bounds and step                         |
-| `prefix` / `suffix`    | `ReactNode`                | —       | content before/after the field          |
+| `leftAddon` / `rightAddon` | `ReactNode`                | —       | slot before the field and after clear      |
 | `formatOptions`        | `Intl.NumberFormatOptions` | —       | display/parse                           |
 | `dataTestId`           | `string`                   | —       | `data-test-id` for tests                |

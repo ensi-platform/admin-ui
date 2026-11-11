@@ -11,13 +11,8 @@ export const fieldLabelVariants = cva(styles.root, {
             md: typographyStyles.bodyS,
             lg: typographyStyles.bodyM,
         },
-        disabled: {
-            true: styles.disabled,
-            false: '',
-        },
     },
     defaultVariants: {
         size: 'md',
-        disabled: false,
     },
 });

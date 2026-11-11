@@ -20,6 +20,8 @@ import { TextArea, FormTextArea } from '@ensi-platform/admin-ui/textarea';
 | `disabled`    | `boolean`            | `false` | disabled (no focus, no selection)        |
 | `readOnly`    | `boolean`            | `false` | visible and copyable, not editable       |
 | `clear`       | `boolean`            | `false` | clear button → `onChange` with `''`      |
+| `leftAddon`   | `ReactNode`          | —       | slot before the field, on the first line |
+| `rightAddon`  | `ReactNode`          | —       | slot after the clear button              |
 | `placeholder` | `string`             | —       | placeholder                              |
 | `rows`        | `number`             | —       | row count                                |
 | `dataTestId`  | `string`             | —       | `data-test-id` for tests                 |
@@ -28,15 +30,15 @@ No `as` / extra `variant` beyond `primary`.
 
 ### FormTextArea
 
-| Prop         | Values               | Default | Description              |
-| ------------ | -------------------- | ------- | ------------------------ |
-| `name`       | `string`             | —       | field name in `Form`     |
-| `label`      | `ReactNode`          | —       | label (`Field.Label`)    |
-| `hint`       | `ReactNode`          | —       | hint                     |
-| `clear`      | `boolean`            | —       | clear button             |
-| `size`       | `sm` \| `md` \| `lg` | `md`    | size (on Field)          |
-| `disabled`   | `boolean`            | —       | disabled                 |
+| Prop         | Values               | Default | Description                        |
+| ------------ | -------------------- | ------- | ---------------------------------- |
+| `name`       | `string`             | —       | field name in `Form`               |
+| `label`      | `ReactNode`          | —       | label (`Field.Label`)              |
+| `hint`       | `ReactNode`          | —       | hint                               |
+| `clear`      | `boolean`            | —       | clear button                       |
+| `size`       | `sm` \| `md` \| `lg` | `md`    | size (on Field)                    |
+| `disabled`   | `boolean`            | —       | disabled                           |
 | `readOnly`   | `boolean`            | —       | visible and copyable, not editable |
-| `dataTestId` | `string`             | —       | `data-test-id` for tests |
+| `dataTestId` | `string`             | —       | `data-test-id` for tests           |
 
 value / onChange / onBlur / validity come from `Form`.

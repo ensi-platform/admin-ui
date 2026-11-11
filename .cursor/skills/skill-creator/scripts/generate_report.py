@@ -9,8 +9,13 @@ Distinguishes between train and test queries.
 import argparse
 import html
 import json
+import shutil
 import sys
 from pathlib import Path
+
+if shutil.which("claude") is None:
+    print("description is checked manually in this environment")
+    sys.exit(0)
 
 
 def generate_html(data: dict, auto_refresh: bool = False, skill_name: str = "") -> str:

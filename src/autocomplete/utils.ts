@@ -1,6 +1,6 @@
 import { type Key } from 'react-aria-components';
 
-import { type TComboboxValue } from '@/select/types';
+import { type TComboboxValue } from '@/combobox/types';
 
 export const toSelectedKey = (value: TComboboxValue | null | undefined): Key | null | undefined => {
     if (value === undefined) {
@@ -12,13 +12,4 @@ export const toSelectedKey = (value: TComboboxValue | null | undefined): Key | n
     }
 
     return value;
-};
-
-/** True when click originated from nested button chrome (clear / chevron). */
-export const isInteractiveTarget = (target: EventTarget | null) => {
-    if (!(target instanceof HTMLElement)) {
-        return false;
-    }
-
-    return Boolean(target.closest('button'));
 };

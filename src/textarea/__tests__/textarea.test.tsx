@@ -38,6 +38,32 @@ describe('TextArea', () => {
         expect(input).toHaveValue('keep');
     });
 
+    it('places the clear button before the right addon', () => {
+        render(
+            <AdminUiProvider labels={{ clear: 'Clear' }}>
+                <TextArea
+                    aria-label="Comment"
+                    value="a"
+                    clear
+                    leftAddon="Note"
+                    rightAddon="md"
+                    onChange={() => undefined}
+                />
+            </AdminUiProvider>
+        );
+
+        const left = screen.getByText('Note');
+        const input = screen.getByRole('textbox', { name: 'Comment' });
+        const clear = screen.getByRole('button', { name: 'Clear' });
+        const right = screen.getByText('md');
+
+        const indexOf = (node: Element) => Array.from(node.parentElement?.children ?? []).indexOf(node);
+
+        expect(indexOf(left)).toBeLessThan(indexOf(input));
+        expect(indexOf(input)).toBeLessThan(indexOf(clear));
+        expect(indexOf(clear)).toBeLessThan(indexOf(right));
+    });
+
     it('hides the clear button when read-only', () => {
         render(
             <AdminUiProvider labels={{ clear: 'Clear' }}>

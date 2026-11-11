@@ -22,5 +22,6 @@ import { ColorPicker } from '@ensi-platform/admin-ui/color-picker';
 | `onHueChange`        | `function` | —            | новый оттенок после движения по палитре. Пара к `hue`                                        |
 | `disabled`           | `boolean`  | `false`      | недоступна                                                                                   |
 | `dataTestId`         | `string`   | —            | атрибут `data-test-id` для тестов                                                            |
+| `toHexColor`         | `function` | —            | `#rrggbb` или `null`. Импортируется вместе с `ColorPicker`                                   |
 
 Перетаскивание публикует цвет, когда указатель отпущен. Стрелки на ползунке оттенка публикуют цвет на каждый шаг. Первое касание оттенка у пустого значения публикует серый `#808080`.

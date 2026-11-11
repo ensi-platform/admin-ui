@@ -8,7 +8,7 @@
     --aui-menu-list-item-bg-open: var(--aui-cascade-menu-item-bg-open);
     --aui-menu-list-item-bg-open-hover: var(--aui-cascade-menu-item-bg-open-hover);
     --aui-menu-list-radius-md: 0;
-    --aui-menu-list-gap-items-md: var(--aui-spacing-4);
+    --aui-menu-list-gap-items-md: var(--aui-cascade-menu-flyout-gap);
 
     position: fixed;
     z-index: var(--aui-cascade-menu-flyout-z);
@@ -30,7 +30,7 @@
     flex-shrink: 0;
     box-sizing: border-box;
     margin: 0 var(--aui-cascade-menu-pad-x-md) var(--aui-cascade-menu-flyout-header-mb);
-    padding: var(--aui-spacing-4) 0 var(--aui-spacing-12);
+    padding: var(--aui-cascade-menu-pad-y-sm) 0 var(--aui-cascade-menu-pad-y-md);
     border-bottom: 1px solid var(--aui-cascade-menu-border-divider);
     color: var(--aui-cascade-menu-fg-primary);
     font-weight: var(--aui-font-weight-semibold);

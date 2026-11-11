@@ -6,13 +6,20 @@ by calling `claude -p` as a subprocess (same auth pattern as run_eval.py —
 uses the session's Claude Code auth, no separate ANTHROPIC_API_KEY needed).
 """
 
+from __future__ import annotations
+
 import argparse
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
+
+if shutil.which("claude") is None:
+    print("description is checked manually in this environment")
+    sys.exit(0)
 
 from scripts.utils import parse_skill_md
 

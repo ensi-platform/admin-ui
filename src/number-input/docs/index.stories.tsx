@@ -120,6 +120,14 @@ const ClearDemo = (args: INumberInputProps) => {
     );
 };
 
+export const WithAddons: StoryObj<INumberInputProps> = {
+    render: () => (
+        <div style={{ maxWidth: 320 }}>
+            <NumberInputStoryComponent aria-label="Price" leftAddon="$" rightAddon="kg" defaultValue={12} />
+        </div>
+    ),
+};
+
 export const WithSuffix: StoryObj<INumberInputProps> = {
     render: () => <SuffixDemo />,
 };

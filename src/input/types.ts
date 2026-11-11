@@ -1,4 +1,4 @@
-import { type Ref } from 'react';
+import { type ReactNode, type Ref } from 'react';
 
 import { type InputProps as RacInputProps } from 'react-aria-components';
 
@@ -19,8 +19,16 @@ export interface IInputThemeProps {
     variant?: TInputVariant;
 }
 
+/** Slots inside the control row, not the Field shell. */
+export interface IControlAddonProps {
+    /** Content before the control. */
+    leftAddon?: ReactNode;
+    /** Content after the control. Rendered after the clear button. */
+    rightAddon?: ReactNode;
+}
+
 /** Own / chrome props (not from RAC). */
-export interface IInputOwnProps extends IDataTestIdProps {
+export interface IInputOwnProps extends IDataTestIdProps, IControlAddonProps {
     /** Clear button for the current value. */
     clear?: boolean;
     /** Visible and copyable, but not editable. Not `disabled`. */
@@ -40,7 +48,7 @@ export interface IInputProps extends IInputBaseProps, Omit<RacInputProps, keyof 
 export type TInputFormRacOmit =
     TInputRacOmit | keyof IInputBaseProps | 'value' | 'defaultValue' | 'onChange' | 'onBlur' | 'name' | 'className';
 
-export interface IInputContentProps extends Omit<RacInputProps, TInputFormRacOmit> {
+export interface IInputContentProps extends Omit<RacInputProps, TInputFormRacOmit>, IControlAddonProps {
     clear?: boolean;
     /** Visible and copyable, but not editable. Not `disabled`. */
     readOnly?: boolean;
