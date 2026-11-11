@@ -1,3 +1,11 @@
+## 0.13.0 - 2026-11-11
+
+### Features
+- add new components + new skills + fixes
+
+### Bug Fixes
+- undefined
+
 ## 0.12.0 - 2026-11-09
 
 ### Features
