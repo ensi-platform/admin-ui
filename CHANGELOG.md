@@ -1,3 +1,8 @@
+## 0.13.1 - 2026-11-11
+
+### Bug Fixes
+- fix autocomplete
+
 ## 0.13.0 - 2026-11-11
 
 ### Features
