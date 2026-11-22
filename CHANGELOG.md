@@ -1,3 +1,12 @@
+## 0.14.0 - 2026-11-22
+
+### Features
+- remove text-editor
+- add new features + components
+
+### Bug Fixes
+- fix errors
+
 ## 0.13.2 - 2026-11-13
 
 ### Bug Fixes
