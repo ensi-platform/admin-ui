@@ -1,0 +1,25 @@
+.root {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--aui-text-editor-toolbar-gap);
+    margin: var(--aui-text-editor-toolbar-gap) 0;
+    padding: var(--aui-text-editor-toolbar-gap) var(--aui-text-editor-pad-x-sm);
+    border: 1px solid var(--aui-text-editor-chip-border);
+    border-radius: var(--aui-text-editor-radius-md);
+    background: var(--aui-text-editor-chip-bg);
+    color: var(--aui-text-editor-fg-primary);
+}
+
+.remove {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: var(--aui-text-editor-fg-muted);
+    font: inherit;
+    cursor: pointer;
+}
+
+.remove:focus-visible {
+    outline: 1px solid var(--aui-text-editor-border-focus);
+    outline-offset: 2px;
+}

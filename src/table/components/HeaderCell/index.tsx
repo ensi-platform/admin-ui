@@ -32,6 +32,7 @@ export const TableHeaderCell = supportRef(
         align,
         noWrap = false,
         utility = false,
+        pin,
         width,
         colSpan,
         sortable = false,
@@ -85,11 +86,15 @@ export const TableHeaderCell = supportRef(
                 ref={ref}
                 scope={scope}
                 colSpan={colSpan}
-                className={cn(tableHeaderCellVariants({ numeric, align, noWrap, utility, sticky }), className)}
-                style={{ width, ...style }}
+                className={cn(
+                    tableHeaderCellVariants({ numeric, align, noWrap, utility, sticky, pin: pin != null }),
+                    className
+                )}
+                style={{ width, minWidth: width, ...style }}
                 aria-sort={getAriaSort(sortable, sortDirection)}
                 data-numeric={numeric || undefined}
                 data-utility={utility || undefined}
+                data-pin={pin}
                 data-sortable={sortable || undefined}
                 data-filter={filter != null || undefined}
                 data-test-id={dataTestId}

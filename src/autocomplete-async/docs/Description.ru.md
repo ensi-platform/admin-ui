@@ -50,7 +50,7 @@ interface IUseAutocompleteSuggest {
 | `block`        | `boolean`                                   | —            | на всю ширину                     |
 | `dataTestId`   | `string`                                    | —            | атрибут `data-test-id` для тестов |
 
-Правка текста не сбрасывает `value`. Blur возвращает подпись выбранного пункта.
+Backspace оставляет набранный остаток и не меняет `value`. Tab и один Escape возвращают подпись выбранного пункта без `onChange`. Клик по другому пункту меняет `value`. Клик по полю открывает список.
 
 Без внешних `options` / `isLoading`.
 

@@ -2,11 +2,11 @@
 export const docsCssVariables = `/* CSS variables — Badge (--aui-badge-*) */
 --aui-badge-bg-neutral: var(--aui-surface-bg-muted); /* neutral fill */
 --aui-badge-fg-neutral: var(--aui-page-fg-primary); /* neutral foreground */
---aui-badge-bg-success: var(--aui-green-50); /* success fill */
+--aui-badge-bg-success: color-mix(in srgb, var(--aui-green-700) 22%, var(--aui-surface-bg-primary)); /* success fill */
 --aui-badge-fg-success: var(--aui-green-700); /* success foreground */
---aui-badge-bg-warning: var(--aui-yellow-50); /* warning fill */
+--aui-badge-bg-warning: color-mix(in srgb, var(--aui-yellow-700) 22%, var(--aui-surface-bg-primary)); /* warning fill */
 --aui-badge-fg-warning: var(--aui-yellow-700); /* warning foreground */
---aui-badge-bg-danger: var(--aui-red-50); /* danger fill */
+--aui-badge-bg-danger: color-mix(in srgb, var(--aui-red-700) 22%, var(--aui-surface-bg-primary)); /* danger fill */
 --aui-badge-fg-danger: var(--aui-red-700); /* danger foreground */
 --aui-badge-bg-info: var(--aui-badge-bg-neutral); /* info fill = neutral */
 --aui-badge-fg-info: var(--aui-badge-fg-neutral); /* info foreground = neutral */

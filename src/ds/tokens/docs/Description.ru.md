@@ -19,6 +19,7 @@ import '@ensi-platform/admin-ui/tokens';
 | Токен | Роль |
 | --- | --- |
 | `--aui-page-bg-primary` | подложка страницы |
+| `--aui-page-bg-subtle` | сайдбар, совпадает со страницей; край — divider |
 | `--aui-page-fg-primary` | текст страницы |
 | `--aui-page-fg-muted` | вторичный текст |
 | `--aui-page-fg-link` | текст ссылки (подчёркивание; тот же, что текст страницы) |
@@ -27,4 +28,4 @@ import '@ensi-platform/admin-ui/tokens';
 | `--aui-surface-bg-elevated` | приподнятая подложка |
 | `--aui-surface-border-primary` | обводка зоны, если у зоны нет заливки |
 
-Шкалы (`--aui-neutral-*`, `--aui-grey-*`, `--aui-red-*`, `--aui-radius-*`, `--aui-spacing-*`) в CSS приложения не использовать. Слои экрана и роли цветов — `docs/design-language.md`.
+Шкалы (`--aui-neutral-*`, `--aui-red-*`, `--aui-radius-*`, `--aui-spacing-*`) в CSS приложения не использовать. Слои экрана и роли цветов — `docs/design-language.md`.

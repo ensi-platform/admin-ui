@@ -50,7 +50,7 @@ Pass a stable module hook reference (not inline or conditional).
 | `block`        | `boolean`                                   | —       | full width                                 |
 | `dataTestId`   | `string`                                    | —       | `data-test-id` for tests                   |
 
-Editing the text does not clear `value`. Blur restores the selected label.
+Backspace keeps the typed remainder and does not change `value`. Tab and one Escape restore the selected label without `onChange`. A click on another option changes `value`. A click on the field opens the list.
 
 No external `options` / `isLoading`.
 

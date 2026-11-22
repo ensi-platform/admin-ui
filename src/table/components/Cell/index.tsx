@@ -13,6 +13,7 @@ export const TableCell = supportRef(
         align,
         noWrap = false,
         utility = false,
+        pin,
         width,
         colSpan,
         className,
@@ -24,10 +25,11 @@ export const TableCell = supportRef(
             {...props}
             ref={ref}
             colSpan={colSpan}
-            className={cn(tableCellVariants({ numeric, align, noWrap, utility }), className)}
-            style={{ width, ...style }}
+            className={cn(tableCellVariants({ numeric, align, noWrap, utility, pin: pin != null }), className)}
+            style={{ width, minWidth: width, ...style }}
             data-numeric={numeric || undefined}
             data-utility={utility || undefined}
+            data-pin={pin}
             data-test-id={dataTestId}
         >
             {children}

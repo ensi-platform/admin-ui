@@ -24,7 +24,7 @@ export const docsCssVariables = `/* CSS variables — BottomSheet (--aui-bottom-
 --aui-bottom-sheet-handle-w-md: var(--aui-spacing-48); /* drag handle w md */
 --aui-bottom-sheet-handle-h-md: var(--aui-spacing-4); /* drag handle h md */
 --aui-bottom-sheet-handle-radius-md: var(--aui-radius-4); /* drag handle radius md */
---aui-bottom-sheet-handle-bg-primary: var(--aui-grey-300); /* drag handle bg primary */
+--aui-bottom-sheet-handle-bg-primary: var(--aui-surface-bg-muted-active); /* drag handle bg primary */
 
 --aui-bottom-sheet-close-size-sm: var(--aui-spacing-16); /* close button size sm */
 --aui-bottom-sheet-close-hit-sm: var(--aui-spacing-32); /* close button hit sm */

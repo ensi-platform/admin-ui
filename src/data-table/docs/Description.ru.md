@@ -28,6 +28,7 @@ import { DataTable } from '@ensi-platform/admin-ui/data-table';
 - Корень сам рисует область прокрутки и `<table>`. `Header` и `Body` внутри таблицы, `Footer` снаружи
 - `HeaderCell`: `column` и `sortable`. Без `Filter` сортировка — нажатие по заголовку (`none` → `asc` → `desc` → `none`). Смена колонки сбрасывает предыдущую
 - `Filter` — тело дропа внутри `HeaderCell`. `active` красит иконку. Нет слота — дропа нет. Если колонка `sortable`, пункты сортировки под фильтром
-- `Row` `onContextMenu` — правый клик, тот же проп, что у строки `Table`. Строка сама меню не открывает
+- `Cell` / `HeaderCell` `pin` и `Row` `pin` — как у `Table`. Ячейки чекбокса всегда липнут влево
+- `Row` `onContextMenu` — правый клик, тот же проп, что у строки `Table`. Строка сама меню не открывает. `active` держит `--aui-table-bg-hover`, в том числе у выбранной строки, пока сборка держит меню открытым
 - `Actions` — тихая кнопка «⋯» с `onClick`. Всегда видна, без заливки. Что открывать, решает сборка строки
 - `Pagination` и `PageSize` — как у `Table`, обычно внутри `Footer`

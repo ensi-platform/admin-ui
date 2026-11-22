@@ -13,22 +13,74 @@
     overflow: auto;
 }
 
+.scroll[data-pin-stuck~='start'] {
+    --aui-table-pin-shadow-start: var(--aui-table-shadow-pin-start);
+}
+
+.scroll[data-pin-stuck~='end'] {
+    --aui-table-pin-shadow-end: var(--aui-table-shadow-pin-end);
+}
+
+.scroll[data-pin-stuck~='top'] {
+    --aui-table-pin-shadow-top: var(--aui-table-shadow-sticky);
+}
+
+.scroll[data-pin-stuck~='bottom'] {
+    --aui-table-pin-shadow-bottom: var(--aui-table-shadow-pin-bottom);
+}
+
 .block {
     width: 100%;
 }
 
 .table {
-    width: 100%;
+    width: max-content;
+    min-width: 100%;
     border-collapse: separate;
     border-spacing: 0;
     table-layout: auto;
+}
+
+.table :global([data-pin-seam~='start']) {
+    box-shadow: var(--aui-table-pin-shadow-start, 0 0 0 transparent);
+}
+
+.table :global([data-pin-seam~='end']) {
+    box-shadow: var(--aui-table-pin-shadow-end, 0 0 0 transparent);
+}
+
+.table :global([data-pin-seam~='top']) {
+    box-shadow: var(--aui-table-pin-shadow-top, 0 0 0 transparent);
+}
+
+.table :global([data-pin-seam~='bottom']) {
+    box-shadow: var(--aui-table-pin-shadow-bottom, 0 0 0 transparent);
+}
+
+.table :global([data-pin-seam~='start'][data-pin-seam~='top']) {
+    box-shadow:
+        var(--aui-table-pin-shadow-start, 0 0 0 transparent), var(--aui-table-pin-shadow-top, 0 0 0 transparent);
+}
+
+.table :global([data-pin-seam~='end'][data-pin-seam~='top']) {
+    box-shadow: var(--aui-table-pin-shadow-end, 0 0 0 transparent), var(--aui-table-pin-shadow-top, 0 0 0 transparent);
+}
+
+.table :global([data-pin-seam~='start'][data-pin-seam~='bottom']) {
+    box-shadow:
+        var(--aui-table-pin-shadow-start, 0 0 0 transparent), var(--aui-table-pin-shadow-bottom, 0 0 0 transparent);
+}
+
+.table :global([data-pin-seam~='end'][data-pin-seam~='bottom']) {
+    box-shadow:
+        var(--aui-table-pin-shadow-end, 0 0 0 transparent), var(--aui-table-pin-shadow-bottom, 0 0 0 transparent);
 }
 
 .hasChecked {
     --aui-table-checkbox-slot: var(--aui-table-checkbox-w);
 }
 
-.zebra :global(tbody tr:nth-child(odd):not([data-checked]):not(:hover) > td) {
+:where(.zebra) :global(tbody tr:nth-child(odd):not([data-checked]):not(:hover) > td) {
     background: var(--aui-table-bg-zebra);
 }
 

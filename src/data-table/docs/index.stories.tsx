@@ -22,12 +22,16 @@ const CITY_OPTIONS = [
 
 const OrderRow = ({
     row,
+    active,
     onOpen,
 }: {
     row: { id: number; city: string; email: string; locked: boolean };
+    active: boolean;
     onOpen: (x: number, y: number) => void;
 }) => (
     <DataTable.Row
+        active={active}
+        checked={row.id === 2}
         onContextMenu={event => {
             event.preventDefault();
             onOpen(event.clientX, event.clientY);
@@ -92,7 +96,7 @@ export const Default: StoryObj<IDataTableProps> = {
     render: function DefaultStory(args) {
         const [sort, setSort] = useState<IDataTableSort | undefined>({ column: 'city', direction: 'asc' });
         const [cities, setCities] = useState<string[]>(['Kazan']);
-        const [menu, setMenu] = useState<{ x: number; y: number; locked: boolean } | null>(null);
+        const [menu, setMenu] = useState<{ id: number; x: number; y: number; locked: boolean } | null>(null);
 
         const rows = ROWS.filter(row => (cities.length === 0 ? true : cities.includes(row.city)));
 
@@ -120,7 +124,12 @@ export const Default: StoryObj<IDataTableProps> = {
                     </DataTable.Header>
                     <DataTable.Body>
                         {rows.map(row => (
-                            <OrderRow key={row.id} row={row} onOpen={(x, y) => setMenu({ x, y, locked: row.locked })} />
+                            <OrderRow
+                                key={row.id}
+                                row={row}
+                                active={menu?.id === row.id}
+                                onOpen={(x, y) => setMenu({ id: row.id, x, y, locked: row.locked })}
+                            />
                         ))}
                     </DataTable.Body>
                     <DataTable.Footer>

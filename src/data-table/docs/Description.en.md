@@ -28,6 +28,7 @@ Slots: `Header` / `Body` / `Footer` / `Row` / `Cell` / `HeaderCell` / `CheckboxC
 - The root renders the scroll area and `<table>`. `Header` and `Body` sit inside the table, `Footer` sits outside
 - `HeaderCell`: `column` and `sortable`. Without `Filter`, sorting is a header click (`none` → `asc` → `desc` → `none`). Switching column clears the previous one
 - `Filter` is the drop body inside `HeaderCell`. `active` colors the icon. No slot — no drop. When the column is `sortable`, sort actions sit under the filter
-- `Row` `onContextMenu` is the right click, the same prop as on a `Table` row. The row does not open a menu
+- `Cell` / `HeaderCell` `pin` and `Row` `pin` match `Table`. Checkbox cells stay pinned to the start
+- `Row` `onContextMenu` is the right click, the same prop as on a `Table` row. The row does not open a menu. `active` keeps `--aui-table-bg-hover`, including on a checked row, while the screen keeps the menu open
 - `Actions` is a quiet “⋯” button with `onClick`. It stays visible, with no fill. The row assembly decides what the click opens
 - `Pagination` and `PageSize` match `Table` and usually live in `Footer`

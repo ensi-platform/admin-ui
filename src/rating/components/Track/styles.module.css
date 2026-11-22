@@ -1,0 +1,31 @@
+.track {
+    display: flex;
+    gap: var(--aui-rating-gap);
+}
+
+.zones {
+    position: absolute;
+    inset: 0;
+    display: flex;
+}
+
+.zone {
+    flex: 1;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    touch-action: none;
+}
+
+.track[data-disabled] .zone {
+    cursor: not-allowed;
+}
+
+.thumb {
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+    border: 0;
+}

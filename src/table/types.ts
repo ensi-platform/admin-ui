@@ -11,6 +11,9 @@ export type TTableSortDirection = 'asc' | 'desc';
 /** Cell horizontal alignment. */
 export type TTableAlign = 'start' | 'end' | 'center';
 
+/** Column pin edge. */
+export type TTablePin = 'start' | 'end';
+
 /** Theme inputs. */
 export interface ITableThemeProps {
     /** Row density. */
@@ -54,6 +57,8 @@ export interface ITableCellChromeProps {
     width?: CSSProperties['width'];
     /** Utility column (checkbox / actions / settings). */
     utility?: boolean;
+    /** Stick to the inline start or end while the shell scrolls. */
+    pin?: TTablePin;
 }
 
 export type { ITableHeaderProps } from './components/Header/types';
@@ -61,7 +66,7 @@ export type { ITableBodyProps } from './components/Body/types';
 export type { ITableFooterProps } from './components/Footer/types';
 export type { ITableScrollProps } from './components/Scroll/types';
 export type { ITableElementProps } from './components/TableElement/types';
-export type { ITableRowProps } from './components/Row/types';
+export type { ITableRowProps, TTableRowPin } from './components/Row/types';
 export type { ITableCellProps } from './components/Cell/types';
 export type { ITableHeaderCellProps } from './components/HeaderCell/types';
 export type { ITableCheckboxCellProps } from './components/CheckboxCell/types';

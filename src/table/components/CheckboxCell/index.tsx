@@ -33,6 +33,7 @@ export const TableCheckboxCell = ({
         <TableCell
             {...props}
             utility
+            pin="start"
             className={cn(styles.root, className)}
             dataTestId={dataTestId}
             onClick={handleClick}

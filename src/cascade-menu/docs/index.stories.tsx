@@ -144,7 +144,7 @@ const MAIN_STYLE = {
     minWidth: 0,
     overflow: 'auto',
     padding: 24,
-    background: 'var(--aui-page-bg)',
+    background: 'var(--aui-page-bg-primary)',
     color: 'var(--aui-page-fg-primary)',
 };
 

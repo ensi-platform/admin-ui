@@ -11,6 +11,7 @@ import { DocsPage } from './DocsPage';
 import type { Decorator, Preview } from '@storybook/react';
 
 import '../src/ds/tokens/index.css';
+import './preview.css';
 
 /** Keeps story links inside the preview iframe (`<base target="_parent">`). */
 const StorybookLink = ({ href, onClick, children, ...props }: ComponentPropsWithRef<'a'>) => (

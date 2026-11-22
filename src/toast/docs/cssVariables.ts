@@ -1,12 +1,12 @@
 /** Toast CSS variables from semantic tokens (--aui-toast-*). */
 export const docsCssVariables = `/* CSS variables — Toast (--aui-toast-*) */
 --aui-toast-bg-neutral: var(--aui-surface-bg-muted); /* neutral fill */
---aui-toast-accent-neutral: var(--aui-neutral-500); /* neutral accent */
---aui-toast-bg-success: var(--aui-green-50); /* success fill */
+--aui-toast-accent-neutral: var(--aui-page-fg-muted); /* neutral accent */
+--aui-toast-bg-success: color-mix(in srgb, var(--aui-green-700) 22%, var(--aui-surface-bg-primary)); /* success fill */
 --aui-toast-accent-success: var(--aui-green-700); /* success accent */
---aui-toast-bg-warning: var(--aui-yellow-50); /* warning fill */
+--aui-toast-bg-warning: color-mix(in srgb, var(--aui-yellow-700) 22%, var(--aui-surface-bg-primary)); /* warning fill */
 --aui-toast-accent-warning: var(--aui-yellow-700); /* warning accent */
---aui-toast-bg-danger: var(--aui-red-50); /* danger fill */
+--aui-toast-bg-danger: color-mix(in srgb, var(--aui-red-700) 22%, var(--aui-surface-bg-primary)); /* danger fill */
 --aui-toast-accent-danger: var(--aui-red-700); /* danger accent */
 --aui-toast-bg-info: var(--aui-surface-bg-muted); /* info fill = muted */
 --aui-toast-accent-info: var(--aui-page-fg-muted); /* info accent = muted fg */

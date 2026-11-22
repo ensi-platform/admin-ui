@@ -42,6 +42,16 @@
     z-index: calc(var(--aui-table-z-sticky) + 1);
 }
 
+.pin {
+    position: sticky;
+    z-index: var(--aui-table-z-pin);
+    background: var(--aui-table-bg-header);
+}
+
+.sticky.pin {
+    z-index: calc(var(--aui-table-z-sticky) + 1);
+}
+
 .root[data-sortable]:not([data-filter]):hover,
 .root[data-filter]:hover {
     background: var(--aui-table-bg-hover);

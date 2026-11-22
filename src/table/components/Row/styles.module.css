@@ -1,5 +1,4 @@
 .root {
-    position: relative;
     transition:
         background-color var(--aui-table-duration-fast) var(--aui-table-ease-out),
         box-shadow var(--aui-table-duration-fast) var(--aui-table-ease-out);
@@ -24,6 +23,15 @@
     background: var(--aui-table-bg-selected);
 }
 
+:global(tbody) .root[data-checked]:not([data-disabled]):hover > :global(td) {
+    background: var(--aui-table-bg-hover);
+}
+
+:global(tbody) .root[data-active]:not([data-checked]):not([data-disabled]) > :global(td),
+:global(tbody) .root[data-checked][data-active]:not([data-disabled]) > :global(td) {
+    background: var(--aui-table-bg-hover);
+}
+
 .root[data-disabled] {
     color: var(--aui-table-fg-disabled);
     opacity: 0.56;
@@ -41,4 +49,15 @@
 
 .root:focus-visible {
     outline: none;
+}
+
+:global(tbody) .root[data-pin] > :global(td),
+:global(tbody) .root[data-pin] > :global(th) {
+    position: sticky;
+    background: var(--aui-table-bg-primary);
+    z-index: var(--aui-table-z-pin);
+}
+
+:global(tbody) .root[data-pin] > :global([data-pin]) {
+    z-index: var(--aui-table-z-pin-cross);
 }

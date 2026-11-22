@@ -1,0 +1,5 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(8, var(--aui-text-editor-swatch));
+    gap: var(--aui-text-editor-toolbar-gap);
+}

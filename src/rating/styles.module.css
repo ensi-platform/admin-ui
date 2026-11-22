@@ -1,0 +1,27 @@
+.root {
+    position: relative;
+    display: inline-flex;
+    max-width: 100%;
+    outline: none;
+}
+
+.root[data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.sm,
+.md,
+.lg {
+    display: inline-flex;
+}
+
+.primary:has([data-focus-visible]) {
+    outline: 2px solid var(--aui-rating-border-focus);
+    outline-offset: 2px;
+}
+
+.primary[data-invalid] {
+    outline: 2px solid var(--aui-rating-border-danger);
+    outline-offset: 2px;
+}

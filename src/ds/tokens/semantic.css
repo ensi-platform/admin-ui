@@ -1,8 +1,9 @@
 :root {
     color-scheme: light;
 
-    /* page — white canvas; sidebar sits one step off-white */
+    /* page — white canvas; sidebar matches the page, the divider is the edge */
     --aui-page-bg-primary: var(--aui-white);
+    --aui-page-bg-subtle: var(--aui-white);
     --aui-page-fg-primary: var(--aui-neutral-900);
     --aui-page-fg-muted: var(--aui-neutral-500);
     --aui-page-fg-link: var(--aui-page-fg-primary);
@@ -18,7 +19,7 @@
     --aui-surface-border-muted: var(--aui-neutral-100);
 
     /* overlay — shared backdrop for modal / drawer / bottom-sheet */
-    --aui-overlay-bg-primary: color-mix(in srgb, var(--aui-black-900) 40%, transparent);
+    --aui-overlay-bg-primary: color-mix(in srgb, var(--aui-black) 40%, transparent);
 
     /* control — brand / status */
     --aui-control-bg-brand: var(--aui-neutral-800);
@@ -87,7 +88,7 @@
 
     /* link */
     --aui-link-fg: var(--aui-page-fg-link);
-    --aui-link-fg-hover: var(--aui-neutral-800);
+    --aui-link-fg-hover: var(--aui-control-bg-brand);
     --aui-link-border-focus: var(--aui-control-border-focus);
     --aui-link-duration-fast: var(--aui-control-duration-fast);
     --aui-link-ease-out: var(--aui-control-ease-out);
@@ -192,6 +193,51 @@
     --aui-textarea-duration-fast: var(--aui-control-duration-fast);
     --aui-textarea-ease-out: var(--aui-control-ease-out);
 
+    /* text-editor — aliases textarea / surface; dark follows those tokens */
+    --aui-text-editor-bg-primary: var(--aui-textarea-bg-primary);
+    --aui-text-editor-fg-primary: var(--aui-textarea-fg-primary);
+    --aui-text-editor-fg-muted: var(--aui-textarea-fg-muted);
+    --aui-text-editor-fg-danger: var(--aui-control-fg-danger);
+    --aui-text-editor-border-primary: var(--aui-textarea-border-primary);
+    --aui-text-editor-border-focus: var(--aui-textarea-border-focus);
+    --aui-text-editor-border-danger: var(--aui-textarea-border-danger);
+    --aui-text-editor-radius-md: var(--aui-textarea-radius-md);
+    --aui-text-editor-min-h-sm: var(--aui-textarea-min-h-sm);
+    --aui-text-editor-min-h-md: calc(var(--aui-control-h-md) * 4);
+    --aui-text-editor-min-h-lg: calc(var(--aui-control-h-lg) * 4);
+    --aui-text-editor-pad-x-sm: var(--aui-textarea-pad-x-sm);
+    --aui-text-editor-pad-x-md: var(--aui-textarea-pad-x-md);
+    --aui-text-editor-pad-x-lg: var(--aui-textarea-pad-x-lg);
+    --aui-text-editor-pad-y-sm: var(--aui-textarea-pad-y-sm);
+    --aui-text-editor-pad-y-md: var(--aui-textarea-pad-y-md);
+    --aui-text-editor-pad-y-lg: var(--aui-textarea-pad-y-lg);
+    --aui-text-editor-toolbar-bg: var(--aui-surface-bg-muted);
+    --aui-text-editor-toolbar-h: var(--aui-control-h-sm);
+    --aui-text-editor-toolbar-gap: var(--aui-spacing-4);
+    --aui-text-editor-chip-bg: var(--aui-surface-bg-muted);
+    --aui-text-editor-chip-border: var(--aui-surface-border-muted);
+    --aui-text-editor-popover-w: calc(var(--aui-spacing) * 56);
+    --aui-text-editor-swatch: var(--aui-spacing-16);
+    --aui-text-editor-duration-fast: var(--aui-control-duration-fast);
+    --aui-text-editor-ease-out: var(--aui-control-ease-out);
+    --aui-text-editor-toolbar-pressed: var(--aui-surface-bg-muted-active);
+    --aui-text-editor-toolbar-divider: var(--aui-text-editor-border-primary);
+    --aui-text-editor-bubble-bg: var(--aui-surface-bg-elevated);
+    --aui-text-editor-overlay-z: var(--aui-z-modal);
+
+    /* rating */
+    --aui-rating-fg-primary: var(--aui-yellow-500);
+    --aui-rating-fg-primary-hover: color-mix(in srgb, var(--aui-yellow-500) 65%, transparent);
+    --aui-rating-fg-muted: var(--aui-page-fg-muted);
+    --aui-rating-border-focus: var(--aui-control-border-focus);
+    --aui-rating-border-danger: var(--aui-control-border-danger);
+    --aui-rating-icon-sm: var(--aui-spacing-16);
+    --aui-rating-icon-md: var(--aui-spacing-20);
+    --aui-rating-icon-lg: var(--aui-spacing-24);
+    --aui-rating-gap: var(--aui-spacing-4);
+    --aui-rating-duration-fast: var(--aui-control-duration-fast);
+    --aui-rating-ease-out: var(--aui-control-ease-out);
+
     /* checkbox */
     --aui-checkbox-bg-primary: var(--aui-surface-bg-primary);
     --aui-checkbox-bg-selected: var(--aui-control-bg-brand);
@@ -218,7 +264,7 @@
     --aui-switch-track-bg-primary: var(--aui-surface-bg-muted);
     --aui-switch-track-bg-selected: var(--aui-control-bg-brand);
     --aui-switch-thumb-bg-primary: var(--aui-white);
-    --aui-switch-thumb-bg-selected: var(--aui-white);
+    --aui-switch-thumb-bg-selected: var(--aui-control-fg-brand);
     --aui-switch-fg-primary: var(--aui-page-fg-primary);
     --aui-switch-border-focus: var(--aui-control-border-focus);
     --aui-switch-border-danger: var(--aui-control-border-danger);
@@ -564,11 +610,11 @@
     /* badge — soft status pills */
     --aui-badge-bg-neutral: var(--aui-surface-bg-muted);
     --aui-badge-fg-neutral: var(--aui-page-fg-primary);
-    --aui-badge-bg-success: var(--aui-green-50);
+    --aui-badge-bg-success: color-mix(in srgb, var(--aui-green-700) 22%, var(--aui-surface-bg-primary));
     --aui-badge-fg-success: var(--aui-green-700);
-    --aui-badge-bg-warning: var(--aui-yellow-50);
+    --aui-badge-bg-warning: color-mix(in srgb, var(--aui-yellow-700) 22%, var(--aui-surface-bg-primary));
     --aui-badge-fg-warning: var(--aui-yellow-700);
-    --aui-badge-bg-danger: var(--aui-red-50);
+    --aui-badge-bg-danger: color-mix(in srgb, var(--aui-red-700) 22%, var(--aui-surface-bg-primary));
     --aui-badge-fg-danger: var(--aui-red-700);
     --aui-badge-bg-info: var(--aui-badge-bg-neutral);
     --aui-badge-fg-info: var(--aui-badge-fg-neutral);
@@ -599,9 +645,9 @@
     --aui-tag-icon-hit-md: var(--aui-spacing-16);
     --aui-tag-line-height: var(--aui-line-height-tight);
 
-    /* tooltip — inverted chrome */
-    --aui-tooltip-bg-primary: var(--aui-neutral-800);
-    --aui-tooltip-fg-primary: var(--aui-neutral-50);
+    /* tooltip — brand pair, so dark mirrors it */
+    --aui-tooltip-bg-primary: var(--aui-control-bg-brand);
+    --aui-tooltip-fg-primary: var(--aui-control-fg-brand);
     --aui-tooltip-radius-md: var(--aui-control-radius-sm);
     --aui-tooltip-pad-y-sm: var(--aui-spacing-4);
     --aui-tooltip-pad-x-sm: var(--aui-spacing-8);
@@ -675,12 +721,12 @@
 
     /* toast — transient notifications */
     --aui-toast-bg-neutral: var(--aui-surface-bg-muted);
-    --aui-toast-accent-neutral: var(--aui-neutral-500);
-    --aui-toast-bg-success: var(--aui-green-50);
+    --aui-toast-accent-neutral: var(--aui-page-fg-muted);
+    --aui-toast-bg-success: color-mix(in srgb, var(--aui-green-700) 22%, var(--aui-surface-bg-primary));
     --aui-toast-accent-success: var(--aui-green-700);
-    --aui-toast-bg-warning: var(--aui-yellow-50);
+    --aui-toast-bg-warning: color-mix(in srgb, var(--aui-yellow-700) 22%, var(--aui-surface-bg-primary));
     --aui-toast-accent-warning: var(--aui-yellow-700);
-    --aui-toast-bg-danger: var(--aui-red-50);
+    --aui-toast-bg-danger: color-mix(in srgb, var(--aui-red-700) 22%, var(--aui-surface-bg-primary));
     --aui-toast-accent-danger: var(--aui-red-700);
     --aui-toast-bg-info: var(--aui-surface-bg-muted);
     --aui-toast-accent-info: var(--aui-page-fg-muted);
@@ -740,8 +786,8 @@
 
     /* table — data list chrome (flush with page) */
     --aui-table-bg-primary: var(--aui-page-bg-primary);
-    --aui-table-bg-hover: var(--aui-neutral-300);
-    --aui-table-bg-selected: var(--aui-neutral-100);
+    --aui-table-bg-hover: var(--aui-surface-bg-muted-active);
+    --aui-table-bg-selected: var(--aui-surface-bg-muted);
     --aui-table-bg-zebra: var(--aui-neutral-50);
     --aui-table-bg-header: var(--aui-table-bg-primary);
     --aui-table-bg-footer: var(--aui-table-bg-primary);
@@ -784,7 +830,12 @@
     --aui-table-page-size-gap: var(--aui-spacing-8);
     --aui-table-page-size-min: var(--aui-spacing-64);
     --aui-table-z-sticky: 2;
+    --aui-table-z-pin: 1;
+    --aui-table-z-pin-cross: 2;
     --aui-table-shadow-sticky: 0 1px 0 var(--aui-table-border-primary);
+    --aui-table-shadow-pin-start: 1px 0 0 var(--aui-table-border-primary);
+    --aui-table-shadow-pin-end: -1px 0 0 var(--aui-table-border-primary);
+    --aui-table-shadow-pin-bottom: 0 -1px 0 var(--aui-table-border-primary);
     --aui-table-duration-fast: var(--aui-control-duration-fast);
     --aui-table-ease-out: var(--aui-control-ease-out);
 
@@ -908,8 +959,8 @@
     --aui-menu-list-duration-fast: var(--aui-control-duration-fast);
     --aui-menu-list-ease-out: var(--aui-control-ease-out);
 
-    /* cascade-menu — L0 one step off the white page */
-    --aui-cascade-menu-bg-primary: var(--aui-neutral-50);
+    /* cascade-menu — L0 one step off the page */
+    --aui-cascade-menu-bg-primary: var(--aui-page-bg-subtle);
     --aui-cascade-menu-fg-primary: var(--aui-page-fg-primary);
     --aui-cascade-menu-fg-muted: var(--aui-page-fg-muted);
     --aui-cascade-menu-border-divider: var(--aui-surface-border-primary);
@@ -1024,7 +1075,7 @@
     --aui-bottom-sheet-handle-w-md: var(--aui-spacing-48);
     --aui-bottom-sheet-handle-h-md: var(--aui-spacing-4);
     --aui-bottom-sheet-handle-radius-md: var(--aui-radius-4);
-    --aui-bottom-sheet-handle-bg-primary: var(--aui-neutral-300);
+    --aui-bottom-sheet-handle-bg-primary: var(--aui-surface-bg-muted-active);
     --aui-bottom-sheet-close-size-sm: var(--aui-spacing-16);
     --aui-bottom-sheet-close-hit-sm: var(--aui-spacing-32);
     --aui-bottom-sheet-close-radius-sm: var(--aui-control-radius-sm);

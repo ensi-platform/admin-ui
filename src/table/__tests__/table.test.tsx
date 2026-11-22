@@ -79,6 +79,135 @@ describe('Table', () => {
         expect(screen.getByRole('columnheader', { name: 'Name' })).toHaveClass(headerCellStyles.sticky);
     });
 
+    it('marks pinned cells', () => {
+        render(
+            <Table>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell pin="start">Name</Table.HeaderCell>
+                                <Table.HeaderCell pin="end" dataTestId="actions-head" />
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                            <Table.Row>
+                                <Table.Cell pin="start" dataTestId="name-cell">
+                                    Alice
+                                </Table.Cell>
+                                <Table.Cell pin="end">Edit</Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table.Table>
+                </Table.Scroll>
+            </Table>
+        );
+
+        expect(screen.getByRole('columnheader', { name: 'Name' })).toHaveAttribute('data-pin', 'start');
+        expect(screen.getByTestId('actions-head')).toHaveAttribute('data-pin', 'end');
+        expect(screen.getByTestId('name-cell')).toHaveAttribute('data-pin', 'start');
+        expect(screen.getByRole('cell', { name: 'Edit' })).toHaveAttribute('data-pin', 'end');
+    });
+
+    it('pins checkbox cells to the start', () => {
+        render(
+            <Table>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCheckboxCell
+                                    checked={false}
+                                    onChange={() => undefined}
+                                    aria-label="Select all"
+                                    dataTestId="head-check"
+                                />
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                            <Table.Row>
+                                <Table.CheckboxCell
+                                    checked={false}
+                                    onChange={() => undefined}
+                                    aria-label="Select row"
+                                    dataTestId="row-check"
+                                />
+                            </Table.Row>
+                        </Table.Body>
+                    </Table.Table>
+                </Table.Scroll>
+            </Table>
+        );
+
+        expect(screen.getByTestId('head-check')).toHaveAttribute('data-pin', 'start');
+        expect(screen.getByTestId('row-check')).toHaveAttribute('data-pin', 'start');
+    });
+
+    it('marks a pinned row', () => {
+        render(
+            <Table>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Body>
+                            <Table.Row pin="top" dataTestId="top-row">
+                                <Table.Cell>Total</Table.Cell>
+                            </Table.Row>
+                            <Table.Row pin="bottom" dataTestId="bottom-row">
+                                <Table.Cell>Sum</Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table.Table>
+                </Table.Scroll>
+            </Table>
+        );
+
+        expect(screen.getByTestId('top-row')).toHaveAttribute('data-pin', 'top');
+        expect(screen.getByTestId('bottom-row')).toHaveAttribute('data-pin', 'bottom');
+    });
+
+    it('marks the outer pinned cell as the seam', () => {
+        render(
+            <Table>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Header sticky>
+                            <Table.Row>
+                                <Table.HeaderCell pin="start" dataTestId="pin-a">
+                                    Name
+                                </Table.HeaderCell>
+                                <Table.HeaderCell pin="start" dataTestId="pin-b">
+                                    City
+                                </Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                            <Table.Row pin="top">
+                                <Table.Cell pin="start" dataTestId="top-a">
+                                    Alice
+                                </Table.Cell>
+                                <Table.Cell pin="start" dataTestId="top-b">
+                                    Moscow
+                                </Table.Cell>
+                            </Table.Row>
+                            <Table.Row pin="top">
+                                <Table.Cell pin="start">Bob</Table.Cell>
+                                <Table.Cell pin="start" dataTestId="lower-top">
+                                    Kazan
+                                </Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table.Table>
+                </Table.Scroll>
+            </Table>
+        );
+
+        expect(screen.getByTestId('pin-a')).not.toHaveAttribute('data-pin-seam');
+        expect(screen.getByTestId('pin-b')).toHaveAttribute('data-pin-seam', 'start');
+        expect(screen.getByTestId('top-a')).not.toHaveAttribute('data-pin-seam');
+        expect(screen.getByTestId('top-b')).toHaveAttribute('data-pin-seam', 'start');
+        expect(screen.getByTestId('lower-top')).toHaveAttribute('data-pin-seam', 'start top');
+    });
+
     it('applies checked state on row', () => {
         render(
             <Table>
@@ -95,6 +224,42 @@ describe('Table', () => {
         );
 
         expect(screen.getByTestId('row')).toHaveAttribute('data-checked');
+    });
+
+    it('marks the row active', () => {
+        const { rerender } = render(
+            <Table>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Body>
+                            <Table.Row active dataTestId="row">
+                                <Table.Cell>A</Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table.Table>
+                </Table.Scroll>
+            </Table>
+        );
+
+        const row = screen.getByTestId('row');
+        expect(row).toHaveAttribute('data-active');
+        expect(row).not.toHaveAttribute('active');
+
+        rerender(
+            <Table>
+                <Table.Scroll>
+                    <Table.Table>
+                        <Table.Body>
+                            <Table.Row dataTestId="row">
+                                <Table.Cell>A</Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table.Table>
+                </Table.Scroll>
+            </Table>
+        );
+
+        expect(screen.getByTestId('row')).not.toHaveAttribute('data-active');
     });
 
     it('marks zebra on shell', () => {

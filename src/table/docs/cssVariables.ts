@@ -1,9 +1,9 @@
 /** Table CSS variables from semantic tokens (--aui-table-*). */
 export const docsCssVariables = `/* CSS variables — Table (--aui-table-*) */
 --aui-table-bg-primary: var(--aui-surface-bg-primary); /* primary fill */
---aui-table-bg-hover: var(--aui-neutral-300); /* hover fill; dark: grey-500 */
---aui-table-bg-selected: var(--aui-neutral-100); /* selected fill; dark: muted (grey-600) */
---aui-table-bg-zebra: var(--aui-neutral-50); /* zebra fill; dark: muted 18% on page */
+--aui-table-bg-hover: var(--aui-surface-bg-muted-active); /* hover fill */
+--aui-table-bg-selected: var(--aui-surface-bg-muted); /* selected fill */
+--aui-table-bg-zebra: var(--aui-neutral-50); /* zebra fill; dark is a quiet white mix */
 --aui-table-bg-header: var(--aui-surface-bg-primary); /* header fill */
 --aui-table-bg-footer: var(--aui-surface-bg-primary); /* footer fill */
 
@@ -56,8 +56,13 @@ export const docsCssVariables = `/* CSS variables — Table (--aui-table-*) */
 --aui-table-page-size-min: var(--aui-spacing-64); /* page-size select min width */
 
 --aui-table-z-sticky: 2; /* z-index */
+--aui-table-z-pin: 1; /* pinned cell z-index */
+--aui-table-z-pin-cross: 2; /* pinned row and column intersection z-index */
 
 --aui-table-shadow-sticky: 0 1px 0 var(--aui-table-border-primary); /* sticky shadow */
+--aui-table-shadow-pin-start: 1px 0 0 var(--aui-table-border-primary); /* pin seam at the inline start */
+--aui-table-shadow-pin-end: -1px 0 0 var(--aui-table-border-primary); /* pin seam at the inline end */
+--aui-table-shadow-pin-bottom: 0 -1px 0 var(--aui-table-border-primary); /* pin seam above a bottom row */
 
 --aui-table-duration-fast: var(--aui-control-duration-fast); /* transition duration (fast) */
 --aui-table-ease-out: var(--aui-control-ease-out); /* transition easing */`;

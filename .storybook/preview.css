@@ -1,0 +1,5 @@
+html,
+body {
+    background: var(--aui-page-bg-primary);
+    color: var(--aui-page-fg-primary);
+}

@@ -4,6 +4,6 @@ export { readCssPx, useComboboxListMetrics } from './components/List/metrics';
 export { ComboboxListStatus, type IComboboxListStatusProps } from './components/ListStatus';
 export { ComboboxMultiTrigger, type IComboboxMultiTriggerProps } from './components/MultiTrigger';
 export { ComboboxPopover, type IComboboxPopoverProps } from './components/Popover';
-export { ComboboxTrigger, type IComboboxTriggerProps } from './components/Trigger';
+export { ComboboxTrigger, CommitHighlightedOnTabContext, type IComboboxTriggerProps } from './components/Trigger';
 export type { IComboboxOption, TComboboxSize, TComboboxValue, TComboboxVariant } from './types';
 export { isInteractiveTarget, resolveSelectedOptions, toKeyList } from './utils';

@@ -1,0 +1,26 @@
+.root {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--aui-text-editor-toolbar-gap);
+    min-height: var(--aui-text-editor-toolbar-h);
+    padding: var(--aui-text-editor-toolbar-gap);
+    border-bottom: 1px solid var(--aui-text-editor-border-primary);
+    background: var(--aui-text-editor-toolbar-bg);
+}
+
+.group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--aui-text-editor-toolbar-gap);
+}
+
+.group + .group {
+    padding-left: var(--aui-text-editor-toolbar-gap);
+    border-left: 1px solid var(--aui-text-editor-toolbar-divider);
+}
+
+.root :global(button[aria-pressed='true']) {
+    background: var(--aui-text-editor-toolbar-pressed);
+}

@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import { supportRef } from '@ds/common/support-ref';
 
 import { Autocomplete } from '@/autocomplete';
+import { CommitHighlightedOnTabContext } from '@/combobox';
 import { type IComboboxOption, type TComboboxValue } from '@/select/types';
 
 import { useAutocompleteAsyncInput, useAutocompleteAsyncSuggest } from './hooks/useAsyncSuggest';
@@ -37,6 +38,19 @@ export const AutocompleteAsync = supportRef(
         });
 
         const handleChange = (next: TComboboxValue | null) => {
+            if (next != null && next !== '' && next === value) {
+                const fromOptions = options.find(item => item.value === next);
+                const cachedLabel = selectedRef.current?.value === next ? selectedRef.current.label : undefined;
+                const label = fromOptions?.label ?? cachedLabel;
+
+                if (label != null && inputValue !== label) {
+                    editedRef.current = false;
+                    setInputValue(label);
+                }
+
+                return;
+            }
+
             if (next == null || next === '') {
                 selectedRef.current = null;
                 setInputValue('');
@@ -135,28 +149,30 @@ export const AutocompleteAsync = supportRef(
         }, [value, options, inputValue, setInputValue]);
 
         return (
-            <Autocomplete
-                {...props}
-                value={value}
-                onChange={handleChange}
-                disabled={disabled}
-                options={options}
-                clientFilter={false}
-                isLoading={isAsyncSuggestLoading({
-                    disabled,
-                    inputValue,
-                    debouncedQuery,
-                    minLength,
-                    isLoading,
-                })}
-                isError={Boolean(isError)}
-                hasMore={hasMore}
-                onLoadMore={loadMore}
-                isLoadingMore={isLoadingMore}
-                inputValue={inputValue}
-                onInputChange={handleInputChange}
-                onBlur={handleBlur}
-            />
+            <CommitHighlightedOnTabContext.Provider value={false}>
+                <Autocomplete
+                    {...props}
+                    value={value}
+                    onChange={handleChange}
+                    disabled={disabled}
+                    options={options}
+                    clientFilter={false}
+                    isLoading={isAsyncSuggestLoading({
+                        disabled,
+                        inputValue,
+                        debouncedQuery,
+                        minLength,
+                        isLoading,
+                    })}
+                    isError={Boolean(isError)}
+                    hasMore={hasMore}
+                    onLoadMore={loadMore}
+                    isLoadingMore={isLoadingMore}
+                    inputValue={inputValue}
+                    onInputChange={handleInputChange}
+                    onBlur={handleBlur}
+                />
+            </CommitHighlightedOnTabContext.Provider>
         );
     }
 );

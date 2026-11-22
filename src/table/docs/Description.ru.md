@@ -10,20 +10,22 @@ import { Table, useTableRowSelection } from '@ensi-platform/admin-ui/table';
 
 ## API (кратко)
 
-| Prop         | Значения             | По умолчанию | Описание                                             |
-| ------------ | -------------------- | ------------ | ---------------------------------------------------- |
-| `size`       | `sm` \| `md` \| `lg` | `md`         | плотность строк                                      |
-| `block`      | `boolean`            | `true`       | ширина 100% родителя                                 |
-| `hasChecked` | `boolean`            | `false`      | резерв под колонку чекбоксов                         |
-| `zebra`      | `boolean`            | `false`      | слабый фон чётных строк (checked / hover перебивают) |
-| `dataTestId` | `string`             | —            | атрибут `data-test-id` для тестов                    |
+| Prop         | Значения             | По умолчанию | Описание                                                                                              |
+| ------------ | -------------------- | ------------ | ----------------------------------------------------------------------------------------------------- |
+| `size`       | `sm` \| `md` \| `lg` | `md`         | плотность строк                                                                                       |
+| `block`      | `boolean`            | `true`       | ширина 100% родителя                                                                                  |
+| `hasChecked` | `boolean`            | `false`      | резерв под колонку чекбоксов                                                                          |
+| `zebra`      | `boolean`            | `false`      | слабый фон чётных строк (checked / hover перебивают; ховер выбранной строки — `--aui-table-bg-hover`) |
+| `dataTestId` | `string`             | —            | атрибут `data-test-id` для тестов                                                                     |
 
 Слоты: `Scroll` / `Table` / `Header` / `Body` / `Footer` / `Row` / `Cell` / `HeaderCell` / `CheckboxCell` / `HeaderCheckboxCell` / `ActionBar` / `SortIndicator` / `Pagination` / `PageSize`.
 
 - `Scroll` — область скролла; `Footer` — sibling рядом (не внутри `Table.Table` / `<table>`)
 - `Table` — нативный `<table>`: только `Header` / `Body` / `Row` / ячейки
 - `Header`: `sticky?`; `Footer`: `sticky?` (по умолчанию `true`); слева `PageSize`, справа `Pagination`
-- `Cell` / `HeaderCell`: `numeric?`, `align?`, `utility?`, `noWrap?`, `width?`; у `HeaderCell` ещё `sortable?`, `sortDirection?`, `onSort?`, `filter?`, `filterActive?`
+- `Cell` / `HeaderCell`: `numeric?`, `align?`, `utility?`, `noWrap?`, `width?`, `pin?` (`start` | `end`); у `HeaderCell` ещё `sortable?`, `sortDirection?`, `onSort?`, `filter?`, `filterActive?`
+- один и тот же `pin` на всех ячейках колонки, включая шапку. Несколько колонок с одного края суммируют сдвиг. Ячейки чекбокса всегда `start`. Шов края виден, только пока этот край прилип к области скролла
+- `Row`: `pin?` (`top` | `bottom`) для строк тела. Несколько строк с одного края встают под липкую шапку или от низа области скролла. `active` держит `--aui-table-bg-hover`, в том числе у выбранной строки; меню строка не открывает
 - `filter` — тело дропа в шапке колонки. Триггер — плашка. Если колонка `sortable`, пункты сортировки под фильтром. Без `filter` сортировка по-прежнему кликом по заголовку. `filterActive` красит иконку фильтра
 - `Pagination`: controlled `page` + `pageCount` + `onPageChange` + `from` + `to` + `total`; номера страниц (окно, первая и последняя всегда на месте); опционально `rangeLabel?`, `prevLabel?` / `nextLabel?`, `disabled?`
 - `PageSize`: controlled `value` + `onChange`; `options?` (по умолчанию `[5, 10, 25, 50, 100]`); `label?`; `disabled?`

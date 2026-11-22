@@ -187,6 +187,37 @@ describe('Autocomplete', () => {
         expect(await screen.findByRole('status')).toHaveAttribute('aria-label', 'Загрузка подсказок');
     });
 
+    it('opens the list from a field click', async () => {
+        const user = userEvent.setup();
+
+        render(<Autocomplete aria-label="City" options={OPTIONS} />);
+
+        const input = screen.getByRole('combobox', { name: /City/ });
+
+        await user.click(input);
+
+        expect(screen.getByRole('listbox')).toBeInTheDocument();
+        expect(input).toHaveValue('');
+
+        await user.click(input);
+
+        expect(screen.getByRole('listbox')).toBeInTheDocument();
+    });
+
+    it('does not open the list when clear is clicked', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <AdminUiProvider labels={{ clear: 'Очистить' }}>
+                <Autocomplete aria-label="City" options={OPTIONS} value="msk" clear />
+            </AdminUiProvider>
+        );
+
+        await user.click(screen.getByRole('button', { name: 'Очистить' }));
+
+        expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    });
+
     it('does not open when disabled', async () => {
         const user = userEvent.setup();
 
@@ -326,12 +357,17 @@ describe('Autocomplete', () => {
         const input = screen.getByRole('combobox', { name: /City/ });
 
         await user.click(input);
-        await user.keyboard('{ArrowDown}');
+
+        if (input instanceof HTMLInputElement) {
+            input.setSelectionRange(0, input.value.length);
+        }
+
+        await user.keyboard('Санкт');
         await user.click(await screen.findByRole('option', { name: 'Санкт-Петербург' }));
 
         expect(onChange).toHaveBeenCalledTimes(1);
         expect(onChange).toHaveBeenCalledWith('spb');
-        expect(input).toHaveValue('Москва');
+        expect(input).toHaveValue('Санкт');
     });
 
     it('calls onBlur when focus leaves the field', async () => {

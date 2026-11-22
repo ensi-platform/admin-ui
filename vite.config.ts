@@ -47,7 +47,12 @@ export default defineConfig({
         libInjectCss(),
         dts({
             include: ['src'],
-            exclude: ['src/**/*.d.ts', 'src/**/*.{test,spec,stories}.{ts,tsx}', 'src/**/docs/**'],
+            exclude: [
+                'src/**/*.d.ts',
+                'src/**/*.{test,spec,stories}.{ts,tsx}',
+                'src/**/docs/**',
+                'src/text-editor/**',
+            ],
             tsconfigPath: resolve(packageRoot, 'tsconfig.json'),
             pathsToAliases: false,
             beforeWriteFile: (filePath, content) => {
@@ -111,6 +116,8 @@ export default defineConfig({
                 /^@react-stately\//,
                 /^@react-types\//,
                 /^@internationalized\//,
+                /^@tiptap\//,
+                /^prosemirror-/,
             ],
             input: entries,
             output: {

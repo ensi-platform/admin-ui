@@ -1,9 +1,10 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type MouseEvent as ReactMouseEvent } from 'react';
 
 import { type ArgTypes, type Meta, type StoryObj } from '@storybook/react';
 
 import { type IUseAutocompleteSuggest } from '@/autocomplete-async/types';
 import { Button } from '@/button';
+import { ContextMenu } from '@/context-menu';
 import { Loader } from '@/loader';
 import { SuggestChecklist } from '@/suggest-checklist';
 
@@ -479,6 +480,230 @@ export const HeaderFilter: StoryObj<ITableBaseProps> = {
                     </Table.Table>
                 </Table.Scroll>
             </Table>
+        );
+    },
+};
+
+const pinSummary = (key: keyof IDemoRow, shown: number) => {
+    if (key === 'order') return 'Shown';
+    if (key === 'amount') return shown;
+    return '';
+};
+
+const PIN_COLUMNS: {
+    key: keyof IDemoRow;
+    label: string;
+    width: number;
+    numeric?: boolean;
+}[] = [
+    { key: 'order', label: 'Order', width: 140 },
+    { key: 'name', label: 'Name', width: 200 },
+    { key: 'email', label: 'Email', width: 260 },
+    { key: 'city', label: 'City', width: 180 },
+    { key: 'status', label: 'Status', width: 160 },
+    { key: 'qty', label: 'Qty', width: 100, numeric: true },
+    { key: 'manager', label: 'Manager', width: 200 },
+    { key: 'warehouse', label: 'Warehouse', width: 160 },
+    { key: 'channel', label: 'Channel', width: 140 },
+    { key: 'updatedAt', label: 'Updated', width: 200 },
+    { key: 'note', label: 'Note', width: 320 },
+    { key: 'amount', label: 'Amount', width: 140, numeric: true },
+];
+
+type TColumnPinMap = Partial<Record<keyof IDemoRow, 'start' | 'end'>>;
+type TRowPinMap = Partial<Record<string, 'top' | 'bottom'>>;
+
+interface IPinMenu {
+    x: number;
+    y: number;
+    columnKey?: keyof IDemoRow;
+    rowId?: string;
+}
+
+const columnKeyFromEvent = (event: ReactMouseEvent) => {
+    const cell = event.target instanceof Element ? event.target.closest('td, th') : null;
+
+    if (!(cell instanceof HTMLTableCellElement) || cell.cellIndex === 0) return undefined;
+
+    return PIN_COLUMNS[cell.cellIndex - 1]?.key;
+};
+
+/** Pinned columns and body rows inside a scroll area. Right-click pins or unpins. */
+export const Pin: StoryObj<ITableBaseProps> = {
+    render: function PinStory(args) {
+        const rows = DEMO_ROWS;
+        const [columnPins, setColumnPins] = useState<TColumnPinMap>({
+            order: 'start',
+            name: 'start',
+            amount: 'end',
+        });
+        const [rowPins, setRowPins] = useState<TRowPinMap>({ top: 'top', bottom: 'bottom' });
+        const [menu, setMenu] = useState<IPinMenu | null>(null);
+
+        const openMenu = (event: ReactMouseEvent, next: Omit<IPinMenu, 'x' | 'y'>) => {
+            event.preventDefault();
+            setMenu({ x: event.clientX, y: event.clientY, ...next });
+        };
+
+        const openColumnMenu = (key: keyof IDemoRow) => (event: ReactMouseEvent) => {
+            openMenu(event, { columnKey: key });
+        };
+
+        const openRowMenu = (rowId: string) => (event: ReactMouseEvent) => {
+            openMenu(event, { columnKey: columnKeyFromEvent(event), rowId });
+        };
+
+        const setColumnPin = (key: keyof IDemoRow, pin: 'start' | 'end' | undefined) => {
+            setColumnPins(current => {
+                const next = { ...current };
+                if (!pin) {
+                    delete next[key];
+                    return next;
+                }
+                next[key] = pin;
+                return next;
+            });
+            setMenu(null);
+        };
+
+        const setRowPin = (id: string, pin: 'top' | 'bottom' | undefined) => {
+            setRowPins(current => {
+                const next = { ...current };
+                if (!pin) {
+                    delete next[id];
+                    return next;
+                }
+                next[id] = pin;
+                return next;
+            });
+            setMenu(null);
+        };
+
+        return (
+            <div style={{ height: 420, width: 880 }}>
+                <Table {...args} hasChecked style={{ height: '100%' }}>
+                    <Table.Scroll>
+                        <Table.Table>
+                            <Table.Header sticky>
+                                <Table.Row>
+                                    <Table.HeaderCheckboxCell
+                                        checked={false}
+                                        onChange={() => undefined}
+                                        aria-label="Select all"
+                                    />
+                                    {PIN_COLUMNS.map(column => (
+                                        <Table.HeaderCell
+                                            key={column.key}
+                                            pin={columnPins[column.key]}
+                                            numeric={column.numeric}
+                                            width={column.width}
+                                            onContextMenu={openColumnMenu(column.key)}
+                                        >
+                                            {column.label}
+                                        </Table.HeaderCell>
+                                    ))}
+                                </Table.Row>
+                            </Table.Header>
+                            <Table.Body>
+                                <Table.Row pin={rowPins.top} onContextMenu={openRowMenu('top')}>
+                                    <Table.CheckboxCell
+                                        checked={false}
+                                        onChange={() => undefined}
+                                        aria-label="Select total"
+                                    />
+                                    {PIN_COLUMNS.map(column => (
+                                        <Table.Cell
+                                            key={column.key}
+                                            pin={columnPins[column.key]}
+                                            numeric={column.numeric}
+                                            width={column.width}
+                                        >
+                                            {pinSummary(column.key, rows.length)}
+                                        </Table.Cell>
+                                    ))}
+                                </Table.Row>
+                                {rows.map(row => (
+                                    <Table.Row
+                                        key={row.id}
+                                        pin={rowPins[String(row.id)]}
+                                        onContextMenu={openRowMenu(String(row.id))}
+                                    >
+                                        <Table.CheckboxCell
+                                            checked={false}
+                                            onChange={() => undefined}
+                                            aria-label={`Select ${row.order}`}
+                                        />
+                                        {PIN_COLUMNS.map(column => (
+                                            <Table.Cell
+                                                key={column.key}
+                                                pin={columnPins[column.key]}
+                                                numeric={column.numeric}
+                                                width={column.width}
+                                            >
+                                                {row[column.key]}
+                                            </Table.Cell>
+                                        ))}
+                                    </Table.Row>
+                                ))}
+                                <Table.Row pin={rowPins.bottom} onContextMenu={openRowMenu('bottom')}>
+                                    <Table.CheckboxCell
+                                        checked={false}
+                                        onChange={() => undefined}
+                                        aria-label="Select sum"
+                                    />
+                                    {PIN_COLUMNS.map(column => (
+                                        <Table.Cell
+                                            key={column.key}
+                                            pin={columnPins[column.key]}
+                                            numeric={column.numeric}
+                                            width={column.width}
+                                        >
+                                            {column.key === 'order' ? 'Sum' : ''}
+                                        </Table.Cell>
+                                    ))}
+                                </Table.Row>
+                            </Table.Body>
+                        </Table.Table>
+                    </Table.Scroll>
+                </Table>
+                {menu ? (
+                    <ContextMenu open x={menu.x} y={menu.y} onClose={() => setMenu(null)}>
+                        {menu.columnKey ? (
+                            <>
+                                <ContextMenu.Item onClick={() => setColumnPin(menu.columnKey!, 'start')}>
+                                    Pin left
+                                </ContextMenu.Item>
+                                <ContextMenu.Item onClick={() => setColumnPin(menu.columnKey!, 'end')}>
+                                    Pin right
+                                </ContextMenu.Item>
+                                <ContextMenu.Item
+                                    disabled={columnPins[menu.columnKey] == null}
+                                    onClick={() => setColumnPin(menu.columnKey!, undefined)}
+                                >
+                                    Unpin column
+                                </ContextMenu.Item>
+                            </>
+                        ) : null}
+                        {menu.columnKey && menu.rowId ? <ContextMenu.Separator /> : null}
+                        {menu.rowId ? (
+                            <>
+                                <ContextMenu.Item onClick={() => setRowPin(menu.rowId!, 'top')}>
+                                    Pin to top
+                                </ContextMenu.Item>
+                                <ContextMenu.Item onClick={() => setRowPin(menu.rowId!, 'bottom')}>
+                                    Pin to bottom
+                                </ContextMenu.Item>
+                                <ContextMenu.Item
+                                    disabled={rowPins[menu.rowId] == null}
+                                    onClick={() => setRowPin(menu.rowId!, undefined)}
+                                >
+                                    Unpin row
+                                </ContextMenu.Item>
+                            </>
+                        ) : null}
+                    </ContextMenu>
+                ) : null}
+            </div>
         );
     },
 };

@@ -15,8 +15,10 @@ export const TableRow = supportRef(
         ref,
         children,
         checked = false,
+        active = false,
         disabled = false,
         bottomBorder = true,
+        pin,
         onClick,
         className,
         dataTestId,
@@ -44,7 +46,9 @@ export const TableRow = supportRef(
                 tabIndex={clickable ? (tabIndex ?? 0) : tabIndex}
                 className={cn(styles.root, className)}
                 data-checked={checked || undefined}
+                data-active={active || undefined}
                 data-disabled={disabled || undefined}
+                data-pin={pin}
                 data-bottom-border={bottomBorder ? undefined : 'false'}
                 data-clickable={clickable || undefined}
                 aria-disabled={disabled || undefined}

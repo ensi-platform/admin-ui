@@ -37,3 +37,9 @@
     height: 1px;
     padding: 0;
 }
+
+.pin {
+    position: sticky;
+    z-index: var(--aui-table-z-pin);
+    background: var(--aui-table-bg-primary);
+}

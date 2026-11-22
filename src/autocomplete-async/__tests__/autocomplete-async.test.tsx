@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import userEvent, { type UserEvent } from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import { type IUseAutocompleteSuggest } from '@/autocomplete-async/types';
@@ -15,6 +15,28 @@ const OPTIONS = [
     { value: 'nike', label: 'Nike' },
     { value: 'adidas', label: 'Adidas' },
 ];
+
+const backspaceToEmpty = async (user: UserEvent, input: HTMLElement) => {
+    await user.click(input);
+
+    if (input instanceof HTMLInputElement) {
+        input.setSelectionRange(input.value.length, input.value.length);
+    }
+
+    const erase = async (rests: readonly string[]): Promise<void> => {
+        const [rest, ...tail] = rests;
+
+        if (rest === undefined) {
+            return;
+        }
+
+        await user.keyboard('{Backspace}');
+        expect(input).toHaveValue(rest);
+        await erase(tail);
+    };
+
+    await erase(['Nik', 'Ni', 'N', '']);
+};
 
 const useStaticSuggest: IUseAutocompleteSuggest = ({ query, enabled }) => {
     if (!enabled) {
@@ -243,19 +265,35 @@ describe('AutocompleteAsync', () => {
         });
     });
 
-    it('keeps the selected value when the input is cleared and restores the label on blur', async () => {
+    it('keeps the selected value while backspacing and restores the label on Tab', async () => {
         const user = userEvent.setup();
         const onChange = vi.fn();
+        const onBlur = vi.fn();
+
+        const Harness = () => {
+            const [value, setValue] = useState<TComboboxValue | null>('nike');
+
+            return (
+                <>
+                    <AutocompleteAsync
+                        aria-label="Brand"
+                        useSuggest={useStaticSuggest}
+                        debounceMs={0}
+                        value={value}
+                        onBlur={onBlur}
+                        onChange={next => {
+                            onChange(next);
+                            setValue(next);
+                        }}
+                    />
+                    <button type="button">Next</button>
+                </>
+            );
+        };
 
         render(
             <AdminUiProvider>
-                <AutocompleteAsync
-                    aria-label="Brand"
-                    useSuggest={useStaticSuggest}
-                    debounceMs={0}
-                    value="nike"
-                    onChange={onChange}
-                />
+                <Harness />
             </AdminUiProvider>
         );
 
@@ -265,16 +303,106 @@ describe('AutocompleteAsync', () => {
             expect(input).toHaveValue('Nike');
         });
 
-        await user.clear(input);
+        await backspaceToEmpty(user, input);
 
-        expect(input).toHaveValue('');
+        expect(onChange).not.toHaveBeenCalled();
+        expect(await screen.findByRole('option', { name: 'Adidas' })).toBeInTheDocument();
+
+        await user.keyboard('{ArrowDown}');
+        await user.tab();
+
+        expect(screen.getByRole('button', { name: 'Next' })).toHaveFocus();
+        expect(input).toHaveValue('Nike');
+        expect(onChange).not.toHaveBeenCalled();
+        expect(onBlur).toHaveBeenCalled();
+    });
+
+    it('restores the label on Escape without changing the value', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        const Harness = () => {
+            const [value, setValue] = useState<TComboboxValue | null>('nike');
+
+            return (
+                <AutocompleteAsync
+                    aria-label="Brand"
+                    useSuggest={useStaticSuggest}
+                    debounceMs={0}
+                    value={value}
+                    onChange={next => {
+                        onChange(next);
+                        setValue(next);
+                    }}
+                />
+            );
+        };
+
+        render(
+            <AdminUiProvider>
+                <Harness />
+            </AdminUiProvider>
+        );
+
+        const input = screen.getByRole('combobox', { name: /Brand/ });
+
+        await waitFor(() => {
+            expect(input).toHaveValue('Nike');
+        });
+
+        await backspaceToEmpty(user, input);
+
+        expect(await screen.findByRole('option', { name: 'Adidas' })).toBeInTheDocument();
         expect(onChange).not.toHaveBeenCalled();
 
-        await user.click(document.body);
+        await user.keyboard('{Escape}');
 
+        expect(input).toHaveFocus();
         expect(input).toHaveValue('Nike');
-        // RAC re-emits the current key when a controlled combobox blurs with a mismatched input.
-        expect(onChange.mock.calls.every(call => call[0] === 'nike')).toBe(true);
+        expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it('commits another option from the empty input', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        const Harness = () => {
+            const [value, setValue] = useState<TComboboxValue | null>('nike');
+
+            return (
+                <AutocompleteAsync
+                    aria-label="Brand"
+                    useSuggest={useStaticSuggest}
+                    debounceMs={0}
+                    value={value}
+                    onChange={next => {
+                        onChange(next);
+                        setValue(next);
+                    }}
+                />
+            );
+        };
+
+        render(
+            <AdminUiProvider>
+                <Harness />
+            </AdminUiProvider>
+        );
+
+        const input = screen.getByRole('combobox', { name: /Brand/ });
+
+        await waitFor(() => {
+            expect(input).toHaveValue('Nike');
+        });
+
+        await backspaceToEmpty(user, input);
+
+        await user.click(await screen.findByRole('option', { name: 'Adidas' }));
+
+        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onChange).toHaveBeenCalledWith('adidas');
+        expect(input).toHaveValue('Adidas');
     });
 
     it('ignores controlled value with no matching option', async () => {

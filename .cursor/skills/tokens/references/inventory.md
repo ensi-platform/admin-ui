@@ -5,22 +5,20 @@ Open this file from the `tokens` skill when adding or renaming a `--aui-*` name.
 ## Color primitives
 
 ```
-grey-50 … grey-800
-black-800, black-900, white, transparent
-charcoal-50, charcoal-100, charcoal-500, charcoal-600, charcoal-700
-neutral-50, neutral-100, neutral-200, neutral-300, neutral-400, neutral-500, neutral-800, neutral-900
+neutral-50, neutral-100, neutral-200, neutral-300, neutral-400, neutral-500, neutral-600, neutral-700, neutral-750, neutral-800, neutral-900
+white, black, transparent
 red-50, red-500, red-600, red-700
 green-50, green-500, green-700
 yellow-50, yellow-500, yellow-700
 ```
 
-Light brand is neutral (`neutral-800` = `#171717`, fg `neutral-50`). Dark brand is a light fill (`grey-100`) plus a dark fg. `page-fg-link` maps to page fg with an underline. `control-border-focus` maps to `neutral-400` in light and `grey-100` in dark. Status uses red, green, and yellow. Badge and toast info use neutral. Light page is white. The sidebar is `neutral-50`.
+Light brand is neutral (`neutral-800` = `#1b1d22`, fg `neutral-50`). Dark brand is `neutral-200` (`#e2e8f0`, fg `neutral-800`). `neutral-750` (`#212328`) is the dark modal step, one step above the page. `page-fg-link` maps to page fg with an underline. `control-border-focus` maps to `neutral-400` in light and `neutral-500` in dark. Status uses red, green, and yellow. Badge and toast info use neutral. Light page is white; dark page is `neutral-800` (`#1b1d22`). The sidebar is `page-bg-subtle` and matches the page in both themes (white / `neutral-800`). Dark input fill is transparent; its border is white 15%. The scale is cool grey.
 
 ## Color semantic places
 
 | place | Tokens |
 | --- | --- |
-| page | `page-bg-primary`, `page-fg-primary`, `page-fg-muted`, `page-fg-link` |
+| page | `page-bg-primary`, `page-bg-subtle`, `page-fg-primary`, `page-fg-muted`, `page-fg-link` |
 | surface | `surface-bg-primary`, `surface-bg-muted`, `surface-bg-muted-hover`, `surface-bg-muted-active`, `surface-bg-elevated`, `surface-border-primary`, `surface-border-muted` |
 | overlay | `overlay-bg-primary` (shared backdrop; place UI aliases it) |
 | control | `control-bg-brand`, `control-bg-brand-hover`, `control-bg-brand-active`, `control-bg-danger`, `control-bg-danger-hover`, `control-bg-danger-active`, `control-bg-success`, `control-bg-warning`, `control-fg-brand`, `control-fg-danger`, `control-border-focus`, `control-border-danger` |
@@ -29,7 +27,9 @@ Light brand is neutral (`neutral-800` = `#171717`, fg `neutral-50`). Dark brand 
 | copy-button | `copy-button-fg`, `copy-button-fg-hover`, `copy-button-fg-active`, `copy-button-fg-copied`, `copy-button-fg-danger`, `copy-button-border-focus`, `copy-button-gap`, `copy-button-icon-size`, `copy-button-duration-fast`, `copy-button-ease-out` |
 | input | `input-bg-primary`, `input-fg-primary`, `input-fg-muted`, `input-border-primary`, `input-border-focus`, `input-border-danger`, `input-radius-md`, `input-h-sm\|md\|lg`, `input-pad-x-sm\|md\|lg`, `input-gap-md` |
 | textarea | `textarea-bg-primary`, `textarea-fg-primary`, `textarea-fg-muted`, `textarea-border-primary/focus/danger`, `textarea-radius-md`, `textarea-min-h-sm\|md\|lg`, `textarea-pad-x-sm\|md\|lg`, `textarea-pad-y-sm\|md\|lg`, `textarea-gap-md` |
+| text-editor | `text-editor-bg/fg-primary`, `text-editor-fg-muted/danger`, `text-editor-border-primary/focus/danger`, `text-editor-radius-md`, `text-editor-min-h-sm\|md\|lg`, `text-editor-pad-x/y-sm\|md\|lg`, `text-editor-toolbar-bg/h/gap/pressed/divider`, `text-editor-chip-bg/border`, `text-editor-popover-w`, `text-editor-swatch`, `text-editor-bubble-bg`, `text-editor-overlay-z` |
 | checkbox | `checkbox-bg-primary/selected`, `checkbox-fg-primary/selected`, `checkbox-border-primary/focus/danger/selected`, `checkbox-radius-md`, `checkbox-gap-md`, `checkbox-box-sm\|md\|lg`, `checkbox-icon-sm\|md\|lg`, `checkbox-group-gap-md` |
+| rating | `rating-fg-primary`, `rating-fg-primary-hover`, `rating-fg-muted`, `rating-border-focus/danger`, `rating-icon-sm\|md\|lg`, `rating-gap`, `rating-duration-fast`, `rating-ease-out` |
 | suggest-checklist | `suggest-checklist-field-gap-md` (search field to the checkbox list; row gap stays `checkbox-group-gap-md`) |
 | switch | `switch-track-bg-primary/selected`, `switch-thumb-bg-primary`, `switch-fg-primary`, `switch-border-focus/danger`, `switch-gap-md`, `switch-track-h/w-sm\|md\|lg`, `switch-thumb-sm\|md\|lg`, `switch-radius-md` |
 | number-input | `number-input-bg/fg-primary`, `number-input-fg-muted`, `number-input-border-primary/focus/danger`, `number-input-radius-md`, `number-input-h-sm\|md\|lg`, `number-input-pad-x-sm\|md\|lg`, `number-input-gap-md` |
@@ -171,12 +171,26 @@ textarea-pad-x-sm | md | lg
 textarea-pad-y-sm | md | lg
 ```
 
+```
+text-editor-bg-primary | text-editor-fg-primary | text-editor-fg-muted | text-editor-fg-danger
+text-editor-border-primary | text-editor-border-focus | text-editor-border-danger
+text-editor-radius-md
+text-editor-min-h-sm | md | lg
+text-editor-pad-x-sm | md | lg
+text-editor-pad-y-sm | md | lg
+text-editor-toolbar-bg | text-editor-toolbar-h | text-editor-toolbar-gap
+text-editor-chip-bg | text-editor-chip-border
+text-editor-popover-w | text-editor-swatch
+text-editor-toolbar-pressed | text-editor-toolbar-divider | text-editor-bubble-bg | text-editor-overlay-z
+text-editor-duration-fast | text-editor-ease-out
+```
+
 ## Misc
 
 `shadow-sm`, `shadow-md`, `z-dropdown`, `z-modal`.
 
 ## Motion places
 
-`button`, `input`, `dropzone`, `textarea`, `number-input`, `date-picker`, `date-range-picker`, `time-field`, `color-field`, `calendar`, `checkbox`, `switch`, `combobox`, `field-clear`, `tooltip`, `popover`, `modal`, `drawer`, `bottom-sheet`, `tabs`, `vertical-tabs`, `copy-button`, `table`.
+`button`, `input`, `dropzone`, `textarea`, `text-editor`, `number-input`, `date-picker`, `date-range-picker`, `time-field`, `color-field`, `calendar`, `checkbox`, `switch`, `combobox`, `field-clear`, `tooltip`, `popover`, `modal`, `drawer`, `bottom-sheet`, `tabs`, `vertical-tabs`, `copy-button`, `table`, `rating`.
 
 Leave these out of v1: Tailwind, a `color-` prefix, variants named `default` or `base`, a slash in a token name, W3C DTCG JSON, Style Dictionary, a JS token object, breakpoint tokens, and a dark class in a CSS Module.

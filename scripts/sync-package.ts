@@ -2,7 +2,8 @@ import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
-const EXCLUDED_PACKAGES = new Set(['ds', 'field-clear-button', 'calendar']);
+/** `text-editor` is an alpha Storybook surface. It is not a package export. */
+const EXCLUDED_PACKAGES = new Set(['ds', 'field-clear-button', 'calendar', 'text-editor']);
 
 /** Public entries that live under `src/ds/` but keep top-level package export names. */
 const NESTED_PUBLIC_PACKAGES = [

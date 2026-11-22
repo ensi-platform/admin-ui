@@ -34,7 +34,7 @@ Parts: `MenuList` (`@ensi-platform/admin-ui/menu-list`), `Avatar` (`@ensi-platfo
 | --- | --- | --- |
 | Navigation | hover flyout on the arrow (aim-delay); L0 stays in the layout | flat dissolve; accordion; Back button |
 | Logo | `LogoEnsiMark` + text `ensi-opensource`, `currentColor`; optional `title` under the brand; collapse → Mark only | full `LogoEnsi` wordmark in the opensource chrome; a hard-coded `#000` / `#fff` in the SVG; collapse only in the footer |
-| L0 column | light: `neutral-50` `#fafafa` (page is white); dark: `--aui-black-900`; hover `--aui-surface-bg-muted` / `--aui-grey-700`; fg = page; resize; collapse → icon rail; in the rail a folder hover opens a flyout, a leaf opens a Tooltip | a column in another hue; collapse that disables the flyout |
+| L0 column | light: `#ffffff` (matches the page); dark: `neutral-800` `#1b1d22` (matches the page); edge is the divider; hover `--aui-surface-bg-muted`; fg = page; resize; collapse → icon rail; in the rail a folder hover opens a flyout, a leaf opens a Tooltip | a column in another hue; collapse that disables the flyout |
 | Flyout | full height = L0 height; flush left; same bg as L0; border-right divider; no shadow/radius; also works from the collapsed rail | floating card from the item; push layout; surface / light panel |
 | Active | `data-open` only on the open flyout folder; current leaf has no pill (breadcrumbs) | a persistent path pill from `activePath`; a soft pill on the leaf; pill **and** left bar **and** border |
 | Pins | one Pinned item on L0 → hover flyout with the list; hint about right-click when empty; RMB Pin/Unpin (not on L0) + Open in new tab; leaf+folder; divider; limit 8; LS keyed by `pinUserId` | N pins listed directly on L0; pin on L0; trailing pin button; a card around pins; DnD; sticky flyout |
@@ -82,22 +82,23 @@ Light / dark are one contract, remapped (`data-theme`). Dark is not a different 
 
 | Role | Light | Dark |
 | --- | --- | --- |
-| page bg | `#ffffff` | `#1b1d22` (`black-900`) |
-| page fg | `#0a0a0a` (`neutral-900`) | `#f1f5f9` (`grey-100`) |
-| fg muted | `#737373` (`neutral-500`) | `#8b929e` (`grey-400`) |
-| link | = page fg (underline); hover `neutral-800` | = page fg; hover white |
-| sidebar | `#fafafa` (`neutral-50`) | = page |
-| surface muted (secondary btn / tag) | `#f5f5f5` (`neutral-100`) | `#3f4651` (`grey-600`) |
-| surface primary (input fill) | `#ffffff` | `#212328` (`black-800`) |
+| page bg | `#ffffff` | `#1b1d22` (`neutral-800`) |
+| page fg | `#12141a` (`neutral-900`) | `#f8fafc` (`neutral-50`) |
+| fg muted | `#5c6370` (`neutral-500`) | `#8b929e` (`neutral-400`) |
+| link | = page fg (underline); hover `neutral-800` | = page fg; hover `neutral-200` |
+| sidebar | `#ffffff` (matches the page) | `#1b1d22` (`neutral-800`, matches the page) |
+| surface muted (secondary btn / tag) | `#f1f5f9` (`neutral-100`) | `#2a3038` (`neutral-700`) |
+| surface primary (input fill) | `#ffffff` | transparent |
+| surface elevated | `#ffffff` | `#212328` (`neutral-750`) |
 | table fill | = page (flush) | = page (flush) |
-| surface border | `#e5e5e5` (`neutral-200`) | `#3f4651` (`grey-600`) |
-| primary button | bg `#171717` (`neutral-800`), fg `#fafafa` | bg `#f1f5f9`, fg `#1b1d22` |
-| focus | `#a1a1a1` (`neutral-400`) | grey-100 |
-| badge success/warning/danger | soft `*-50` bg + `*-700` fg | `color-mix(*-500 22%, surface)` + `*-500` fg |
+| surface border | `#e2e8f0` (`neutral-200`) | white 10% (field 15%) |
+| primary button | bg `#1b1d22` (`neutral-800`), fg `#f8fafc` | bg `#e2e8f0` (`neutral-200`), fg `#1b1d22` |
+| focus | `#8b929e` (`neutral-400`) | `#5c6370` (`neutral-500`) |
+| badge success/warning/danger | `color-mix(*-700 22%, surface)` + `*-700` fg | same |
 | badge info | = neutral | = neutral |
 | control radius | `8px` (`radius-8`) | same |
 
-Light accent = neutral (`neutral-800` / `#171717`). Dark accent = a light grey fill. Status = red/green/yellow only (info = neutral).
+Light accent = neutral (`neutral-800` / `#1b1d22`). Dark accent is `neutral-200` / `#e2e8f0`, fg `neutral-800`. Status = red/green/yellow only (info = neutral). Badge and toast use one formula in both themes.
 
 ## Related
 

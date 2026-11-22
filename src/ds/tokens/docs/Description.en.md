@@ -19,6 +19,7 @@ An app layout may use only these:
 | Token | Role |
 | --- | --- |
 | `--aui-page-bg-primary` | page fill |
+| `--aui-page-bg-subtle` | sidebar, matches the page; the divider is the edge |
 | `--aui-page-fg-primary` | page text |
 | `--aui-page-fg-muted` | secondary text |
 | `--aui-page-fg-link` | link text (underline; same as page text) |
@@ -27,4 +28,4 @@ An app layout may use only these:
 | `--aui-surface-bg-elevated` | raised surface |
 | `--aui-surface-border-primary` | zone stroke, when the zone has no fill |
 
-Primitive scales (`--aui-neutral-*`, `--aui-grey-*`, `--aui-red-*`, radius, spacing) are not for app CSS. Screen layers and hex roles — `docs/design-language.md`.
+Primitive scales (`--aui-neutral-*`, `--aui-red-*`, radius, spacing) are not for app CSS. Screen layers and hex roles — `docs/design-language.md`.

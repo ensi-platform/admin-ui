@@ -1,7 +1,14 @@
-import { type MouseEvent, type RefObject, useContext } from 'react';
+import { createContext, type KeyboardEvent, type MouseEvent, type RefObject, useContext } from 'react';
 
 import cn from 'classnames';
-import { Button as RacButton, Group, Input, SelectStateContext, SelectValue } from 'react-aria-components';
+import {
+    Button as RacButton,
+    ComboBoxStateContext,
+    Group,
+    Input,
+    SelectStateContext,
+    SelectValue,
+} from 'react-aria-components';
 
 import { FieldComboBoxClearButton, FieldSelectClearButton } from '@/field-clear-button';
 import { ChevronDown } from '@/icons';
@@ -12,6 +19,9 @@ import { isInteractiveTarget } from '../../utils';
 import { comboboxTriggerVariants } from './theme';
 
 import styles from './styles.module.css';
+
+// Parents set this to false when Tab must leave the field without committing the highlight.
+export const CommitHighlightedOnTabContext = createContext(true);
 
 export interface IComboboxTriggerProps {
     triggerRef: RefObject<HTMLDivElement | null>;
@@ -42,16 +52,46 @@ export const ComboboxTrigger = ({
     placeholder = '',
 }: IComboboxTriggerProps) => {
     const selectState = useContext(SelectStateContext);
+    const comboState = useContext(ComboBoxStateContext);
+    const commitHighlightedOnTab = useContext(CommitHighlightedOnTabContext);
 
     const openFromField = (event: MouseEvent) => {
-        if (mode !== 'select' || isDisabled || isInteractiveTarget(event.target)) {
+        if (isDisabled || isInteractiveTarget(event.target)) {
             return;
         }
 
-        selectState?.open();
+        if (mode === 'select') {
+            selectState?.open();
+
+            return;
+        }
+
+        comboState?.open();
     };
 
     const ClearButton = mode === 'select' ? FieldSelectClearButton : FieldComboBoxClearButton;
+
+    const keepSelectionOnTab = (event: KeyboardEvent<HTMLDivElement>) => {
+        if (!comboState || mode !== 'combobox' || commitHighlightedOnTab || event.key !== 'Tab' || !comboState.isOpen) {
+            return;
+        }
+
+        const { value, selectedItems, inputValue } = comboState;
+        const selectedValue = Array.isArray(value) ? value[0] : value;
+
+        if (selectedValue == null || selectedValue === '') {
+            return;
+        }
+
+        const selectedText = selectedItems[0]?.textValue;
+
+        if (selectedText != null && inputValue === selectedText) {
+            return;
+        }
+
+        event.stopPropagation();
+        comboState.close();
+    };
 
     return (
         <div
@@ -67,7 +107,8 @@ export const ComboboxTrigger = ({
                     comboboxTriggerVariants({ size, variant }),
                     mode === 'combobox' && styles.triggerCombobox
                 )}
-                onClick={mode === 'select' ? openFromField : undefined}
+                onClick={openFromField}
+                onKeyDownCapture={keepSelectionOnTab}
             >
                 {mode === 'select' ? (
                     <SelectValue className={styles.value}>

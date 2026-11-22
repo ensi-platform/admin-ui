@@ -34,6 +34,8 @@ import { Autocomplete, FormAutocomplete } from '@ensi-platform/admin-ui/autocomp
 | `block`             | `boolean`                                   | —       | full width                                          |
 | `dataTestId`        | `string`                                    | —       | `data-test-id` for tests                            |
 
+A click on the field opens the list. A second click leaves it open.
+
 ### FormAutocomplete
 
 | Prop          | Values                          | Default | Description                      |

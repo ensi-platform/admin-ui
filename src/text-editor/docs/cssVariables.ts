@@ -1,0 +1,33 @@
+/** Text editor CSS variables from semantic tokens (--aui-text-editor-*). */
+export const docsCssVariables = `/* CSS variables — TextEditor (--aui-text-editor-*) */
+--aui-text-editor-bg-primary: var(--aui-textarea-bg-primary); /* primary fill */
+--aui-text-editor-fg-primary: var(--aui-textarea-fg-primary); /* primary foreground */
+--aui-text-editor-fg-muted: var(--aui-textarea-fg-muted); /* muted foreground */
+--aui-text-editor-fg-danger: var(--aui-control-fg-danger); /* error foreground */
+--aui-text-editor-border-primary: var(--aui-textarea-border-primary); /* primary border */
+--aui-text-editor-border-focus: var(--aui-textarea-border-focus); /* focus border */
+--aui-text-editor-border-danger: var(--aui-textarea-border-danger); /* danger border */
+--aui-text-editor-radius-md: var(--aui-textarea-radius-md); /* md radius */
+--aui-text-editor-min-h-sm: var(--aui-textarea-min-h-sm); /* content min-height sm */
+--aui-text-editor-min-h-md: calc(var(--aui-control-h-md) * 4); /* content min-height md */
+--aui-text-editor-min-h-lg: calc(var(--aui-control-h-lg) * 4); /* content min-height lg */
+--aui-text-editor-pad-x-sm: var(--aui-textarea-pad-x-sm); /* padding-x sm */
+--aui-text-editor-pad-x-md: var(--aui-textarea-pad-x-md); /* padding-x md */
+--aui-text-editor-pad-x-lg: var(--aui-textarea-pad-x-lg); /* padding-x lg */
+--aui-text-editor-pad-y-sm: var(--aui-textarea-pad-y-sm); /* padding-y sm */
+--aui-text-editor-pad-y-md: var(--aui-textarea-pad-y-md); /* padding-y md */
+--aui-text-editor-pad-y-lg: var(--aui-textarea-pad-y-lg); /* padding-y lg */
+--aui-text-editor-toolbar-bg: var(--aui-surface-bg-muted); /* toolbar fill */
+--aui-text-editor-toolbar-h: var(--aui-control-h-sm); /* toolbar min height */
+--aui-text-editor-toolbar-gap: var(--aui-spacing-4); /* toolbar gap */
+--aui-text-editor-chip-bg: var(--aui-surface-bg-muted); /* foreign HTML chip fill */
+--aui-text-editor-chip-border: var(--aui-surface-border-muted); /* foreign HTML chip border */
+--aui-text-editor-popover-w: calc(var(--aui-spacing) * 56); /* link and color popover width */
+--aui-text-editor-swatch: var(--aui-spacing-16); /* color swatch size */
+--aui-text-editor-duration-fast: var(--aui-control-duration-fast); /* border transition duration */
+--aui-text-editor-ease-out: var(--aui-control-ease-out); /* border transition easing */
+--aui-text-editor-toolbar-pressed: var(--aui-surface-bg-muted-active); /* pressed toolbar button */
+--aui-text-editor-toolbar-divider: var(--aui-text-editor-border-primary); /* gap between toolbar groups */
+--aui-text-editor-bubble-bg: var(--aui-surface-bg-elevated); /* selection bubble fill */
+--aui-text-editor-overlay-z: var(--aui-z-modal); /* fullscreen layer */
+`;

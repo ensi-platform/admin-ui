@@ -27,10 +27,18 @@ const onPageSizeChange = (size: number) => {
                             onChange={setAllOnPage}
                             aria-label="Выбрать все"
                         />
-                        <Table.HeaderCell sortable sortDirection={sort} onSort={setSort}>
+                        <Table.HeaderCell pin="start" width={180} sortable sortDirection={sort} onSort={setSort}>
                             Имя
                         </Table.HeaderCell>
-                        <Table.HeaderCell numeric>Сумма</Table.HeaderCell>
+                        <Table.HeaderCell width={160}>Город</Table.HeaderCell>
+                        <Table.HeaderCell width={140}>Статус</Table.HeaderCell>
+                        <Table.HeaderCell width={180}>Менеджер</Table.HeaderCell>
+                        <Table.HeaderCell width={160}>Склад</Table.HeaderCell>
+                        <Table.HeaderCell width={180}>Канал</Table.HeaderCell>
+                        <Table.HeaderCell numeric width={120}>
+                            Сумма
+                        </Table.HeaderCell>
+                        <Table.HeaderCell pin="end" utility />
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
@@ -41,9 +49,18 @@ const onPageSizeChange = (size: number) => {
                                 onChange={() => toggle(row.id)}
                                 aria-label={`Выбрать ${row.name}`}
                             />
-                            <Table.Cell>{row.name}</Table.Cell>
-                            <Table.Cell numeric>{row.amount}</Table.Cell>
-                            <Table.Cell utility>
+                            <Table.Cell pin="start" width={180}>
+                                {row.name}
+                            </Table.Cell>
+                            <Table.Cell width={160}>{row.city}</Table.Cell>
+                            <Table.Cell width={140}>{row.status}</Table.Cell>
+                            <Table.Cell width={180}>{row.manager}</Table.Cell>
+                            <Table.Cell width={160}>{row.warehouse}</Table.Cell>
+                            <Table.Cell width={180}>{row.channel}</Table.Cell>
+                            <Table.Cell numeric width={120}>
+                                {row.amount}
+                            </Table.Cell>
+                            <Table.Cell pin="end" utility>
                                 <Table.ActionBar visibleCount={0} items={[{ text: 'Изменить', onClick: () => {} }]} />
                             </Table.Cell>
                         </Table.Row>

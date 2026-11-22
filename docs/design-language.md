@@ -34,7 +34,7 @@
 | --- | --- | --- |
 | Навигация | hover-flyout у стрелки (aim-delay); L0 в layout | flat dissolve; accordion; кнопка Back |
 | Лого | `LogoEnsiMark` + текст `ensi-opensource`, `currentColor`; опциональный `title` под brand; collapse → Mark only | полный `LogoEnsi` wordmark в opensource chrome; жёсткий `#000` / `#fff` в SVG; collapse только в футере |
-| Колонка L0 | light: `neutral-50` `#fafafa` (страница белая); dark: `--aui-black-900`; hover `--aui-surface-bg-muted` / `--aui-grey-700`; fg = page; resize; collapse → icon-rail; в rail folder hover → flyout, leaf → Tooltip | колонка другого hue; collapse отключает flyout |
+| Колонка L0 | light: `#ffffff` (как страница); dark: `neutral-800` `#1b1d22` (как страница); край — divider; hover `--aui-surface-bg-muted`; fg = page; resize; collapse → icon-rail; в rail folder hover → flyout, leaf → Tooltip | колонка другого hue; collapse отключает flyout |
 | Flyout | full-height = высота L0; flush left; тот же bg что L0; border-right divider; без тени/radius; работает и из collapsed rail | floating card от пункта; push layout; surface / light panel |
 | Active | `data-open` только у открытого flyout-folder; current leaf без pill (крошки) | persistent path pill от `activePath`; leaf soft pill; pill **и** left bar **и** border |
 | Pins | один пункт Pinned в L0 → hover-flyout со списком; hint про ПКМ если пусто; RMB Pin/Unpin (не L0) + Open in new tab; leaf+folder; divider; лимит 8; LS по `pinUserId` | список N пинов прямо в L0; pin L0; trailing pin button; card вокруг пинов; DnD; sticky flyout |
@@ -82,22 +82,23 @@ Light / dark — один контракт, remap (`data-theme`). Не отде�
 
 | Роль | Light | Dark |
 | --- | --- | --- |
-| page bg | `#ffffff` | `#1b1d22` (`black-900`) |
-| page fg | `#0a0a0a` (`neutral-900`) | `#f1f5f9` (`grey-100`) |
-| fg muted | `#737373` (`neutral-500`) | `#8b929e` (`grey-400`) |
-| link | = page fg (underline); hover `neutral-800` | = page fg; hover white |
-| sidebar | `#fafafa` (`neutral-50`) | = page |
-| surface muted (secondary btn / tag) | `#f5f5f5` (`neutral-100`) | `#3f4651` (`grey-600`) |
-| surface primary (input fill) | `#ffffff` | `#212328` (`black-800`) |
+| page bg | `#ffffff` | `#1b1d22` (`neutral-800`) |
+| page fg | `#12141a` (`neutral-900`) | `#f8fafc` (`neutral-50`) |
+| fg muted | `#5c6370` (`neutral-500`) | `#8b929e` (`neutral-400`) |
+| link | = page fg (underline); hover `neutral-800` | = page fg; hover `neutral-200` |
+| sidebar | `#ffffff` (как страница) | `#1b1d22` (`neutral-800`, как страница) |
+| surface muted (secondary btn / tag) | `#f1f5f9` (`neutral-100`) | `#2a3038` (`neutral-700`) |
+| surface primary (input fill) | `#ffffff` | transparent |
+| surface elevated | `#ffffff` | `#212328` (`neutral-750`) |
 | table fill | = page (flush) | = page (flush) |
-| surface border | `#e5e5e5` (`neutral-200`) | `#3f4651` (`grey-600`) |
-| primary button | bg `#171717` (`neutral-800`), fg `#fafafa` | bg `#f1f5f9`, fg `#1b1d22` |
-| focus | `#a1a1a1` (`neutral-400`) | grey-100 |
-| badge success/warning/danger | soft `*-50` bg + `*-700` fg | `color-mix(*-500 22%, surface)` + `*-500` fg |
+| surface border | `#e2e8f0` (`neutral-200`) | white 10% (поле 15%) |
+| primary button | bg `#1b1d22` (`neutral-800`), fg `#f8fafc` | bg `#e2e8f0` (`neutral-200`), fg `#1b1d22` |
+| focus | `#8b929e` (`neutral-400`) | `#5c6370` (`neutral-500`) |
+| badge success/warning/danger | `color-mix(*-700 22%, surface)` + `*-700` fg | same |
 | badge info | = neutral | = neutral |
 | control radius | `8px` (`radius-8`) | same |
 
-Light accent = neutral (`neutral-800` / `#171717`). Dark accent = light grey fill. Status = red/green/yellow only (info = neutral).
+Light accent = neutral (`neutral-800` / `#1b1d22`). Dark accent = `neutral-200` / `#e2e8f0`, fg `neutral-800`. Status = red/green/yellow only (info = neutral). Одна формула badge/toast в обеих темах.
 
 ## Связанное
 

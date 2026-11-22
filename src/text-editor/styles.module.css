@@ -1,0 +1,104 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid transparent;
+    border-radius: var(--aui-text-editor-radius-md);
+    background: var(--aui-text-editor-bg-primary);
+    color: var(--aui-text-editor-fg-primary);
+    transition: border-color var(--aui-text-editor-duration-fast) var(--aui-text-editor-ease-out);
+}
+
+.block {
+    width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .root {
+        transition: none;
+    }
+}
+
+.root[data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.sm .content :global(.ProseMirror) {
+    min-height: var(--aui-text-editor-min-h-sm);
+    padding: var(--aui-text-editor-pad-y-sm) var(--aui-text-editor-pad-x-sm);
+}
+
+.md .content :global(.ProseMirror) {
+    min-height: var(--aui-text-editor-min-h-md);
+    padding: var(--aui-text-editor-pad-y-md) var(--aui-text-editor-pad-x-md);
+}
+
+.lg .content :global(.ProseMirror) {
+    min-height: var(--aui-text-editor-min-h-lg);
+    padding: var(--aui-text-editor-pad-y-lg) var(--aui-text-editor-pad-x-lg);
+}
+
+.primary {
+    border-color: var(--aui-text-editor-border-primary);
+}
+
+.primary:focus-within {
+    border-color: var(--aui-text-editor-border-focus);
+}
+
+.primary[data-invalid] {
+    border-color: var(--aui-text-editor-border-danger);
+}
+
+.fullscreen {
+    position: fixed;
+    inset: 0;
+    z-index: var(--aui-text-editor-overlay-z);
+    overflow: auto;
+}
+
+.visual {
+    display: flex;
+    flex-direction: column;
+}
+
+.content :global(.ProseMirror) {
+    outline: none;
+}
+
+.content :global(.ProseMirror) p,
+.content :global(.ProseMirror) h1,
+.content :global(.ProseMirror) h2,
+.content :global(.ProseMirror) h3,
+.content :global(.ProseMirror) h4,
+.content :global(.ProseMirror) blockquote {
+    margin: 0;
+}
+
+.content :global(.ProseMirror) blockquote {
+    padding-left: var(--aui-text-editor-pad-x-md);
+    border-left: 2px solid var(--aui-text-editor-border-primary);
+}
+
+.content :global(.ProseMirror img),
+.content :global(.ProseMirror iframe) {
+    max-width: 100%;
+}
+
+.content :global(.ProseMirror table) {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.content :global(.ProseMirror td),
+.content :global(.ProseMirror th) {
+    border: 1px solid var(--aui-text-editor-border-primary);
+    padding: var(--aui-text-editor-toolbar-gap);
+}
+
+.count {
+    margin: 0;
+    padding: var(--aui-text-editor-toolbar-gap) var(--aui-text-editor-pad-x-md);
+    color: var(--aui-text-editor-fg-muted);
+    text-align: right;
+}
