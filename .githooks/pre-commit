@@ -3,6 +3,9 @@ set -e
 
 echo "Running pre-commit checks..."
 
+echo "Running ESLint..."
+pnpm lint:check || { echo "ESLint failed, commit aborted"; exit 1; }
+
 echo "Running TypeScript type check..."
 pnpm typecheck || { echo "TypeScript type check failed, commit aborted"; exit 1; }
 

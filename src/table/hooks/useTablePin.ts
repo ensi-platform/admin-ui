@@ -36,31 +36,33 @@ const getRtlScroll = (): Exclude<TTableRtlScroll, 'ltr'> => {
     outer.append(inner);
     document.body.append(outer);
 
-    if (outer.scrollLeft > 0) cachedRtlScroll = 'positive-descending';
-    else {
-        outer.scrollLeft = 1;
-        cachedRtlScroll = outer.scrollLeft === 0 ? 'negative' : 'positive-ascending';
+    if (outer.scrollLeft > 0) {
+        cachedRtlScroll = 'positive-descending';
+        outer.remove();
+
+        return cachedRtlScroll;
     }
 
+    outer.scrollLeft = 1;
+    cachedRtlScroll = outer.scrollLeft === 0 ? 'negative' : 'positive-ascending';
     outer.remove();
+
     return cachedRtlScroll;
 };
 
-const findScrollContainer = (table: HTMLElement) => {
-    let node = table.parentElement;
+const findScrollContainer = (node: HTMLElement | null): HTMLElement | null => {
+    if (!node) return null;
 
-    while (node) {
-        const style = getComputedStyle(node);
-        if (isScrollableOverflow(style.overflowX) || isScrollableOverflow(style.overflowY)) return node;
-        node = node.parentElement;
-    }
+    const style = getComputedStyle(node);
 
-    return null;
+    if (isScrollableOverflow(style.overflowX) || isScrollableOverflow(style.overflowY)) return node;
+
+    return findScrollContainer(node.parentElement);
 };
 
 /** Write which pin edges are stuck onto the scrollport. */
 const syncTablePinStuck = (table: HTMLTableElement) => {
-    const scroller = findScrollContainer(table);
+    const scroller = findScrollContainer(table.parentElement);
     if (!scroller) return;
 
     const rtlScroll = getComputedStyle(scroller).direction === 'rtl' ? getRtlScroll() : 'ltr';
@@ -74,8 +76,13 @@ const syncTablePinStuck = (table: HTMLTableElement) => {
         rtlScroll,
     });
 
-    if (edges.length > 0) scroller.dataset.pinStuck = edges.join(' ');
-    else scroller.removeAttribute('data-pin-stuck');
+    if (edges.length === 0) {
+        scroller.removeAttribute('data-pin-stuck');
+
+        return;
+    }
+
+    scroller.dataset.pinStuck = edges.join(' ');
 };
 
 const clearPinLayout = (table: HTMLTableElement) => {
@@ -160,7 +167,7 @@ export const useTablePin = (tableRef: RefObject<HTMLTableElement | null>) => {
         const table = tableRef.current;
         if (!table || typeof ResizeObserver === 'undefined') return undefined;
 
-        const scroller = findScrollContainer(table);
+        const scroller = findScrollContainer(table.parentElement);
 
         const relayout = () => {
             const node = tableRef.current;

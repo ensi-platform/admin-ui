@@ -35,6 +35,7 @@
         "dev": "mkdir -p publish && rm -rf publish/dist && ln -s ../dist publish/dist && vite build --watch",
         "typecheck": "tsc --noEmit",
         "lint": "eslint ./src ./.storybook ./scripts --fix",
+        "lint:check": "eslint ./src ./.storybook ./scripts",
         "format": "prettier ./src --write --ignore-unknown --ignore-path .prettierignore",
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build",
