@@ -27,7 +27,6 @@ Light brand is neutral (`neutral-800` = `#1b1d22`, fg `neutral-50`). Dark brand 
 | copy-button | `copy-button-fg`, `copy-button-fg-hover`, `copy-button-fg-active`, `copy-button-fg-copied`, `copy-button-fg-danger`, `copy-button-border-focus`, `copy-button-gap`, `copy-button-icon-size`, `copy-button-duration-fast`, `copy-button-ease-out` |
 | input | `input-bg-primary`, `input-fg-primary`, `input-fg-muted`, `input-border-primary`, `input-border-focus`, `input-border-danger`, `input-radius-md`, `input-h-sm\|md\|lg`, `input-pad-x-sm\|md\|lg`, `input-gap-md` |
 | textarea | `textarea-bg-primary`, `textarea-fg-primary`, `textarea-fg-muted`, `textarea-border-primary/focus/danger`, `textarea-radius-md`, `textarea-min-h-sm\|md\|lg`, `textarea-pad-x-sm\|md\|lg`, `textarea-pad-y-sm\|md\|lg`, `textarea-gap-md` |
-| text-editor | `text-editor-bg/fg-primary`, `text-editor-fg-muted/danger`, `text-editor-border-primary/focus/danger`, `text-editor-radius-md`, `text-editor-min-h-sm\|md\|lg`, `text-editor-pad-x/y-sm\|md\|lg`, `text-editor-toolbar-bg/h/gap/pressed/divider`, `text-editor-chip-bg/border`, `text-editor-popover-w`, `text-editor-swatch`, `text-editor-bubble-bg`, `text-editor-overlay-z` |
 | checkbox | `checkbox-bg-primary/selected`, `checkbox-fg-primary/selected`, `checkbox-border-primary/focus/danger/selected`, `checkbox-radius-md`, `checkbox-gap-md`, `checkbox-box-sm\|md\|lg`, `checkbox-icon-sm\|md\|lg`, `checkbox-group-gap-md` |
 | rating | `rating-fg-primary`, `rating-fg-primary-hover`, `rating-fg-muted`, `rating-border-focus/danger`, `rating-icon-sm\|md\|lg`, `rating-gap`, `rating-duration-fast`, `rating-ease-out` |
 | suggest-checklist | `suggest-checklist-field-gap-md` (search field to the checkbox list; row gap stays `checkbox-group-gap-md`) |
@@ -171,26 +170,12 @@ textarea-pad-x-sm | md | lg
 textarea-pad-y-sm | md | lg
 ```
 
-```
-text-editor-bg-primary | text-editor-fg-primary | text-editor-fg-muted | text-editor-fg-danger
-text-editor-border-primary | text-editor-border-focus | text-editor-border-danger
-text-editor-radius-md
-text-editor-min-h-sm | md | lg
-text-editor-pad-x-sm | md | lg
-text-editor-pad-y-sm | md | lg
-text-editor-toolbar-bg | text-editor-toolbar-h | text-editor-toolbar-gap
-text-editor-chip-bg | text-editor-chip-border
-text-editor-popover-w | text-editor-swatch
-text-editor-toolbar-pressed | text-editor-toolbar-divider | text-editor-bubble-bg | text-editor-overlay-z
-text-editor-duration-fast | text-editor-ease-out
-```
-
 ## Misc
 
 `shadow-sm`, `shadow-md`, `z-dropdown`, `z-modal`.
 
 ## Motion places
 
-`button`, `input`, `dropzone`, `textarea`, `text-editor`, `number-input`, `date-picker`, `date-range-picker`, `time-field`, `color-field`, `calendar`, `checkbox`, `switch`, `combobox`, `field-clear`, `tooltip`, `popover`, `modal`, `drawer`, `bottom-sheet`, `tabs`, `vertical-tabs`, `copy-button`, `table`, `rating`.
+`button`, `input`, `dropzone`, `textarea`, `number-input`, `date-picker`, `date-range-picker`, `time-field`, `color-field`, `calendar`, `checkbox`, `switch`, `combobox`, `field-clear`, `tooltip`, `popover`, `modal`, `drawer`, `bottom-sheet`, `tabs`, `vertical-tabs`, `copy-button`, `table`, `rating`.
 
 Leave these out of v1: Tailwind, a `color-` prefix, variants named `default` or `base`, a slash in a token name, W3C DTCG JSON, Style Dictionary, a JS token object, breakpoint tokens, and a dark class in a CSS Module.

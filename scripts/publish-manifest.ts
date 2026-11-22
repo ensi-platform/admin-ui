@@ -76,10 +76,6 @@ const copyPublishEntry = (packageRoot: string, publishRoot: string, pattern: str
     }
 
     globSync(sourcePattern, { cwd: packageRoot }).forEach(relativePath => {
-        if (relativePath.startsWith('src/text-editor/')) {
-            return;
-        }
-
         const from = join(packageRoot, relativePath);
         if (!statSync(from).isFile()) {
             return;

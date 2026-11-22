@@ -1,6 +1,0 @@
-.form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--aui-text-editor-toolbar-gap);
-    min-width: var(--aui-text-editor-popover-w);
-}

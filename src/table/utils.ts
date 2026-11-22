@@ -192,11 +192,11 @@ export const getPinStuckEdges = ({
     clientWidth,
     clientHeight,
     rtlScroll = 'ltr',
-}: ITablePinScroll): Array<TTablePin | TTableRowPin> => {
+}: ITablePinScroll): (TTablePin | TTableRowPin)[] => {
     const maxX = Math.max(0, scrollWidth - clientWidth);
     const maxY = Math.max(0, scrollHeight - clientHeight);
     const left = physicalScrollLeft(scrollLeft, maxX, rtlScroll);
-    const edges: Array<TTablePin | TTableRowPin> = [];
+    const edges: (TTablePin | TTableRowPin)[] = [];
 
     if (left > PIN_STUCK_EPSILON) edges.push('start');
     if (maxX - left > PIN_STUCK_EPSILON) edges.push('end');
