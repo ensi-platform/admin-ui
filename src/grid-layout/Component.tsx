@@ -35,6 +35,8 @@ const GridLayoutRoot = supportRef(
         children,
         cols,
         gap = 16,
+        rowGap,
+        columnGap,
         col,
         align = 'stretch',
         className,
@@ -46,6 +48,8 @@ const GridLayoutRoot = supportRef(
             ...style,
             '--aui-grid-layout-template': toGridLayoutTemplate(cols),
             '--aui-grid-layout-col': toGridLayoutColumn(col),
+            ...(rowGap != null ? { '--aui-grid-layout-row-gap': `var(--aui-grid-layout-gap-${rowGap})` } : {}),
+            ...(columnGap != null ? { '--aui-grid-layout-column-gap': `var(--aui-grid-layout-gap-${columnGap})` } : {}),
         };
 
         return (

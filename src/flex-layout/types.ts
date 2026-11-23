@@ -1,4 +1,4 @@
-import { type ComponentPropsWithRef, type ReactNode, type Ref } from 'react';
+import { type CSSProperties, type ComponentPropsWithRef, type ReactNode, type Ref } from 'react';
 
 import { type IDataTestIdProps } from '@ds/common';
 
@@ -21,6 +21,10 @@ export interface IFlexLayoutOwnProps extends IDataTestIdProps {
     direction?: TFlexLayoutDirection;
     /** Gap between items. */
     gap?: TFlexLayoutGap;
+    /** Row gap. Overrides gap. */
+    rowGap?: TFlexLayoutGap;
+    /** Column gap. Overrides gap. */
+    columnGap?: TFlexLayoutGap;
     /** Cross-axis alignment. */
     align?: TFlexLayoutAlign;
     /** Main-axis distribution. */
@@ -45,3 +49,9 @@ export interface IFlexLayoutItemOwnProps extends IDataTestIdProps {
 
 export interface IFlexLayoutItemProps
     extends Omit<ComponentPropsWithRef<'div'>, keyof IFlexLayoutItemOwnProps | 'children'>, IFlexLayoutItemOwnProps {}
+
+/** Inline axis gaps written by FlexLayout. */
+export interface IFlexLayoutStyle extends CSSProperties {
+    '--aui-flex-layout-row-gap'?: string;
+    '--aui-flex-layout-column-gap'?: string;
+}

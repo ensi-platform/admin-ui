@@ -21,6 +21,10 @@ export interface IGridLayoutOwnProps extends IDataTestIdProps {
     cols: number | TGridLayoutTrack[];
     /** Gap between items. */
     gap?: TGridLayoutGap;
+    /** Row gap. Overrides gap. */
+    rowGap?: TGridLayoutGap;
+    /** Column gap. Overrides gap. */
+    columnGap?: TGridLayoutGap;
     /** Span when this grid sits inside another grid. */
     col?: TGridLayoutCol;
     /** Cross-axis alignment. */
@@ -48,4 +52,6 @@ export interface IGridLayoutItemProps
 export interface IGridLayoutStyle extends CSSProperties {
     '--aui-grid-layout-template'?: string;
     '--aui-grid-layout-col'?: string;
+    '--aui-grid-layout-row-gap'?: string;
+    '--aui-grid-layout-column-gap'?: string;
 }

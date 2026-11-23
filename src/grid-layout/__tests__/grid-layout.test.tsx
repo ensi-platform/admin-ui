@@ -19,11 +19,27 @@ describe('GridLayout', () => {
         );
 
         expect(screen.getByTestId('grid')).toHaveClass(styles.gap16);
+        expect(screen.getByTestId('grid').style.getPropertyValue('--aui-grid-layout-row-gap')).toBe('');
+        expect(screen.getByTestId('grid').style.getPropertyValue('--aui-grid-layout-column-gap')).toBe('');
         expect(screen.getByTestId('grid')).toHaveStyle({
             '--aui-grid-layout-template': 'repeat(2, minmax(0, 1fr))',
         });
         expect(screen.getByTestId('full')).toHaveStyle({ '--aui-grid-layout-col': '1 / -1' });
         expect(screen.getByTestId('cell')).toHaveTextContent('Name');
+    });
+
+    it('overrides one gap axis', () => {
+        render(
+            <GridLayout cols={2} gap={16} rowGap={24} dataTestId="grid">
+                Name
+            </GridLayout>
+        );
+
+        const grid = screen.getByTestId('grid');
+
+        expect(grid).toHaveClass(styles.gap16);
+        expect(grid.style.getPropertyValue('--aui-grid-layout-row-gap')).toBe('var(--aui-grid-layout-gap-24)');
+        expect(grid.style.getPropertyValue('--aui-grid-layout-column-gap')).toBe('');
     });
 
     it('accepts explicit tracks', () => {

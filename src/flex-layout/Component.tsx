@@ -3,7 +3,13 @@ import cn from 'classnames';
 import { supportRef } from '@ds/common/support-ref';
 
 import { FlexLayoutItem } from './components/Item';
-import { type IFlexLayoutProps, type TFlexLayoutAlign, type TFlexLayoutGap, type TFlexLayoutJustify } from './types';
+import {
+    type IFlexLayoutProps,
+    type IFlexLayoutStyle,
+    type TFlexLayoutAlign,
+    type TFlexLayoutGap,
+    type TFlexLayoutJustify,
+} from './types';
 
 import styles from './styles.module.css';
 
@@ -28,6 +34,22 @@ const alignClass: Record<TFlexLayoutAlign, string | null> = {
     stretch: null,
 };
 
+const axisGapStyle = (
+    style: IFlexLayoutStyle | undefined,
+    rowGap: TFlexLayoutGap | undefined,
+    columnGap: TFlexLayoutGap | undefined
+): IFlexLayoutStyle | undefined => {
+    if (rowGap == null && columnGap == null) {
+        return style;
+    }
+
+    return {
+        ...style,
+        ...(rowGap != null ? { '--aui-flex-layout-row-gap': `var(--aui-flex-layout-gap-${rowGap})` } : {}),
+        ...(columnGap != null ? { '--aui-flex-layout-column-gap': `var(--aui-flex-layout-gap-${columnGap})` } : {}),
+    };
+};
+
 const justifyClass: Record<TFlexLayoutJustify, string> = {
     start: styles.justifyStart,
     center: styles.justifyCenter,
@@ -41,11 +63,14 @@ const FlexLayoutRoot = supportRef(
         children,
         direction = 'row',
         gap = 16,
+        rowGap,
+        columnGap,
         align = 'stretch',
         justify = 'start',
         wrap = false,
         className,
         dataTestId,
+        style,
         ...props
     }: IFlexLayoutProps) => (
         <div
@@ -60,6 +85,7 @@ const FlexLayoutRoot = supportRef(
                 justifyClass[justify],
                 className
             )}
+            style={axisGapStyle(style, rowGap, columnGap)}
             data-test-id={dataTestId}
         >
             {children}

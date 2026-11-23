@@ -95,6 +95,7 @@
     width: var(--aui-dropzone-mark-size);
     height: var(--aui-dropzone-mark-size);
     flex-shrink: 0;
+    color: var(--aui-dropzone-fg-muted);
     transition: transform var(--aui-dropzone-duration-fast) var(--aui-dropzone-ease-out);
 }
 

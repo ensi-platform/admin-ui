@@ -36,6 +36,19 @@ const openPalette = async (user: ReturnType<typeof userEvent.setup>) => {
     await user.click(screen.getByRole('button', { name: 'Открыть палитру' }));
 };
 
+describe('ColorField popover', () => {
+    it('opens the palette without an underlay', async () => {
+        const user = userEvent.setup();
+
+        render(<Harness aria-label="Цвет" />);
+
+        await openPalette(user);
+
+        expect(screen.getByTestId('color-field-dialog')).toBeInTheDocument();
+        expect(document.querySelector('[data-testid="underlay"]')).not.toBeInTheDocument();
+    });
+});
+
 describe('ColorField', () => {
     it('keeps an empty field empty and does not publish black', () => {
         const onChange = vi.fn();

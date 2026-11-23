@@ -4,6 +4,7 @@
 | -------------------------------------- | -------------------------------------------------------------- |
 | Row, gap, align, justify, growing item | `it('lays out a row with gap, alignment, and a growing item')` |
 | Column, wrap                           | `it('stacks items and wraps them')`                            |
+| One gap axis                           | `it('overrides one gap axis')`                                 |
 | ref                                    | `it('forwards ref to the layout')`                             |
 | axe                                    | `it('has no axe violations')`                                  |
 | Painted flex positions                 | needs browser — jsdom has no layout                            |

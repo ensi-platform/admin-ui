@@ -3,6 +3,7 @@
 | Scenario                                               | Proof                                                                                                 |
 | ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
 | Segments render                                        | `it('renders date segments')`                                                                         |
+| Empty frame click focuses a segment                    | `it('focuses a segment when the empty frame is clicked')`                                             |
 | Open calendar, pointer does not focus a day            | `it('opens calendar popover via calendar button')`, `it('does not focus a day cell on pointer open')` |
 | Keyboard open focuses the day; arrows move             | `it('focuses selected day and moves with arrow keys on keyboard open')`                               |
 | Escape and outside click close                         | `it('closes the calendar on Escape and on outside click')`                                            |

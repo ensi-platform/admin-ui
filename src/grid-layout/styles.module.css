@@ -2,7 +2,8 @@
     display: grid;
     grid-template-columns: var(--aui-grid-layout-template);
     grid-column: var(--aui-grid-layout-col, auto);
-    gap: var(--aui-grid-layout-gap);
+    row-gap: var(--aui-grid-layout-row-gap, var(--aui-grid-layout-gap));
+    column-gap: var(--aui-grid-layout-column-gap, var(--aui-grid-layout-gap));
     align-items: stretch;
     min-width: 0;
 }

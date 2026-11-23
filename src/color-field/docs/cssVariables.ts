@@ -13,8 +13,14 @@ export const docsCssVariables = `--aui-color-field-bg-primary: var(--aui-input-b
 --aui-color-field-pad-x-md: var(--aui-input-pad-x-md); /* padding-x md */
 --aui-color-field-pad-x-lg: var(--aui-input-pad-x-lg); /* padding-x lg */
 --aui-color-field-gap-md: var(--aui-spacing-8); /* gap inside the field */
---aui-color-field-icon-size: var(--aui-spacing-16); /* clear icon size */
---aui-color-field-icon-hit: var(--aui-spacing-24); /* clear icon hit area */
+--aui-color-field-icon-size-sm: var(--aui-spacing-12); /* clear icon size sm */
+--aui-color-field-icon-size-md: var(--aui-spacing-16); /* clear icon size md */
+--aui-color-field-icon-size-lg: var(--aui-spacing-20); /* clear icon size lg */
+--aui-color-field-icon-hit-sm: var(--aui-spacing-16); /* clear icon hit sm */
+--aui-color-field-icon-hit-md: var(--aui-spacing-24); /* clear icon hit md */
+--aui-color-field-icon-hit-lg: var(--aui-spacing-32); /* clear icon hit lg */
+--aui-color-field-icon-size: var(--aui-color-field-icon-size-md); /* alias of md */
+--aui-color-field-icon-hit: var(--aui-color-field-icon-hit-md); /* alias of md */
 --aui-color-field-clear-radius: var(--aui-control-radius-sm); /* clear button radius */
 --aui-color-field-swatch-sm: var(--aui-spacing-16); /* trigger swatch sm */
 --aui-color-field-swatch-md: var(--aui-spacing-20); /* trigger swatch md */

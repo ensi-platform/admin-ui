@@ -18,8 +18,12 @@ export const docsCssVariables = `/* CSS variables — DatePicker (--aui-date-pic
 --aui-date-picker-pad-x-lg: var(--aui-input-pad-x-lg); /* padding-x lg */
 --aui-date-picker-gap-md: var(--aui-spacing-8); /* md gap */
 
+--aui-date-picker-icon-size-sm: var(--aui-spacing-12); /* icon size sm */
 --aui-date-picker-icon-size-md: var(--aui-spacing-16); /* icon size md */
+--aui-date-picker-icon-size-lg: var(--aui-spacing-20); /* icon size lg */
+--aui-date-picker-icon-hit-sm: var(--aui-spacing-16); /* icon hit sm */
 --aui-date-picker-icon-hit-md: var(--aui-spacing-24); /* icon hit md */
+--aui-date-picker-icon-hit-lg: var(--aui-spacing-32); /* icon hit lg */
 
 --aui-date-picker-clear-radius-md: var(--aui-control-radius-sm); /* clear control radius md */
 

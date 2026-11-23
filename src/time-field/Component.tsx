@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { type MouseEvent, useRef, useState } from 'react';
 
 import cn from 'classnames';
 import {
@@ -64,6 +64,22 @@ export const TimeField = supportRef(
             onChange?.(next);
         };
 
+        const focusSegmentFromFrame = (event: MouseEvent<HTMLElement>) => {
+            if (disabled) {
+                return;
+            }
+
+            const { target } = event;
+
+            if (!(target instanceof Element) || target.closest('button, [role="spinbutton"]')) {
+                return;
+            }
+
+            const host = target.closest(`.${styles.input}`) ?? event.currentTarget;
+
+            host.querySelector<HTMLElement>('[role="spinbutton"]')?.focus();
+        };
+
         const handleFocus: NonNullable<ITimeFieldProps['onFocus']> = () => {
             committedRef.current = currentValue ?? null;
         };
@@ -113,6 +129,7 @@ export const TimeField = supportRef(
                     className={timeFieldGroupVariants({ size, variant, block })}
                     data-invalid={invalid || undefined}
                     data-disabled={disabled || undefined}
+                    onClick={focusSegmentFromFrame}
                 >
                     <DateInput className={styles.input}>
                         {segment => <DateSegment segment={segment} className={styles.segment} />}

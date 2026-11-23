@@ -1,6 +1,7 @@
 import {
     type FocusEvent,
     type MouseEvent,
+    type PointerEvent,
     type RefObject,
     useContext,
     useEffect,
@@ -119,12 +120,25 @@ export const ComboboxMultiTrigger = ({
         setExpanded(false);
     };
 
+    const focusChevron = () => {
+        triggerRef.current?.querySelector<HTMLButtonElement>(`.${styles.chevronButton}`)?.focus();
+    };
+
+    const primeSelectFocus = (event: PointerEvent<HTMLDivElement>) => {
+        if (mode !== 'select' || isDisabled || isInteractiveTarget(event.target)) {
+            return;
+        }
+
+        focusChevron();
+    };
+
     const openFromField = (event: MouseEvent) => {
         if (isDisabled || isInteractiveTarget(event.target)) {
             return;
         }
 
         if (mode === 'select') {
+            focusChevron();
             selectState?.open();
 
             return;
@@ -171,7 +185,12 @@ export const ComboboxMultiTrigger = ({
             data-invalid={isInvalid || undefined}
             onBlur={handleWrapBlur}
         >
-            <Group ref={triggerRef} className={comboboxMultiTriggerVariants({ size, variant })} onClick={openFromField}>
+            <Group
+                ref={triggerRef}
+                className={comboboxMultiTriggerVariants({ size, variant })}
+                onPointerDown={primeSelectFocus}
+                onClick={openFromField}
+            >
                 {showSelectPlaceholder ? (
                     <span className={styles.placeholder}>{placeholder}</span>
                 ) : (

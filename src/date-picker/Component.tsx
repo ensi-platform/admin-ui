@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { type MouseEvent, useEffect, useRef, useState } from 'react';
 
 import { CalendarDate, type DateValue } from '@internationalized/date';
 import cn from 'classnames';
@@ -101,6 +101,22 @@ export const DatePicker = supportRef(
             setOpen(open);
         };
 
+        const focusSegmentFromFrame = (event: MouseEvent<HTMLElement>) => {
+            if (disabled) {
+                return;
+            }
+
+            const { target } = event;
+
+            if (!(target instanceof Element) || target.closest('button, [role="spinbutton"]')) {
+                return;
+            }
+
+            const host = target.closest(`.${styles.input}`) ?? event.currentTarget;
+
+            host.querySelector<HTMLElement>('[role="spinbutton"]')?.focus();
+        };
+
         return (
             <RacDatePicker
                 {...props}
@@ -124,6 +140,7 @@ export const DatePicker = supportRef(
                     data-invalid={invalid || undefined}
                     data-disabled={disabled || undefined}
                     data-test-id={dataTestId}
+                    onClick={focusSegmentFromFrame}
                 >
                     <DateInput className={styles.input}>
                         {segment => <DateSegment segment={segment} className={styles.segment} />}
@@ -154,7 +171,7 @@ export const DatePicker = supportRef(
                         </RacButton>
                     </span>
                 </Group>
-                <Popover className={styles.popover} placement="bottom start">
+                <Popover className={styles.popover} placement="bottom start" isNonModal>
                     <Dialog>
                         <ScrollCalendar
                             scrollToDate={currentValue}

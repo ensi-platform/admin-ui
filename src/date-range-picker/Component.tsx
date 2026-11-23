@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { type MouseEvent, useEffect, useRef, useState } from 'react';
 
 import cn from 'classnames';
 import {
@@ -137,6 +137,22 @@ export const DateRangePicker = supportRef(
             }
         };
 
+        const focusSegmentFromFrame = (event: MouseEvent<HTMLElement>) => {
+            if (disabled) {
+                return;
+            }
+
+            const { target } = event;
+
+            if (!(target instanceof Element) || target.closest('button, [role="spinbutton"]')) {
+                return;
+            }
+
+            const host = target.closest(`.${styles.input}`) ?? event.currentTarget;
+
+            host.querySelector<HTMLElement>('[role="spinbutton"]')?.focus();
+        };
+
         const handleInputChange = (next: DateRange | null) => {
             draftRef.current = next;
             setDraft(next);
@@ -177,6 +193,7 @@ export const DateRangePicker = supportRef(
                     data-invalid={invalid || undefined}
                     data-disabled={disabled || undefined}
                     data-test-id={dataTestId}
+                    onClick={focusSegmentFromFrame}
                     onKeyDown={event => {
                         if (event.key === 'Enter') {
                             commit();
@@ -217,7 +234,7 @@ export const DateRangePicker = supportRef(
                         </RacButton>
                     </span>
                 </Group>
-                <Popover className={styles.popover} placement="bottom start">
+                <Popover className={styles.popover} placement="bottom start" isNonModal>
                     <Dialog>
                         <ScrollRangeCalendar
                             scrollToDate={displayedValue?.end ?? displayedValue?.start ?? null}

@@ -13,7 +13,7 @@ export interface IComboboxPopoverProps {
 }
 
 export const ComboboxPopover = ({ triggerRef, variant, children }: IComboboxPopoverProps) => (
-    <RacPopover triggerRef={triggerRef} className={comboboxPopoverVariants({ variant })} offset={4}>
+    <RacPopover triggerRef={triggerRef} className={comboboxPopoverVariants({ variant })} offset={4} isNonModal>
         {children}
     </RacPopover>
 );

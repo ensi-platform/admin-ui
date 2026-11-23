@@ -17,7 +17,9 @@ Equal field columns use `GridLayout`.
 | Prop         | Values                                         | Default   | Description               |
 | ------------ | ---------------------------------------------- | --------- | ------------------------- |
 | `direction`  | `row` \| `column`                              | `row`     | axis                      |
-| `gap`        | `0` \| `4` \| `8` \| `12` \| `16` \| … \| `64` | `16`      | gap, a spacing-scale step |
+| `gap`        | `0` \| `4` \| `8` \| `12` \| `16` \| … \| `64` | `16`      | gap on both axes          |
+| `rowGap`     | `0` \| `4` \| `8` \| `12` \| `16` \| … \| `64` | `gap`     | vertical gap, else `gap`  |
+| `columnGap`  | `0` \| `4` \| `8` \| `12` \| `16` \| … \| `64` | `gap`     | horizontal gap, else `gap` |
 | `align`      | `start` \| `center` \| `end` \| `stretch`      | `stretch` | cross-axis alignment      |
 | `justify`    | `start` \| `center` \| `end` \| `between`      | `start`   | main-axis distribution    |
 | `wrap`       | `boolean`                                      | `false`   | wrap onto the next line   |

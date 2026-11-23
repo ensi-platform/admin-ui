@@ -113,6 +113,26 @@
     outline: none;
 }
 
+.sm .clear {
+    width: var(--aui-color-field-icon-hit-sm);
+    height: var(--aui-color-field-icon-hit-sm);
+}
+
+.lg .clear {
+    width: var(--aui-color-field-icon-hit-lg);
+    height: var(--aui-color-field-icon-hit-lg);
+}
+
+.sm .icon {
+    width: var(--aui-color-field-icon-size-sm);
+    height: var(--aui-color-field-icon-size-sm);
+}
+
+.lg .icon {
+    width: var(--aui-color-field-icon-size-lg);
+    height: var(--aui-color-field-icon-size-lg);
+}
+
 .swatch:focus-visible,
 .clear:focus-visible {
     outline: 2px solid var(--aui-color-field-border-focus);

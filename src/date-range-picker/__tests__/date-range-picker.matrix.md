@@ -3,6 +3,7 @@
 | Scenario                                                                 | Proof                                                                                                          |
 | ------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
 | Two date inputs                                                          | `it('renders range inputs')`                                                                                   |
+| Empty end frame focuses that field                   | `it('focuses the end field when its empty frame is clicked')`                                              |
 | Open, Escape, outside click                                              | `it('opens calendar popover via calendar button')`, `it('closes the calendar on Escape and on outside click')` |
 | Pick a range from the popup                                              | `it('selects a range from the calendar')`                                                                      |
 | Pick later day first; result is ordered                                  | `it('orders a range picked from the later day to the earlier day')`                                            |

@@ -160,7 +160,7 @@ export const ColorField = supportRef(
                         >
                             {swatchColor ? <ColorSwatch className={styles.swatchColor} color={swatchColor} /> : null}
                         </RacButton>
-                        <Popover className={styles.popover} placement="bottom start" triggerRef={groupRef}>
+                        <Popover className={styles.popover} placement="bottom start" triggerRef={groupRef} isNonModal>
                             <Dialog
                                 className={styles.dialog}
                                 aria-label={colorPalette}

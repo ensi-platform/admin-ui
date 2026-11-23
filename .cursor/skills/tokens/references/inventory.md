@@ -151,7 +151,8 @@ color-field-radius-md
 color-field-h-sm | md | lg
 color-field-pad-x-sm | md | lg
 color-field-gap-md
-color-field-icon-size | color-field-icon-hit | color-field-clear-radius
+color-field-icon-size-sm | md | lg | color-field-icon-hit-sm | md | lg
+color-field-icon-size | color-field-icon-hit (aliases of md) | color-field-clear-radius
 color-field-swatch-sm | md | lg | color-field-swatch-radius | color-field-empty-inset
 color-field-popover-bg | border | radius | pad | w | shadow | z
 color-field-duration-fast | color-field-ease-out

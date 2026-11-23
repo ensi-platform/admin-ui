@@ -21,6 +21,23 @@ describe('TimeField', () => {
         expect(screen.getByTestId('time')).toBeInTheDocument();
     });
 
+    it('focuses a segment when the empty frame is clicked', async () => {
+        const user = userEvent.setup();
+
+        renderField(<TimeField aria-label="Время" dataTestId="time" />);
+
+        const frame = screen.getByTestId('time').querySelector(`.${styles.group}`);
+
+        if (!frame) {
+            throw new Error('time frame is missing');
+        }
+
+        await user.click(frame);
+
+        expect(document.activeElement).toHaveAttribute('role', 'spinbutton');
+        expect(screen.getByTestId('time').contains(document.activeElement)).toBe(true);
+    });
+
     it('clears value', async () => {
         const user = userEvent.setup();
         const onChange = vi.fn();

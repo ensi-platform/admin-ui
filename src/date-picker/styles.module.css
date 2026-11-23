@@ -30,7 +30,7 @@
     height: var(--aui-date-picker-h-sm);
     padding-inline: var(--aui-date-picker-pad-x-sm);
     padding-inline-end: calc(
-        var(--aui-date-picker-pad-x-sm) - (var(--aui-date-picker-icon-hit-md) - var(--aui-date-picker-icon-size-md)) / 2
+        var(--aui-date-picker-pad-x-sm) - (var(--aui-date-picker-icon-hit-sm) - var(--aui-date-picker-icon-size-sm)) / 2
     );
 }
 
@@ -46,7 +46,7 @@
     height: var(--aui-date-picker-h-lg);
     padding-inline: var(--aui-date-picker-pad-x-lg);
     padding-inline-end: calc(
-        var(--aui-date-picker-pad-x-lg) - (var(--aui-date-picker-icon-hit-md) - var(--aui-date-picker-icon-size-md)) / 2
+        var(--aui-date-picker-pad-x-lg) - (var(--aui-date-picker-icon-hit-lg) - var(--aui-date-picker-icon-size-lg)) / 2
     );
 }
 
@@ -147,6 +147,30 @@
 .iconButton:hover,
 .clear:hover {
     color: var(--aui-date-picker-fg-primary);
+}
+
+.sm .iconButton,
+.sm .clear {
+    width: var(--aui-date-picker-icon-hit-sm);
+    height: var(--aui-date-picker-icon-hit-sm);
+    margin-block: calc((var(--aui-date-picker-icon-hit-sm) - var(--aui-date-picker-icon-size-sm)) / -2);
+}
+
+.lg .iconButton,
+.lg .clear {
+    width: var(--aui-date-picker-icon-hit-lg);
+    height: var(--aui-date-picker-icon-hit-lg);
+    margin-block: calc((var(--aui-date-picker-icon-hit-lg) - var(--aui-date-picker-icon-size-lg)) / -2);
+}
+
+.sm .icon {
+    width: var(--aui-date-picker-icon-size-sm);
+    height: var(--aui-date-picker-icon-size-sm);
+}
+
+.lg .icon {
+    width: var(--aui-date-picker-icon-size-lg);
+    height: var(--aui-date-picker-icon-size-lg);
 }
 
 .iconButton:focus,

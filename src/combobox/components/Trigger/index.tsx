@@ -1,4 +1,12 @@
-import { createContext, type KeyboardEvent, type MouseEvent, type RefObject, useContext } from 'react';
+import {
+    createContext,
+    type KeyboardEvent,
+    type MouseEvent,
+    type PointerEvent,
+    type RefObject,
+    useContext,
+    useRef,
+} from 'react';
 
 import cn from 'classnames';
 import {
@@ -54,6 +62,19 @@ export const ComboboxTrigger = ({
     const selectState = useContext(SelectStateContext);
     const comboState = useContext(ComboBoxStateContext);
     const commitHighlightedOnTab = useContext(CommitHighlightedOnTabContext);
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    const focusChevron = () => {
+        triggerRef.current?.querySelector<HTMLButtonElement>(`.${styles.chevronButton}`)?.focus();
+    };
+
+    const primeSelectFocus = (event: PointerEvent<HTMLDivElement>) => {
+        if (mode !== 'select' || isDisabled || isInteractiveTarget(event.target)) {
+            return;
+        }
+
+        focusChevron();
+    };
 
     const openFromField = (event: MouseEvent) => {
         if (isDisabled || isInteractiveTarget(event.target)) {
@@ -61,12 +82,14 @@ export const ComboboxTrigger = ({
         }
 
         if (mode === 'select') {
+            focusChevron();
             selectState?.open();
 
             return;
         }
 
         comboState?.open();
+        inputRef.current?.focus();
     };
 
     const ClearButton = mode === 'select' ? FieldSelectClearButton : FieldComboBoxClearButton;
@@ -107,6 +130,7 @@ export const ComboboxTrigger = ({
                     comboboxTriggerVariants({ size, variant }),
                     mode === 'combobox' && styles.triggerCombobox
                 )}
+                onPointerDown={primeSelectFocus}
                 onClick={openFromField}
                 onKeyDownCapture={keepSelectionOnTab}
             >
@@ -115,7 +139,7 @@ export const ComboboxTrigger = ({
                         {({ selectedText, isPlaceholder }) => (isPlaceholder ? null : selectedText)}
                     </SelectValue>
                 ) : (
-                    <Input className={styles.input} placeholder={placeholder} disabled={isDisabled} />
+                    <Input ref={inputRef} className={styles.input} placeholder={placeholder} disabled={isDisabled} />
                 )}
                 <span className={styles.actions}>
                     {clear ? <ClearButton isDisabled={isDisabled} size={size} variant={variant} /> : null}

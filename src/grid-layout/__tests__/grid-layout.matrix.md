@@ -3,6 +3,7 @@
 | Scenario                                  | Proof                                                                                                             |
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | Equal columns, full span, explicit tracks | `it('lays out equal columns and a full-width item')`, `it('spans a set number of columns and accepts fr tracks')` |
+| One gap axis                              | `it('overrides one gap axis')`                                                                                     |
 | Explicit tracks                           | `it('accepts explicit tracks')`                                                                                   |
 | `align` class                             | `it('aligns items to the center')`                                                                                |
 | ref                                       | `it('forwards ref to the grid')`                                                                                  |

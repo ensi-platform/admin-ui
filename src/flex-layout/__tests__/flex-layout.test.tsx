@@ -35,6 +35,20 @@ describe('FlexLayout', () => {
         expect(screen.getByTestId('stack')).toHaveClass(styles.column, styles.start, styles.wrap, styles.gap16);
     });
 
+    it('overrides one gap axis', () => {
+        render(
+            <FlexLayout gap={16} rowGap={24} dataTestId="stack">
+                Block
+            </FlexLayout>
+        );
+
+        const stack = screen.getByTestId('stack');
+
+        expect(stack).toHaveClass(styles.gap16);
+        expect(stack.style.getPropertyValue('--aui-flex-layout-row-gap')).toBe('var(--aui-flex-layout-gap-24)');
+        expect(stack.style.getPropertyValue('--aui-flex-layout-column-gap')).toBe('');
+    });
+
     it('forwards ref to the layout', () => {
         const ref = { current: null as HTMLDivElement | null };
 

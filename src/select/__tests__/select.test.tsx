@@ -160,6 +160,38 @@ describe('Select', () => {
         fireEvent.click(screen.getByRole('group'));
 
         expect(screen.getByRole('listbox')).toBeInTheDocument();
+        expect(document.querySelector('[data-testid="underlay"]')).not.toBeInTheDocument();
+    });
+
+    it('focuses the next field from a frame click and closes the previous list', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <>
+                <Select aria-label="Status" options={OPTIONS} />
+                <Select aria-label="Stage" options={OPTIONS} />
+            </>
+        );
+
+        const stage = screen.getByRole('button', { name: /Stage/ });
+        const frame = stage.closest('[role="group"]');
+
+        if (!frame) {
+            throw new Error('select frame is missing');
+        }
+
+        await user.click(screen.getByRole('button', { name: /Status/ }));
+
+        expect(screen.getByRole('listbox')).toBeInTheDocument();
+
+        await user.click(frame);
+
+        const listbox = screen.getByRole('listbox');
+
+        expect(stage).toHaveAttribute('aria-expanded', 'true');
+        expect(stage).toHaveAttribute('aria-controls', listbox.id);
+        expect(listbox).toHaveFocus();
+        expect(screen.getByRole('button', { name: /Status/, hidden: true })).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('does not open when interactive target inside trigger is clicked', () => {

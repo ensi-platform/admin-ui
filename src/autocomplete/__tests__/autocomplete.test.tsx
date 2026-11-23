@@ -204,6 +204,34 @@ describe('Autocomplete', () => {
         expect(screen.getByRole('listbox')).toBeInTheDocument();
     });
 
+    it('focuses the field when the frame is clicked and closes the previous list', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <>
+                <Autocomplete aria-label="City" options={OPTIONS} />
+                <Autocomplete aria-label="Town" options={OPTIONS} />
+            </>
+        );
+
+        const town = screen.getByRole('combobox', { name: 'Town' });
+        const frame = town.parentElement;
+
+        if (!frame) {
+            throw new Error('combobox frame is missing');
+        }
+
+        await user.click(screen.getByRole('combobox', { name: 'City' }));
+
+        expect(screen.getByRole('listbox')).toBeInTheDocument();
+
+        await user.click(frame);
+
+        expect(town).toHaveFocus();
+        expect(town).toHaveAttribute('aria-expanded', 'true');
+        expect(screen.getAllByRole('listbox')).toHaveLength(1);
+    });
+
     it('does not open the list when clear is clicked', async () => {
         const user = userEvent.setup();
 

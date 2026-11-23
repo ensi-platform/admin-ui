@@ -21,6 +21,18 @@ describe('DateRangePicker', () => {
         expect(screen.getByTestId('range')).toBeInTheDocument();
     });
 
+    it('focuses the end field when its empty frame is clicked', async () => {
+        const user = userEvent.setup();
+        const { container } = renderPicker(<DateRangePicker aria-label="Период" />);
+        const end = container.querySelectorAll(`.${styles.input}`)[1];
+
+        await user.click(end);
+
+        expect(end.contains(document.activeElement)).toBe(true);
+        expect(document.activeElement).toHaveAttribute('role', 'spinbutton');
+        expect(screen.queryByTestId('calendar-viewport')).not.toBeInTheDocument();
+    });
+
     it('opens calendar popover via calendar button', async () => {
         const user = userEvent.setup();
         renderPicker(
@@ -32,16 +44,20 @@ describe('DateRangePicker', () => {
 
         await user.click(screen.getByTestId('date-range-picker-calendar'));
         expect(screen.getByTestId('calendar-viewport')).toBeInTheDocument();
+        expect(document.querySelector('[data-testid="underlay"]')).not.toBeInTheDocument();
     });
 
     it('closes the calendar on Escape and on outside click', async () => {
         const user = userEvent.setup();
 
         renderPicker(
-            <DateRangePicker
-                aria-label="Период"
-                defaultValue={{ start: new CalendarDate(2024, 6, 1), end: new CalendarDate(2024, 6, 15) }}
-            />
+            <>
+                <button type="button">Outside</button>
+                <DateRangePicker
+                    aria-label="Период"
+                    defaultValue={{ start: new CalendarDate(2024, 6, 1), end: new CalendarDate(2024, 6, 15) }}
+                />
+            </>
         );
 
         await user.click(screen.getByTestId('date-range-picker-calendar'));
@@ -53,10 +69,7 @@ describe('DateRangePicker', () => {
         await user.click(screen.getByTestId('date-range-picker-calendar'));
         expect(screen.getByTestId('calendar-viewport')).toBeInTheDocument();
 
-        const underlay = document.querySelector('[data-testid="underlay"]');
-
-        expect(underlay).toBeInstanceOf(HTMLElement);
-        await user.click(underlay as HTMLElement);
+        await user.click(screen.getByRole('button', { name: 'Outside' }));
 
         expect(screen.queryByTestId('calendar-viewport')).not.toBeInTheDocument();
     });

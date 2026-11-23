@@ -3,6 +3,7 @@
 | Scenario                                                                  | Proof                                                                                                                                        |
 | ------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | Renders segments, `dataTestId`                                            | `it('renders time field')`                                                                                                                   |
+| Empty frame click focuses a segment                   | `it('focuses a segment when the empty frame is clicked')`                                                                                   |
 | Controlled prop change does not emit                                      | `it('follows value and does not call onChange when the prop changes')`                                                                       |
 | Type an hour                                                              | `it('types an hour')`                                                                                                                        |
 | Hour 25 and minute 99 are not accepted                                    | `it('does not accept hour 25 or minute 99')`                                                                                                 |

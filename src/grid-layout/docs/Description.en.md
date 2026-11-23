@@ -16,7 +16,9 @@ import { GridLayout } from '@ensi-platform/admin-ui/grid-layout';
 | Prop         | Values                                         | Default   | Description                      |
 | ------------ | ---------------------------------------------- | --------- | -------------------------------- |
 | `cols`       | `number` \| track list                         | —         | columns                          |
-| `gap`        | `0` \| `4` \| `8` \| `12` \| `16` \| … \| `64` | `16`      | gap, a spacing-scale step        |
+| `gap`        | `0` \| `4` \| `8` \| `12` \| `16` \| … \| `64` | `16`      | gap on both axes                 |
+| `rowGap`     | `0` \| `4` \| `8` \| `12` \| `16` \| … \| `64` | `gap`     | vertical gap, else `gap`         |
+| `columnGap`  | `0` \| `4` \| `8` \| `12` \| `16` \| … \| `64` | `gap`     | horizontal gap, else `gap`       |
 | `col`        | `number` \| `full`                             | —         | span when nested in another grid |
 | `align`      | `start` \| `center` \| `end` \| `stretch`      | `stretch` | cross-axis alignment             |
 | `dataTestId` | `string`                                       | —         | `data-test-id` for tests         |

@@ -8,6 +8,7 @@
 | Uncontrolled `defaultValue`                                  | `it('shows the selected label from value and from defaultValue')`                              |
 | Click commits the option id                                  | `it('filters and selects an option')`                                                          |
 | Field click opens the list and a second click leaves it open | `it('opens the list from a field click')`                                                      |
+| Frame click focuses the field and closes the previous list   | `it('focuses the field when the frame is clicked and closes the previous list')`               |
 | Clear click does not open the list                           | `it('does not open the list when clear is clicked')`                                           |
 | Clear emits `null`                                           | `it('clears value when clear is clicked')`                                                     |
 | `inputValue` stays when the parent ignores `onInputChange`   | `it('reports typed text and keeps a controlled inputValue')`                                   |
