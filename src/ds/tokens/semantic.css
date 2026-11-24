@@ -945,6 +945,21 @@
     --aui-menu-list-duration-fast: var(--aui-control-duration-fast);
     --aui-menu-list-ease-out: var(--aui-control-ease-out);
 
+    /* tree — nested rows, chevron expand, row select */
+    --aui-tree-fg-primary: var(--aui-page-fg-primary);
+    --aui-tree-fg-muted: var(--aui-page-fg-muted);
+    --aui-tree-item-bg-hover: var(--aui-surface-bg-muted-active);
+    --aui-tree-item-bg-selected: var(--aui-surface-bg-muted);
+    --aui-tree-item-bg-selected-hover: var(--aui-surface-bg-muted-active);
+    --aui-tree-border-focus: var(--aui-control-border-focus);
+    --aui-tree-item-pad-y: var(--aui-spacing-8);
+    --aui-tree-item-pad-x: var(--aui-spacing-8);
+    --aui-tree-item-indent: var(--aui-spacing-12);
+    --aui-tree-item-gap: var(--aui-spacing-4);
+    --aui-tree-chevron-size: var(--aui-spacing-16);
+    --aui-tree-duration-fast: var(--aui-control-duration-fast);
+    --aui-tree-ease-out: var(--aui-control-ease-out);
+
     /* cascade-menu — L0 one step off the page */
     --aui-cascade-menu-bg-primary: var(--aui-page-bg-subtle);
     --aui-cascade-menu-fg-primary: var(--aui-page-fg-primary);
