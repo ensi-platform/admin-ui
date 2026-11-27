@@ -13,6 +13,10 @@
 | Inside press does not close | `it('does not close on mousedown inside menu')` |
 | Escape closes | `it('closes on Escape')` |
 | Other keys do not close | `it('does not close on a key other than Escape')` |
+| Ancestor scroll closes | `it('closes when an ancestor scroll container scrolls')` |
+| Scroll inside the menu does not close | `it('does not close when the menu itself scrolls')` |
+| Input caret scroll does not close | `it('does not close when a text input scrolls its caret into view')` |
+| Window resize closes | `it('closes on window resize')` |
 | Enter activates the focused item | `it('activates the focused item with Enter')` |
 | Space activates the focused item | `it('activates the focused item with Space')` |
 | Tab skips a disabled item | `it('moves focus to the next enabled item with Tab and skips a disabled item')` |

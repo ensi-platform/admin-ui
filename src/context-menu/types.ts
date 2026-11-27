@@ -24,7 +24,7 @@ export interface IContextMenuControlProps {
     x: number;
     /** Fixed top position (viewport px). */
     y: number;
-    /** Close handler (outside click / Escape). */
+    /** Close handler (outside click / Escape / outside scroll / window resize). */
     onClose: () => void;
 }
 

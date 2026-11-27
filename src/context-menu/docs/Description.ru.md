@@ -1,4 +1,4 @@
-Фиксированное меню у курсора (ПКМ / координаты): portal, закрытие снаружи и по Escape.
+Фиксированное меню у курсора (ПКМ / координаты): portal, закрытие снаружи, по Escape, при скролле страницы или контейнера и при resize окна.
 
 ```tsx
 import { ContextMenu } from '@ensi-platform/admin-ui/context-menu';
@@ -19,7 +19,7 @@ import { ContextMenu } from '@ensi-platform/admin-ui/context-menu';
 | `open`         | `boolean`            | `false`      | открыто ли меню                         |
 | `x`            | `number`             | —            | позиция left (viewport, px)             |
 | `y`            | `number`             | —            | позиция top (viewport, px)              |
-| `onClose`      | `() => void`         | —            | закрытие (снаружи / Escape)             |
+| `onClose`      | `() => void`         | —            | закрытие (снаружи / Escape / скролл / resize) |
 | `size`         | `sm` \| `md` \| `lg` | `md`         | размер                                  |
 | `variant`      | `primary`            | `primary`    | визуальный вариант                      |
 | `children`     | `ReactNode`          | —            | пункты `ContextMenu.Item` / `Separator` |

@@ -1,6 +1,6 @@
 import { type SVGProps } from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -177,6 +177,74 @@ describe('ContextMenu', () => {
         await user.keyboard('a');
 
         expect(onClose).not.toHaveBeenCalled();
+    });
+
+    it('closes when an ancestor scroll container scrolls', () => {
+        const onClose = vi.fn();
+
+        render(
+            <>
+                <div data-test-id="scroller" style={{ overflow: 'auto' }}>
+                    <button type="button">Row action</button>
+                </div>
+                <ContextMenu open x={0} y={0} onClose={onClose} dataTestId="cm">
+                    <ContextMenu.Item>Pin</ContextMenu.Item>
+                </ContextMenu>
+            </>
+        );
+
+        // scroll: userEvent cannot scroll a container
+        fireEvent.scroll(screen.getByTestId('scroller'));
+
+        expect(onClose).toHaveBeenCalledTimes(1);
+    });
+
+    it('does not close when the menu itself scrolls', () => {
+        const onClose = vi.fn();
+
+        render(
+            <ContextMenu open x={0} y={0} onClose={onClose} dataTestId="cm">
+                <ContextMenu.Item>Pin</ContextMenu.Item>
+            </ContextMenu>
+        );
+
+        // scroll: userEvent cannot scroll a container
+        fireEvent.scroll(screen.getByRole('menu'));
+
+        expect(onClose).not.toHaveBeenCalled();
+    });
+
+    it('does not close when a text input scrolls its caret into view', () => {
+        const onClose = vi.fn();
+
+        render(
+            <>
+                <input aria-label="Search" />
+                <ContextMenu open x={0} y={0} onClose={onClose} dataTestId="cm">
+                    <ContextMenu.Item>Pin</ContextMenu.Item>
+                </ContextMenu>
+            </>
+        );
+
+        // scroll: userEvent cannot scroll an input
+        fireEvent.scroll(screen.getByRole('textbox', { name: 'Search' }));
+
+        expect(onClose).not.toHaveBeenCalled();
+    });
+
+    it('closes on window resize', () => {
+        const onClose = vi.fn();
+
+        render(
+            <ContextMenu open x={0} y={0} onClose={onClose} dataTestId="cm">
+                <ContextMenu.Item>Pin</ContextMenu.Item>
+            </ContextMenu>
+        );
+
+        // resize: userEvent cannot resize the window
+        fireEvent(window, new Event('resize'));
+
+        expect(onClose).toHaveBeenCalledTimes(1);
     });
 
     it('calls onMouseEnter when the pointer enters the menu', async () => {

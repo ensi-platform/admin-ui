@@ -72,12 +72,28 @@ const ContextMenuRoot = supportRef(
                 }
             };
 
+            // The menu sits at fixed viewport x/y, so any outside scroll or resize leaves it detached from its anchor.
+            const onScroll = (event: Event) => {
+                const { target } = event;
+
+                if (target instanceof Node && rootRef.current?.contains(target)) return;
+                // A text field scrolls its caret into view on focus or typing; that is not a page scroll.
+                if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) return;
+
+                onClose();
+            };
+
             document.addEventListener('mousedown', onPointerDown);
             document.addEventListener('keydown', onKeyDown);
+            // Capture phase: scroll does not bubble, so element scrolls only reach document while capturing.
+            document.addEventListener('scroll', onScroll, true);
+            window.addEventListener('resize', onClose);
 
             return () => {
                 document.removeEventListener('mousedown', onPointerDown);
                 document.removeEventListener('keydown', onKeyDown);
+                document.removeEventListener('scroll', onScroll, true);
+                window.removeEventListener('resize', onClose);
             };
         }, [open, onClose]);
 

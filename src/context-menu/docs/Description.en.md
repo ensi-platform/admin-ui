@@ -1,4 +1,4 @@
-Fixed cursor menu (RMB / coordinates): portal, dismiss on outside click and Escape.
+Fixed cursor menu (RMB / coordinates): portal, dismiss on outside click, Escape, page or container scroll, and window resize.
 
 ```tsx
 import { ContextMenu } from '@ensi-platform/admin-ui/context-menu';
@@ -19,7 +19,7 @@ import { ContextMenu } from '@ensi-platform/admin-ui/context-menu';
 | `open`         | `boolean`            | `false`   | whether the menu is open                 |
 | `x`            | `number`             | —         | left position (viewport px)              |
 | `y`            | `number`             | —         | top position (viewport px)               |
-| `onClose`      | `() => void`         | —         | close (outside / Escape)                 |
+| `onClose`      | `() => void`         | —         | close (outside / Escape / scroll / resize) |
 | `size`         | `sm` \| `md` \| `lg` | `md`      | size                                     |
 | `variant`      | `primary`            | `primary` | visual variant                           |
 | `children`     | `ReactNode`          | —         | `ContextMenu.Item` / `Separator` entries |
